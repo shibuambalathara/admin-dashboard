@@ -1,0 +1,58 @@
+query User($where: UserWhereUniqueInput!) {
+  user(where: $where) {
+    id
+    firstName
+    activeBidsCount
+  bannedSellersCount
+  businessName
+  categoryCount
+  city
+  country
+  createdAt
+  dealerId
+  email
+  emdUpdatesByAdminCount
+  emdUpdatesCount
+  id
+  idNo
+  idProofNo
+  idProofType
+  idProofBack {
+    url,__typename
+  }
+  idProofType
+  idProofType
+  image {
+    url,__typename
+  }
+  lastName
+  magicAuthIssuedAt
+  magicAuthRedeemedAt
+  mobile
+  pancard {
+    id,url
+  }
+  pancardNo
+   payments {
+     amount
+   } 
+   paymentsCount
+   phone
+   role
+   specialVehicleBuyingLimit
+   dealerId
+   vehicleBuyingLimit
+   username
+    status
+    updatedAt
+    bannedSellers {
+      name
+    }
+    idProof {
+      url
+    }
+    dealership {
+      url
+    }
+  }
+}
