@@ -12,22 +12,29 @@ const AddUser = () => {
 
   const onSubmit =async (dataOnSubmit) => {
 
-     console.log(dataOnSubmit.user_image[0],"onSubmit");
+     console.log(dataOnSubmit,"onSubmit");
     try{
 
       const result=await createUser({variables:
         {data:
         {
           firstName:dataOnSubmit?.first_Name,
-          lastName:dataOnSubmit?.last_Name,
-          email:dataOnSubmit?.email,
+          lastName:dataOnSubmit?.last_Name ||'',
+          email:dataOnSubmit?.email || '',
           username:dataOnSubmit?.user_Name,
           mobile:dataOnSubmit?.mobile,
-          businessName:dataOnSubmit?.businessName,
-          category:dataOnSubmit?.category,
-          bannedSellers:dataOnSubmit?.bannedSellers,
-          confirmPassword:dataOnSubmit?.confirmPassword,
-          image:{upload:dataOnSubmit?.user_image[0] || ''}
+        businessName:dataOnSubmit?.businessName || '',
+         category:{name:dataOnSubmit?.category}, 
+          // category:dataOnSubmit?.category,
+          // bannedSellers:dataOnSubmit?.bannedSellers,
+          // confirmPassword:dataOnSubmit?.confirmPassword,
+           image:{upload:dataOnSubmit?.user_image[0] },
+           pancard:{upload:dataOnSubmit?.pancardImage[0] || ''},
+          //  idProof:{upload:dataOnSubmit?.idProof[0]},
+          // idProofBack:{upload:dataOnSubmit?.idBack[0]},
+          // dealership:{upload:dataOnSubmit?.dealership[0]},
+          // country:dataOnSubmit?.country
+        
         }
       }
     })
@@ -88,9 +95,9 @@ console.log(data,"dataaaaaaaaa")
             <div className="min-w-[300px]">
               <label htmlFor="">Category</label>
               <select className="flex justify-between py-1  h-[30px] w-full" {...register("category", { })}>
-        <option>2W</option>
-        <option>4W</option>
-        <option>CV</option>
+        <option value="2W">2W</option>
+        <option value="4w">4W</option>
+        <option value="CV">CV</option>
       
       </select>
       <p className="text-red-500"> {errors.category && <span>Please select Category</span>}</p>

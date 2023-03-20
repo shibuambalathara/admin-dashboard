@@ -7,5 +7,6 @@ query Users {
     status
     idNo
     id
+     pancardNo
   }
 }

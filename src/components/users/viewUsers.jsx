@@ -37,6 +37,7 @@ const ViewUsers = () => {
       { Header: "Email", accessor: "email" },
       { Header: "Mobile", accessor: "mobile" },
       { Header: "Status", accessor: "status" },
+       {Header:"Pancard Number", accessor:"pancardNo"},
       {
         Header: "View more",
         Cell: ({ row }) => (
