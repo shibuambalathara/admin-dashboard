@@ -1,0 +1,29 @@
+mutation CreateUser($data: UserCreateInput!) {
+  createUser(data: $data) {
+    mobile
+    username
+    firstName
+    lastName
+    email
+    username
+    businessName
+    role
+    status
+    image {
+        url
+    }
+    country
+    pancard {
+      url
+    }
+    idProof {
+      id
+    }
+    idProofBack {
+      url
+    }
+    dealership {
+      url
+    }
+  }
+}

@@ -3,7 +3,7 @@ import ViewUsers from '../components/users/viewUsers'
 
 const Users = () => {
   return (
-    <div>
+    <div className=' w-full'>
     <ViewUsers/>
     </div>
   )

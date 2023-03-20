@@ -6,7 +6,7 @@ export const LoginPage = () => {
 
 
   return (
-    <div>
+    <div className='w-full'>
      <LoginCom/> 
     </div>
   )
