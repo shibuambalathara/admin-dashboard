@@ -2957,7 +2957,7 @@ export type CreateUserMutationVariables = Exact<{
 }>;
 
 
-export type CreateUserMutation = { __typename?: 'Mutation', createUser?: { __typename?: 'User', mobile?: string | null, username?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, businessName?: string | null, role?: UserRoleType | null, status?: UserStatusType | null, country?: string | null, image?: { __typename?: 'ImageFieldOutput', url: string } | null, pancard?: { __typename?: 'ImageFieldOutput', url: string } | null, idProof?: { __typename?: 'ImageFieldOutput', id: string } | null, idProofBack?: { __typename?: 'ImageFieldOutput', url: string } | null, dealership?: { __typename?: 'ImageFieldOutput', url: string } | null } | null };
+export type CreateUserMutation = { __typename?: 'Mutation', createUser?: { __typename?: 'User', mobile?: string | null, username?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, businessName?: string | null, role?: UserRoleType | null, status?: UserStatusType | null, country?: string | null, image?: { __typename?: 'ImageFieldOutput', url: string } | null, pancard?: { __typename?: 'ImageFieldOutput', url: string } | null, idProof?: { __typename?: 'ImageFieldOutput', id: string } | null, idProofBack?: { __typename?: 'ImageFieldOutput', url: string } | null, dealership?: { __typename?: 'ImageFieldOutput', url: string } | null, category?: Array<{ __typename?: 'EventType', name?: string | null }> | null } | null };
 
 export type LoginMutationVariables = Exact<{
   mobile: Scalars['String'];
@@ -2982,7 +2982,7 @@ export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser?: { __typ
 export type SellersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type SellersQuery = { __typename?: 'Query', sellers?: Array<{ __typename?: 'Seller', name?: string | null }> | null };
+export type SellersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', role?: UserRoleType | null, status?: UserStatusType | null }> | null, sellers?: Array<{ __typename?: 'Seller', name?: string | null }> | null };
 
 export type UserQueryVariables = Exact<{
   where: UserWhereUniqueInput;
@@ -2994,7 +2994,7 @@ export type UserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id
 export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', firstName?: string | null, lastName?: string | null, email?: string | null, mobile?: string | null, status?: UserStatusType | null, idNo?: number | null, id: string }> | null };
+export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', firstName?: string | null, lastName?: string | null, email?: string | null, mobile?: string | null, status?: UserStatusType | null, idNo?: number | null, id: string, pancardNo?: string | null }> | null };
 
 
 export const CreateUserDocument = gql`
@@ -3024,6 +3024,9 @@ export const CreateUserDocument = gql`
     }
     dealership {
       url
+    }
+    category {
+      name
     }
   }
 }
@@ -3170,6 +3173,10 @@ export type DeleteUserMutationResult = Apollo.MutationResult<DeleteUserMutation>
 export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<DeleteUserMutation, DeleteUserMutationVariables>;
 export const SellersDocument = gql`
     query Sellers {
+  users {
+    role
+    status
+  }
   sellers {
     name
   }
@@ -3303,6 +3310,7 @@ export const UsersDocument = gql`
     status
     idNo
     id
+    pancardNo
   }
 }
     `;

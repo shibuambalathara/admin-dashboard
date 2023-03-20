@@ -13,6 +13,7 @@ const UserDetailsComponent = () => {
 
   const { data, loading, error } = useUserQuery({
     variables: { where: { id: id } },
+    
   });
 
   const {
