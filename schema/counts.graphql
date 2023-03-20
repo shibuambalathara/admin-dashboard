@@ -1,0 +1,13 @@
+query Count {
+  usersCount
+  paymentsCount
+  emdUpdatesCount
+  eventsCount
+  vehiclesCount
+  bidsCount
+  eventTypesCount
+  locationsCount
+  statesCount
+  excelUploadsCount
+  sellersCount
+}

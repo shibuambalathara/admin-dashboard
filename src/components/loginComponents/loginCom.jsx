@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useLoginMutation } from '../../utils/graphql';
+import {useNavigate} from 'react-router-dom'
 
 
 const Login = () => {
- 
+ const navigate=useNavigate()
   
   const [message, setMessage] = useState('');
 
@@ -17,7 +18,7 @@ const Login = () => {
       });
       
       
-      console.log(data, 'result');
+    
 if(data.authenticateUserWithPassword.message){
 
     
@@ -28,6 +29,8 @@ else{
     console.log(data.authenticateUserWithPassword.sessionToken
         ,"login")
      localStorage.setItem("token",JSON.stringify( data.authenticateUserWithPassword.sessionToken))
+   console.log(  localStorage.getItem('token'),"local ")
+     navigate('/')
 }
     } catch (err) {
       console.error(err, 'error');
@@ -36,8 +39,8 @@ else{
 
 
         return (
-            <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
-                <div className="w-full p-6 m-auto bg-white rounded-md shadow-xl lg:max-w-xl">
+            <div className="relative flex flex-col justify-center align-middle m-auto min-h-screen  w-96">
+                <div className="w-full p-6 m-auto bg-white rounded-md shadow-xl max-w-xl">
                     <h1 className="text-3xl font-semibold text-center text-purple-700 uppercase">
                         Sign in
                     {message &&<p className='text-[#F70000]'>{message}</p>}
