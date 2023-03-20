@@ -5,7 +5,9 @@ import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import { useUsersQuery,useDeleteUserMutation } from "../../utils/graphql";
 
-import { useTable,usePagination } from "react-table";
+import { useTable,usePagination,useGlobalFilter } from "react-table";
+import SearchUser from "./searchUser";
+
 
 const ViewUsers = () => {
   const [pageIndex, setPageIndex] = useState(0);
@@ -55,7 +57,7 @@ const ViewUsers = () => {
   const tableInstance=useTable({
     columns,
     data: tableData,
-  },usePagination);
+  },useGlobalFilter,usePagination);
  
     const {
       getTableProps,
@@ -73,7 +75,11 @@ const ViewUsers = () => {
       gotoPage,
       setPageSize: setTablePageSize,
       state: { pageIndex: tablePageIndex, pageSize: tablePageSize },
+      state,
+      setGlobalFilter
     } = tableInstance;
+
+    const {globalFilter}=state
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :{error}</p>;
@@ -86,6 +92,7 @@ const ViewUsers = () => {
       >
        Add User
       </Button>
+      <SearchUser filter={globalFilter}  setFilter={setGlobalFilter}/>
     <div className="text-center font-extrabold my-5 text-lg min-w-full">  User Data Table </div>
       <div className=" flex flex-col justify-center m-auto ">
        
