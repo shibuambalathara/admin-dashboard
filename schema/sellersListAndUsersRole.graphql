@@ -1,8 +1,4 @@
 query Sellers {
-   users {
-   role
-   status
- }
   sellers {
   name  
   }

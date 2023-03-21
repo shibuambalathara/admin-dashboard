@@ -27,6 +27,7 @@ const ViewUsers = () => {
   const handleDelete=(id)=>{
     console.log(id,"delete")
     deleteUserMutation({variables:{where:{id:id}}})
+    navigate('/users')
   }
 
   const columns = useMemo(
@@ -93,10 +94,12 @@ const ViewUsers = () => {
       >
        Add User
       </Button>
-      <SearchUser filter={globalFilter}  setFilter={setGlobalFilter}/>
-    <div className="text-center font-extrabold my-5 text-lg min-w-full">  User Data Table </div>
+      
       <div className=" flex flex-col justify-center m-auto ">
-       
+      <div className="mb-2">
+    <div className="text-center font-extrabold my-5 text-lg min-w-full">  User Data Table </div>
+      <SearchUser filter={globalFilter} className="  text-white " setFilter={setGlobalFilter}/>
+    </div>
         <table
           className="min-w-full divide-y divide-gray-200"
           {...getTableProps()}

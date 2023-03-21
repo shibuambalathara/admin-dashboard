@@ -2982,7 +2982,7 @@ export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser?: { __typ
 export type SellersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type SellersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', role?: UserRoleType | null, status?: UserStatusType | null }> | null, sellers?: Array<{ __typename?: 'Seller', name?: string | null }> | null };
+export type SellersQuery = { __typename?: 'Query', sellers?: Array<{ __typename?: 'Seller', name?: string | null }> | null };
 
 export type UserQueryVariables = Exact<{
   where: UserWhereUniqueInput;
@@ -3173,10 +3173,6 @@ export type DeleteUserMutationResult = Apollo.MutationResult<DeleteUserMutation>
 export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<DeleteUserMutation, DeleteUserMutationVariables>;
 export const SellersDocument = gql`
     query Sellers {
-  users {
-    role
-    status
-  }
   sellers {
     name
   }
