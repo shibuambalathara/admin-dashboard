@@ -1,0 +1,7 @@
+query emdTable {
+  emdUpdates {
+    emdNo
+    specialVehicleBuyingLimitIncrement
+    vehicleBuyingLimitIncrement
+  }
+}

@@ -18,7 +18,7 @@ query User($where: UserWhereUniqueInput!) {
   idProofNo
   idProofType
   idProofBack {
-    url,__typename
+    url
   }
   idProofType
   idProofType
@@ -47,12 +47,6 @@ query User($where: UserWhereUniqueInput!) {
     updatedAt
     bannedSellers {
       name
-    }
-    idProof {
-      url
-    }
-    dealership {
-      url
     }
   }
 }

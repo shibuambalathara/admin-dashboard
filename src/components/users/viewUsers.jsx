@@ -10,6 +10,7 @@ import SearchUser from "./searchUser";
 
 
 const ViewUsers = () => {
+  const [userData,setUserData]=useState([])
   const [pageIndex, setPageIndex] = useState(0);
   const [pageSize, setPageSize] = useState(10);
 
@@ -29,6 +30,7 @@ const ViewUsers = () => {
     deleteUserMutation({variables:{where:{id:id}}})
     navigate('/users')
   }
+
 
   const columns = useMemo(
     () => [
@@ -95,13 +97,13 @@ const ViewUsers = () => {
        Add User
       </Button>
       
-      <div className=" flex flex-col justify-center m-auto ">
+      <div className=" flex flex-col justify-center m-auto w-full">
       <div className="mb-2">
-    <div className="text-center font-extrabold my-5 text-lg min-w-full">  User Data Table </div>
+    <div className="text-center font-extrabold my-5 text-lg w-full">  User Data Table </div>
       <SearchUser filter={globalFilter} className="  text-white " setFilter={setGlobalFilter}/>
     </div>
         <table
-          className="min-w-full divide-y divide-gray-200"
+          className="w-full divide-y  divide-gray-200"
           {...getTableProps()}
         >
           <thead className="bg-gray-50">
@@ -126,7 +128,7 @@ const ViewUsers = () => {
                 <tr {...row.getRowProps()}>
                   {row.cells.map((cell) => {
                     return (
-                      <td className="py-3 pl-4" {...cell.getCellProps()}>
+                      <td className="py-3 pl-4 text-center" {...cell.getCellProps()}>
                         {cell.render("Cell")}
                       </td>
                     );

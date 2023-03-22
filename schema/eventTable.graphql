@@ -1,0 +1,9 @@
+query eventTable {
+  events {
+  eventNo
+  eventCategory  
+  startDate
+  status
+  endDate
+  }
+}
