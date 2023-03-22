@@ -1,0 +1,13 @@
+query selectors {
+  states {
+  name  
+  }
+  locations {
+  city  
+  }
+  eventTypes {
+  name  
+  }
+  
+ 
+}

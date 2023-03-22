@@ -1,0 +1,12 @@
+query states {
+  states {
+    name
+    users {
+      id
+      firstName
+    }
+    locations {
+      name
+    }
+  }
+}

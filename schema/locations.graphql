@@ -1,0 +1,9 @@
+query locations {
+  locations {
+    name
+    country
+    state {
+      name
+    }
+  }
+}

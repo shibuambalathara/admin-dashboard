@@ -2957,7 +2957,7 @@ export type CreateUserMutationVariables = Exact<{
 }>;
 
 
-export type CreateUserMutation = { __typename?: 'Mutation', createUser?: { __typename?: 'User', mobile?: string | null, username?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, businessName?: string | null, role?: UserRoleType | null, status?: UserStatusType | null, country?: string | null, image?: { __typename?: 'ImageFieldOutput', url: string } | null, pancard?: { __typename?: 'ImageFieldOutput', url: string } | null, idProof?: { __typename?: 'ImageFieldOutput', id: string } | null, idProofBack?: { __typename?: 'ImageFieldOutput', url: string } | null, dealership?: { __typename?: 'ImageFieldOutput', url: string } | null, category?: Array<{ __typename?: 'EventType', name?: string | null }> | null } | null };
+export type CreateUserMutation = { __typename?: 'Mutation', createUser?: { __typename?: 'User', mobile?: string | null, username?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, city?: string | null, businessName?: string | null, role?: UserRoleType | null, status?: UserStatusType | null, idProofType?: UserIdProofTypeType | null, idProofNo?: string | null, state?: string | null, country?: string | null, password?: { __typename?: 'PasswordState', isSet: boolean } | null, image?: { __typename?: 'ImageFieldOutput', url: string } | null, pancard?: { __typename?: 'ImageFieldOutput', url: string } | null, idProof?: { __typename?: 'ImageFieldOutput', id: string } | null, idProofBack?: { __typename?: 'ImageFieldOutput', url: string } | null, dealership?: { __typename?: 'ImageFieldOutput', url: string } | null, category?: Array<{ __typename?: 'EventType', name?: string | null }> | null } | null };
 
 export type LoginMutationVariables = Exact<{
   mobile: Scalars['String'];
@@ -2966,6 +2966,11 @@ export type LoginMutationVariables = Exact<{
 
 
 export type LoginMutation = { __typename?: 'Mutation', authenticateUserWithPassword?: { __typename?: 'UserAuthenticationWithPasswordFailure', message: string } | { __typename?: 'UserAuthenticationWithPasswordSuccess', sessionToken: string } | null };
+
+export type BidsTableQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type BidsTableQuery = { __typename?: 'Query', bids?: Array<{ __typename?: 'Bid', name?: string | null, amount?: number | null, user?: { __typename?: 'User', username?: string | null } | null }> | null };
 
 export type CountQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2979,22 +2984,67 @@ export type DeleteUserMutationVariables = Exact<{
 
 export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser?: { __typename?: 'User', id: string } | null };
 
+export type EmdTableQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type EmdTableQuery = { __typename?: 'Query', emdUpdates?: Array<{ __typename?: 'EmdUpdate', emdNo?: number | null, specialVehicleBuyingLimitIncrement?: number | null, vehicleBuyingLimitIncrement?: number | null }> | null };
+
+export type EventTableQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type EventTableQuery = { __typename?: 'Query', events?: Array<{ __typename?: 'Event', eventNo?: number | null, eventCategory?: string | null, startDate?: any | null, status?: EventStatusType | null, endDate?: any | null }> | null };
+
+export type EventTypesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type EventTypesQuery = { __typename?: 'Query', eventTypes?: Array<{ __typename?: 'EventType', name?: string | null, events?: Array<{ __typename?: 'Event', eventNo?: number | null }> | null, users?: { __typename?: 'User', id: string } | null }> | null };
+
+export type LocationsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LocationsQuery = { __typename?: 'Query', locations?: Array<{ __typename?: 'Location', name?: string | null, country?: string | null, state?: { __typename?: 'State', name?: string | null } | null }> | null };
+
+export type PaymentTableQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type PaymentTableQuery = { __typename?: 'Query', payments?: Array<{ __typename?: 'Payment', refNo?: number | null, amount?: number | null, paymentFor?: string | null }> | null };
+
+export type SelectorsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SelectorsQuery = { __typename?: 'Query', states?: Array<{ __typename?: 'State', name?: string | null }> | null, locations?: Array<{ __typename?: 'Location', city?: string | null }> | null, eventTypes?: Array<{ __typename?: 'EventType', name?: string | null }> | null };
+
+export type SellersListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SellersListQuery = { __typename?: 'Query', sellers?: Array<{ __typename?: 'Seller', name?: string | null, events?: Array<{ __typename?: 'Event', eventNo?: number | null }> | null, bannedUsers?: Array<{ __typename?: 'User', id: string }> | null }> | null };
+
 export type SellersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type SellersQuery = { __typename?: 'Query', sellers?: Array<{ __typename?: 'Seller', name?: string | null }> | null };
+
+export type StatesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type StatesQuery = { __typename?: 'Query', states?: Array<{ __typename?: 'State', name?: string | null, users?: Array<{ __typename?: 'User', id: string, firstName?: string | null }> | null, locations?: Array<{ __typename?: 'Location', name?: string | null }> | null }> | null };
 
 export type UserQueryVariables = Exact<{
   where: UserWhereUniqueInput;
 }>;
 
 
-export type UserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, firstName?: string | null, activeBidsCount?: number | null, bannedSellersCount?: number | null, businessName?: string | null, categoryCount?: number | null, city?: string | null, country?: string | null, createdAt?: any | null, dealerId?: string | null, email?: string | null, emdUpdatesByAdminCount?: number | null, emdUpdatesCount?: number | null, idNo?: number | null, idProofNo?: string | null, idProofType?: UserIdProofTypeType | null, lastName?: string | null, magicAuthIssuedAt?: any | null, magicAuthRedeemedAt?: any | null, mobile?: string | null, pancardNo?: string | null, paymentsCount?: number | null, phone?: string | null, role?: UserRoleType | null, specialVehicleBuyingLimit?: number | null, vehicleBuyingLimit?: number | null, username?: string | null, status?: UserStatusType | null, updatedAt?: any | null, idProofBack?: { __typename: 'ImageFieldOutput', url: string } | null, image?: { __typename: 'ImageFieldOutput', url: string } | null, pancard?: { __typename?: 'ImageFieldOutput', id: string, url: string } | null, payments?: Array<{ __typename?: 'Payment', amount?: number | null }> | null, bannedSellers?: Array<{ __typename?: 'Seller', name?: string | null }> | null, idProof?: { __typename?: 'ImageFieldOutput', url: string } | null, dealership?: { __typename?: 'ImageFieldOutput', url: string } | null } | null };
+export type UserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, firstName?: string | null, activeBidsCount?: number | null, bannedSellersCount?: number | null, businessName?: string | null, categoryCount?: number | null, city?: string | null, country?: string | null, createdAt?: any | null, dealerId?: string | null, email?: string | null, emdUpdatesByAdminCount?: number | null, emdUpdatesCount?: number | null, idNo?: number | null, idProofNo?: string | null, idProofType?: UserIdProofTypeType | null, lastName?: string | null, magicAuthIssuedAt?: any | null, magicAuthRedeemedAt?: any | null, mobile?: string | null, pancardNo?: string | null, paymentsCount?: number | null, phone?: string | null, role?: UserRoleType | null, specialVehicleBuyingLimit?: number | null, vehicleBuyingLimit?: number | null, username?: string | null, status?: UserStatusType | null, updatedAt?: any | null, idProofBack?: { __typename?: 'ImageFieldOutput', url: string } | null, image?: { __typename: 'ImageFieldOutput', url: string } | null, pancard?: { __typename?: 'ImageFieldOutput', id: string, url: string } | null, payments?: Array<{ __typename?: 'Payment', amount?: number | null }> | null, bannedSellers?: Array<{ __typename?: 'Seller', name?: string | null }> | null } | null };
 
 export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', firstName?: string | null, lastName?: string | null, email?: string | null, mobile?: string | null, status?: UserStatusType | null, idNo?: number | null, id: string, pancardNo?: string | null }> | null };
+
+export type VehicleTableQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type VehicleTableQuery = { __typename?: 'Query', vehicles?: Array<{ __typename?: 'Vehicle', registrationNumber?: string | null, vehicleIndexNo?: number | null, bidTimeExpire?: any | null }> | null };
 
 
 export const CreateUserDocument = gql`
@@ -3006,9 +3056,16 @@ export const CreateUserDocument = gql`
     lastName
     email
     username
+    city
+    password {
+      isSet
+    }
     businessName
     role
     status
+    idProofType
+    idProofNo
+    state
     image {
       url
     }
@@ -3096,6 +3153,44 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const BidsTableDocument = gql`
+    query bidsTable {
+  bids {
+    name
+    amount
+    user {
+      username
+    }
+  }
+}
+    `;
+
+/**
+ * __useBidsTableQuery__
+ *
+ * To run a query within a React component, call `useBidsTableQuery` and pass it any options that fit your needs.
+ * When your component renders, `useBidsTableQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useBidsTableQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useBidsTableQuery(baseOptions?: Apollo.QueryHookOptions<BidsTableQuery, BidsTableQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<BidsTableQuery, BidsTableQueryVariables>(BidsTableDocument, options);
+      }
+export function useBidsTableLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<BidsTableQuery, BidsTableQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<BidsTableQuery, BidsTableQueryVariables>(BidsTableDocument, options);
+        }
+export type BidsTableQueryHookResult = ReturnType<typeof useBidsTableQuery>;
+export type BidsTableLazyQueryHookResult = ReturnType<typeof useBidsTableLazyQuery>;
+export type BidsTableQueryResult = Apollo.QueryResult<BidsTableQuery, BidsTableQueryVariables>;
 export const CountDocument = gql`
     query Count {
   usersCount
@@ -3171,6 +3266,274 @@ export function useDeleteUserMutation(baseOptions?: Apollo.MutationHookOptions<D
 export type DeleteUserMutationHookResult = ReturnType<typeof useDeleteUserMutation>;
 export type DeleteUserMutationResult = Apollo.MutationResult<DeleteUserMutation>;
 export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<DeleteUserMutation, DeleteUserMutationVariables>;
+export const EmdTableDocument = gql`
+    query emdTable {
+  emdUpdates {
+    emdNo
+    specialVehicleBuyingLimitIncrement
+    vehicleBuyingLimitIncrement
+  }
+}
+    `;
+
+/**
+ * __useEmdTableQuery__
+ *
+ * To run a query within a React component, call `useEmdTableQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEmdTableQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEmdTableQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useEmdTableQuery(baseOptions?: Apollo.QueryHookOptions<EmdTableQuery, EmdTableQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EmdTableQuery, EmdTableQueryVariables>(EmdTableDocument, options);
+      }
+export function useEmdTableLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EmdTableQuery, EmdTableQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EmdTableQuery, EmdTableQueryVariables>(EmdTableDocument, options);
+        }
+export type EmdTableQueryHookResult = ReturnType<typeof useEmdTableQuery>;
+export type EmdTableLazyQueryHookResult = ReturnType<typeof useEmdTableLazyQuery>;
+export type EmdTableQueryResult = Apollo.QueryResult<EmdTableQuery, EmdTableQueryVariables>;
+export const EventTableDocument = gql`
+    query eventTable {
+  events {
+    eventNo
+    eventCategory
+    startDate
+    status
+    endDate
+  }
+}
+    `;
+
+/**
+ * __useEventTableQuery__
+ *
+ * To run a query within a React component, call `useEventTableQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEventTableQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEventTableQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useEventTableQuery(baseOptions?: Apollo.QueryHookOptions<EventTableQuery, EventTableQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EventTableQuery, EventTableQueryVariables>(EventTableDocument, options);
+      }
+export function useEventTableLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EventTableQuery, EventTableQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EventTableQuery, EventTableQueryVariables>(EventTableDocument, options);
+        }
+export type EventTableQueryHookResult = ReturnType<typeof useEventTableQuery>;
+export type EventTableLazyQueryHookResult = ReturnType<typeof useEventTableLazyQuery>;
+export type EventTableQueryResult = Apollo.QueryResult<EventTableQuery, EventTableQueryVariables>;
+export const EventTypesDocument = gql`
+    query eventTypes {
+  eventTypes {
+    name
+    events {
+      eventNo
+    }
+    users {
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useEventTypesQuery__
+ *
+ * To run a query within a React component, call `useEventTypesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEventTypesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEventTypesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useEventTypesQuery(baseOptions?: Apollo.QueryHookOptions<EventTypesQuery, EventTypesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EventTypesQuery, EventTypesQueryVariables>(EventTypesDocument, options);
+      }
+export function useEventTypesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EventTypesQuery, EventTypesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EventTypesQuery, EventTypesQueryVariables>(EventTypesDocument, options);
+        }
+export type EventTypesQueryHookResult = ReturnType<typeof useEventTypesQuery>;
+export type EventTypesLazyQueryHookResult = ReturnType<typeof useEventTypesLazyQuery>;
+export type EventTypesQueryResult = Apollo.QueryResult<EventTypesQuery, EventTypesQueryVariables>;
+export const LocationsDocument = gql`
+    query locations {
+  locations {
+    name
+    country
+    state {
+      name
+    }
+  }
+}
+    `;
+
+/**
+ * __useLocationsQuery__
+ *
+ * To run a query within a React component, call `useLocationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLocationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLocationsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useLocationsQuery(baseOptions?: Apollo.QueryHookOptions<LocationsQuery, LocationsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<LocationsQuery, LocationsQueryVariables>(LocationsDocument, options);
+      }
+export function useLocationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<LocationsQuery, LocationsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<LocationsQuery, LocationsQueryVariables>(LocationsDocument, options);
+        }
+export type LocationsQueryHookResult = ReturnType<typeof useLocationsQuery>;
+export type LocationsLazyQueryHookResult = ReturnType<typeof useLocationsLazyQuery>;
+export type LocationsQueryResult = Apollo.QueryResult<LocationsQuery, LocationsQueryVariables>;
+export const PaymentTableDocument = gql`
+    query paymentTable {
+  payments {
+    refNo
+    amount
+    paymentFor
+  }
+}
+    `;
+
+/**
+ * __usePaymentTableQuery__
+ *
+ * To run a query within a React component, call `usePaymentTableQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePaymentTableQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePaymentTableQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function usePaymentTableQuery(baseOptions?: Apollo.QueryHookOptions<PaymentTableQuery, PaymentTableQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PaymentTableQuery, PaymentTableQueryVariables>(PaymentTableDocument, options);
+      }
+export function usePaymentTableLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PaymentTableQuery, PaymentTableQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PaymentTableQuery, PaymentTableQueryVariables>(PaymentTableDocument, options);
+        }
+export type PaymentTableQueryHookResult = ReturnType<typeof usePaymentTableQuery>;
+export type PaymentTableLazyQueryHookResult = ReturnType<typeof usePaymentTableLazyQuery>;
+export type PaymentTableQueryResult = Apollo.QueryResult<PaymentTableQuery, PaymentTableQueryVariables>;
+export const SelectorsDocument = gql`
+    query selectors {
+  states {
+    name
+  }
+  locations {
+    city
+  }
+  eventTypes {
+    name
+  }
+}
+    `;
+
+/**
+ * __useSelectorsQuery__
+ *
+ * To run a query within a React component, call `useSelectorsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSelectorsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSelectorsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useSelectorsQuery(baseOptions?: Apollo.QueryHookOptions<SelectorsQuery, SelectorsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SelectorsQuery, SelectorsQueryVariables>(SelectorsDocument, options);
+      }
+export function useSelectorsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SelectorsQuery, SelectorsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SelectorsQuery, SelectorsQueryVariables>(SelectorsDocument, options);
+        }
+export type SelectorsQueryHookResult = ReturnType<typeof useSelectorsQuery>;
+export type SelectorsLazyQueryHookResult = ReturnType<typeof useSelectorsLazyQuery>;
+export type SelectorsQueryResult = Apollo.QueryResult<SelectorsQuery, SelectorsQueryVariables>;
+export const SellersListDocument = gql`
+    query SellersList {
+  sellers {
+    name
+    events {
+      eventNo
+    }
+    bannedUsers {
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useSellersListQuery__
+ *
+ * To run a query within a React component, call `useSellersListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSellersListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSellersListQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useSellersListQuery(baseOptions?: Apollo.QueryHookOptions<SellersListQuery, SellersListQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SellersListQuery, SellersListQueryVariables>(SellersListDocument, options);
+      }
+export function useSellersListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SellersListQuery, SellersListQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SellersListQuery, SellersListQueryVariables>(SellersListDocument, options);
+        }
+export type SellersListQueryHookResult = ReturnType<typeof useSellersListQuery>;
+export type SellersListLazyQueryHookResult = ReturnType<typeof useSellersListLazyQuery>;
+export type SellersListQueryResult = Apollo.QueryResult<SellersListQuery, SellersListQueryVariables>;
 export const SellersDocument = gql`
     query Sellers {
   sellers {
@@ -3205,6 +3568,47 @@ export function useSellersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Se
 export type SellersQueryHookResult = ReturnType<typeof useSellersQuery>;
 export type SellersLazyQueryHookResult = ReturnType<typeof useSellersLazyQuery>;
 export type SellersQueryResult = Apollo.QueryResult<SellersQuery, SellersQueryVariables>;
+export const StatesDocument = gql`
+    query states {
+  states {
+    name
+    users {
+      id
+      firstName
+    }
+    locations {
+      name
+    }
+  }
+}
+    `;
+
+/**
+ * __useStatesQuery__
+ *
+ * To run a query within a React component, call `useStatesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useStatesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useStatesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useStatesQuery(baseOptions?: Apollo.QueryHookOptions<StatesQuery, StatesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<StatesQuery, StatesQueryVariables>(StatesDocument, options);
+      }
+export function useStatesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<StatesQuery, StatesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<StatesQuery, StatesQueryVariables>(StatesDocument, options);
+        }
+export type StatesQueryHookResult = ReturnType<typeof useStatesQuery>;
+export type StatesLazyQueryHookResult = ReturnType<typeof useStatesLazyQuery>;
+export type StatesQueryResult = Apollo.QueryResult<StatesQuery, StatesQueryVariables>;
 export const UserDocument = gql`
     query User($where: UserWhereUniqueInput!) {
   user(where: $where) {
@@ -3227,7 +3631,6 @@ export const UserDocument = gql`
     idProofType
     idProofBack {
       url
-      __typename
     }
     idProofType
     idProofType
@@ -3258,12 +3661,6 @@ export const UserDocument = gql`
     updatedAt
     bannedSellers {
       name
-    }
-    idProof {
-      url
-    }
-    dealership {
-      url
     }
   }
 }
@@ -3337,3 +3734,39 @@ export function useUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<User
 export type UsersQueryHookResult = ReturnType<typeof useUsersQuery>;
 export type UsersLazyQueryHookResult = ReturnType<typeof useUsersLazyQuery>;
 export type UsersQueryResult = Apollo.QueryResult<UsersQuery, UsersQueryVariables>;
+export const VehicleTableDocument = gql`
+    query VehicleTable {
+  vehicles {
+    registrationNumber
+    vehicleIndexNo
+    bidTimeExpire
+  }
+}
+    `;
+
+/**
+ * __useVehicleTableQuery__
+ *
+ * To run a query within a React component, call `useVehicleTableQuery` and pass it any options that fit your needs.
+ * When your component renders, `useVehicleTableQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useVehicleTableQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useVehicleTableQuery(baseOptions?: Apollo.QueryHookOptions<VehicleTableQuery, VehicleTableQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<VehicleTableQuery, VehicleTableQueryVariables>(VehicleTableDocument, options);
+      }
+export function useVehicleTableLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<VehicleTableQuery, VehicleTableQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<VehicleTableQuery, VehicleTableQueryVariables>(VehicleTableDocument, options);
+        }
+export type VehicleTableQueryHookResult = ReturnType<typeof useVehicleTableQuery>;
+export type VehicleTableLazyQueryHookResult = ReturnType<typeof useVehicleTableLazyQuery>;
+export type VehicleTableQueryResult = Apollo.QueryResult<VehicleTableQuery, VehicleTableQueryVariables>;

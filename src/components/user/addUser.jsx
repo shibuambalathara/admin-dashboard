@@ -1,50 +1,69 @@
 import { Input } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
 
-import React from "react";
-import {useCreateUserMutation} from '../../utils/graphql'
+import React, { useState } from "react";
+import {useCreateUserMutation,useSelectorsQuery} from '../../utils/graphql'
 
 const AddUser = () => {
 
   
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  const[createUser,{data,loading,error}]=useCreateUserMutation()
-
+  const[createUser,{loading,error}]=useCreateUserMutation()
+  const{data}=useSelectorsQuery()
+  // console.log(data.eventTypes,"ddddd")
   const onSubmit =async (dataOnSubmit) => {
 
      console.log(dataOnSubmit,"onSubmit");
+
+    const data = {
+      firstName:dataOnSubmit?.first_Name,
+      lastName:dataOnSubmit?.last_Name ||'',
+      email:dataOnSubmit?.email || '',
+      username:dataOnSubmit?.user_Name,
+      mobile:dataOnSubmit?.mobile,
+     businessName:dataOnSubmit?.bussiness ,
+     pancardNo:dataOnSubmit?.pancardNumber,
+      role:dataOnSubmit?.role, 
+      //  category:{create:dataOnSubmit?.category},
+      
+       password:dataOnSubmit?.confirmPassword,
+       idProofType:dataOnSubmit?.idType,
+       idProofNo:dataOnSubmit?.IdNumber,
+      country:dataOnSubmit?.country,
+      state:dataOnSubmit?.state,
+      city:dataOnSubmit?.city
+      
+    
+    };
+
+
+   
+    if(dataOnSubmit.user_image && dataOnSubmit.user_image.length){
+      data["image"] = { upload: dataOnSubmit.user_image[0] }
+    }
+    if(dataOnSubmit.pancardImage && dataOnSubmit.pancardImage.length){
+      data["pancard"] = { upload: dataOnSubmit.pancardImage[0] }
+    }
+    if(dataOnSubmit.idProof && dataOnSubmit.idProof.length){
+      data["idProof"] = { upload: dataOnSubmit.idProof[0] }
+    }
+     if(dataOnSubmit.idBack && dataOnSubmit.idBack.length){
+       data["idProofBack"] = { upload: dataOnSubmit.idBack[0] }
+     }
+    if(dataOnSubmit.dealership && dataOnSubmit.dealership.length){
+      data["dealership"] = { upload: dataOnSubmit.dealership[0] }
+    }
+    
     try{
 
-      const result=await createUser({variables:
-        {data:
-        {
-          firstName:dataOnSubmit?.first_Name,
-          lastName:dataOnSubmit?.last_Name ||'',
-          email:dataOnSubmit?.email || '',
-          username:dataOnSubmit?.user_Name,
-          mobile:dataOnSubmit?.mobile,
-        businessName:dataOnSubmit?.businessName || '',
-         category:{name:dataOnSubmit?.category}, 
-          // category:dataOnSubmit?.category,
-          // bannedSellers:dataOnSubmit?.bannedSellers,
-          // confirmPassword:dataOnSubmit?.confirmPassword,
-          //  image:{upload:dataOnSubmit?.user_image[0] },
-          //  pancard:{upload:dataOnSubmit?.pancardImage[0] || ''},
-          //  idProof:{upload:dataOnSubmit?.idProof[0]},
-          // idProofBack:{upload:dataOnSubmit?.idBack[0]},
-          // dealership:{upload:dataOnSubmit?.dealership[0]},
-          // country:dataOnSubmit?.country
-        
-        }
-      }
-    })
+      const result=await createUser({variables: {data}})
     }
     catch(err){
 console.log(err,"error")
     }
   }
 
-console.log(data,"dataaaaaaaaa")
+// console.log(data,"dataaaaaaaaa")
  
 
   return (
@@ -95,9 +114,9 @@ console.log(data,"dataaaaaaaaa")
             <div className="min-w-[300px]">
               <label htmlFor="">Category</label>
               <select className="flex justify-between py-1  h-[30px] w-full" {...register("category", { })}>
-        <option value="2W">2W</option>
-        <option value="4w">4W</option>
-        <option value="CV">CV</option>
+              {data?.eventTypes.map((type) => (
+   <option  value={type.name} key={type.name}>{type.name}</option>
+ ))}
       
       </select>
       <p className="text-red-500"> {errors.category && <span>Please select Category</span>}</p>
@@ -118,17 +137,44 @@ console.log(data,"dataaaaaaaaa")
         </div>
           </div>
           <div className="flex space-x-2 justify-evenly">
-            <div className="min-w-[300px]">
-              <label htmlFor="">Password</label>
-              <Input type="text" className="p-1" {...register("password", {},)}></Input>
-              <p className="text-red-500"> {errors.password && <span>password required</span>}</p>
+          <div className="min-w-[300px]">
+              <label htmlFor="">Role</label>
+              <select defaultValue="" className="flex justify-between border py-1 w-full  h-[30px] " {...register("role", {})}>
+              <option value=""></option>
+        <option value="admin">Admin</option>
+        <option value="staff">Staff</option>
+        <option value="seller">Seller</option>
+        <option value="">Dealer</option>
+      
+      </select>
+      <p className="text-red-500"> {errors.role && <span>Please select Role</span>}</p>
 
-            
             </div>
             <div className="min-w-[300px]">
               <label htmlFor="">Confirm Password</label>
               <Input type="text" className="p-1" {...register("confirmPassword", { })}></Input>
               <p className="text-red-500"> {errors.confirmPassword && <span>Confirm password required</span>}</p>
+            </div>
+          </div>
+
+          <div className="flex space-x-2 justify-evenly">
+          <div className="min-w-[300px]">
+              <label htmlFor="">ID Proof Type</label>
+              <select defaultValue="" className="flex justify-between border py-1 w-full  h-[30px] " {...register("idType", {})}>
+              <option value=""></option>
+        <option value="Aadhar">Aadhar</option>
+        <option value="drivingLicense">Driving Licence</option>
+        <option value="Passport">Passport</option>
+        
+      
+      </select>
+      <p className="text-red-500"> {errors.idType && <span>Please select Id proof type</span>}</p>
+
+            </div>
+            <div className="min-w-[300px]">
+              <label htmlFor="">ID proof Number</label>
+              <Input type="text" className="p-1" {...register("IdNumber", {minLength:8 })}></Input>
+              <p className="text-red-500"> {errors.IdNumber && <span>Atleast 8 charators required</span>}</p>
             </div>
           </div>
 
@@ -177,35 +223,38 @@ console.log(data,"dataaaaaaaaa")
             </div>
             <div className="flex min-w-[300px] flex-col">
               <label htmlFor="">Country</label>
-              <Input className="text-black py-1" type="text" {...register("county", { })}/>
-              <p className="text-red-500"> {errors.county && <span>country Required</span>}</p>
+              <Input className="text-black py-1" type="text" {...register("country", { })}/>
+              <p className="text-red-500"> {errors.country && <span>country Required</span>}</p>
             </div>
           </div>
 
           <div className="flex space-x-2 justify-evenly">
+          <div className="flex space-x-2 justify-evenly">
+           
+           <div className="min-w-[300px]">
+           <div className="min-w-[300px]">
+             <label htmlFor="">State</label>
+        
+        <select  className="flex justify-between border py-1 w-full h-[30px]" {...register("state", {})}>
+ {data?.states.map((state) => (
+   <option  value={state.name} key={state.name}>{state.name}</option>
+ ))}
+</select>
+     <p className="text-red-500"> {errors.city && <span>Please select city</span>}</p>
+           </div>
+           </div>
+         </div>
+           
             <div className="min-w-[300px]">
-              <label htmlFor="">Role</label>
-              <select className="flex justify-between py-1 w-full  h-[30px] " {...register("role", {})}>
-        <option value="admin">Admin</option>
-        <option value="staff">Staff</option>
-        <option value="seller">Seller</option>
-        <option value="">Dealer</option>
-      
-      </select>
-      <p className="text-red-500"> {errors.role && <span>Please select Role</span>}</p>
-
-            </div>
             <div className="min-w-[300px]">
-            <div className="min-w-[300px]">
-              <label htmlFor="">Status</label>
-              <select className="flex justify-between py-1 w-full h-[30px]" {...register("status", {})}>
-        <option value="pending">Pending</option>
-        <option value="blocked">Blocked</option>
-        <option value="active">Active</option>
-        <option value="inactive">Inactive</option>
-      
-      </select>
-      <p className="text-red-500"> {errors.status && <span>Please select status</span>}</p>
+              <label htmlFor="">City</label>
+         
+         <select  className="flex justify-between border py-1 w-full h-[30px]" {...register("city", {})}>
+  {data?.locations.map((loc) => (
+    <option  value={loc.city} key={loc.city}>{loc.city}</option>
+  ))}
+</select>
+      <p className="text-red-500"> {errors.city && <span>Please select city</span>}</p>
             </div>
             </div>
           </div>
@@ -222,6 +271,7 @@ console.log(data,"dataaaaaaaaa")
         <input type='submit' className="bg-blue-700 p-3 rounded text-white w-36"/>
         </div>
       </form>
+     
     </div>
   );
 };

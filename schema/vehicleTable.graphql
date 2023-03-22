@@ -1,0 +1,7 @@
+query VehicleTable {
+  vehicles {
+  registrationNumber  
+  vehicleIndexNo
+  bidTimeExpire
+  }
+}
