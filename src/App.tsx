@@ -18,6 +18,8 @@ import LocationsTable from './pages/locationsTable';
 import States from './pages/states';
 import ExcelUploads from './pages/excelUploads';
 import Sellers from './pages/sellers';
+import AddEventForm from './pages/addEventForm';
+
 
 
 
@@ -52,6 +54,8 @@ function App() {
               <Route path='states' element={<States />} />
               <Route path='excel-uploads' element={<ExcelUploads />} />
               <Route path='sellers' element={<Sellers />} />
+              <Route path='addevent' element={<AddEventForm />}/>
+             
           
             </Route>
           </Routes>
