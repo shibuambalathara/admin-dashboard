@@ -25,6 +25,10 @@ const ViewUsers = () => {
  
     navigate(`/view-user/${id}`)
   }
+  const paymentDetails=(id)=>{
+ 
+    navigate(`/payment/${id}`)
+  }
   const handleDelete=(id)=>{
     console.log(id,"delete")
     deleteUserMutation({variables:{where:{id:id}}})
@@ -45,6 +49,12 @@ const ViewUsers = () => {
         Header: "View more",
         Cell: ({ row }) => (
           <button className="bg-green-500 p-2 rounded" onClick={()=>handleViewMore(row.original.id) }>View More</button>
+        )
+      },
+      {
+        Header: "Payment details",
+        Cell: ({ row }) => (
+          <button className="bg-cyan-500 p-2 rounded" onClick={()=>paymentDetails(row.original.id) }>Payment Details</button>
         )
       },
       {

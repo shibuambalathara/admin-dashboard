@@ -1,0 +1,16 @@
+query PaymentDetails($where: PaymentWhereUniqueInput!) {
+  payment(where: $where) {
+    id
+    amount
+    status
+    paymentFor
+    description
+    image {
+      url
+    }
+    user {
+      firstName
+      username
+    }
+  }
+}

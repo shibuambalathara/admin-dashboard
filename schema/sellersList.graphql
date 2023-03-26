@@ -1,0 +1,6 @@
+query SellersItem {
+ sellers {
+   name
+   id
+ } 
+}

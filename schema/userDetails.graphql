@@ -6,6 +6,9 @@ query User($where: UserWhereUniqueInput!) {
   bannedSellersCount
   businessName
   categoryCount
+ states {
+   name
+ } 
   city
   country
   createdAt
@@ -16,11 +19,13 @@ query User($where: UserWhereUniqueInput!) {
   id
   idNo
   idProofNo
-  idProofType
+ idProof {
+     url
+   }
   idProofBack {
     url
   }
-  idProofType
+  
   idProofType
   image {
     url,__typename
@@ -30,7 +35,7 @@ query User($where: UserWhereUniqueInput!) {
   magicAuthRedeemedAt
   mobile
   pancard {
-    id,url
+  url
   }
   pancardNo
    payments {
@@ -41,6 +46,9 @@ query User($where: UserWhereUniqueInput!) {
    role
    specialVehicleBuyingLimit
    dealerId
+     dealership {
+     url
+   }
    vehicleBuyingLimit
    username
     status

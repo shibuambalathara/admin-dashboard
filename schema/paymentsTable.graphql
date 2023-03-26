@@ -1,7 +1,14 @@
 query paymentTable {
   payments {
+    id
     refNo
+    status
     amount
     paymentFor
+    user {
+      id
+      firstName
+      username
+    }
   }
 }

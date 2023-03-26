@@ -18,6 +18,9 @@ import LocationsTable from './pages/locationsTable';
 import States from './pages/states';
 import ExcelUploads from './pages/excelUploads';
 import Sellers from './pages/sellers';
+import AddPaymentDetails from './pages/addPaymentDetails';
+import PaymentUserDetails from './pages/paymentUserDetails';
+
 
 
 
@@ -52,6 +55,9 @@ function App() {
               <Route path='states' element={<States />} />
               <Route path='excel-uploads' element={<ExcelUploads />} />
               <Route path='sellers' element={<Sellers />} />
+              <Route path='create-payment/:id' element={<AddPaymentDetails />} />
+              <Route path='update-payment/:id' element={<AddPaymentDetails />} />
+               <Route path='payment/:id' element={<PaymentUserDetails/>} /> 
           
             </Route>
           </Routes>
