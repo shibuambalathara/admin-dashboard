@@ -25,18 +25,18 @@ const PaymentPerUser = () => {
            { Header: "Status ", accessor: "status" },
            { Header: "Created At ", accessor: "createdAt" },
            { Header: "Updated At ", accessor: "updatedAt" },
-          {
-            Header: "Change Status",
-            Cell: ({ row }) => (
-                <select defaultValue={data?.user?.payments} className="input input-bordered input-secondary  ">
-                <option value=""></option>
-          <option value="pending">Pending</option>
-          <option value="success">Success</option>
-          <option value="failed">Failed</option>
+        //   {
+        //     Header: "Change Status",
+        //     Cell: ({ row }) => (
+        //         <select defaultValue={data?.user?.payments} className="input input-bordered input-secondary  ">
+        //         <option value=""></option>
+        //   <option value="pending">Pending</option>
+        //   <option value="success">Success</option>
+        //   <option value="failed">Failed</option>
           
         
-        </select>         )
-          },
+        // </select>         )
+        //   },
         //   {
         //     Header: "Delete",
         //     Cell: ({ row }) => (
