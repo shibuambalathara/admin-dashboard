@@ -8,7 +8,7 @@ const AddEventComponent = () => {
  
 
   return (
-    <div className="max-w-6xl mx-auto h-fit  my-10 bg-slate-100 ">
+    <div className="max-w-7xl mx-auto h-fit  my-10 bg-slate-100 ">
       <div className="space-y-1 "> 
         <div className="py-4 bg-gray-200 rounded px-4 flex items-center justify-center ">
           <h2 className="text-xl py-3 leading-3 font-bold text-gray-900">

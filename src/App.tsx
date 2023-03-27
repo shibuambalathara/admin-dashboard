@@ -19,6 +19,9 @@ import States from './pages/states';
 import ExcelUploads from './pages/excelUploads';
 import Sellers from './pages/sellers';
 import AddEventForm from './pages/addEventForm';
+import AddVehicle from './pages/addVehicle';
+import AddBidForm from './pages/addBidForm';
+import AddLoactionForm from './pages/addLoactionForm';
 
 
 
@@ -55,6 +58,9 @@ function App() {
               <Route path='excel-uploads' element={<ExcelUploads />} />
               <Route path='sellers' element={<Sellers />} />
               <Route path='addevent' element={<AddEventForm />}/>
+              <Route path='addvehicle' element={<AddVehicle />}/>
+             <Route path='addBid' element={<AddBidForm />}/>
+              <Route path='addlocation' element={<AddLoactionForm />}/>
              
           
             </Route>
