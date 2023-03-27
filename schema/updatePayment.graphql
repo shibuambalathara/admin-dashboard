@@ -1,0 +1,11 @@
+mutation UpdatePayment($where: PaymentWhereUniqueInput!, $data: PaymentUpdateInput!) {
+  updatePayment(where: $where, data: $data) {
+  amount
+  image {
+    url
+  } 
+  paymentFor
+  description
+  status 
+  }
+}

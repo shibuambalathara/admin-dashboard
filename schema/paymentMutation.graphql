@@ -1,0 +1,15 @@
+mutation CreatePayment($data: PaymentCreateInput!) {
+  createPayment(data: $data) {
+  amount
+  paymentFor
+  description
+    status
+    image {
+      url
+    }
+    id
+    user {
+      id
+    }
+  }
+}

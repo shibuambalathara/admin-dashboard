@@ -14,7 +14,7 @@ const Sidebar = () => {
     <div className='w-72  bg-slate-600 min-h-screen space-y-3 p-3 pt-10'>
       {Sidebar_items.map((item)=>{
         return(
-          <div><button onClick={() => HandleClick(item.path)} className='font-bold text-lg bg-none text-white'> {item.name}</button>  </div>
+          <div><button onClick={() => HandleClick(item.path)} className='btn btn-ghos  text-start font-bold   w-full text-white'> {item.name}</button>  </div>
         )
       })}
     </div>
