@@ -36,7 +36,9 @@ const UpdatePayment = () => {
   
   };
 
-  
+  if(payment?.loading){
+    <di>Loading............</di>
+  }
   return (
     <div className="flex flex-col space-y-10 justify-center align-middle w-full bg-gray-50  my-10">
       <form onSubmit={handleSubmit(onSubmit)} className=" w-full my-5 space-y-10">
@@ -113,8 +115,8 @@ const UpdatePayment = () => {
 
               <img
                 className="w-full h-36 border py-1"
-                // src={`https://api.autobse.com${data?.user?.idProofBack?.url}`}
-                alt="no id proof back side_image"
+                 src={`https://api.autobse.com${payment?.data?.payment?.image?.url}`}
+                alt="No ID proof_Image"
               />
                <input type="file" className="p-1" {...register("imgForPaymentProof", { })}></input>
             </div>
@@ -123,7 +125,7 @@ const UpdatePayment = () => {
           <button
             type="submit" 
             className="btn btn-outline btn-primary px-10"
-          >Save </button>
+          >Save Changes </button>
         </div>
         </form>
     </div>

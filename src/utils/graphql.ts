@@ -2952,6 +2952,13 @@ export enum VehicleEventStatus {
   Upcoming = 'upcoming'
 }
 
+export type CreateEventMutationVariables = Exact<{
+  data: EventCreateInput;
+}>;
+
+
+export type CreateEventMutation = { __typename?: 'Mutation', createEvent?: { __typename?: 'Event', eventCategory?: string | null, startDate?: any | null, endDate?: any | null, noOfBids?: number | null, status?: EventStatusType | null, termsAndConditions?: string | null, bidLock?: EventBidLockType | null, isSpecialEvent?: boolean | null, extraTime?: number | null, extraTimeTrigerIn?: number | null, vehicleLiveTimeIn?: number | null, gapInBetweenVehicles?: number | null, seller?: { __typename?: 'Seller', name?: string | null, id: string } | null, eventType?: Array<{ __typename?: 'EventType', name?: string | null, id: string }> | null, location?: { __typename?: 'Location', city?: string | null, id: string } | null, downloadableFile?: { __typename?: 'FileFieldOutput', url: string } | null, ExcelFile?: { __typename?: 'ExcelUpload', file?: { __typename?: 'FileFieldOutput', url: string } | null } | null, vehicles?: Array<{ __typename?: 'Vehicle', id: string }> | null } | null };
+
 export type CreateUserMutationVariables = Exact<{
   data: UserCreateInput;
 }>;
@@ -3005,12 +3012,12 @@ export type EventTableQuery = { __typename?: 'Query', events?: Array<{ __typenam
 export type EventTypesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type EventTypesQuery = { __typename?: 'Query', eventTypes?: Array<{ __typename?: 'EventType', name?: string | null, events?: Array<{ __typename?: 'Event', eventNo?: number | null }> | null, users?: { __typename?: 'User', id: string } | null }> | null };
+export type EventTypesQuery = { __typename?: 'Query', eventTypes?: Array<{ __typename?: 'EventType', name?: string | null, id: string, events?: Array<{ __typename?: 'Event', eventNo?: number | null }> | null, users?: { __typename?: 'User', id: string } | null }> | null };
 
 export type LocationsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type LocationsQuery = { __typename?: 'Query', locations?: Array<{ __typename?: 'Location', name?: string | null, country?: string | null, state?: { __typename?: 'State', name?: string | null } | null }> | null };
+export type LocationsQuery = { __typename?: 'Query', locations?: Array<{ __typename?: 'Location', name?: string | null, id: string, country?: string | null, state?: { __typename?: 'State', name?: string | null } | null }> | null };
 
 export type PaymentDetailsQueryVariables = Exact<{
   where: PaymentWhereUniqueInput;
@@ -3084,6 +3091,73 @@ export type VehicleTableQueryVariables = Exact<{ [key: string]: never; }>;
 export type VehicleTableQuery = { __typename?: 'Query', vehicles?: Array<{ __typename?: 'Vehicle', registrationNumber?: string | null, vehicleIndexNo?: number | null, bidTimeExpire?: any | null }> | null };
 
 
+export const CreateEventDocument = gql`
+    mutation CreateEvent($data: EventCreateInput!) {
+  createEvent(data: $data) {
+    eventCategory
+    startDate
+    endDate
+    seller {
+      name
+      id
+    }
+    eventType {
+      name
+      id
+    }
+    location {
+      city
+      id
+    }
+    noOfBids
+    status
+    downloadableFile {
+      url
+    }
+    termsAndConditions
+    bidLock
+    isSpecialEvent
+    extraTime
+    extraTimeTrigerIn
+    vehicleLiveTimeIn
+    gapInBetweenVehicles
+    ExcelFile {
+      file {
+        url
+      }
+    }
+    vehicles {
+      id
+    }
+  }
+}
+    `;
+export type CreateEventMutationFn = Apollo.MutationFunction<CreateEventMutation, CreateEventMutationVariables>;
+
+/**
+ * __useCreateEventMutation__
+ *
+ * To run a mutation, you first call `useCreateEventMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateEventMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createEventMutation, { data, loading, error }] = useCreateEventMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateEventMutation(baseOptions?: Apollo.MutationHookOptions<CreateEventMutation, CreateEventMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateEventMutation, CreateEventMutationVariables>(CreateEventDocument, options);
+      }
+export type CreateEventMutationHookResult = ReturnType<typeof useCreateEventMutation>;
+export type CreateEventMutationResult = Apollo.MutationResult<CreateEventMutation>;
+export type CreateEventMutationOptions = Apollo.BaseMutationOptions<CreateEventMutation, CreateEventMutationVariables>;
 export const CreateUserDocument = gql`
     mutation CreateUser($data: UserCreateInput!) {
   createUser(data: $data) {
@@ -3453,6 +3527,7 @@ export const EventTypesDocument = gql`
     query eventTypes {
   eventTypes {
     name
+    id
     events {
       eventNo
     }
@@ -3493,6 +3568,7 @@ export const LocationsDocument = gql`
     query locations {
   locations {
     name
+    id
     country
     state {
       name
