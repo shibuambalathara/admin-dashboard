@@ -2957,7 +2957,7 @@ export type CreateEventMutationVariables = Exact<{
 }>;
 
 
-export type CreateEventMutation = { __typename?: 'Mutation', createEvent?: { __typename?: 'Event', eventCategory?: string | null, startDate?: any | null, endDate?: any | null, noOfBids?: number | null, status?: EventStatusType | null, termsAndConditions?: string | null, bidLock?: EventBidLockType | null, isSpecialEvent?: boolean | null, extraTime?: number | null, extraTimeTrigerIn?: number | null, vehicleLiveTimeIn?: number | null, gapInBetweenVehicles?: number | null, seller?: { __typename?: 'Seller', name?: string | null, id: string } | null, eventType?: Array<{ __typename?: 'EventType', name?: string | null, id: string }> | null, location?: { __typename?: 'Location', city?: string | null, id: string } | null, downloadableFile?: { __typename?: 'FileFieldOutput', url: string } | null, ExcelFile?: { __typename?: 'ExcelUpload', file?: { __typename?: 'FileFieldOutput', url: string } | null } | null, vehicles?: Array<{ __typename?: 'Vehicle', id: string }> | null } | null };
+export type CreateEventMutation = { __typename?: 'Mutation', createEvent?: { __typename?: 'Event', id: string, eventCategory?: string | null, startDate?: any | null, endDate?: any | null, noOfBids?: number | null, status?: EventStatusType | null, termsAndConditions?: string | null, bidLock?: EventBidLockType | null, isSpecialEvent?: boolean | null, extraTime?: number | null, extraTimeTrigerIn?: number | null, vehicleLiveTimeIn?: number | null, gapInBetweenVehicles?: number | null, seller?: { __typename?: 'Seller', name?: string | null, id: string } | null, eventType?: Array<{ __typename?: 'EventType', name?: string | null, id: string }> | null, location?: { __typename?: 'Location', city?: string | null, id: string } | null, downloadableFile?: { __typename?: 'FileFieldOutput', url: string } | null } | null };
 
 export type CreateUserMutationVariables = Exact<{
   data: UserCreateInput;
@@ -3013,6 +3013,13 @@ export type EventTypesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type EventTypesQuery = { __typename?: 'Query', eventTypes?: Array<{ __typename?: 'EventType', name?: string | null, id: string, events?: Array<{ __typename?: 'Event', eventNo?: number | null }> | null, users?: { __typename?: 'User', id: string } | null }> | null };
+
+export type CreateExcelUploadMutationVariables = Exact<{
+  data: ExcelUploadCreateInput;
+}>;
+
+
+export type CreateExcelUploadMutation = { __typename?: 'Mutation', createExcelUpload?: { __typename?: 'ExcelUpload', id: string, name?: string | null, file?: { __typename?: 'FileFieldOutput', url: string, filename: string } | null, event?: { __typename?: 'Event', id: string } | null, vehicles?: Array<{ __typename?: 'Vehicle', id: string, registrationNumber?: string | null }> | null } | null };
 
 export type LocationsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3094,6 +3101,7 @@ export type VehicleTableQuery = { __typename?: 'Query', vehicles?: Array<{ __typ
 export const CreateEventDocument = gql`
     mutation CreateEvent($data: EventCreateInput!) {
   createEvent(data: $data) {
+    id
     eventCategory
     startDate
     endDate
@@ -3121,14 +3129,6 @@ export const CreateEventDocument = gql`
     extraTimeTrigerIn
     vehicleLiveTimeIn
     gapInBetweenVehicles
-    ExcelFile {
-      file {
-        url
-      }
-    }
-    vehicles {
-      id
-    }
   }
 }
     `;
@@ -3564,6 +3564,51 @@ export function useEventTypesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type EventTypesQueryHookResult = ReturnType<typeof useEventTypesQuery>;
 export type EventTypesLazyQueryHookResult = ReturnType<typeof useEventTypesLazyQuery>;
 export type EventTypesQueryResult = Apollo.QueryResult<EventTypesQuery, EventTypesQueryVariables>;
+export const CreateExcelUploadDocument = gql`
+    mutation CreateExcelUpload($data: ExcelUploadCreateInput!) {
+  createExcelUpload(data: $data) {
+    id
+    name
+    file {
+      url
+      filename
+    }
+    event {
+      id
+    }
+    vehicles {
+      id
+      registrationNumber
+    }
+  }
+}
+    `;
+export type CreateExcelUploadMutationFn = Apollo.MutationFunction<CreateExcelUploadMutation, CreateExcelUploadMutationVariables>;
+
+/**
+ * __useCreateExcelUploadMutation__
+ *
+ * To run a mutation, you first call `useCreateExcelUploadMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateExcelUploadMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createExcelUploadMutation, { data, loading, error }] = useCreateExcelUploadMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateExcelUploadMutation(baseOptions?: Apollo.MutationHookOptions<CreateExcelUploadMutation, CreateExcelUploadMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateExcelUploadMutation, CreateExcelUploadMutationVariables>(CreateExcelUploadDocument, options);
+      }
+export type CreateExcelUploadMutationHookResult = ReturnType<typeof useCreateExcelUploadMutation>;
+export type CreateExcelUploadMutationResult = Apollo.MutationResult<CreateExcelUploadMutation>;
+export type CreateExcelUploadMutationOptions = Apollo.BaseMutationOptions<CreateExcelUploadMutation, CreateExcelUploadMutationVariables>;
 export const LocationsDocument = gql`
     query locations {
   locations {

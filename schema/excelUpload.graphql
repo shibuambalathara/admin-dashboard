@@ -1,0 +1,17 @@
+mutation CreateExcelUpload($data: ExcelUploadCreateInput!) {
+  createExcelUpload(data: $data) {
+  id
+  name
+  file {
+    url
+    filename
+  } 
+  event {
+    id
+  } 
+    vehicles {
+    id
+    registrationNumber
+  }
+  }
+}

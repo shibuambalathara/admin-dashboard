@@ -24,6 +24,7 @@ import AddBidForm from './pages/addBidForm';
 import AddLoactionForm from './pages/addLoactionForm';
 import AddPaymentDetails from './pages/addPaymentDetails';
 import PaymentUserDetails from './pages/paymentUserDetails';
+import AddExcel from './pages/addExcel';
 
 
 
@@ -70,6 +71,7 @@ function App() {
               <Route path='create-payment/:id' element={<AddPaymentDetails />} />
               <Route path='update-payment/:id' element={<AddPaymentDetails />} />
                <Route path='payment/:id' element={<PaymentUserDetails/>} /> 
+               <Route path='excel-upload/:id' element={<AddExcel/>} /> 
           
             </Route>
           </Routes>

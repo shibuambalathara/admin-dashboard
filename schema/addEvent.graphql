@@ -1,5 +1,6 @@
 mutation CreateEvent($data: EventCreateInput!) {
   createEvent(data: $data) {
+    id
   eventCategory
   startDate
   endDate
@@ -22,19 +23,15 @@ downloadableFile {
   url
 }
 termsAndConditions
+
 bidLock
 isSpecialEvent
 extraTime
 extraTimeTrigerIn
 vehicleLiveTimeIn
 gapInBetweenVehicles
-ExcelFile {
-  file {
-    url
-  }
-}
- vehicles {
-   id
- }
+
+
+
   }
 }
