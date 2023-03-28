@@ -5,7 +5,7 @@ const SearchUser = ({filter,setFilter}) => {
     <div className=' flex w-full'>
     <span className='text-black w-full'>
         Search:{' '}
-        <input className='w-60 p-1 rounded bg-slate-200 border-red' type="text"  value={filter || ''} onChange={(e)=>setFilter(e.target.value)}/>
+        <input className='border border-gray-400 rounded py-2 px-4 focus:outline-none focus:border-sky-200' type="text"  value={filter || ''} onChange={(e)=>setFilter(e.target.value)}/>
     </span>
     </div>
   )

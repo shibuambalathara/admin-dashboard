@@ -1,82 +1,29 @@
-import React, { useEffect, useMemo, useState } from "react";
 import { Button } from "@material-tailwind/react";
-
+import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUsersQuery, useDeleteUserMutation } from "../../utils/graphql";
-
 import { useTable, usePagination, useGlobalFilter } from "react-table";
-import SearchUser from "./searchUser";
+import { useEventTableQuery } from "../../utils/graphql";
+import SearchUser from "../users/searchUser";
+import { useLocationsQuery } from "../../utils/graphql";
 
-const ViewUsers = () => {
+const ViewLocationComponent = () => {
   const [userData, setUserData] = useState([]);
-  const [pageIndex, setPageIndex] = useState(0);
-  const [pageSize, setPageSize] = useState(10);
-
   const navigate = useNavigate();
+  const { data, loading, error } = useLocationsQuery();
 
-  const { data, loading, error } = useUsersQuery();
-  const [deleteUserMutation] = useDeleteUserMutation();
-
-  console.log("this is the data from view users", data);
-
-  const handleViewMore = (id) => {
-    navigate(`/view-user/${id}`);
-  };
-  const paymentDetails = (id) => {
-    navigate(`/payment/${id}`);
-  };
-  const handleDelete = (id) => {
-    console.log(id, "delete");
-    deleteUserMutation({ variables: { where: { id: id } } });
-    navigate("/users");
-  };
+  console.log("this is the data from view locations$$$$", data);
 
   const columns = useMemo(
     () => [
-      { Header: "ID", accessor: "idNo" },
-      { Header: "First Name", accessor: "firstName" },
-      { Header: "Last Name", accessor: "lastName" },
-      { Header: "Email", accessor: "email" },
-      { Header: "Mobile", accessor: "mobile" },
-      { Header: "Status", accessor: "status" },
-      { Header: "Pancard Number", accessor: "pancardNo" },
-      {
-        Header: "View more",
-        Cell: ({ row }) => (
-          <button
-            className="bg-green-500 p-2 rounded"
-            onClick={() => handleViewMore(row.original.id)}
-          >
-            View More
-          </button>
-        ),
-      },
-      {
-        Header: "Payment details",
-        Cell: ({ row }) => (
-          <button
-            className="bg-cyan-500 p-2 rounded"
-            onClick={() => paymentDetails(row.original.id)}
-          >
-            Payment Details
-          </button>
-        ),
-      },
-      {
-        Header: "Delete",
-        Cell: ({ row }) => (
-          <button
-            className="bg-red-600 text-white p-2 rounded"
-            onClick={() => handleDelete(row.original.id)}
-          >
-            Delete
-          </button>
-        ),
-      },
+      { Header: "City", accessor: "name" },
+      { Header: "Country", accessor: "country" },
+      { Header: "State", accessor: (row) => row.state.name },
     ],
     []
   );
-  const tableData = useMemo(() => (data ? data.users : []), [data]);
+
+  const tableData = useMemo(() => (data ? data.locations : []), [data]);
+  console.log("this is the TableData from view locations****", tableData);
   const tableInstance = useTable(
     {
       columns,
@@ -90,7 +37,6 @@ const ViewUsers = () => {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-
     page,
     prepareRow,
     nextPage,
@@ -109,25 +55,24 @@ const ViewUsers = () => {
   const { globalFilter } = state;
 
   if (loading) return <p>Loading...</p>;
+
   if (error) return <p>Error :{error}</p>;
 
   return (
-    <div className="w-full  h-full  ">
-      <div className=" w-full ">
+    <div className="w-full  h-full ">
+      <div className="w-full">
         <Button
-          onClick={() => navigate("/add-user")}
-          className="m-5 justify-end w-fit bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+          onClick={() => navigate("/addlocation")}
+          className="m-5 justify-end w-fit bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-8 border border-blue-500 hover:border-transparent rounded"
         >
-          Add User
+          Add Location
         </Button>
       </div>
-
-      <div className=" max-w-7xl mx-auto h-fit">
-        <div className=" flex flex-col justify-center m-auto w-full">
-          <div className="mb-4">
-            <div className="text-center font-extrabold my-5  text-2xl w-full">
-              {" "}
-              User Data{" "}
+      <div className="  max-w-6xl mx-auto h-fit ">
+        <div className="   flex flex-col justify-center m-auto w-full">
+          <div className="mb-2">
+            <div className="text-center font-extrabold my-5 text-lg w-full">
+              LOCATIONS{" "}
             </div>
             <SearchUser
               filter={globalFilter}
@@ -135,8 +80,9 @@ const ViewUsers = () => {
               setFilter={setGlobalFilter}
             />
           </div>
+
           <table
-            className="w-full table-auto bg-white border-collapse border  border-1 border-gray-300  divide-y   text-gray-900"
+            className=" w-full bg-white border-collapse border border-gray-300  table-auto divide-y  text-gray-900"
             {...getTableProps()}
           >
             <thead className="bg-gray-50">
@@ -145,7 +91,7 @@ const ViewUsers = () => {
                   {headerGroup.headers.map((column) => (
                     <th
                       scope="col"
-                      className="py-2 px-2  border  border-10 "
+                      className="py-3 pl-4"
                       {...column.getHeaderProps()}
                     >
                       {column.render("Header")}
@@ -165,7 +111,7 @@ const ViewUsers = () => {
                     {row.cells.map((cell) => {
                       return (
                         <td
-                          className="px-2 py-2 text-md  border  border-1 text-center border-gray-200"
+                          className="py-3 pl-4 text-center border  border-1 text-center border-gray-200"
                           {...cell.getCellProps()}
                         >
                           {cell.render("Cell")}
@@ -211,4 +157,4 @@ const ViewUsers = () => {
   );
 };
 
-export default ViewUsers;
+export default ViewLocationComponent;
