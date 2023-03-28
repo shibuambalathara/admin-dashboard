@@ -4,13 +4,15 @@ import { useForm } from "react-hook-form";
 
 
 import{useSellersItemQuery,useEventTypesQuery,useLocationsQuery,useCreateEventMutation}from '../../utils/graphql'
+import { useNavigate } from "react-router-dom";
 
 
 const AddEventComponent = () => {
-  const{data}=useSellersItemQuery()
+  const navigate=useNavigate()
+  const sellersItem=useSellersItemQuery()
   const eventType=useEventTypesQuery()
   const location=useLocationsQuery()
-  const [addEvent]=useCreateEventMutation()
+  const [addEvent,{data}]=useCreateEventMutation()
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   
@@ -19,7 +21,7 @@ const AddEventComponent = () => {
     const isoDateTime = new Date(dataOnSubmit?.startDate).toISOString();
     const endDateTime = new Date(dataOnSubmit?.endDate).toISOString();
     const bids=+dataOnSubmit?.noOfBids
-    const extraTimeTriger=+dataOnSubmit?.extraTimeTriger
+    const extraTimeTriger=+dataOnSubmit?.timeTriger
     const extraTime=+dataOnSubmit?.extraTime
     const gap=+dataOnSubmit?.gap
     const live=+dataOnSubmit?.liveTime
@@ -35,16 +37,28 @@ const AddEventComponent = () => {
       eventType:{connect:{id:dataOnSubmit?.event }},
       location :{connect:{id:dataOnSubmit?.location}},
       status:dataOnSubmit?.status,
-      downloadableFile :{upload:dataOnSubmit?.downloadable[0]},
+      downloadableFile :{upload:dataOnSubmit?.downloadable[0] },
       termsAndConditions:dataOnSubmit?.terms,
       bidLock:dataOnSubmit?.lockedOrNot,
       isSpecialEvent:dataOnSubmit?.special,
       extraTimeTrigerIn:extraTimeTriger,
       extraTime:extraTime,
       vehicleLiveTimeIn:live,
-      gapInBetweenVehicles:gap
+      gapInBetweenVehicles:gap,
+      // ExcelFile:{create:{file:{upload:dataOnSubmit?.uploadFile[0],name:dataOnSubmit?.uploadFileName}}}
     }
-const result=addEvent({variables:{data:eventData}})
+ addEvent({variables:{data:eventData}})
+ .then(result=>{console.log("result",result)
+
+ if(data?.createEvent?.id){
+ 
+  console.log(data,"return data")
+  navigate(`/excel-upload/${data.createEvent.id}`)
+ }
+})
+ .catch((error)=>console.log("error",error))
+
+
   }
   return (
     <div className="max-w-7xl mx-auto h-fit  my-10 bg-slate-100 ">
@@ -122,7 +136,7 @@ const result=addEvent({variables:{data:eventData}})
                 >
                 
                   <option  value="">Select</option>
-                  {data?.sellers.map((seller)=>
+                  {sellersItem?.data?.sellers.map((seller)=>
                  (
                      <option key={seller.id} value={seller.id}>{seller.name}</option>
                  ) )}
@@ -210,13 +224,15 @@ const result=addEvent({variables:{data:eventData}})
                <div className="flex flex-col items-start  ">
                 <label>Downloadable File</label>
                 <input type="file"
-                  {...register("downloadable",{})}
+                  {...register("downloadable",{required:true})}
                  className="  btn btn-outline btn-success border border-1 border-lime-800 text-black rounded  px-10 m-2 bg-slate-200"></input>
+              <p className="text-red-500"> {errors.downloadable&& <span>Downloadable file required</span>}</p> 
               </div>
              
               <div className="flex flex-col space-y-2">
                 <label htmlFor="">Terms & Condition</label>
-               <textarea 
+               <textarea
+               type="text" 
                  {...register("terms",{})}
                className="max-w-xl border border-gray-400   text-gray-700  rounded  shadow hover:bg-white " name="" id="" cols="30" rows="10"></textarea>
               </div>
@@ -282,6 +298,10 @@ const result=addEvent({variables:{data:eventData}})
                   className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
+
+
+           
+
               <div className=" flex space-x-10">
                 <button className="btn btn-success"> Save </button>
                
