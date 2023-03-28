@@ -1,5 +1,6 @@
 import { Input } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
+import Select from 'react-select';
 
 import React, { useState } from "react";
 import { useCreateUserMutation, useSelectorsQuery } from "../../utils/graphql";
@@ -162,11 +163,8 @@ const AddUser = () => {
             <div className="flex  justify-around ">
               <div className="flex flex-col  w-1/3">
                 <label htmlFor="">Bannned Sellers</label>
-                <select className="p-3 input input-bordered input-secondary w-full">
-                  <option value=""></option>
-                  <option></option>
-                  <option></option>
-                </select>
+                <Select isMulti className="p-3 input input-bordered input-secondary w-full"/>
+                 
               </div>
               <div className="flex flex-col  w-1/3">
                 <label htmlFor="">Confirm Password</label>
