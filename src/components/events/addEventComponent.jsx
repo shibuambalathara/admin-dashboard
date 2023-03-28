@@ -34,7 +34,7 @@ const AddEventComponent = () => {
       eventType:{connect:{id:dataOnSubmit?.event }},
       location :{connect:{id:dataOnSubmit?.location}},
       status:dataOnSubmit?.status,
-      // file:{url:dataOnSubmit?.downloadable},
+      downloadableFile :{upload:dataOnSubmit?.downloadable[0]},
       termsAndConditions:dataOnSubmit?.terms,
       bidLock:dataOnSubmit?.lockedOrNot,
       isSpecialEvent:dataOnSubmit?.special,
@@ -69,7 +69,7 @@ const result=addEvent({variables:{data:eventData}})
                    {...register("eventCategory",{required:true})}
                   className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
                 >
-                  {/* <option value="" selected placeholder="select">select </option> */}
+              
                   <option value="online">Online Auction </option>
                   <option value="open">Open Auction</option>
                 </select>
@@ -77,7 +77,7 @@ const result=addEvent({variables:{data:eventData}})
 
               </div>
               <div className=" flex flex-col space-y-2 space-x-px ">
-                <label htmlFor="">Start Date</label>
+                <label htmlFor="">Start Date and Time</label>
                 <div className="flex space-x-6 ">
                
                   <input
@@ -91,7 +91,7 @@ const result=addEvent({variables:{data:eventData}})
                 </div>
               </div>
               <div className=" flex flex-col space-y-2 space-x-px ">
-                <label htmlFor="">End Date</label>
+                <label htmlFor="">End Date and Time</label>
                 <div className="flex space-x-6">
                   <input
                     type="datetime-local"
@@ -99,7 +99,7 @@ const result=addEvent({variables:{data:eventData}})
                     placeholder="mm//dd/yy"
                     {...register("endDate",{required:true})}
                   />
-                  {/* <input type="date" className="input input-bordered input-secondary w-full "/> */}
+               
                   
                    <p className="text-red-500"> {errors.endDate&& <span>End date and time required</span>}</p> 
                 </div>
@@ -119,7 +119,7 @@ const result=addEvent({variables:{data:eventData}})
                   {...register("sellerName",{})}
                   className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
                 >
-                  {/* <option value="" selected placeholder="select">select </option> */}
+                
                   <option  value="">Select</option>
                   {data?.sellers.map((seller)=>
                  (
@@ -139,7 +139,7 @@ const result=addEvent({variables:{data:eventData}})
                   name=""
                   id=""
                   placeholder="select"
-                  {...register("event",{})}
+                  {...register("event",{required:true})}
                   className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
                 >
                   <option  value="">Select</option>
@@ -160,7 +160,7 @@ const result=addEvent({variables:{data:eventData}})
                   name=""
                   id=""
                   placeholder="select"
-                  {...register("location",{})}
+                  {...register("location",{required:true})}
                   className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700   hover:bg-white "
                 >
                   <option  value="">Select</option>
@@ -170,26 +170,10 @@ const result=addEvent({variables:{data:eventData}})
                  ) )}
                 </select>
               </div>
-              {/* <div className="flex flex-col space-y-2 relative ">
-                <label className="text-base" htmlFor="">
-                  Vechiles
-                </label>
-                <div class="absolute inset-y-10 - right-32 flex items-center ">
-                  <div class="h-5 w-0.5 border bg-gray-400 "></div>
-                </div>
-                <select
-                  name=""
-                  id=""
-                  placeholder="select"
-                  className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
-                >
-        
-                  <option value="">online </option>
-                  <option value="">offline</option>
-                </select>
-              </div> */}
+             
+             
               <div className="w-full max-w-xl">
-                <label htmlFor="">No of Bids</label>
+                <label htmlFor="">Number of Bids(per User)</label>
                 <Input
                   type="number"
                   {...register("noOfBids",{required:true})}
@@ -200,7 +184,7 @@ const result=addEvent({variables:{data:eventData}})
               </div>
               <div className="flex flex-col space-y-2 relative ">
                 <label className="text-base" htmlFor="">
-                 Action status
+                 Auction status
                 </label>
                 <div class="absolute inset-y-10 - right-32 flex items-center ">
                   <div class="h-5 w-0.5 border bg-gray-400 "></div>
@@ -220,24 +204,7 @@ const result=addEvent({variables:{data:eventData}})
                   <option value="stop">stop</option>
                 </select>
               </div>
-              {/* <div className="flex flex-col space-y-2 relative ">
-                <label className="text-base" htmlFor="">
-                  Excel Uploads
-                </label>
-                <div class="absolute inset-y-10 - right-32 flex items-center ">
-                  <div class="h-5 w-0.5 border bg-gray-400 "></div>
-                </div>
-                <select
-                  name=""
-                  id=""
-                  placeholder="select"
-                  className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700  hover:bg-white"
-                >
-        
-                  <option value="">online </option>
-                  <option value="">offline</option>
-                </select>
-              </div> */}
+          
              
                <div className="flex flex-col items-start  ">
                 <label>Downloadable File</label>
@@ -286,19 +253,19 @@ const result=addEvent({variables:{data:eventData}})
                 />
               </div>
               <div className="w-full max-w-xl">
-                <label htmlFor="">Extra Time in minuted</label>
+                <label htmlFor="">Extra Time in minutes</label>
                 <Input
-                  type="text"
+                  type="number"
                   {...register("extraTime",{})}
                   className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
               <div className="w-full max-w-xl">
                 <label htmlFor="">
-                  Open Auction Vehicle Live Time in minuted
+                  Open Auction Vehicle Live Time in minutes
                 </label>
                 <Input
-                  type="text"
+                  type="number"
                   {...register("liveTime",{})}
                   className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
@@ -309,14 +276,14 @@ const result=addEvent({variables:{data:eventData}})
                   Time Increase in Minuts
                 </label>
                 <Input
-                  type="text"
+                  type="number"
                   {...register("gap",{})}
                   className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
               <div className=" flex space-x-10">
                 <button className="btn btn-success"> Save </button>
-                {/* <button className="btn btn-outline btn-error">Delete</button> */}
+               
               </div>
             </div>
           </form>
