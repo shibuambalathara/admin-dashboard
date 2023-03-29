@@ -17,7 +17,7 @@ const ViewUsers = () => {
   const { data, loading, error } = useUsersQuery();
   const [deleteUserMutation] = useDeleteUserMutation();
 
-  console.log("this is the data from view users", data);
+  console.log("this is the data from view users11", data);
 
   const handleViewMore = (id) => {
     navigate(`/view-user/${id}`);
@@ -77,6 +77,8 @@ const ViewUsers = () => {
     []
   );
   const tableData = useMemo(() => (data ? data.users : []), [data]);
+  console.log("this is the tabledata from view users",tableData);
+
   const tableInstance = useTable(
     {
       columns,
@@ -112,7 +114,7 @@ const ViewUsers = () => {
   if (error) return <p>Error :{error}</p>;
 
   return (
-    <div className="w-full  h-full  ">
+    <div className="w-full  h-fit  ">
       <div className=" w-full ">
         <Button
           onClick={() => navigate("/add-user")}
@@ -122,10 +124,10 @@ const ViewUsers = () => {
         </Button>
       </div>
 
-      <div className=" max-w-7xl mx-auto h-fit">
+      <div className=" max-w-6xl mx-auto h-fit">
         <div className=" flex flex-col justify-center m-auto w-full">
           <div className="mb-4">
-            <div className="text-center font-extrabold my-5  text-2xl w-full">
+            <div className="text-center font-extrabold my-1  text-2xl w-full">
               {" "}
               User Data{" "}
             </div>
