@@ -33,7 +33,7 @@ const Sidebar_items=[
   },
   {
     name:"Locations",
-    path:"locations"
+    path:"viewlocation"
   },
   {
     name:"States",
