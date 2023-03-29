@@ -1,8 +1,10 @@
 import React from 'react'
-
+import ViewStates from '../components/state/viewStates'
 const States = () => {
   return (
-    <div>States</div>
+    <div className='w-full'>
+      <ViewStates/>
+    </div>
   )
 }
 

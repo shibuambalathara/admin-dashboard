@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 
 const AddLocationComponent = () => {
   return (
-    <div className="max-w-7xl mx-auto h-fit  my-10 bg-slate-100 ">
+    <div className="max-w-6xl mx-auto h-fit  my-10 bg-slate-100 ">
       <div className="bg-slate-200 py-8 flex justify-center items-center">
         <h1 className="font-bold ">ADD LOCATION</h1>
       </div>
@@ -24,7 +24,7 @@ const AddLocationComponent = () => {
               <label className="t" htmlFor=" ">
                 State{" "}
               </label>
-              <div class="absolute inset-y-12   right-[618px] flex items-center ">
+              <div class="absolute inset-y-12   right-[595px] flex items-center ">
                 <div class="h-5 w-1 border bg-gray-400 "></div>
               </div>
               <select
