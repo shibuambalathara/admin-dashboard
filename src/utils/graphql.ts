@@ -3028,6 +3028,11 @@ export type CreateExcelUploadMutationVariables = Exact<{
 
 export type CreateExcelUploadMutation = { __typename?: 'Mutation', createExcelUpload?: { __typename?: 'ExcelUpload', id: string, name?: string | null, file?: { __typename?: 'FileFieldOutput', url: string, filename: string } | null, event?: { __typename?: 'Event', id: string } | null, vehicles?: Array<{ __typename?: 'Vehicle', id: string, registrationNumber?: string | null }> | null } | null };
 
+export type ExcelUploadsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ExcelUploadsQuery = { __typename?: 'Query', excelUploads?: Array<{ __typename?: 'ExcelUpload', name?: string | null, file?: { __typename?: 'FileFieldOutput', filename: string } | null, event?: { __typename?: 'Event', eventNo?: number | null } | null }> | null };
+
 export type LocationsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3067,7 +3072,7 @@ export type SelectorsQuery = { __typename?: 'Query', states?: Array<{ __typename
 export type SellersItemQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type SellersItemQuery = { __typename?: 'Query', sellers?: Array<{ __typename?: 'Seller', name?: string | null, id: string }> | null };
+export type SellersItemQuery = { __typename?: 'Query', sellers?: Array<{ __typename?: 'Seller', name?: string | null, id: string }> | null, events?: Array<{ __typename?: 'Event', eventNo?: number | null }> | null };
 
 export type SellersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3679,6 +3684,46 @@ export function useCreateExcelUploadMutation(baseOptions?: Apollo.MutationHookOp
 export type CreateExcelUploadMutationHookResult = ReturnType<typeof useCreateExcelUploadMutation>;
 export type CreateExcelUploadMutationResult = Apollo.MutationResult<CreateExcelUploadMutation>;
 export type CreateExcelUploadMutationOptions = Apollo.BaseMutationOptions<CreateExcelUploadMutation, CreateExcelUploadMutationVariables>;
+export const ExcelUploadsDocument = gql`
+    query ExcelUploads {
+  excelUploads {
+    name
+    file {
+      filename
+    }
+    event {
+      eventNo
+    }
+  }
+}
+    `;
+
+/**
+ * __useExcelUploadsQuery__
+ *
+ * To run a query within a React component, call `useExcelUploadsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useExcelUploadsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useExcelUploadsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useExcelUploadsQuery(baseOptions?: Apollo.QueryHookOptions<ExcelUploadsQuery, ExcelUploadsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ExcelUploadsQuery, ExcelUploadsQueryVariables>(ExcelUploadsDocument, options);
+      }
+export function useExcelUploadsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ExcelUploadsQuery, ExcelUploadsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ExcelUploadsQuery, ExcelUploadsQueryVariables>(ExcelUploadsDocument, options);
+        }
+export type ExcelUploadsQueryHookResult = ReturnType<typeof useExcelUploadsQuery>;
+export type ExcelUploadsLazyQueryHookResult = ReturnType<typeof useExcelUploadsLazyQuery>;
+export type ExcelUploadsQueryResult = Apollo.QueryResult<ExcelUploadsQuery, ExcelUploadsQueryVariables>;
 export const LocationsDocument = gql`
     query locations {
   locations {
@@ -3944,6 +3989,9 @@ export const SellersItemDocument = gql`
   sellers {
     name
     id
+  }
+  events {
+    eventNo
   }
 }
     `;

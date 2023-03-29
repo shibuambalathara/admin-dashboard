@@ -28,6 +28,7 @@ import AddExcel from "./pages/addExcel";
 import AddEventType from "./pages/addEventType";
 import ViewLocations from "./pages/viewLocations";
 import Table from "./components/Sellers/table";
+import EditEvent from "./pages/editEvent";
 
 function App() {
   return (
@@ -49,7 +50,6 @@ function App() {
               <Route path="vehicles" element={<Vehicles />} />
               <Route path="bids" element={<Bids />} />
               <Route path="event-types" element={<EventTypes />} />
-
               <Route path="states" element={<States />} />
               <Route path="excel-uploads" element={<ExcelUploads />} />
               <Route path="sellers" element={<Sellers />} />
@@ -68,6 +68,7 @@ function App() {
               <Route path="payment/:id" element={<PaymentUserDetails />} />
               <Route path="addstate" element={<AddStateForm />} />
               <Route path="addeventtype" element={<AddEventType />} />
+              <Route path="edit-event/:id" element={<EditEvent />} />
               <Route path="viewlocation" element={<ViewLocations />} />
               <Route path="excel-upload/:id" element={<AddExcel />} />
             </Route>
