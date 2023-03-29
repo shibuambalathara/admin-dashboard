@@ -30,7 +30,6 @@ const ExcelUploadsComponent = () => {
   }
 
 
-
   const customStyles = {
     control: (provided,state) => ({
       ...provided,
@@ -70,46 +69,16 @@ const ExcelUploadsComponent = () => {
             </p>
           </div>
           <div className="flex flex-col">
-
-
-  return (
-    <div className="flex flex-col items-start  ">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <div>
-            <label>Event Id</label>
-            <input className="border"
-              type="text"
-              disabled
-              value={id}
-              {...register("eventId", { required: true })}
-            ></input>
-          </div>
-          <label>File Name</label>
-          <input
-            type="text"
-            {...register("uploadFileName", { required: true })}
-          ></input>
-          <p className="text-red-500">
-            {" "}
-            {errors.uploadFileName && <span>Downloadable file required</span>}
-          </p>
-
           <label>Upload file</label>
           <input
             type="file"
             {...register("uploadFile", { required: true })}
-
             className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-
-            className="  btn btn-outline btn-success border border-1 border-lime-800 text-black rounded  px-10 m-2 bg-slate-200"
-
           ></input>
           <p className="text-red-500">
             {" "}
             {errors.uploadFile && <span>Downloadable file required</span>}
           </p>
-
           </div>
           <div className=" flex  mt-5 mb-5">
             <button className="btn btn-success px-10"> Save </button>
@@ -129,20 +98,6 @@ const ExcelUploadsComponent = () => {
         />
         </div>
       </div>
-
-          <div className=" flex space-x-10">
-            <button className="btn btn-success"> Save </button>
-          </div>
-        </div>
-      </form>
-      <Select
-        className="w-full text-black"
-        options={data?.createExcelUpload?.vehicles.map((vehicle) => ({
-          label: vehicle.registrationNumber,
-        }))}
-        isMulti
-      />
-
     </div>
   );
 };
