@@ -73,7 +73,7 @@ const ViewStates = () => {
       <div className="   flex flex-col justify-center m-auto w-full">
         <div className="mb-2">
           <div className="text-center font-extrabold my-5 text-lg w-full">
-            LOCATIONS{" "}
+            STATES{" "}
           </div>
           <SearchUser
             filter={globalFilter}
