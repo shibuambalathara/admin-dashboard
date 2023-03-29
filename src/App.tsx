@@ -1,4 +1,5 @@
 
+
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Sidebar from './components/sidebar';
@@ -24,9 +25,11 @@ import AddBidForm from './pages/addBidForm';
 import AddLoactionForm from './pages/addLoactionForm';
 import AddPaymentDetails from './pages/addPaymentDetails';
 import PaymentUserDetails from './pages/paymentUserDetails';
-import AddExcel from './pages/addExcel';
+
+
 import AddUser from "./components/user/addUser";
 import AddStateForm from "./pages/addStateForm";
+
 import AddEventType from "./pages/addEventType";
 import ViewLocations from "./pages/viewLocations";
 import EditEvent from './pages/editEvent';
