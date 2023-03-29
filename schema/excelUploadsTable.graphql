@@ -1,0 +1,11 @@
+query ExcelUploads {
+  excelUploads {
+  name
+  file {
+    filename
+  }  
+  event {
+    eventNo
+  }
+  }
+}
