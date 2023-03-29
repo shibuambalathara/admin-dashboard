@@ -6,31 +6,40 @@ import {useEventTableQuery} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
 const EventsTableComponent = () => {
     const {data,loading,error}=useEventTableQuery()
+
 console.log("this is data form events table",data);
+
 
     const navigate=useNavigate()
 
+   const handleUploadExcelFile=(id)=>{
+    navigate(`/excel-upload/${id}`)
+   }
+   const handleEditEvent=(id)=>{
+    navigate(`/edit-event/${id}`)
+   }
+
     const columns = useMemo(
         () => [
-          { Header: "ID", accessor: "eventNo" },
+          { Header: "Event No", accessor: "eventNo" },
           { Header: "Event Category ", accessor: "eventCategory" },
           { Header: "Start Date ", accessor: "startDate" },
           { Header: "End Date ", accessor: "endDate" },
-          { Header: "Status ", accessor: "status" }
+          { Header: "Status ", accessor: "status" },
 
          
-        //   {
-        //     Header: "View more",
-        //     Cell: ({ row }) => (
-        //       <button className="bg-green-500 p-2 rounded" onClick={()=>handleViewMore(row.original.id) }>View More</button>
-        //     )
-        //   },
-        //   {
-        //     Header: "Delete",
-        //     Cell: ({ row }) => (
-        //       <button className="bg-red-600 text-white p-2 rounded" onClick={() => handleDelete(row.original.id)}>Delete</button>
-        //     )
-        //   }
+          {
+            Header: "Upload Excel File",
+            Cell: ({ row }) => (
+              <button className="btn btn-info" onClick={()=>handleUploadExcelFile(row.original.id) }>Upload</button>
+            )
+          },
+          {
+            Header: "Edit Event",
+            Cell: ({ row }) => (
+              <button className="btn btn-warning" onClick={() => handleEditEvent(row.original.id)}>Edit</button>
+            )
+          }
           
         ],
         []

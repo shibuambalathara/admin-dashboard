@@ -60,7 +60,6 @@ const AddUser = () => {
     }
   };
 
-  // console.log(data,"dataaaaaaaaa")
 
   return (
     <div className=" w-full mx-auto h-fit">

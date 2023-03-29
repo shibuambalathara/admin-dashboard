@@ -1,5 +1,6 @@
 query eventTable {
   events {
+    id
   eventNo
   eventCategory  
   startDate
