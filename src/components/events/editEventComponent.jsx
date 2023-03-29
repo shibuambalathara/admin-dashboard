@@ -269,6 +269,7 @@ const handleOnClick=()=>{
           
              
                <div className="flex flex-col items-start  ">
+              
                 <label>Downloadable File</label>
                 <input type="file"
                   {...register("downloadable",{})}

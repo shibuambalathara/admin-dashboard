@@ -39,7 +39,7 @@ function App() {
         <div className="flex w-screen ">
           <Sidebar />
           <Routes>
-            <Route path='login' element={<LoginPage />} />
+            {/* <Route path='login' element={<LoginPage />} />
         
             <Route element={<ProtectedRoutes />}>
               <Route path='/'  element={<Home />} />
@@ -66,11 +66,11 @@ function App() {
               <Route path='create-payment/:id' element={<AddPaymentDetails />} />
               <Route path='update-payment/:id' element={<AddPaymentDetails />} />
                <Route path='payment/:id' element={<PaymentUserDetails/>} /> 
-               <Route path='excel-upload/:id' element={<AddExcel/>} /> 
+               
           
-            </Route>
+            </Route> */}
             <Route path="login" element={<LoginPage />} />
-            <Route element={<ProtectedRoutes />} />
+            <Route element={<ProtectedRoutes />} >
             <Route path="/" element={<Home />} />
             <Route path="users" element={<Users />} />
             <Route path="events" element={<AddEvents />} />
@@ -96,7 +96,8 @@ function App() {
             <Route path="addeventtype" element={<AddEventType/>} />
             <Route path="viewlocation" element={<ViewLocations/>} />
             <Route path="edit-event/:id" element={<EditEvent />} />
-
+            <Route path='excel-upload/:id' element={<AddExcel/>} /> 
+</Route>
           </Routes>
         </div>
       </Router>
