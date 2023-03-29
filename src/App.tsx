@@ -38,7 +38,6 @@ function App() {
           <Sidebar />
           <Routes>
             <Route path="login" element={<LoginPage />} />
-
             <Route element={<ProtectedRoutes />}>
               <Route path="/" element={<Home />} />
               <Route path="users" element={<Users />} />
@@ -54,12 +53,10 @@ function App() {
               <Route path="states" element={<States />} />
               <Route path="excel-uploads" element={<ExcelUploads />} />
               <Route path="sellers" element={<Sellers />} />
-
               <Route path="addevent" element={<AddEventForm />} />
               <Route path="addvehicle" element={<AddVehicle />} />
               <Route path="addBid" element={<AddBidForm />} />
               <Route path="addlocation" element={<AddLoactionForm />} />
-
               <Route
                 path="create-payment/:id"
                 element={<AddPaymentDetails />}
@@ -69,34 +66,11 @@ function App() {
                 element={<AddPaymentDetails />}
               />
               <Route path="payment/:id" element={<PaymentUserDetails />} />
+              <Route path="addstate" element={<AddStateForm />} />
+              <Route path="addeventtype" element={<AddEventType />} />
+              <Route path="viewlocation" element={<ViewLocations />} />
               <Route path="excel-upload/:id" element={<AddExcel />} />
             </Route>
-            <Route path="login" element={<LoginPage />} />
-            <Route element={<ProtectedRoutes />} />
-            <Route path="/" element={<Home />} />
-            <Route path="users" element={<Users />} />
-            <Route path="events" element={<AddEvents />} />
-            <Route path="add-user" element={<AddUser />} />
-            <Route path="view-user/:id" element={<UserDetails />} />
-            <Route path="payment" element={<Payments />} />
-            <Route path="emd" element={<Emd />} />
-            <Route path="vehicles" element={<Vehicles />} />
-            <Route path="bids" element={<Bids />} />
-            <Route path="event-types" element={<EventTypes />} />
-
-            <Route path="states" element={<States />} />
-            <Route path="excel-uploads" element={<ExcelUploads />} />
-            <Route path="sellers" element={<Sellers />} />
-            <Route path="addevent" element={<AddEventForm />} />
-            <Route path="addvehicle" element={<AddVehicle />} />
-            <Route path="addBid" element={<AddBidForm />} />
-            <Route path="addlocation" element={<AddLoactionForm />} />
-            <Route path="create-payment/:id" element={<AddPaymentDetails />} />
-            <Route path="update-payment/:id" element={<AddPaymentDetails />} />
-            <Route path="payment/:id" element={<PaymentUserDetails />} />
-            <Route path="addstate" element={<AddStateForm />} />
-            <Route path="addeventtype" element={<AddEventType />} />
-            <Route path="viewlocation" element={<ViewLocations />} />
           </Routes>
         </div>
       </Router>
