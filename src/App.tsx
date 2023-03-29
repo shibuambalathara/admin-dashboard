@@ -1,33 +1,38 @@
 
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Sidebar from "./components/sidebar";
-import Users from "./pages/Users";
-import { LoginPage } from "./pages/login";
-import { Home } from "./pages/home";
-import ProtectedRoutes from "./utils/protectedRoute";
-import AddEvents from "./pages/events";
+
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import Sidebar from './components/sidebar';
+import Users from './pages/Users';
+import { LoginPage } from './pages/login';
+import { Home } from './pages/home';
+import ProtectedRoutes from './utils/protectedRoute';
+import AddEvents from './pages/events';
+import Header from './components/header';
+import UserDetails from './pages/userDetails';
+import Payments from './pages/payments';
+import Emd from './pages/emd';
+import Vehicles from './pages/vehicles';
+import Bids from './pages/bids';
+import EventTypes from './pages/eventTypes';
+import LocationsTable from './pages/locationsTable';
+import States from './pages/states';
+import ExcelUploads from './pages/excelUploads';
+import Sellers from './pages/sellers';
+import AddEventForm from './pages/addEventForm';
+import AddVehicle from './pages/addVehicle';
+import AddBidForm from './pages/addBidForm';
+import AddLoactionForm from './pages/addLoactionForm';
+import AddPaymentDetails from './pages/addPaymentDetails';
+import PaymentUserDetails from './pages/paymentUserDetails';
+
+
 import AddUser from "./components/user/addUser";
-import Header from "./components/header";
-import UserDetails from "./pages/userDetails";
-import Payments from "./pages/payments";
-import Emd from "./pages/emd";
-import Vehicles from "./pages/vehicles";
-import Bids from "./pages/bids";
-import EventTypes from "./pages/eventTypes";
-import LocationsTable from "./pages/locationsTable";
-import States from "./pages/states";
-import ExcelUploads from "./pages/excelUploads";
-import Sellers from "./pages/sellers";
-import AddEventForm from "./pages/addEventForm";
-import AddVehicle from "./pages/addVehicle";
-import AddBidForm from "./pages/addBidForm";
-import AddLoactionForm from "./pages/addLoactionForm";
-import AddPaymentDetails from "./pages/addPaymentDetails";
-import PaymentUserDetails from "./pages/paymentUserDetails";
 import AddStateForm from "./pages/addStateForm";
-import AddExcel from './pages/addExcel';
+
 import AddEventType from "./pages/addEventType";
 import ViewLocations from "./pages/viewLocations";
+import EditEvent from './pages/editEvent';
 
 function App() {
   return (
@@ -81,7 +86,7 @@ function App() {
             <Route path="event-types" element={<EventTypes />} />
             <Route path="locations" element={<LocationsTable />} />
             <Route path="states" element={<States />} />
-            <Route path="excel-uploads" element={<ExcelUploads />} />
+            {/* <Route path="excel-uploads" element={<ExcelUploads />} /> */}
             <Route path="sellers" element={<Sellers />} />
             <Route path="addevent" element={<AddEventForm />} />
             <Route path="addvehicle" element={<AddVehicle />} />
@@ -93,6 +98,8 @@ function App() {
             <Route path="addstate" element={<AddStateForm />} />
             <Route path="addeventtype" element={<AddEventType/>} />
             <Route path="viewlocation" element={<ViewLocations/>} />
+            <Route path="edit-event/:id" element={<EditEvent />} />
+
           </Routes>
         </div>
       </Router>

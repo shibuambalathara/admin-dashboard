@@ -3,18 +3,58 @@ import { Input } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
 
 
-import{useSellersItemQuery,useEventTypesQuery,useLocationsQuery,useCreateEventMutation}from '../../utils/graphql'
-import { useNavigate } from "react-router-dom";
+import{useSellersItemQuery,useEventTypesQuery,useLocationsQuery,useEventQuery}from '../../utils/graphql'
+import { useNavigate, useParams } from "react-router-dom";
 
 
-const AddEventComponent = () => {
- 
+const EditEventComponent = () => {
+ const {id}=useParams()
   const navigate=useNavigate()
   const sellersItem=useSellersItemQuery()
   const eventType=useEventTypesQuery()
   const location=useLocationsQuery()
-  const [addEvent,{data}]=useCreateEventMutation()
+   const {data,loading,error}=useEventQuery({variables:{where:{id}}})
 
+
+  
+   const date=new Date( data?.event?.startDate)
+
+
+   const year = date.getFullYear();
+   const month = (date.getMonth() + 1).toString().padStart(2, '0');
+   const day = date.getDate().toString().padStart(2, '0');
+   const hours = date.getHours().toString().padStart(2, '0');
+   const minutes = date.getMinutes().toString().padStart(2, '0');
+   
+   const dateTimeLocal = `${year}-${month}-${day}T${hours}:${minutes}`;
+
+   console.log(dateTimeLocal,"start date")
+
+
+
+   const dateEnd=new Date( data?.event?.endDate)
+
+
+   const year1 = dateEnd.getFullYear();
+   const month1 = (dateEnd.getMonth() + 1).toString().padStart(2, '0');
+   const day1 = dateEnd.getDate().toString().padStart(2, '0');
+   const hours1 = dateEnd.getHours().toString().padStart(2, '0');
+   const minutes1 = dateEnd.getMinutes().toString().padStart(2, '0');
+   
+   const dateTimeLocal1 = `${year1}-${month1}-${day1}T${hours1}:${minutes1}`;
+
+   console.log(dateTimeLocal,"start date")
+
+
+
+
+
+
+
+
+if(loading){
+  <div>Loading........</div>
+}
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   
   const onSubmit = dataOnSubmit =>{ console.log(dataOnSubmit);
@@ -38,7 +78,7 @@ const AddEventComponent = () => {
       eventType:{connect:{id:dataOnSubmit?.event ||"" }},
       location :{connect:{id:dataOnSubmit?.location ||""}},
       status:dataOnSubmit?.status,
-      // downloadableFile :{upload:dataOnSubmit?.downloadable[0] },
+      
       termsAndConditions:dataOnSubmit?.conditions,
       bidLock:dataOnSubmit?.lockedOrNot,
       isSpecialEvent:dataOnSubmit?.special,
@@ -51,18 +91,18 @@ const AddEventComponent = () => {
     if (dataOnSubmit.downloadable[0] && dataOnSubmit.downloadable.length) {
       eventData["downloadableFile"] = { upload: dataOnSubmit.downloadable[0] };
     }
- addEvent({variables:{data:eventData}})
- .then(result=>{console.log("result",result)
+//  addEvent({variables:{data:eventData}})
+//  .then(result=>{console.log("result",result)
 
-})
- .catch((error)=>console.log("error",error))
+// })
+//  .catch((error)=>console.log("error",error))
 
 
   }
 
 const handleOnClick=()=>{
-  console.log(data,"return data")
-  navigate(`/excel-upload/${data.createEvent.id}`)
+  // console.log(data,"return data")
+  // navigate(`/excel-upload/${data.createEvent.id}`)
 }
 
   return (
@@ -70,7 +110,7 @@ const handleOnClick=()=>{
       <div className="space-y-1 "> 
         <div className="py-4 bg-gray-200 rounded px-4 flex items-center justify-center ">
           <h2 className="text-xl py-3 leading-3 font-bold text-gray-900">
-            ADD EVENT
+            EDIT EVENT
           </h2>
         </div>
         <div className="flex flex-col  w-full px-10 py-10 ">
@@ -84,12 +124,12 @@ const handleOnClick=()=>{
                   <div class="h-5 w-0.5 border bg-gray-400 "></div>
                 </div>
                 <select
-                 
+                  defaultValue={data?.event?.eventCategory}
                   placeholder="select"
                    {...register("eventCategory",{})}
                   className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
                 >
-              
+              <option value={data?.event?.eventCategory}>{data?.event?.eventCategory}</option>
                   <option value="online">Online Auction </option>
                   <option value="open">Open Auction</option>
                 </select>
@@ -103,7 +143,7 @@ const handleOnClick=()=>{
                   <input
                     type="datetime-local"
                     className="btn btn-outline"
-                 
+                 defaultValue={dateTimeLocal}
                     {...register("startDate",{required:true})}
                   />
  <p className="text-red-500"> {errors.startDate&& <span>Start date and time required</span>}</p> 
@@ -117,6 +157,7 @@ const handleOnClick=()=>{
                     type="datetime-local"
                     className="btn btn-outline "
                     placeholder="mm//dd/yy"
+                    defaultValue={dateTimeLocal1}
                     {...register("endDate",{required:true})}
                   />
                
@@ -139,7 +180,7 @@ const handleOnClick=()=>{
                   className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
                 >
                 
-                  <option  value="">Select</option>
+                  <option  value={data?.event?.seller?.id}>{data?.event?.seller?.name}</option>
                   {sellersItem?.data?.sellers.map((seller)=>
                  (
                      <option key={seller.id} value={seller.id}>{seller.name}</option>
@@ -161,7 +202,7 @@ const handleOnClick=()=>{
                   {...register("event",{required:true})}
                   className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
                 >
-                  <option  value="">Select</option>
+                     <option value={data?.event?.eventType?.id} >{data?.event?.eventType?.name}</option>
                    {eventType?.data?.eventTypes?.map((event)=>
                  (
                      <option key={event.id} value={event.id}>{event.name} </option>
@@ -183,7 +224,7 @@ const handleOnClick=()=>{
                   {...register("location",{required:true})}
                   className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700   hover:bg-white "
                 >
-                  <option  value="">Select</option>
+                     <option  value={data?.event?.location?.id}>{data?.event?.location?.name}</option>
                    {location?.data?.locations?.map((location)=>
                  (
                      <option key={location.name} value={location.id}>{location.name}</option>
@@ -194,12 +235,12 @@ const handleOnClick=()=>{
               </div>
              
              
-              <div className="w-full max-w-xl">
+              <div className="w-full flex flex-col max-w-xl">
                 <label htmlFor="">Number of Bids(per User)</label>
-                <Input
+                <input
                   type="number"
                   {...register("noOfBids",{required:true})}
-                  
+                  defaultValue={data?.event?.noOfBids}
                   className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
                  <p className="text-red-500"> {errors.noOfBids&& <span>No of bids Required</span>}</p> 
@@ -217,7 +258,7 @@ const handleOnClick=()=>{
                   {...register("status",{})}
                   className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700  hover:bg-white"
                 >
-        
+           <option  value={data?.event?.seller?.name}>{data?.event?.status}</option>
                   <option value="pending">pending </option>
                   <option value="blocked">blocked</option>
                   <option value="active">active</option>
@@ -239,6 +280,7 @@ const handleOnClick=()=>{
                 <label htmlFor="">Terms & Condition</label>
                <textarea
                type="text" 
+               defaultValue={data?.event?.termsAndConditions}
                  {...register("conditions",{})}
                className="max-w-xl border border-gray-400   text-gray-700  rounded  shadow hover:bg-white "  cols="30" rows="10"/>
               </div>
@@ -258,12 +300,13 @@ const handleOnClick=()=>{
                   className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700   hover:bg-white "
                 >
                   {/* <option value="" selected placeholder="select">select </option> */}
+                  <option  value={data?.event?.bidLock}>{data?.event?.bidLock}</option>
                   <option value="locked">locked </option>
                   <option value="unlocked">unlocked</option>
                 </select>
               </div>
               <div className="flex space-x-6">
-                <input type="checkbox"   {...register("special",{})}
+                <input type="checkbox"   defaultChecked={data?.event?.isSpecialEvent} {...register("special",{})}
                  className="checkbox checkbox-success hover:bg-white" />
                 <label htmlFor="">Is this a special event ?</label>
               </div>
@@ -271,6 +314,7 @@ const handleOnClick=()=>{
                 <label htmlFor="">Extra Time Trigger in Minutes</label>
                 <Input
                   type="number"
+                  defaultValue={data?.event?.extraTimeTrigerIn}
                   {...register("timeTriger",{})}
                   className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
@@ -279,6 +323,7 @@ const handleOnClick=()=>{
                 <label htmlFor="">Extra Time in minutes</label>
                 <Input
                   type="number"
+                  defaultValue={data?.event?.extraTime}
                   {...register("extraTime",{})}
                   className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
@@ -289,6 +334,7 @@ const handleOnClick=()=>{
                 </label>
                 <Input
                   type="number"
+                  defaultValue={data?.event?.vehicleLiveTimeIn}
                   {...register("liveTime",{})}
                   className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
@@ -300,6 +346,7 @@ const handleOnClick=()=>{
                 </label>
                 <Input
                   type="number"
+                  defaultValue={data?.event?.gapInBetweenVehicles}
                   {...register("gap",{})}
                   className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
@@ -309,17 +356,17 @@ const handleOnClick=()=>{
            
 
               <div className=" flex space-x-10">
-         {!data  && <button  className="btn btn-success"> Save </button>}
+         <button  className="btn btn-success"> Save Changes </button>
                 
                
               </div>
             </div>
           </form>
-          {data && <button onClick={handleOnClick} className="btn w-fit btn-secondary"> Upload Excel file </button> }
+          {/* {data && <button onClick={handleOnClick} className="btn w-fit btn-secondary"> Upload Excel file </button> } */}
         </div>
       </div>
     </div>
   );
 };
 
-export default AddEventComponent;
+export default EditEventComponent;
