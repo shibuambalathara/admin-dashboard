@@ -6,6 +6,8 @@ import {useEventTableQuery} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
 const EventsTableComponent = () => {
     const {data,loading,error}=useEventTableQuery()
+console.log("this is data form events table",data);
+
     const navigate=useNavigate()
 
     const columns = useMemo(
@@ -35,6 +37,7 @@ const EventsTableComponent = () => {
       );
 
       const tableData=useMemo(() => (data ? data.events : []), [data]);
+      console.log("this is table data from events",tableData);
       const tableInstance=useTable({
         columns ,
         data: tableData,

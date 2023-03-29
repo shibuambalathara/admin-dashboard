@@ -4,7 +4,7 @@ import ExcelUploadsComponent from '../components/excelUploads/excelUploadsCompon
 
 const AddExcel = () => {
   return (
-    <div>
+    <div className='w-full'>
  <ExcelUploadsComponent/>
     </div>
   )

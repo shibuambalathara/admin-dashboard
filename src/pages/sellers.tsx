@@ -4,7 +4,7 @@ import Table from '../components/Sellers/table'
 
 const Sellers = () => {
   return (
-    <div className=''>
+    <div className='w-full'>
       <AddSeller/>
       <Table/>
     </div>

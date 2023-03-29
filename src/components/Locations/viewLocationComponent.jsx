@@ -11,7 +11,7 @@ const ViewLocationComponent = () => {
   const navigate = useNavigate();
   const { data, loading, error } = useLocationsQuery();
 
-  console.log("this is the data from view locations$$$$", data);
+  console.log("this is the data from view location",data);
 
   const columns = useMemo(
     () => [
@@ -23,7 +23,9 @@ const ViewLocationComponent = () => {
   );
 
   const tableData = useMemo(() => (data ? data.locations : []), [data]);
-  console.log("this is the TableData from view locations****", tableData);
+
+  console.log("this is the tabledata from view location",tableData);
+  
   const tableInstance = useTable(
     {
       columns,
