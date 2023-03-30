@@ -1,64 +1,109 @@
-import React from 'react'
+import React,{useState} from 'react'
 import{useCountQuery} from '../../utils/graphql'
 import {useNavigate} from 'react-router-dom'
 
 const HomeComonent = () => {
     const navigate=useNavigate()
-const{data,loading,error}=useCountQuery()
+    const [isHovering, setIsHovering] = useState(false);
+
+  function handleMouseEnter() {
+    setIsHovering(true);
+  }
+
+  function handleMouseLeave() {
+    setIsHovering(false);
+  }
+
+ const{data,loading,error}=useCountQuery()
+
+    let pulseClasses=`flex flex-col btn btn-accent w-60 rounded bg-slate-300 p-5 mt-px ml-5   h-20  `
+
+    let hoverClass=` w-50 space-x-4 hover:transform  hover:scale-125 ${isHovering ?'stop-animation'  : 'animate-pulse duration-500' }`
 
   return (
-    <div className='flex flex-wrap m-10 space-x-5 space-y-5 justify-center'>
-
-    <div className=' w-48 rounded bg-slate-300 p-5 mt-5 ml-5 h-20 ' onClick={()=>navigate('users')}>
-    <div className='text-center'>Users Count</div>
-    <div className='text-center'>{data?.usersCount}</div>
+    <div className='flex flex-wrap m-10 space-x-12 space-y-20 justify-center items-center '>
+      
+  <div className={hoverClass} style={{marginTop:'80px'}}>
+    <div   onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave} className={pulseClasses}  onClick={()=>navigate('users')}>
+    <div className='text-center font-extrabold'>Users Count</div>
+    <div className='text-center mt-2 lowercase '>{data?.usersCount} <span  className='uppercase'>I</span>tems</div>
     </div>
-
-    <div className=' w-48 rounded bg-slate-300 p-5 h-20 ' onClick={()=>navigate('users')}>
-    <div className='text-center'>Payments Count</div>
-    <div className='text-center'>{data?.paymentsCount}</div>
     </div>
-
-    <div className=' w-48 rounded bg-slate-300 p-5 h-20 space-y-1' onClick={()=>navigate('users')}>
-    <div className='text-center'>Emd Updates Count</div>
-    <div className='text-center'>{data?.emdUpdatesCount}</div>
+    
+   
+    <div className={hoverClass}>
+    <div onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave} className={pulseClasses} onClick={()=>navigate('payment')}>
+    <div className='text-center font-extrabold'>Payments Count</div>
+    <div className='text-center mt-2 lowercase '>{data?.paymentsCount} <span  className='uppercase'>I</span>tems</div>
     </div>
-
-    <div className=' w-48 rounded bg-slate-300 p-5 h-20 space-y-1' onClick={()=>navigate('users')}>
-    <div className='text-center'>Events Count</div>
-    <div className='text-center'>{data?.eventsCount}</div>
     </div>
-    <div className=' w-48 rounded bg-slate-300 p-5 h-20 space-y-1' onClick={()=>navigate('users')}>
-    <div className='text-center'>Vehicles Count</div>
-    <div className='text-center'>{data?.vehiclesCount}</div>
+<div className={hoverClass}>
+    <div onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave} className={pulseClasses} onClick={()=>navigate('emd')}>
+    <div className='text-center font-extrabold'>Emd  Count</div>
+    <div className='text-center mt-2 lowercase '>{data?.emdUpdatesCount}<span  className='uppercase'>I</span>tems</div>
     </div>
-    <div className=' w-48 rounded bg-slate-300 p-5 h-20 space-y-1' onClick={()=>navigate('users')}>
-    <div className='text-center'>Bids Count</div>
-    <div className='text-center'>{data?.eventsCount}</div>
     </div>
-
-    <div className=' w-48 rounded bg-slate-300 p-5 h-20 space-y-1' onClick={()=>navigate('users')}>
-    <div className='text-center'>Events Types</div>
-    <div className='text-center'>{data?.eventTypesCount}</div>
+    <div className={hoverClass}> 
+    <div onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave} className={pulseClasses}  onClick={()=>navigate('events')}>
+    <div className='text-center font-extrabold'>Events Count</div>
+    <div className='text-center mt-2 lowercase '>{data?.eventsCount} <span  className='uppercase'>I</span>tems</div>
     </div>
-    <div className=' w-48 rounded bg-slate-300 p-5 h-20 space-y-1' onClick={()=>navigate('users')}>
-    <div className='text-center'>Locations Count</div>
-    <div className='text-center'>{data?.locationsCount}</div>
     </div>
-    <div className=' w-48 rounded bg-slate-300 p-5 h-20 space-y-1' onClick={()=>navigate('users')}>
-    <div className='text-center'>States Count</div>
-    <div className='text-center'>{data?.statesCount}</div>
+    <div className={hoverClass}>
+    <div onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave} className={pulseClasses}  onClick={()=>navigate('vehicles')}>
+    <div className='text-center font-extrabold'>Vehicles Count</div>
+    <div className='text-center mt-2 lowercase '>{data?.vehiclesCount} <span  className='uppercase'>I</span>tems</div>
     </div>
-    <div className=' w-48 rounded bg-slate-300 p-5 h-20 space-y-1' onClick={()=>navigate('users')}>
-    <div className='text-center'>Execel Uploads </div>
-    <div className='text-center'>{data?.excelUploadsCount}</div>
     </div>
-    <div className=' w-48 rounded bg-slate-300 p-5 h-20 space-y-1' onClick={()=>navigate('users')}>
-    <div className='text-center'>Sellers Count</div>
-    <div className='text-center'>{data?.sellersCount}</div>
+    <div className={hoverClass}>
+    <div onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave} className={pulseClasses}  onClick={()=>navigate('bids')}>
+    <div className='text-center font-extrabold'>Bids Count</div>
+    <div className='text-center mt-2 lowercase '>{data?.eventsCount} <span  className='uppercase'>I</span>tems</div>
     </div>
-
-
+    </div>
+    <div className={hoverClass}>
+    <div onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave} className={pulseClasses} onClick={()=>navigate('event-types')}>
+    <div className='text-center font-extrabold'>Events Types</div>
+    <div className='text-center mt-2 lowercase '>{data?.eventTypesCount} <span  className='uppercase'>I</span>tems</div>
+    </div>
+    </div>
+    <div className={hoverClass}>
+    <div onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave} className={pulseClasses} onClick={()=>navigate('viewlocation')}>
+    <div className='text-center font-extrabold'>Locations Count</div>
+    <div className='text-center mt-2 lowercase '>{data?.locationsCount} <span  className='uppercase'>I</span>tems</div>
+    </div>
+    </div>
+    <div className={hoverClass}>
+    <div onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave} className={pulseClasses}  onClick={()=>navigate('states')}>
+    <div className='text-center font-extrabold'>States Count</div>
+    <div className='text-center mt-2 lowercase '>{data?.statesCount} <span  className='uppercase'>I</span>tems</div>
+    </div>
+    </div>
+    <div className={hoverClass}>
+    <div onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave} className={pulseClasses}  onClick={()=>navigate('excel-uploads')}>
+    <div className='text-center font-extrabold'>Execel Uploads </div>
+    <div className='text-center mt-2 lowercase '>{data?.excelUploadsCount} <span  className='uppercase'>I</span>tems</div>
+    </div>
+    </div>
+    <div className={hoverClass}>
+    <div onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave} className={pulseClasses} onClick={()=>navigate('sellers')}>
+    <div className='text-center font-extrabold'>Sellers Count</div>
+    <div className='text-center mt-2 lowercase '>{data?.sellersCount} <span  className='uppercase'>I</span>tems</div>
+    </div>
+    </div>
+    
+ 
 
     </div>
   )
