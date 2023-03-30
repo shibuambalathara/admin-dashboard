@@ -27,8 +27,8 @@ const EventsTableComponent = () => {
           { Header: "seller Name", accessor: "seller.name" },
           { Header: "Location", accessor: "location.name" },
           { Header: "Event Category ", accessor: "eventCategory" },
-          { Header: "Start Date ", accessor: ({startDate})=>{return format(new Date (startDate),`dd/MM/yy, hh:mm:ss`)} },
-          { Header: "End Date ", accessor: ({endDate})=>{return format(new Date (endDate),`dd/MM/yy, hh:mm:ss`)} },
+          { Header: "Start Date ", accessor: ({startDate})=>{return format(new Date (startDate),`dd/MM/yy, HH:mm:ss`)} },
+          { Header: "End Date ", accessor: ({endDate})=>{return format(new Date (endDate),`dd/MM/yy, HH:mm:ss`)} },
           { Header: "Status ", accessor: "status" },
 
          

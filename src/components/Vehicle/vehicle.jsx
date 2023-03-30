@@ -18,7 +18,7 @@ const VehicleTable = () => {
         () => [
           { Header: "Registration Number", accessor: "registrationNumber" },
           { Header: "Vehicle Index No", accessor: "vehicleIndexNo" },
-          { Header: "Bid Time Expire", accessor: ({bidTimeExpire})=>{return format(new Date (bidTimeExpire),`dd/MM/yy,  hh:mm:ss`)}  },
+          { Header: "Bid Time Expire", accessor: ({bidTimeExpire})=>{return format(new Date (bidTimeExpire),`dd/MM/yy,  HH:mm:ss`)}  },
          
 
          
