@@ -2991,12 +2991,13 @@ export type DeleteUserMutationVariables = Exact<{
 
 export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser?: { __typename?: 'User', id: string } | null };
 
-export type EventQueryVariables = Exact<{
+export type EditEventMutationVariables = Exact<{
   where: EventWhereUniqueInput;
+  data: EventUpdateInput;
 }>;
 
 
-export type EventQuery = { __typename?: 'Query', event?: { __typename?: 'Event', id: string, eventCategory?: string | null, startDate?: any | null, endDate?: any | null, noOfBids?: number | null, status?: EventStatusType | null, termsAndConditions?: string | null, bidLock?: EventBidLockType | null, isSpecialEvent?: boolean | null, extraTime?: number | null, extraTimeTrigerIn?: number | null, vehicleLiveTimeIn?: number | null, gapInBetweenVehicles?: number | null, seller?: { __typename?: 'Seller', name?: string | null, id: string } | null, eventType?: Array<{ __typename?: 'EventType', name?: string | null, id: string }> | null, location?: { __typename?: 'Location', name?: string | null, id: string } | null, downloadableFile?: { __typename?: 'FileFieldOutput', url: string } | null } | null };
+export type EditEventMutation = { __typename?: 'Mutation', updateEvent?: { __typename?: 'Event', id: string, eventCategory?: string | null, startDate?: any | null, endDate?: any | null, noOfBids?: number | null, status?: EventStatusType | null, termsAndConditions?: string | null, bidLock?: EventBidLockType | null, isSpecialEvent?: boolean | null, extraTimeTrigerIn?: number | null, extraTime?: number | null, vehicleLiveTimeIn?: number | null, gapInBetweenVehicles?: number | null, seller?: { __typename?: 'Seller', name?: string | null, id: string } | null, eventType?: Array<{ __typename?: 'EventType', id: string, name?: string | null }> | null, location?: { __typename?: 'Location', id: string, name?: string | null } | null, downloadableFile?: { __typename?: 'FileFieldOutput', url: string } | null } | null };
 
 export type EditUserMutationVariables = Exact<{
   where: UserWhereUniqueInput;
@@ -3011,10 +3012,17 @@ export type EmdTableQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type EmdTableQuery = { __typename?: 'Query', emdUpdates?: Array<{ __typename?: 'EmdUpdate', emdNo?: number | null, specialVehicleBuyingLimitIncrement?: number | null, vehicleBuyingLimitIncrement?: number | null }> | null };
 
+export type EventQueryVariables = Exact<{
+  where: EventWhereUniqueInput;
+}>;
+
+
+export type EventQuery = { __typename?: 'Query', event?: { __typename?: 'Event', id: string, eventCategory?: string | null, startDate?: any | null, endDate?: any | null, noOfBids?: number | null, status?: EventStatusType | null, termsAndConditions?: string | null, bidLock?: EventBidLockType | null, isSpecialEvent?: boolean | null, extraTime?: number | null, extraTimeTrigerIn?: number | null, vehicleLiveTimeIn?: number | null, gapInBetweenVehicles?: number | null, seller?: { __typename?: 'Seller', name?: string | null, id: string } | null, eventType?: Array<{ __typename?: 'EventType', name?: string | null, id: string }> | null, location?: { __typename?: 'Location', name?: string | null, id: string } | null, downloadableFile?: { __typename?: 'FileFieldOutput', url: string } | null } | null };
+
 export type EventTableQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type EventTableQuery = { __typename?: 'Query', events?: Array<{ __typename?: 'Event', id: string, eventNo?: number | null, eventCategory?: string | null, startDate?: any | null, status?: EventStatusType | null, endDate?: any | null }> | null };
+export type EventTableQuery = { __typename?: 'Query', events?: Array<{ __typename?: 'Event', id: string, eventNo?: number | null, eventCategory?: string | null, startDate?: any | null, status?: EventStatusType | null, endDate?: any | null, location?: { __typename?: 'Location', name?: string | null } | null, seller?: { __typename?: 'Seller', name?: string | null } | null }> | null };
 
 export type EventTypesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3389,9 +3397,9 @@ export function useDeleteUserMutation(baseOptions?: Apollo.MutationHookOptions<D
 export type DeleteUserMutationHookResult = ReturnType<typeof useDeleteUserMutation>;
 export type DeleteUserMutationResult = Apollo.MutationResult<DeleteUserMutation>;
 export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<DeleteUserMutation, DeleteUserMutationVariables>;
-export const EventDocument = gql`
-    query Event($where: EventWhereUniqueInput!) {
-  event(where: $where) {
+export const EditEventDocument = gql`
+    mutation editEvent($where: EventWhereUniqueInput!, $data: EventUpdateInput!) {
+  updateEvent(where: $where, data: $data) {
     id
     eventCategory
     startDate
@@ -3401,12 +3409,12 @@ export const EventDocument = gql`
       id
     }
     eventType {
-      name
       id
+      name
     }
     location {
-      name
       id
+      name
     }
     noOfBids
     status
@@ -3416,41 +3424,40 @@ export const EventDocument = gql`
     termsAndConditions
     bidLock
     isSpecialEvent
-    extraTime
     extraTimeTrigerIn
+    extraTime
     vehicleLiveTimeIn
     gapInBetweenVehicles
   }
 }
     `;
+export type EditEventMutationFn = Apollo.MutationFunction<EditEventMutation, EditEventMutationVariables>;
 
 /**
- * __useEventQuery__
+ * __useEditEventMutation__
  *
- * To run a query within a React component, call `useEventQuery` and pass it any options that fit your needs.
- * When your component renders, `useEventQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
+ * To run a mutation, you first call `useEditEventMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditEventMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
  *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const { data, loading, error } = useEventQuery({
+ * const [editEventMutation, { data, loading, error }] = useEditEventMutation({
  *   variables: {
  *      where: // value for 'where'
+ *      data: // value for 'data'
  *   },
  * });
  */
-export function useEventQuery(baseOptions: Apollo.QueryHookOptions<EventQuery, EventQueryVariables>) {
+export function useEditEventMutation(baseOptions?: Apollo.MutationHookOptions<EditEventMutation, EditEventMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<EventQuery, EventQueryVariables>(EventDocument, options);
+        return Apollo.useMutation<EditEventMutation, EditEventMutationVariables>(EditEventDocument, options);
       }
-export function useEventLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EventQuery, EventQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<EventQuery, EventQueryVariables>(EventDocument, options);
-        }
-export type EventQueryHookResult = ReturnType<typeof useEventQuery>;
-export type EventLazyQueryHookResult = ReturnType<typeof useEventLazyQuery>;
-export type EventQueryResult = Apollo.QueryResult<EventQuery, EventQueryVariables>;
+export type EditEventMutationHookResult = ReturnType<typeof useEditEventMutation>;
+export type EditEventMutationResult = Apollo.MutationResult<EditEventMutation>;
+export type EditEventMutationOptions = Apollo.BaseMutationOptions<EditEventMutation, EditEventMutationVariables>;
 export const EditUserDocument = gql`
     mutation editUser($where: UserWhereUniqueInput!, $data: UserUpdateInput!) {
   updateUser(where: $where, data: $data) {
@@ -3559,6 +3566,68 @@ export function useEmdTableLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<E
 export type EmdTableQueryHookResult = ReturnType<typeof useEmdTableQuery>;
 export type EmdTableLazyQueryHookResult = ReturnType<typeof useEmdTableLazyQuery>;
 export type EmdTableQueryResult = Apollo.QueryResult<EmdTableQuery, EmdTableQueryVariables>;
+export const EventDocument = gql`
+    query Event($where: EventWhereUniqueInput!) {
+  event(where: $where) {
+    id
+    eventCategory
+    startDate
+    endDate
+    seller {
+      name
+      id
+    }
+    eventType {
+      name
+      id
+    }
+    location {
+      name
+      id
+    }
+    noOfBids
+    status
+    downloadableFile {
+      url
+    }
+    termsAndConditions
+    bidLock
+    isSpecialEvent
+    extraTime
+    extraTimeTrigerIn
+    vehicleLiveTimeIn
+    gapInBetweenVehicles
+  }
+}
+    `;
+
+/**
+ * __useEventQuery__
+ *
+ * To run a query within a React component, call `useEventQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEventQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEventQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useEventQuery(baseOptions: Apollo.QueryHookOptions<EventQuery, EventQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EventQuery, EventQueryVariables>(EventDocument, options);
+      }
+export function useEventLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EventQuery, EventQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EventQuery, EventQueryVariables>(EventDocument, options);
+        }
+export type EventQueryHookResult = ReturnType<typeof useEventQuery>;
+export type EventLazyQueryHookResult = ReturnType<typeof useEventLazyQuery>;
+export type EventQueryResult = Apollo.QueryResult<EventQuery, EventQueryVariables>;
 export const EventTableDocument = gql`
     query eventTable {
   events {
@@ -3568,6 +3637,12 @@ export const EventTableDocument = gql`
     startDate
     status
     endDate
+    location {
+      name
+    }
+    seller {
+      name
+    }
   }
 }
     `;
