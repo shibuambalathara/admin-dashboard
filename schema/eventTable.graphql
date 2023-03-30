@@ -1,0 +1,16 @@
+query eventTable {
+  events {
+    id
+  eventNo
+  eventCategory  
+  startDate
+  status
+  endDate
+  location {
+    name
+  }
+  seller {
+    name
+  }
+  }
+}

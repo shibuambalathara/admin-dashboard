@@ -1,0 +1,34 @@
+query Event($where: EventWhereUniqueInput!) {
+  event(where: $where) {
+    id
+    eventCategory
+    startDate
+    endDate
+    seller {
+      name
+      id
+    }
+    eventType {
+      name
+      id
+    }
+    location {
+      name
+      id
+    }
+    noOfBids
+    status
+    downloadableFile {
+      url
+      
+    }
+    termsAndConditions
+    bidLock
+    isSpecialEvent
+    extraTime
+    extraTimeTrigerIn
+    vehicleLiveTimeIn
+    gapInBetweenVehicles
+  }
+ 
+}

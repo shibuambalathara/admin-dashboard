@@ -1,0 +1,12 @@
+query eventTypes {
+  eventTypes {
+    name
+    id
+    events {
+     eventNo 
+    }
+    users {
+    id  
+    }
+  }
+}

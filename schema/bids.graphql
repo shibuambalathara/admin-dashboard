@@ -1,0 +1,9 @@
+query bidsTable {
+  bids {
+    name
+    amount
+    user {
+    username 
+    }
+  }
+}

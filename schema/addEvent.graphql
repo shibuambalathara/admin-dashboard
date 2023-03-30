@@ -1,0 +1,37 @@
+mutation CreateEvent($data: EventCreateInput!) {
+  createEvent(data: $data) {
+    id
+  eventCategory
+  startDate
+  endDate
+  seller {
+    name
+    id
+  }  
+  eventType {
+    name
+    id
+  }
+  location {
+    city
+    id
+  }
+  
+  noOfBids
+status
+downloadableFile {
+  url
+}
+termsAndConditions
+
+bidLock
+isSpecialEvent
+extraTime
+extraTimeTrigerIn
+vehicleLiveTimeIn
+gapInBetweenVehicles
+
+
+
+  }
+}

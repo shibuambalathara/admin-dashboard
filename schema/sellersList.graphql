@@ -1,0 +1,10 @@
+query SellersItem {
+ sellers {
+   name
+   id
+ }
+ events {
+   eventNo
+ } 
+
+}

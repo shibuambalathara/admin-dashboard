@@ -6,11 +6,18 @@ mutation CreateUser($data: UserCreateInput!) {
     lastName
     email
     username
+    city
+    password {
+      isSet
+    }
     businessName
     role
     status
+idProofType
+idProofNo
+    state
     image {
-        url
+      url
     }
     country
     pancard {
@@ -24,6 +31,9 @@ mutation CreateUser($data: UserCreateInput!) {
     }
     dealership {
       url
+    }
+    category {
+      name
     }
   }
 }

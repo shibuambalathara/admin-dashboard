@@ -1,0 +1,43 @@
+mutation editUser($where: UserWhereUniqueInput!, $data: UserUpdateInput!) {
+ updateUser(where: $where, data: $data) {
+   firstName,
+   lastName,
+   email,
+   username,
+   mobile,
+   businessName,
+   category {
+     name
+   },
+   bannedSellers {
+     name,
+     id
+   },
+   role,
+   password {
+     isSet
+   },
+   idProofType,
+   idProofNo,
+   image {
+     url
+   },
+   pancard {
+     url
+   },
+   pancardNo,
+   idProof {
+     url
+   },
+   idProofBack {
+     url
+   },
+   dealership {
+     url
+   },
+   country,
+   state,
+   city,
+   status
+ } 
+}
