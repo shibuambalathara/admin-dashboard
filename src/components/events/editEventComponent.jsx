@@ -80,7 +80,7 @@ if(loading){
       seller:{connect:{id:dataOnSubmit?.sellerName ||""}},
      
       eventType: {
-        connect: dataOnSubmit?.eventId?.map((event) => ({id: event.value}))
+        set: dataOnSubmit?.eventId?.map((event) => ({id: event.value}))
       },
       location :{connect:{id:dataOnSubmit?.location ||""}},
       status:dataOnSubmit?.status,

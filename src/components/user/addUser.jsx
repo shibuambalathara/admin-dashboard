@@ -188,11 +188,11 @@ const AddUser = () => {
                   className="p-3 input input-bordered input-secondary w-full"
                   {...register("role", {})}
                 >
-                  <option value=""></option>
-                  <option value="admin">Admin</option>
+                
+                  <option value="dealer">Dealer</option>
                   <option value="staff">Staff</option>
                   <option value="seller">Seller</option>
-                  <option value="">Dealer</option>
+                  <option value="admin">Admin</option>
                 </select>
                 <p className="text-red-500">
                   {" "}
@@ -202,11 +202,11 @@ const AddUser = () => {
               <div className="flex flex-col  w-1/3">
                 <label htmlFor="">ID Proof Type</label>
                 <select
-                  defaultValue=""
+                  
                   className="p-3 input input-bordered input-secondary w-full"
                   {...register("idType", {})}
                 >
-                  <option value=""></option>
+                  
                   <option value="Aadhar">Aadhar</option>
                   <option value="drivingLicense">Driving Licence</option>
                   <option value="Passport">Passport</option>
