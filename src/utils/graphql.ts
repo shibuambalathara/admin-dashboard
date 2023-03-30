@@ -3075,7 +3075,7 @@ export type PaymentTableQuery = { __typename?: 'Query', payments?: Array<{ __typ
 export type SelectorsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type SelectorsQuery = { __typename?: 'Query', states?: Array<{ __typename?: 'State', name?: string | null }> | null, locations?: Array<{ __typename?: 'Location', city?: string | null }> | null, eventTypes?: Array<{ __typename?: 'EventType', name?: string | null }> | null };
+export type SelectorsQuery = { __typename?: 'Query', states?: Array<{ __typename?: 'State', name?: string | null }> | null, locations?: Array<{ __typename?: 'Location', city?: string | null, id: string }> | null, eventTypes?: Array<{ __typename?: 'EventType', name?: string | null, id: string }> | null };
 
 export type SellersItemQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -4026,9 +4026,11 @@ export const SelectorsDocument = gql`
   }
   locations {
     city
+    id
   }
   eventTypes {
     name
+    id
   }
 }
     `;

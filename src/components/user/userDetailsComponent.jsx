@@ -1,6 +1,7 @@
 import { Input } from "@material-tailwind/react";
+import Select from 'react-select'
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm,Controller } from "react-hook-form";
 
 import { useParams } from "react-router-dom";
 import { useUserQuery,useSellersItemQuery,useEditUserMutation,useSelectorsQuery} from "../../utils/graphql";
@@ -10,7 +11,7 @@ import AddUser from "./addUser";
 const UserDetailsComponent = () => {
   const { id } = useParams();
  const sellers = useSellersItemQuery();
- console.log(sellers?.data?.sellers?.id)
+
  const selectors=useSelectorsQuery()
  const [updatedDetails,response]=useEditUserMutation({variables:{where:{id:id}}})
 
@@ -21,6 +22,7 @@ const UserDetailsComponent = () => {
 
   const {
     register,
+    control,
     handleSubmit,
     watch,
     formState: { errors },
@@ -36,7 +38,7 @@ const UserDetailsComponent = () => {
    businessName:dataOnSubmit?.bussiness ,
    pancardNo:dataOnSubmit?.pancardNumber,
     role:dataOnSubmit?.role, 
-     //  category:{create:dataOnSubmit?.category},
+     
     
   //    password:dataOnSubmit?.confirmPassword,
       idProofType:dataOnSubmit?.idType,
@@ -45,7 +47,10 @@ const UserDetailsComponent = () => {
      state:dataOnSubmit?.state,
      city:dataOnSubmit?.city,
      status:dataOnSubmit?.status,
-     bannedSellers:{connect:{id: dataOnSubmit?.bannedSellers}}
+  
+     bannedSellers: {
+      set: dataOnSubmit.bannedSellers.map((seller) => ({id: seller.value}))
+    },
      
     
   
@@ -102,7 +107,7 @@ console.log(err,"error")
               ></input>
               <p className="text-red-500">
                 {" "}
-                {errors.firstNameRequired && (
+                {errors.first_Name && (
                   <span>first Name is required</span>
                 )}
               </p>
@@ -117,7 +122,7 @@ console.log(err,"error")
               ></input>
               <p className="text-red-500">
                 {" "}
-                {errors.lastNameRequired && <span>last Name is required</span>}
+                {errors.last_Name && <span>last Name is required</span>}
               </p>
             </div>
           </div>
@@ -131,11 +136,11 @@ console.log(err,"error")
                 type="email"
                 defaultValue={data.user.email}
                 className="input input-bordered input-secondary w-full "
-                {...register("email", { required: true })}
+                {...register("email", { })}
               ></input>
               <p className="text-red-500">
                 {" "}
-                {errors.emailRequired && <span> email required</span>}
+                {errors.email && <span> email required</span>}
               </p>
             </div>
             <div className="flex flex-col w-1/3 ">
@@ -191,7 +196,7 @@ console.log(err,"error")
 
         
           <div className="flex  justify-around  ">
-            <div className="flex flex-col w-1/3 ">
+            {/* <div className="flex flex-col w-1/3 ">
               <label htmlFor="">Category</label>
               <select
                 defaultValue={data.user.category}
@@ -207,20 +212,35 @@ console.log(err,"error")
                 {" "}
                 {errors.category && <span>Please select Category</span>}
               </p>
-            </div>
+            </div> */}
           
               <div className="flex flex-col  w-1/3">
                 <label htmlFor="">Bannned Sellers</label>
-                <select 
-                   {...register("bannedSellers", {})}
-                   className="input input-bordered input-secondary w-full "
-                >
-                  {/* <option value=""></option> */}
-                  {sellers?.data?.sellers.map((seller) => (
-                    
-                    <option  key={seller.id} value={seller.id}> {seller.name}</option>
-                  ))}
-                </select>
+              
+
+                <Controller
+  name="bannedSellers"
+  control={control}
+  defaultValue={data?.user?.bannedSellers.map((event) => ({
+    label: event.name,
+    value: event.id
+  }))}
+  render={({ field }) => (
+    <Select
+      className="w-full text-black max-w-[560px] mt-2"
+      option=""
+      options={sellers?.data?.sellers.map((seller) => ({
+        label: seller.name,
+        value: seller.id
+      }))}
+      {...field}
+      isMulti
+      getOptionValue={(option) => option.value}
+    />
+  )}
+/>
+
+                
               </div>
             </div>
          
@@ -228,12 +248,12 @@ console.log(err,"error")
           <div className="flex  justify-around  ">
           <div className="min-w-[300px] w-1/3">
               <label htmlFor="">Role</label>
-              <select defaultValue={data.user.role} className="input input-bordered input-secondary w-full " {...register("role", {})}>
-              <option value=""></option>
+              <select  className="input input-bordered input-secondary w-full " {...register("role", {required:true})}>
+              <option value={data.user.role}>{data.user.role}</option>
         <option value="admin">Admin</option>
         <option value="staff">Staff</option>
         <option value="seller">Seller</option>
-        <option value="">Dealer</option>
+        <option value="dealer">Dealer</option>
       
       </select>
       <p className="text-red-500"> {errors.role && <span>Please select Role</span>}</p>
@@ -264,11 +284,11 @@ console.log(err,"error")
           <div className="flex space-x-2 justify-around">
           <div className="min-w-[300px] w-1/3">
               <label htmlFor="">ID Proof Type</label>
-              <select  defaultValue={data.user.idProofType} className="input input-bordered input-secondary w-full " {...register("idType", {})}>
-              <option value=""></option>
-        <option value="Aadhar">Aadhar</option>
+              <select  defaultValue={data?.user?.idProofType} className="input input-bordered input-secondary w-full " {...register("idType", {required:true})}>
+              <option value={data?.user?.idProofType}>{data?.user?.idProofType}</option>
+        <option value="aadhar">Aadhar</option>
         <option value="drivingLicense">Driving Licence</option>
-        <option value="Passport">Passport</option>
+        <option value="passport">Passport</option>
         
       
       </select>
@@ -306,7 +326,7 @@ console.log(err,"error")
          
          <select  defaultValue={data?.user?.city} className="input input-bordered input-secondary w-full " {...register("city", {})}>
   {selectors?.data?.locations?.map((loc) => (
-    <option  value={loc.city} key={loc.city}>{loc.city}</option>
+    <option  value={loc.id} key={loc.id}>{loc.city}</option>
   ))}
 </select>
       <p className="text-red-500"> {errors.city && <span>Please select city</span>}</p>
