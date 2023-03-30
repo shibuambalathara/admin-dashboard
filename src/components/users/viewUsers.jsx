@@ -1,16 +1,17 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Button } from "@material-tailwind/react";
-
 import { useNavigate } from "react-router-dom";
 import { useUsersQuery, useDeleteUserMutation } from "../../utils/graphql";
-
-import { useTable, usePagination, useGlobalFilter } from "react-table";
+import { useTable,useSortBy, usePagination, useGlobalFilter } from "react-table";
 import SearchUser from "./searchUser";
 
 const ViewUsers = () => {
   const [userData, setUserData] = useState([]);
   const [pageIndex, setPageIndex] = useState(0);
   const [pageSize, setPageSize] = useState(10);
+
+
+
 
   const navigate = useNavigate();
 
@@ -33,13 +34,13 @@ const ViewUsers = () => {
 
   const columns = useMemo(
     () => [
-      { Header: "ID", accessor: "idNo" },
-      { Header: "First Name", accessor: "firstName" },
-      { Header: "Last Name", accessor: "lastName" },
-      { Header: "Email", accessor: "email" },
-      { Header: "Mobile", accessor: "mobile" },
-      { Header: "Status", accessor: "status" },
-      { Header: "Pancard Number", accessor: "pancardNo" },
+      { Header: "ID", accessor: "idNo" ,  className: 'w-1/3',  },
+      { Header: "First Name", accessor: "firstName" ,  className: 'w-1/3', },
+      { Header: "Last Name", accessor: "lastName" ,  className: 'w-1/3', },
+      { Header: "Email", accessor: "email",  className: 'w-1/3', },
+      { Header: "Mobile", accessor: "mobile",  className: 'w-1/3',   },
+      { Header: "Status", accessor: "status",  className: 'w-1/3',   },
+      { Header: "Pancard Number", accessor: "pancardNo",  className: 'w-1/3',   },
       {
         Header: "View more",
         Cell: ({ row }) => (
@@ -84,8 +85,11 @@ const ViewUsers = () => {
       columns,
       data: tableData,
     },
+   
     useGlobalFilter,
-    usePagination
+    useSortBy,
+    usePagination,
+    
   );
 
   const {
@@ -112,6 +116,7 @@ const ViewUsers = () => {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :{error}</p>;
+  
 
   return (
     <div className="w-full  h-fit  ">
@@ -124,7 +129,7 @@ const ViewUsers = () => {
         </Button>
       </div>
 
-      <div className=" max-w-6xl mx-auto h-fit">
+      <div className=" max-w-7xl mx-auto h-fit">
         <div className=" flex flex-col justify-center m-auto w-full">
           <div className="mb-4">
             <div className="text-center font-extrabold my-1  text-2xl w-full">
@@ -137,20 +142,24 @@ const ViewUsers = () => {
               setFilter={setGlobalFilter}
             />
           </div>
-          <table
-            className="w-full table-auto bg-white border-collapse border  border-1 border-gray-300  divide-y   text-gray-900"
+          <table  
+            className="w-full  bg-white border-collapse border  border-1 border-gray-300  divide-y   text-gray-900"
             {...getTableProps()}
+
           >
-            <thead className="bg-gray-50">
+            <thead className="bg-gray-50 relative ">
               {headerGroups.map((headerGroup) => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map((column) => (
                     <th
                       scope="col"
                       className="py-2 px-2  border  border-10 "
-                      {...column.getHeaderProps()}
+                      {...column.getHeaderProps(column.getSortByToggleProps())}
                     >
                       {column.render("Header")}
+                      <span>
+                      {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                      </span>
                     </th>
                   ))}
                 </tr>

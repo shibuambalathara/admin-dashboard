@@ -1,8 +1,9 @@
 import React from 'react'
+import ViewExcels from '../components/excelUploads/viewExcels'
 
 const ExcelUploads = () => {
   return (
-    <div>ExcelUploads</div>
+    <div className='w-full'><ViewExcels/></div>
   )
 }
 

@@ -1,9 +1,11 @@
 import { Button } from '@material-tailwind/react'
 import React, { useMemo } from 'react'
 import {useNavigate} from 'react-router-dom'
-import { useTable,usePagination,useGlobalFilter } from "react-table"
+import { useTable,useSortBy,usePagination,useGlobalFilter } from "react-table"
 import {useEventTableQuery} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
+import format from 'date-fns/format'
+
 const EventsTableComponent = () => {
     const {data,loading,error}=useEventTableQuery()
 
@@ -23,8 +25,8 @@ console.log("this is data form events table",data);
         () => [
           { Header: "Event No", accessor: "eventNo" },
           { Header: "Event Category ", accessor: "eventCategory" },
-          { Header: "Start Date ", accessor: "startDate" },
-          { Header: "End Date ", accessor: "endDate" },
+          { Header: "Start Date ", accessor: ({startDate})=>{return format(new Date (startDate),`dd/MM/yy, hh:mm:ss`)} },
+          { Header: "End Date ", accessor: ({endDate})=>{return format(new Date (endDate),`dd/MM/yy, hh:mm:ss`)} },
           { Header: "Status ", accessor: "status" },
 
          
@@ -50,7 +52,7 @@ console.log("this is data form events table",data);
       const tableInstance=useTable({
         columns ,
         data: tableData,
-      },useGlobalFilter,usePagination);
+      },useGlobalFilter,useSortBy,usePagination);
      
         const {
           getTableProps,
@@ -102,9 +104,12 @@ console.log("this is data form events table",data);
                 <th
                   scope="col"
                   className="py-3 pl-4"
-                  {...column.getHeaderProps()}
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
                 >
                   {column.render("Header")}
+                  <span>
+                  {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                      </span>
                 </th>
               ))}
             </tr>

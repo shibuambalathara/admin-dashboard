@@ -7,6 +7,7 @@ import {useNavigate} from 'react-router-dom'
 import { useTable,usePagination,useGlobalFilter } from "react-table"
 import {useVehicleTableQuery} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
+import format from 'date-fns/format'
 
 
 const VehicleTable = () => {
@@ -17,7 +18,7 @@ const VehicleTable = () => {
         () => [
           { Header: "Registration Number", accessor: "registrationNumber" },
           { Header: "Vehicle Index No", accessor: "vehicleIndexNo" },
-          { Header: "Bid Time Expire", accessor: "bidTimeExpire" },
+          { Header: "Bid Time Expire", accessor: ({bidTimeExpire})=>{return format(new Date (bidTimeExpire),`dd/MM/yy,  hh:mm:ss`)}  },
          
 
          
