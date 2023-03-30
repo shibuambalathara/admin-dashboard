@@ -1,22 +1,24 @@
 import React, { useState } from "react";
 import { Input } from "@material-tailwind/react";
-import { useForm } from "react-hook-form";
+import { useForm,Controller } from "react-hook-form";
+import Select from 'react-select'
 
 
-import{useSellersItemQuery,useEventTypesQuery,useLocationsQuery,useEventQuery}from '../../utils/graphql'
+import{useSellersItemQuery,useEventTypesQuery,useLocationsQuery,useEventQuery,useEditEventMutation}from '../../utils/graphql'
 import { useNavigate, useParams } from "react-router-dom";
 
 
 const EditEventComponent = () => {
+
  const {id}=useParams()
   const navigate=useNavigate()
   const sellersItem=useSellersItemQuery()
   const eventType=useEventTypesQuery()
   const location=useLocationsQuery()
+  const [editEvent,response]=useEditEventMutation({variables:{where:{id}}})
    const {data,loading,error}=useEventQuery({variables:{where:{id}}})
 
 
-  
    const date=new Date( data?.event?.startDate)
 
 
@@ -28,7 +30,7 @@ const EditEventComponent = () => {
    
    const dateTimeLocal = `${year}-${month}-${day}T${hours}:${minutes}`;
 
-   console.log(dateTimeLocal,"start date")
+   
 
 
 
@@ -43,7 +45,7 @@ const EditEventComponent = () => {
    
    const dateTimeLocal1 = `${year1}-${month1}-${day1}T${hours1}:${minutes1}`;
 
-   console.log(dateTimeLocal,"start date")
+
 
 
 
@@ -55,7 +57,8 @@ const EditEventComponent = () => {
 if(loading){
   <div>Loading........</div>
 }
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+
+  const { register, handleSubmit,control, watch, formState: { errors } } = useForm();
   
   const onSubmit = dataOnSubmit =>{ console.log(dataOnSubmit);
 
@@ -66,7 +69,7 @@ if(loading){
     const extraTime=+dataOnSubmit?.extraTime
     const gap=+dataOnSubmit?.gap
     const live=+dataOnSubmit?.liveTime
-
+  
   
 
     const eventData={
@@ -75,7 +78,10 @@ if(loading){
       endDate:endDateTime,
       noOfBids:bids,
       seller:{connect:{id:dataOnSubmit?.sellerName ||""}},
-      eventType:{connect:{id:dataOnSubmit?.event ||"" }},
+     
+      eventType: {
+        connect: dataOnSubmit?.eventId?.map((event) => ({id: event.value}))
+      },
       location :{connect:{id:dataOnSubmit?.location ||""}},
       status:dataOnSubmit?.status,
       
@@ -91,11 +97,11 @@ if(loading){
     if (dataOnSubmit.downloadable[0] && dataOnSubmit.downloadable.length) {
       eventData["downloadableFile"] = { upload: dataOnSubmit.downloadable[0] };
     }
-//  addEvent({variables:{data:eventData}})
-//  .then(result=>{console.log("result",result)
+   editEvent({variables:{data:eventData}})
+  
 
-// })
-//  .catch((error)=>console.log("error",error))
+
+  if(response?.error){console.log("error......",response?.error?.message)}
 
 
   }
@@ -116,6 +122,7 @@ const handleOnClick=()=>{
         <div className="flex flex-col  w-full px-10 py-10 ">
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className=" space-y-6 ">
+              {response?.error?.message && <p className="text-red-500">{response?.error?.message}</p>}
               <div className="flex flex-col space-y-2 relative ">
                 <label className="text-base" htmlFor="">
                   Event Category
@@ -123,6 +130,7 @@ const handleOnClick=()=>{
                 <div class="absolute inset-y-10 - right-32 flex items-center ">
                   <div class="h-5 w-0.5 border bg-gray-400 "></div>
                 </div>
+                
                 <select
                   defaultValue={data?.event?.eventCategory}
                   placeholder="select"
@@ -149,7 +157,7 @@ const handleOnClick=()=>{
  <p className="text-red-500"> {errors.startDate&& <span>Start date and time required</span>}</p> 
                  
                 </div>
-              </div>
+              </div>resp
               <div className=" flex flex-col space-y-2 space-x-px ">
                 <label htmlFor="">End Date and Time</label>
                 <div className="flex space-x-6">
@@ -196,19 +204,32 @@ const handleOnClick=()=>{
                 <div class="absolute inset-y-10 - right-32 flex items-center ">
                   <div class="h-5 w-0.5 border bg-gray-400 "></div>
                 </div>
-                <select
-                 
-                  placeholder="select"
-                  {...register("event",{required:true})}
-                  className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
-                >
-                     <option value={data?.event?.eventType?.id} >{data?.event?.eventType?.name}</option>
-                   {eventType?.data?.eventTypes?.map((event)=>
-                 (
-                     <option key={event.id} value={event.id}>{event.name} </option>
-                 ) )}
-                </select>
-                <p className="text-red-500"> {errors.event&& <span>Event Name required</span>}</p> 
+                
+
+                <Controller
+  name="eventId"
+  control={control}
+  defaultValue={data?.event?.eventType?.map((event) => ({
+    label: event.name,
+    value: event.id
+  }))}
+  render={({ field }) => (
+    <Select
+      className="w-full text-black max-w-[560px] mt-2"
+      options={eventType?.data?.eventTypes?.map((event) => ({
+        label: event.name,
+        value: event.id
+      }))}
+      {...field}
+      isMulti
+      getOptionValue={(option) => option.value}
+    />
+  )}
+/>
+
+               
+               
+                <p className="text-red-500"> {errors.eventId&& <span>Event Name required</span>}</p> 
 
               </div>
               <div className="flex flex-col space-y-2 relative ">
@@ -258,7 +279,7 @@ const handleOnClick=()=>{
                   {...register("status",{})}
                   className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700  hover:bg-white"
                 >
-           <option  value={data?.event?.seller?.name}>{data?.event?.status}</option>
+           <option  value={data?.event?.status}>{data?.event?.status}</option>
                   <option value="pending">pending </option>
                   <option value="blocked">blocked</option>
                   <option value="active">active</option>

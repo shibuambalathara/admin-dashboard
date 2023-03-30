@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Input } from "@material-tailwind/react";
-import { useForm } from "react-hook-form";
+import { useForm,Controller } from "react-hook-form";
+import Select from 'react-select'
 
 
 import{useSellersItemQuery,useEventTypesQuery,useLocationsQuery,useCreateEventMutation}from '../../utils/graphql'
@@ -15,7 +16,7 @@ const AddEventComponent = () => {
   const location=useLocationsQuery()
   const [addEvent,{data}]=useCreateEventMutation()
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit,control, watch, formState: { errors } } = useForm();
   
   const onSubmit = dataOnSubmit =>{ console.log(dataOnSubmit);
 
@@ -35,10 +36,13 @@ const AddEventComponent = () => {
       endDate:endDateTime,
       noOfBids:bids,
       seller:{connect:{id:dataOnSubmit?.sellerName ||""}},
-      eventType:{connect:{id:dataOnSubmit?.event ||"" }},
+      // eventType:{connect:{id:dataOnSubmit?.event ||"" }},
+      eventType: {
+        connect: dataOnSubmit?.eventId?.map((event) => ({id: event.value}))
+      },
       location :{connect:{id:dataOnSubmit?.location ||""}},
       status:dataOnSubmit?.status,
-      // downloadableFile :{upload:dataOnSubmit?.downloadable[0] },
+     
       termsAndConditions:dataOnSubmit?.conditions,
       bidLock:dataOnSubmit?.lockedOrNot,
       isSpecialEvent:dataOnSubmit?.special,
@@ -155,18 +159,24 @@ const handleOnClick=()=>{
                 <div class="absolute inset-y-10 - right-32 flex items-center ">
                   <div class="h-5 w-0.5 border bg-gray-400 "></div>
                 </div>
-                <select
-                 
-                  placeholder="select"
-                  {...register("event",{required:true})}
-                  className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
-                >
-                  <option  value="">Select</option>
-                   {eventType?.data?.eventTypes?.map((event)=>
-                 (
-                     <option key={event.id} value={event.id}>{event.name} </option>
-                 ) )}
-                </select>
+                <Controller
+  name="eventId"
+  control={control}
+
+  render={({ field }) => (
+    <Select
+      className="w-full text-black max-w-[560px] mt-2"
+      options={eventType?.data?.eventTypes?.map((event) => ({
+        label: event.name,
+        value: event.id
+      }))}
+      {...field}
+      isMulti
+      getOptionValue={(option) => option.value}
+    />
+  )}
+/>
+               
                 <p className="text-red-500"> {errors.event&& <span>Event Name required</span>}</p> 
 
               </div>

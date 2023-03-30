@@ -7,7 +7,7 @@ import SearchUser from '../users/searchUser'
 const EventsTableComponent = () => {
     const {data,loading,error}=useEventTableQuery()
 
-console.log("this is data form events table",data);
+
 
 
     const navigate=useNavigate()
@@ -22,6 +22,8 @@ console.log("this is data form events table",data);
     const columns = useMemo(
         () => [
           { Header: "Event No", accessor: "eventNo" },
+          { Header: "seller Name", accessor: "seller.name" },
+          { Header: "Location", accessor: "location.name" },
           { Header: "Event Category ", accessor: "eventCategory" },
           { Header: "Start Date ", accessor: "startDate" },
           { Header: "End Date ", accessor: "endDate" },
