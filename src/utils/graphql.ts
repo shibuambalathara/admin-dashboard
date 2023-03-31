@@ -2959,6 +2959,13 @@ export type CreateEventMutationVariables = Exact<{
 
 export type CreateEventMutation = { __typename?: 'Mutation', createEvent?: { __typename?: 'Event', id: string, eventCategory?: string | null, startDate?: any | null, endDate?: any | null, noOfBids?: number | null, status?: EventStatusType | null, termsAndConditions?: string | null, bidLock?: EventBidLockType | null, isSpecialEvent?: boolean | null, extraTime?: number | null, extraTimeTrigerIn?: number | null, vehicleLiveTimeIn?: number | null, gapInBetweenVehicles?: number | null, seller?: { __typename?: 'Seller', name?: string | null, id: string } | null, eventType?: Array<{ __typename?: 'EventType', name?: string | null, id: string }> | null, location?: { __typename?: 'Location', city?: string | null, id: string } | null, downloadableFile?: { __typename?: 'FileFieldOutput', url: string } | null } | null };
 
+export type CreateSellerMutationVariables = Exact<{
+  data: SellerCreateInput;
+}>;
+
+
+export type CreateSellerMutation = { __typename?: 'Mutation', createSeller?: { __typename?: 'Seller', id: string, name?: string | null } | null };
+
 export type CreateUserMutationVariables = Exact<{
   data: UserCreateInput;
 }>;
@@ -3178,6 +3185,40 @@ export function useCreateEventMutation(baseOptions?: Apollo.MutationHookOptions<
 export type CreateEventMutationHookResult = ReturnType<typeof useCreateEventMutation>;
 export type CreateEventMutationResult = Apollo.MutationResult<CreateEventMutation>;
 export type CreateEventMutationOptions = Apollo.BaseMutationOptions<CreateEventMutation, CreateEventMutationVariables>;
+export const CreateSellerDocument = gql`
+    mutation CreateSeller($data: SellerCreateInput!) {
+  createSeller(data: $data) {
+    id
+    name
+  }
+}
+    `;
+export type CreateSellerMutationFn = Apollo.MutationFunction<CreateSellerMutation, CreateSellerMutationVariables>;
+
+/**
+ * __useCreateSellerMutation__
+ *
+ * To run a mutation, you first call `useCreateSellerMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSellerMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSellerMutation, { data, loading, error }] = useCreateSellerMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateSellerMutation(baseOptions?: Apollo.MutationHookOptions<CreateSellerMutation, CreateSellerMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateSellerMutation, CreateSellerMutationVariables>(CreateSellerDocument, options);
+      }
+export type CreateSellerMutationHookResult = ReturnType<typeof useCreateSellerMutation>;
+export type CreateSellerMutationResult = Apollo.MutationResult<CreateSellerMutation>;
+export type CreateSellerMutationOptions = Apollo.BaseMutationOptions<CreateSellerMutation, CreateSellerMutationVariables>;
 export const CreateUserDocument = gql`
     mutation CreateUser($data: UserCreateInput!) {
   createUser(data: $data) {
