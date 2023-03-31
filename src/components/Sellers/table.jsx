@@ -5,6 +5,7 @@ import { useTable, usePagination, useGlobalFilter } from "react-table";
 import { useEventTableQuery } from "../../utils/graphql";
 import SearchUser from "../users/searchUser";
 import { useSellersItemQuery } from "../../utils/graphql";
+import AddSeller from "./addSeller";
 
 const Table = () => {
   const [userData, setUserData] = useState([]);
@@ -58,30 +59,7 @@ const Table = () => {
     usePagination
   );
 
-  // const columns = useMemo(
-  //   () => [
-  //     {
-  //       Header: "Seller Name",
-  //       accessor: (seller) => seller.name
-  //     },
-  //     {
-  //       Header: "Event No",
-  //       accessor: (seller) => {
-  //         const events = data.events || [];
-  //         const eventNos = events.filter(event => event.sellerId === seller.id).map(event => event.eventNo);
-  //         return eventNos.join(", ");
-  //       }
-  //     }
-  //   ],
-  //   []
-  // );
 
-  // const tableDataSellers = useMemo(() => (data ? data.sellers : []), [data]);
-
-  // const tableInstance = useTable({
-  //   columns ,
-  //   data: tableDataSellers,
-  // }, useGlobalFilter, usePagination);
 
   const {
     getTableProps,
@@ -110,6 +88,7 @@ const Table = () => {
 
   return (
     <div className="w-full  h-full ">
+         
       <div className="  max-w-6xl mx-auto h-fit ">
         <div className="   flex flex-col justify-center m-auto w-full">
           <div className="mb-2">
