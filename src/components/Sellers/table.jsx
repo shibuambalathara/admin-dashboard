@@ -89,7 +89,7 @@ const Table = () => {
   return (
     <div className="w-full  h-full ">
          
-      <div className="  max-w-6xl mx-auto h-fit ">
+      <div className="  max-w-4xl mx-auto h-fit ">
         <div className="   flex flex-col justify-center m-auto w-full">
           <div className="mb-2">
             <div className="text-center font-extrabold my-5 text-lg w-full">
@@ -103,7 +103,7 @@ const Table = () => {
           </div>
 
           <table
-            className=" w-full bg-white border-collapse border border-gray-300  table-auto divide-y  text-gray-900"
+            className=" max-w-2xl mt-5 bg-white border-collapse border border-gray-300  table-auto divide-y  text-gray-900"
             {...getTableProps()}
           >
             <thead className="bg-gray-50">

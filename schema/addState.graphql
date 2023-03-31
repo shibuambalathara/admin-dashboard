@@ -1,0 +1,5 @@
+mutation CreateState($data: StateCreateInput!) {
+    createState(data: $data) {
+      name
+    }
+  }

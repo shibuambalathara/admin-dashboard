@@ -13,11 +13,13 @@ const AddSeller = () => {
    const result=sellerName({variables:{data:{name:dataOnSubmit?.sellerName}}})
   }
   return (
-    <div className="w-full">
+    <div className="w-full max-w-xs relative ml-50">
    
+   <div className="absolute top-3 left-10 ">
       <label htmlFor="my-modal-3" className="btn  btn-outline btn-secondary">
         Add Seller
       </label>
+      </div>
 
       {/* Put this part before </body> tag */}
       <input type="checkbox" id="my-modal-3" className="modal-toggle" />

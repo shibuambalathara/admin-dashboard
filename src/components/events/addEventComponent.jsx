@@ -197,7 +197,7 @@ const handleOnClick=()=>{
                    {location?.data?.locations?.map((location)=>
                  (
                      <option key={location.name} value={location.id}>{location.name}</option>
-                 ) )}
+                 ))}
                 </select>
                 <p className="text-red-500"> {errors.location&& <span>location required</span>}</p> 
 
