@@ -2959,12 +2959,26 @@ export type CreateEventMutationVariables = Exact<{
 
 export type CreateEventMutation = { __typename?: 'Mutation', createEvent?: { __typename?: 'Event', id: string, eventCategory?: string | null, startDate?: any | null, endDate?: any | null, noOfBids?: number | null, status?: EventStatusType | null, termsAndConditions?: string | null, bidLock?: EventBidLockType | null, isSpecialEvent?: boolean | null, extraTime?: number | null, extraTimeTrigerIn?: number | null, vehicleLiveTimeIn?: number | null, gapInBetweenVehicles?: number | null, seller?: { __typename?: 'Seller', name?: string | null, id: string } | null, eventType?: Array<{ __typename?: 'EventType', name?: string | null, id: string }> | null, location?: { __typename?: 'Location', city?: string | null, id: string } | null, downloadableFile?: { __typename?: 'FileFieldOutput', url: string } | null } | null };
 
+export type AddLocationMutationVariables = Exact<{
+  data: LocationCreateInput;
+}>;
+
+
+export type AddLocationMutation = { __typename?: 'Mutation', createLocation?: { __typename?: 'Location', city?: string | null, name?: string | null, country?: string | null, state?: { __typename?: 'State', name?: string | null, id: string } | null } | null };
+
 export type CreateSellerMutationVariables = Exact<{
   data: SellerCreateInput;
 }>;
 
 
 export type CreateSellerMutation = { __typename?: 'Mutation', createSeller?: { __typename?: 'Seller', id: string, name?: string | null } | null };
+
+export type CreateStateMutationVariables = Exact<{
+  data: StateCreateInput;
+}>;
+
+
+export type CreateStateMutation = { __typename?: 'Mutation', createState?: { __typename?: 'State', name?: string | null } | null };
 
 export type CreateUserMutationVariables = Exact<{
   data: UserCreateInput;
@@ -3097,7 +3111,7 @@ export type SellersQuery = { __typename?: 'Query', sellers?: Array<{ __typename?
 export type StatesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type StatesQuery = { __typename?: 'Query', states?: Array<{ __typename?: 'State', name?: string | null, users?: Array<{ __typename?: 'User', id: string, firstName?: string | null }> | null, locations?: Array<{ __typename?: 'Location', name?: string | null }> | null }> | null };
+export type StatesQuery = { __typename?: 'Query', states?: Array<{ __typename?: 'State', name?: string | null, id: string, users?: Array<{ __typename?: 'User', id: string, firstName?: string | null }> | null, locations?: Array<{ __typename?: 'Location', name?: string | null }> | null }> | null };
 
 export type UpdatePaymentMutationVariables = Exact<{
   where: PaymentWhereUniqueInput;
@@ -3185,6 +3199,45 @@ export function useCreateEventMutation(baseOptions?: Apollo.MutationHookOptions<
 export type CreateEventMutationHookResult = ReturnType<typeof useCreateEventMutation>;
 export type CreateEventMutationResult = Apollo.MutationResult<CreateEventMutation>;
 export type CreateEventMutationOptions = Apollo.BaseMutationOptions<CreateEventMutation, CreateEventMutationVariables>;
+export const AddLocationDocument = gql`
+    mutation addLocation($data: LocationCreateInput!) {
+  createLocation(data: $data) {
+    city
+    name
+    country
+    state {
+      name
+      id
+    }
+  }
+}
+    `;
+export type AddLocationMutationFn = Apollo.MutationFunction<AddLocationMutation, AddLocationMutationVariables>;
+
+/**
+ * __useAddLocationMutation__
+ *
+ * To run a mutation, you first call `useAddLocationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddLocationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addLocationMutation, { data, loading, error }] = useAddLocationMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useAddLocationMutation(baseOptions?: Apollo.MutationHookOptions<AddLocationMutation, AddLocationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddLocationMutation, AddLocationMutationVariables>(AddLocationDocument, options);
+      }
+export type AddLocationMutationHookResult = ReturnType<typeof useAddLocationMutation>;
+export type AddLocationMutationResult = Apollo.MutationResult<AddLocationMutation>;
+export type AddLocationMutationOptions = Apollo.BaseMutationOptions<AddLocationMutation, AddLocationMutationVariables>;
 export const CreateSellerDocument = gql`
     mutation CreateSeller($data: SellerCreateInput!) {
   createSeller(data: $data) {
@@ -3219,6 +3272,39 @@ export function useCreateSellerMutation(baseOptions?: Apollo.MutationHookOptions
 export type CreateSellerMutationHookResult = ReturnType<typeof useCreateSellerMutation>;
 export type CreateSellerMutationResult = Apollo.MutationResult<CreateSellerMutation>;
 export type CreateSellerMutationOptions = Apollo.BaseMutationOptions<CreateSellerMutation, CreateSellerMutationVariables>;
+export const CreateStateDocument = gql`
+    mutation CreateState($data: StateCreateInput!) {
+  createState(data: $data) {
+    name
+  }
+}
+    `;
+export type CreateStateMutationFn = Apollo.MutationFunction<CreateStateMutation, CreateStateMutationVariables>;
+
+/**
+ * __useCreateStateMutation__
+ *
+ * To run a mutation, you first call `useCreateStateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateStateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createStateMutation, { data, loading, error }] = useCreateStateMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateStateMutation(baseOptions?: Apollo.MutationHookOptions<CreateStateMutation, CreateStateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateStateMutation, CreateStateMutationVariables>(CreateStateDocument, options);
+      }
+export type CreateStateMutationHookResult = ReturnType<typeof useCreateStateMutation>;
+export type CreateStateMutationResult = Apollo.MutationResult<CreateStateMutation>;
+export type CreateStateMutationOptions = Apollo.BaseMutationOptions<CreateStateMutation, CreateStateMutationVariables>;
 export const CreateUserDocument = gql`
     mutation CreateUser($data: UserCreateInput!) {
   createUser(data: $data) {
@@ -4178,6 +4264,7 @@ export const StatesDocument = gql`
     query states {
   states {
     name
+    id
     users {
       id
       firstName

@@ -14,7 +14,7 @@ const AddUser = () => {
   } = useForm();
   const [createUser, { loading, error }] = useCreateUserMutation();
   const { data } = useSelectorsQuery();
-  // console.log(data.eventTypes,"ddddd")
+  console.log("DATA ",data);
   const onSubmit = async (dataOnSubmit) => {
     console.log(dataOnSubmit, "onSubmit");
 

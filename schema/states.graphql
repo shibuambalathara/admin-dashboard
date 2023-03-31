@@ -1,6 +1,7 @@
 query states {
   states {
     name
+    id
     users {
       id
       firstName

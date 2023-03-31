@@ -20,7 +20,6 @@ import Sellers from "./pages/sellers";
 import AddEventForm from "./pages/addEventForm";
 import AddVehicle from "./pages/addVehicle";
 import AddBidForm from "./pages/addBidForm";
-import AddLoactionForm from "./pages/addLoactionForm";
 import AddPaymentDetails from "./pages/addPaymentDetails";
 import PaymentUserDetails from "./pages/paymentUserDetails";
 import AddStateForm from "./pages/addStateForm";
@@ -56,7 +55,6 @@ function App() {
               <Route path="addevent" element={<AddEventForm />} />
               <Route path="addvehicle" element={<AddVehicle />} />
               <Route path="addBid" element={<AddBidForm />} />
-              <Route path="addlocation" element={<AddLoactionForm />} />
               <Route
                 path="create-payment/:id"
                 element={<AddPaymentDetails />}
