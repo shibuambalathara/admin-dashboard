@@ -1,0 +1,6 @@
+query EventStartTime($where: EventWhereUniqueInput!) {
+  event(where: $where) {
+  id 
+  startDate 
+  }
+}

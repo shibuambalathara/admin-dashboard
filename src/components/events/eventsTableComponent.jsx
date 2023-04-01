@@ -20,6 +20,9 @@ const EventsTableComponent = () => {
    const handleEditEvent=(id)=>{
     navigate(`/edit-event/${id}`)
    }
+   const handleAddVehicle=(id)=>{
+    navigate(`/add-vehicle/${id}`)
+   }
 
     const columns = useMemo(
         () => [
@@ -36,6 +39,12 @@ const EventsTableComponent = () => {
             Header: "Upload Excel File",
             Cell: ({ row }) => (
               <button className="btn btn-info" onClick={()=>handleUploadExcelFile(row.original.id) }>Upload</button>
+            )
+          },
+          {
+            Header: "Add Vehicle",
+            Cell: ({ row }) => (
+              <button className="btn btn-accent" onClick={()=>handleAddVehicle(row.original.id) }>Add Vehicle</button>
             )
           },
           {

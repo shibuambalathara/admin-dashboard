@@ -1,0 +1,76 @@
+mutation CreateVehicle($data: VehicleCreateInput!) {
+  createVehicle(data: $data) {
+    event {
+      id
+    }
+  registrationNumber
+  bidStartTime
+   bidStatus
+   loanAgreementNo
+   registeredOwnerName
+   quoteIncreament
+   make
+   model
+   varient
+   categoty
+   fuel
+   type
+   rcStatus
+   yearOfManufacture
+   ownership
+   mileage
+   kmReading
+   insuranceStatus
+   yardLocation
+   startPrice
+   reservePrice
+   repoDt
+   veicleLocation
+   vehicleRemarks
+   auctionManager
+   parkingCharges
+   insurance
+   insuranceValidTill
+   tax
+   taxValidityDate
+   fitness
+   permit
+   fitnessPermit
+   engineNo
+   chassisNo
+   frontImage
+   leftImage
+   leftImage
+   rightImage
+   image5
+   image6
+   inspectionLink
+   autobseContact
+   autobse_contact_person
+   vehicleCondition
+   powerSteering
+   shape
+   color
+    city
+    area
+    state
+    paymentTerms
+    dateOfRegistration
+    hypothication
+    climateControl
+    doorCount
+    gearBox
+    buyerFees
+    rtoFine
+    parkingRate
+    approxParkingCharges
+    clientContactPerson
+    clientContactNo
+    additionalRemarks
+    watchedBy {
+      firstName
+      id
+    }
+    
+  }
+}
