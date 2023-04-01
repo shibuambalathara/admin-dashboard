@@ -1,9 +1,11 @@
 import { Button } from '@material-tailwind/react'
 import React, { useMemo } from 'react'
 import {useNavigate} from 'react-router-dom'
-import { useTable,usePagination,useGlobalFilter } from "react-table"
+import { useTable,useSortBy,usePagination,useGlobalFilter } from "react-table"
 import {useEventTableQuery} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
+import format from 'date-fns/format'
+
 const EventsTableComponent = () => {
     const {data,loading,error}=useEventTableQuery()
 
@@ -18,6 +20,9 @@ const EventsTableComponent = () => {
    const handleEditEvent=(id)=>{
     navigate(`/edit-event/${id}`)
    }
+   const handleAddVehicle=(id)=>{
+    navigate(`/add-vehicle/${id}`)
+   }
 
     const columns = useMemo(
         () => [
@@ -25,8 +30,8 @@ const EventsTableComponent = () => {
           { Header: "seller Name", accessor: "seller.name" },
           { Header: "Location", accessor: "location.name" },
           { Header: "Event Category ", accessor: "eventCategory" },
-          { Header: "Start Date ", accessor: "startDate" },
-          { Header: "End Date ", accessor: "endDate" },
+          { Header: "Start Date ", accessor: ({startDate})=>{return format(new Date (startDate),`dd/MM/yy, HH:mm:ss`)} },
+          { Header: "End Date ", accessor: ({endDate})=>{return format(new Date (endDate),`dd/MM/yy, HH:mm:ss`)} },
           { Header: "Status ", accessor: "status" },
 
          
@@ -34,6 +39,12 @@ const EventsTableComponent = () => {
             Header: "Upload Excel File",
             Cell: ({ row }) => (
               <button className="btn btn-info" onClick={()=>handleUploadExcelFile(row.original.id) }>Upload</button>
+            )
+          },
+          {
+            Header: "Add Vehicle",
+            Cell: ({ row }) => (
+              <button className="btn btn-accent" onClick={()=>handleAddVehicle(row.original.id) }>Add Vehicle</button>
             )
           },
           {
@@ -52,7 +63,7 @@ const EventsTableComponent = () => {
       const tableInstance=useTable({
         columns ,
         data: tableData,
-      },useGlobalFilter,usePagination);
+      },useGlobalFilter,useSortBy,usePagination);
      
         const {
           getTableProps,
@@ -104,9 +115,12 @@ const EventsTableComponent = () => {
                 <th
                   scope="col"
                   className="py-3 pl-4"
-                  {...column.getHeaderProps()}
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
                 >
                   {column.render("Header")}
+                  <span>
+                  {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                      </span>
                 </th>
               ))}
             </tr>

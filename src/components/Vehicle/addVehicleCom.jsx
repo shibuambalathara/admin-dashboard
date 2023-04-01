@@ -1,88 +1,147 @@
 import { Input } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
+import { useCreateVehicleMutation,useEventStartTimeQuery } from "../../utils/graphql";
+
 
 const AddVehicleComponent = () => {
+
+  const {id}=useParams()
+  const[createVehicle]=useCreateVehicleMutation()
+  const{data}=useEventStartTimeQuery({variables:{where:{id:id}}})
+  const { register, handleSubmit,control, watch, formState: { errors } } = useForm();
+  const onSubmit = dataOnSubmit =>{ console.log(dataOnSubmit)
+const vehicle={
+  event:{connect:{id}},
+  registrationNumber:dataOnSubmit?.regNo,
+  loanAgreementNo:dataOnSubmit?.loanANum,
+  bidStartTime:data?.event?.startDate,
+  bidStatus:dataOnSubmit?.bidStatus,
+  registeredOwnerName:dataOnSubmit?.regOwnerName,
+  quoteIncreament:dataOnSubmit?.quoteInc,
+  make:dataOnSubmit?.vehicleCompanyName,
+  model:dataOnSubmit?.model,
+  varient:dataOnSubmit?.varient,
+  categoty:dataOnSubmit?.categoty,
+  fuel:dataOnSubmit?.fuel,
+  type:dataOnSubmit?.type,
+  rcStatus:dataOnSubmit?.rcStatus,
+  yearOfManufacture:dataOnSubmit?.yearOfManuFacture,
+  ownership:dataOnSubmit?.Ownership,
+  mileage:dataOnSubmit?.mileage,
+  kmReading:dataOnSubmit?.kmReading,
+  insuranceStatus:dataOnSubmit?.insuranceStatus,
+  yardLocation:dataOnSubmit?.yardLocation,
+  startPrice:dataOnSubmit?.startPrice,
+  reservePrice:dataOnSubmit?.reservePrice,
+  repoDt:dataOnSubmit?.repoDate,
+  veicleLocation:dataOnSubmit?.vehicleLocation,
+  vehicleRemarks:dataOnSubmit?.vehicleRemarks,
+  auctionManager:dataOnSubmit?.autionManager,
+  parkingCharges:dataOnSubmit?.approxParkingCharges,
+  insurance:dataOnSubmit?.insuranceStatus,
+
+  // insuranceValidTill:dataOnSubmit,
+  tax:dataOnSubmit?.tax,
+  taxValidityDate:dataOnSubmit?.taxValidityDate,
+  fitness:dataOnSubmit?.fitness,
+  permit:dataOnSubmit?.permit,
+  fitnessPermit:dataOnSubmit?.fitnessPermit,
+  
+
+
+
+
+
+
+
+
+}
+const result=createVehicle({variables:{data:vehicle}})
+  }
   return (
     <div className="max-w-7xl mx-auto h-fit  my-10 bg-slate-100  ">
-      {/* <div className=" w-full h-full bg-lime-400 space-y-1"> */}
+    
       <div className="py-4 bg-gray-200 rounded px-4 flex items-center justify-center ">
         <h2 className="text-xl py-3 leading-3 font-bold text-gray-900">
           ADD VECHILE
         </h2>
       </div>
       <div className="  max-w-6xl h-full mx-auto mt-5">
-        <form action=" w-full ">
+      <form onSubmit={handleSubmit(onSubmit)}>
           <div className=" space-y-10">
             <div className=" w-full  flex justify-between space-x-72">
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                   Registration{" "}
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input  {...register("regNo",{required:true})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <p className="text-red-500"> {errors.regNo&& <span>Register Number required</span>}</p> 
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                   Event{" "}
                 </label>
-                <select
-                  name=""
-                  id=""
+                <input
+                 
+                  value={id}
+                  type="text"
+                  {...register("eventId",{required:true})}
                   placeholder="select"
                   className="w-full max-w-[560px] bg-slate-200  border border-gray-300 rounded mt-2 py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
-                >
-                  {/* <option value="" selected placeholder="select">select </option> */}
-                  <option value="">online </option>
-                  <option value="">offline</option>
-                </select>
+                />
+                 <p className="text-red-500"> {errors.eventId&& <span>Event Id required</span>}</p> 
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
               <div className="w-1/2  ">
                 <label htmlFor="">Bid Status</label>
                 <select
-                  name=""
-                  id=""
+                  {...register("bidStatus",{})}
                   placeholder="select"
                   className="w-full max-w-[560px] bg-slate-200  border border-gray-300 rounded mt-2 py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
                 >
                   {/* <option value="" selected placeholder="select">select </option> */}
-                  <option value="">online </option>
-                  <option value="">offline</option>
+                  <option value="pending">pending </option>
+                  <option value="approved">approved</option>
+                  <option value="fulfilled">fulfilled </option>
+                  <option value="declined">declined</option>
                 </select>
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
-                  Loan Agrement number{" "}
+                  Loan Agreement number{" "}
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("loanANum",{required:true})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <p className="text-red-500"> {errors.loanANum&& <span>Loan Agreement Number required</span>}</p> 
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
-                  Registrated Owner Name
+                Registered Owner Name
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("regOwnerName",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                   Quote Increment{" "}
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input type='number' defaultValue='1000' {...register("quoteInc",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
-                  Make
+                  Vehicle Company Name
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("vehicleCompanyName",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                   Model{" "}
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("model",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
@@ -90,13 +149,13 @@ const AddVehicleComponent = () => {
                 <label className="t" htmlFor=" ">
                   Varient
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("varient",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                   Category{" "}
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("category",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
@@ -104,13 +163,13 @@ const AddVehicleComponent = () => {
                 <label className="t" htmlFor=" ">
                   Fuel
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("fuel",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                   Type{" "}
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("type",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
@@ -118,13 +177,13 @@ const AddVehicleComponent = () => {
                 <label className="t" htmlFor=" ">
                   Rc status
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("rcStatus",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                   Year Of Manufacture{" "}
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input type='number' {...register("yearOfManuFacture",{})}  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
@@ -132,13 +191,13 @@ const AddVehicleComponent = () => {
                 <label className="t" htmlFor=" ">
                   Ownership
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input type='number' {...register("Ownership",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                   Mileage{" "}
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("mileage",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
@@ -146,13 +205,13 @@ const AddVehicleComponent = () => {
                 <label className="t" htmlFor=" ">
                   Km Reading
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("kmReading",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                   Insurance Status{" "}
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("insuranceStatus",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
@@ -160,13 +219,13 @@ const AddVehicleComponent = () => {
                 <label className="t" htmlFor=" ">
                   Yard Location
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("yardLocation",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                   Start Price{" "}
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("startPrice",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
@@ -174,7 +233,7 @@ const AddVehicleComponent = () => {
                 <label className="t" htmlFor=" ">
                   Reserve price
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("reservePrice",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
@@ -183,28 +242,29 @@ const AddVehicleComponent = () => {
 
                 <div className="flex">
                   <Input
-                    type="date"
+                    type="datetime-local"
+                    {...register("repoDate",{})}
                     className="max-w-[260px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                   />
-                  <Input
+                  {/* <Input
                     type="time"
                     className="max-w-[160px] ml-5 border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                  />
+                  /> */}
                 </div>
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
-                  Vechile Remarks
+                  Vehicle Remarks
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("vehicleRemarks",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                 Vechile  Loaction{" "}
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("vehicleLocation",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
@@ -212,13 +272,13 @@ const AddVehicleComponent = () => {
                 <label className="t" htmlFor=" ">
                   Parking Charges
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("parkingCharge",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                   Permit{" "}
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("permit",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
@@ -228,6 +288,7 @@ const AddVehicleComponent = () => {
                 </label>
                 <Input
                   type="number"
+                  {...register("insurance",{})}
                   className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
                
@@ -239,13 +300,14 @@ const AddVehicleComponent = () => {
 
                 <div className="flex">
                   <Input
-                    type="date"
+                    type="datetime-local"
+                    {...register("insuranceValidDate",{})}
                     className="max-w-[260px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                   />
-                  <Input
+                  {/* <Input
                     type="time"
                     className="max-w-[160px] ml-5 border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                  />
+                  /> */}
                 </div>
               </div>
               
@@ -257,6 +319,7 @@ const AddVehicleComponent = () => {
                 </label>
                 <Input
                   type="number"
+                  {...register("tax",{})}
                   className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
                
@@ -268,13 +331,14 @@ const AddVehicleComponent = () => {
 
                 <div className="flex">
                   <Input
-                    type="date"
+                    type="datetime-local"
+                    {...register("taxValidityDate",{})}
                     className="max-w-[260px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                   />
-                  <Input
+                  {/* <Input
                     type="time"
                     className="max-w-[160px] ml-5 border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                  />
+                  /> */}
                 </div>
               </div>
               
@@ -284,13 +348,13 @@ const AddVehicleComponent = () => {
                 <label className="t" htmlFor=" ">
                   Fitness
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("fitness",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                   Fitness Permit{" "}
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("fitnessPermit",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
@@ -298,55 +362,55 @@ const AddVehicleComponent = () => {
                 <label className="t" htmlFor=" ">
                  Engine Number
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("engineNumber",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                   Chassis No{" "}
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("chassisNo",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
-                  Front Image
+                  Front Image url
                 </label>
-                <Input type='file' className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("frontImage",{})} type='text' className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
-                  Back Image{" "}
+                  Back Image url
                 </label>
-                <Input type='File' className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
-              </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  Left Image
-                </label>
-                <Input type='file' className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
-              </div>
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  Right Image{" "}
-                </label>
-                <Input type='File' className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input type='text' {...register("backImage",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
-                   Image 5
+                  Left Image url
                 </label>
-                <Input type='file' className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("leftImage",{})} type='text' className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
-                 Image 6    {" "}
+                  Right Image url
                 </label>
-                <Input type='File' className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("rightImage",{})} type='text' className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+              </div>
+            </div>
+            <div className=" w-full  flex justify-between space-x-72">
+              <div className="w-1/2  ">
+                <label className="t" htmlFor=" ">
+                   Image 5 url
+                </label>
+                <Input {...register("image5",{})} type='text' className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+              </div>
+              <div className="w-1/2  ">
+                <label className="t" htmlFor=" ">
+                 Image 6 url
+                </label>
+                <Input {...register("image6",{})} type='text' className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
@@ -354,13 +418,13 @@ const AddVehicleComponent = () => {
                 <label className="t" htmlFor=" ">
                  Inspection Link
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("inspectLink",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
-                Autobse Contact{" "}
+                Autobse Contact
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("autobseContact",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
@@ -368,13 +432,13 @@ const AddVehicleComponent = () => {
                 <label className="t" htmlFor=" ">
                  Autobse Contact Person
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("autoBseContactPerson",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
               Vehicle Condition{" "}
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("vehicleCondion",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
@@ -382,13 +446,13 @@ const AddVehicleComponent = () => {
                 <label className="t" htmlFor=" ">
                  Power Steering
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("powerSteering",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                  Shape{" "}
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("shape",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
@@ -396,27 +460,27 @@ const AddVehicleComponent = () => {
                 <label className="t" htmlFor=" ">
                 Color
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("color",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                  State{" "}
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
-              </div>
+                <Input {...register("state",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+              </div> 
             </div>
             <div className=" w-full  flex justify-between space-x-72">
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                   City
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("city",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                   Area{" "}
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("area",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
@@ -425,7 +489,8 @@ const AddVehicleComponent = () => {
                   Payment Terms
                 </label>
                 <Input
-                  type="number"
+                  type="text"
+                  {...register("paymentTerms",{})}
                   className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
                
@@ -437,13 +502,14 @@ const AddVehicleComponent = () => {
 
                 <div className="flex">
                   <Input
-                    type="date"
+                    type="datetime-local"
+                    {...register("dateOfRegistration",{})}
                     className="max-w-[260px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                   />
-                  <Input
+                  {/* <Input
                     type="time"
                     className="max-w-[160px] ml-5 border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                  />
+                  /> */}
                 </div>
               </div>
               
@@ -453,13 +519,13 @@ const AddVehicleComponent = () => {
                 <label className="t" htmlFor=" ">
                   Hypothication
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("hypothication",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                   Climate Control{" "}
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("climateControl",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
@@ -467,13 +533,13 @@ const AddVehicleComponent = () => {
                 <label className="t" htmlFor=" ">
                   Door Count
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("doorCount",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                   Gear Box{" "}
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("gearBox",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
@@ -481,13 +547,13 @@ const AddVehicleComponent = () => {
                 <label className="t" htmlFor=" ">
                   Buyer Fees
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("buyerFees",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                   RTO fine{" "}
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("rtoFine",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
@@ -495,13 +561,13 @@ const AddVehicleComponent = () => {
                 <label className="t" htmlFor=" ">
                   parking Rate
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("parkingRate",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                   Approx Parking Charges{" "}
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("approxParkingCharges",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
@@ -509,13 +575,13 @@ const AddVehicleComponent = () => {
                 <label className="t" htmlFor=" ">
                   Client Contact Person
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("clientContactPerson",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                   Client Contact No{" "}
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("clientContactNo",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
@@ -523,13 +589,13 @@ const AddVehicleComponent = () => {
                 <label className="t" htmlFor=" ">
                   Additional Remarks
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("AdditionalRemarks",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                   Watched By{" "}
                 </label>
-                <Input className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
@@ -537,7 +603,7 @@ const AddVehicleComponent = () => {
                 <label className="t" htmlFor=" ">
                   Auction Manager
                 </label>
-                <Input className="max-w-[435px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input {...register("autionManager",{})} className="max-w-[435px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
              
             </div>
@@ -547,7 +613,7 @@ const AddVehicleComponent = () => {
           </div>
         </form>
       </div>
-      {/* </div> */}
+     
     </div>
   );
 };

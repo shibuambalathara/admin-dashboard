@@ -1,12 +1,11 @@
 
-
-
 import { Button } from '@material-tailwind/react'
 import React, { useMemo } from 'react'
 import {useNavigate} from 'react-router-dom'
 import { useTable,usePagination,useGlobalFilter } from "react-table"
 import {useVehicleTableQuery} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
+import format from 'date-fns/format'
 
 
 const VehicleTable = () => {
@@ -17,7 +16,7 @@ const VehicleTable = () => {
         () => [
           { Header: "Registration Number", accessor: "registrationNumber" },
           { Header: "Vehicle Index No", accessor: "vehicleIndexNo" },
-          { Header: "Bid Time Expire", accessor: "bidTimeExpire" },
+          { Header: "Bid Time Expire", accessor: ({bidTimeExpire})=>{return format(new Date (bidTimeExpire),`dd/MM/yy,  HH:mm:ss`)}  },
          
 
          
@@ -71,12 +70,12 @@ const VehicleTable = () => {
 
   return (
     <div className="flex  flex-col w-full justify-around ">
-    <Button
+    {/* <Button
       onClick={() => navigate("/addvehicle")}
       className="m-5 justify-end w-fit bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
     >
      Add Vechile
-    </Button>
+    </Button> */}
     
     <div className=" flex flex-col w-full justify-center m-auto ">
     <div className="mb-2">

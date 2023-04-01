@@ -2959,12 +2959,26 @@ export type CreateEventMutationVariables = Exact<{
 
 export type CreateEventMutation = { __typename?: 'Mutation', createEvent?: { __typename?: 'Event', id: string, eventCategory?: string | null, startDate?: any | null, endDate?: any | null, noOfBids?: number | null, status?: EventStatusType | null, termsAndConditions?: string | null, bidLock?: EventBidLockType | null, isSpecialEvent?: boolean | null, extraTime?: number | null, extraTimeTrigerIn?: number | null, vehicleLiveTimeIn?: number | null, gapInBetweenVehicles?: number | null, seller?: { __typename?: 'Seller', name?: string | null, id: string } | null, eventType?: Array<{ __typename?: 'EventType', name?: string | null, id: string }> | null, location?: { __typename?: 'Location', city?: string | null, id: string } | null, downloadableFile?: { __typename?: 'FileFieldOutput', url: string } | null } | null };
 
+export type CreateSellerMutationVariables = Exact<{
+  data: SellerCreateInput;
+}>;
+
+
+export type CreateSellerMutation = { __typename?: 'Mutation', createSeller?: { __typename?: 'Seller', id: string, name?: string | null } | null };
+
 export type CreateUserMutationVariables = Exact<{
   data: UserCreateInput;
 }>;
 
 
 export type CreateUserMutation = { __typename?: 'Mutation', createUser?: { __typename?: 'User', mobile?: string | null, username?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, city?: string | null, businessName?: string | null, role?: UserRoleType | null, status?: UserStatusType | null, idProofType?: UserIdProofTypeType | null, idProofNo?: string | null, state?: string | null, country?: string | null, password?: { __typename?: 'PasswordState', isSet: boolean } | null, image?: { __typename?: 'ImageFieldOutput', url: string } | null, pancard?: { __typename?: 'ImageFieldOutput', url: string } | null, idProof?: { __typename?: 'ImageFieldOutput', id: string } | null, idProofBack?: { __typename?: 'ImageFieldOutput', url: string } | null, dealership?: { __typename?: 'ImageFieldOutput', url: string } | null, category?: Array<{ __typename?: 'EventType', name?: string | null }> | null } | null };
+
+export type CreateVehicleMutationVariables = Exact<{
+  data: VehicleCreateInput;
+}>;
+
+
+export type CreateVehicleMutation = { __typename?: 'Mutation', createVehicle?: { __typename?: 'Vehicle', registrationNumber?: string | null, bidStartTime?: any | null, bidStatus?: VehicleBidStatusType | null, loanAgreementNo?: string | null, registeredOwnerName?: string | null, quoteIncreament?: number | null, make?: string | null, model?: string | null, varient?: string | null, categoty?: string | null, fuel?: string | null, type?: string | null, rcStatus?: string | null, yearOfManufacture?: number | null, ownership?: number | null, mileage?: number | null, kmReading?: number | null, insuranceStatus?: string | null, yardLocation?: string | null, startPrice?: number | null, reservePrice?: number | null, repoDt?: any | null, veicleLocation?: string | null, vehicleRemarks?: string | null, auctionManager?: string | null, parkingCharges?: string | null, insurance?: string | null, insuranceValidTill?: any | null, tax?: string | null, taxValidityDate?: any | null, fitness?: string | null, permit?: string | null, fitnessPermit?: string | null, engineNo?: string | null, chassisNo?: string | null, frontImage?: string | null, leftImage?: string | null, rightImage?: string | null, image5?: string | null, image6?: string | null, inspectionLink?: string | null, autobseContact?: string | null, autobse_contact_person?: string | null, vehicleCondition?: string | null, powerSteering?: string | null, shape?: string | null, color?: string | null, city?: string | null, area?: string | null, state?: string | null, paymentTerms?: string | null, dateOfRegistration?: any | null, hypothication?: string | null, climateControl?: string | null, doorCount?: number | null, gearBox?: string | null, buyerFees?: string | null, rtoFine?: string | null, parkingRate?: string | null, approxParkingCharges?: string | null, clientContactPerson?: string | null, clientContactNo?: string | null, additionalRemarks?: string | null, event?: { __typename?: 'Event', id: string } | null, watchedBy?: Array<{ __typename?: 'User', firstName?: string | null, id: string }> | null } | null };
 
 export type LoginMutationVariables = Exact<{
   mobile: Scalars['String'];
@@ -3018,6 +3032,13 @@ export type EventQueryVariables = Exact<{
 
 
 export type EventQuery = { __typename?: 'Query', event?: { __typename?: 'Event', id: string, eventCategory?: string | null, startDate?: any | null, endDate?: any | null, noOfBids?: number | null, status?: EventStatusType | null, termsAndConditions?: string | null, bidLock?: EventBidLockType | null, isSpecialEvent?: boolean | null, extraTime?: number | null, extraTimeTrigerIn?: number | null, vehicleLiveTimeIn?: number | null, gapInBetweenVehicles?: number | null, seller?: { __typename?: 'Seller', name?: string | null, id: string } | null, eventType?: Array<{ __typename?: 'EventType', name?: string | null, id: string }> | null, location?: { __typename?: 'Location', name?: string | null, id: string } | null, downloadableFile?: { __typename?: 'FileFieldOutput', url: string } | null } | null };
+
+export type EventStartTimeQueryVariables = Exact<{
+  where: EventWhereUniqueInput;
+}>;
+
+
+export type EventStartTimeQuery = { __typename?: 'Query', event?: { __typename?: 'Event', id: string, startDate?: any | null } | null };
 
 export type EventTableQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3178,6 +3199,40 @@ export function useCreateEventMutation(baseOptions?: Apollo.MutationHookOptions<
 export type CreateEventMutationHookResult = ReturnType<typeof useCreateEventMutation>;
 export type CreateEventMutationResult = Apollo.MutationResult<CreateEventMutation>;
 export type CreateEventMutationOptions = Apollo.BaseMutationOptions<CreateEventMutation, CreateEventMutationVariables>;
+export const CreateSellerDocument = gql`
+    mutation CreateSeller($data: SellerCreateInput!) {
+  createSeller(data: $data) {
+    id
+    name
+  }
+}
+    `;
+export type CreateSellerMutationFn = Apollo.MutationFunction<CreateSellerMutation, CreateSellerMutationVariables>;
+
+/**
+ * __useCreateSellerMutation__
+ *
+ * To run a mutation, you first call `useCreateSellerMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSellerMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSellerMutation, { data, loading, error }] = useCreateSellerMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateSellerMutation(baseOptions?: Apollo.MutationHookOptions<CreateSellerMutation, CreateSellerMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateSellerMutation, CreateSellerMutationVariables>(CreateSellerDocument, options);
+      }
+export type CreateSellerMutationHookResult = ReturnType<typeof useCreateSellerMutation>;
+export type CreateSellerMutationResult = Apollo.MutationResult<CreateSellerMutation>;
+export type CreateSellerMutationOptions = Apollo.BaseMutationOptions<CreateSellerMutation, CreateSellerMutationVariables>;
 export const CreateUserDocument = gql`
     mutation CreateUser($data: UserCreateInput!) {
   createUser(data: $data) {
@@ -3245,6 +3300,109 @@ export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
 export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
 export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
+export const CreateVehicleDocument = gql`
+    mutation CreateVehicle($data: VehicleCreateInput!) {
+  createVehicle(data: $data) {
+    event {
+      id
+    }
+    registrationNumber
+    bidStartTime
+    bidStatus
+    loanAgreementNo
+    registeredOwnerName
+    quoteIncreament
+    make
+    model
+    varient
+    categoty
+    fuel
+    type
+    rcStatus
+    yearOfManufacture
+    ownership
+    mileage
+    kmReading
+    insuranceStatus
+    yardLocation
+    startPrice
+    reservePrice
+    repoDt
+    veicleLocation
+    vehicleRemarks
+    auctionManager
+    parkingCharges
+    insurance
+    insuranceValidTill
+    tax
+    taxValidityDate
+    fitness
+    permit
+    fitnessPermit
+    engineNo
+    chassisNo
+    frontImage
+    leftImage
+    leftImage
+    rightImage
+    image5
+    image6
+    inspectionLink
+    autobseContact
+    autobse_contact_person
+    vehicleCondition
+    powerSteering
+    shape
+    color
+    city
+    area
+    state
+    paymentTerms
+    dateOfRegistration
+    hypothication
+    climateControl
+    doorCount
+    gearBox
+    buyerFees
+    rtoFine
+    parkingRate
+    approxParkingCharges
+    clientContactPerson
+    clientContactNo
+    additionalRemarks
+    watchedBy {
+      firstName
+      id
+    }
+  }
+}
+    `;
+export type CreateVehicleMutationFn = Apollo.MutationFunction<CreateVehicleMutation, CreateVehicleMutationVariables>;
+
+/**
+ * __useCreateVehicleMutation__
+ *
+ * To run a mutation, you first call `useCreateVehicleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateVehicleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createVehicleMutation, { data, loading, error }] = useCreateVehicleMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateVehicleMutation(baseOptions?: Apollo.MutationHookOptions<CreateVehicleMutation, CreateVehicleMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateVehicleMutation, CreateVehicleMutationVariables>(CreateVehicleDocument, options);
+      }
+export type CreateVehicleMutationHookResult = ReturnType<typeof useCreateVehicleMutation>;
+export type CreateVehicleMutationResult = Apollo.MutationResult<CreateVehicleMutation>;
+export type CreateVehicleMutationOptions = Apollo.BaseMutationOptions<CreateVehicleMutation, CreateVehicleMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($mobile: String!, $password: String!) {
   authenticateUserWithPassword(mobile: $mobile, password: $password) {
@@ -3628,6 +3786,42 @@ export function useEventLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Even
 export type EventQueryHookResult = ReturnType<typeof useEventQuery>;
 export type EventLazyQueryHookResult = ReturnType<typeof useEventLazyQuery>;
 export type EventQueryResult = Apollo.QueryResult<EventQuery, EventQueryVariables>;
+export const EventStartTimeDocument = gql`
+    query EventStartTime($where: EventWhereUniqueInput!) {
+  event(where: $where) {
+    id
+    startDate
+  }
+}
+    `;
+
+/**
+ * __useEventStartTimeQuery__
+ *
+ * To run a query within a React component, call `useEventStartTimeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEventStartTimeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEventStartTimeQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useEventStartTimeQuery(baseOptions: Apollo.QueryHookOptions<EventStartTimeQuery, EventStartTimeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EventStartTimeQuery, EventStartTimeQueryVariables>(EventStartTimeDocument, options);
+      }
+export function useEventStartTimeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EventStartTimeQuery, EventStartTimeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EventStartTimeQuery, EventStartTimeQueryVariables>(EventStartTimeDocument, options);
+        }
+export type EventStartTimeQueryHookResult = ReturnType<typeof useEventStartTimeQuery>;
+export type EventStartTimeLazyQueryHookResult = ReturnType<typeof useEventStartTimeLazyQuery>;
+export type EventStartTimeQueryResult = Apollo.QueryResult<EventStartTimeQuery, EventStartTimeQueryVariables>;
 export const EventTableDocument = gql`
     query eventTable {
   events {

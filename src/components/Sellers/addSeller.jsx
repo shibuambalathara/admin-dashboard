@@ -1,43 +1,58 @@
-import React from 'react'
+import React from "react";
+import { useForm } from "react-hook-form";
+import {useCreateSellerMutation} from '../../utils/graphql'
 
 const AddSeller = () => {
+  
+  const [sellerName]=useCreateSellerMutation()
+
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+
+  const onSubmit = dataOnSubmit =>{ console.log(dataOnSubmit);
+
+   const result=sellerName({variables:{data:{name:dataOnSubmit?.sellerName}}})
+  }
   return (
-    <div className='w-28  m-10 space-y-10'>
+    <div className="w-full">
+   
+      <label htmlFor="my-modal-3" className="btn  btn-outline btn-secondary">
+        Add Seller
+      </label>
 
-     
+      {/* Put this part before </body> tag */}
+      <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+      <div className="modal ">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="modal-box relative w-96">
+          <label
+            htmlFor="my-modal-3"
+            className="btn btn-sm btn-circle absolute right-2 top-2"
+          >
+            ✕
+          </label>
 
-
-     
-<label htmlFor="my-modal" className="btn  btn-outline btn-secondary">Add Seller</label>
-
-{/* Put this part before </body> tag */}
-<input type="checkbox"  id="my-modal" className="modal-toggle" />
-<div className="modal">
-  <div className="modal-box">
- 
-        <div className='flex flex-col'>
+          <div className="flex flex-col">
+       
             <label>Seller Name</label>
-            <input className="input input-bordered input-secondary  " type="text"/>
+            <input
+             {...register("sellerName", { required: true })}
+              className="input input-bordered input-secondary  "
+              type="text"
+            />
+          
+          </div>
+          {errors.sellerName && <span>This field is required</span>}
+          <div className=" flex justify-center space-x-5 my-5">
+            <button type="submit" className="btn btn-outline btn-secondary">
+              Add Seller
+            </button>
+           
+          </div>
         </div>
-        <div className=" flex justify-center space-x-5 my-5">
-          <button
-            type="submit" 
-            className="btn btn-outline btn-secondary"
-          >Add Seller</button>
-           <button
-            type="submit" 
-            className="btn btn-outline btn-accent"
-          >Cancel</button>
-        </div>
-  </div>
-</div>
-      
-
-
-
-      
+        </form>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default AddSeller
+export default AddSeller;
