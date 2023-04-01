@@ -3019,7 +3019,7 @@ export type EditUserMutationVariables = Exact<{
 }>;
 
 
-export type EditUserMutation = { __typename?: 'Mutation', updateUser?: { __typename?: 'User', firstName?: string | null, lastName?: string | null, email?: string | null, username?: string | null, mobile?: string | null, businessName?: string | null, role?: UserRoleType | null, idProofType?: UserIdProofTypeType | null, idProofNo?: string | null, pancardNo?: string | null, country?: string | null, state?: string | null, city?: string | null, status?: UserStatusType | null, category?: Array<{ __typename?: 'EventType', name?: string | null }> | null, bannedSellers?: Array<{ __typename?: 'Seller', name?: string | null, id: string }> | null, password?: { __typename?: 'PasswordState', isSet: boolean } | null, image?: { __typename?: 'ImageFieldOutput', url: string } | null, pancard?: { __typename?: 'ImageFieldOutput', url: string } | null, idProof?: { __typename?: 'ImageFieldOutput', url: string } | null, idProofBack?: { __typename?: 'ImageFieldOutput', url: string } | null, dealership?: { __typename?: 'ImageFieldOutput', url: string } | null } | null };
+export type EditUserMutation = { __typename?: 'Mutation', updateUser?: { __typename?: 'User', firstName?: string | null, lastName?: string | null, email?: string | null, username?: string | null, mobile?: string | null, businessName?: string | null, role?: UserRoleType | null, idProofType?: UserIdProofTypeType | null, idProofNo?: string | null, pancardNo?: string | null, country?: string | null, state?: string | null, city?: string | null, status?: UserStatusType | null, vehicleBuyingLimit?: number | null, category?: Array<{ __typename?: 'EventType', name?: string | null }> | null, bannedSellers?: Array<{ __typename?: 'Seller', name?: string | null, id: string }> | null, password?: { __typename?: 'PasswordState', isSet: boolean } | null, image?: { __typename?: 'ImageFieldOutput', url: string } | null, pancard?: { __typename?: 'ImageFieldOutput', url: string } | null, idProof?: { __typename?: 'ImageFieldOutput', url: string } | null, idProofBack?: { __typename?: 'ImageFieldOutput', url: string } | null, dealership?: { __typename?: 'ImageFieldOutput', url: string } | null } | null };
 
 export type EmdTableQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3111,7 +3111,7 @@ export type SellersQuery = { __typename?: 'Query', sellers?: Array<{ __typename?
 export type StatesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type StatesQuery = { __typename?: 'Query', states?: Array<{ __typename?: 'State', name?: string | null, users?: Array<{ __typename?: 'User', id: string, firstName?: string | null }> | null, locations?: Array<{ __typename?: 'Location', name?: string | null }> | null }> | null };
+export type StatesQuery = { __typename?: 'Query', states?: Array<{ __typename?: 'State', name?: string | null, id: string, users?: Array<{ __typename?: 'User', id: string, firstName?: string | null }> | null, locations?: Array<{ __typename?: 'Location', name?: string | null }> | null }> | null };
 
 export type UpdatePaymentMutationVariables = Exact<{
   where: PaymentWhereUniqueInput;
@@ -3126,7 +3126,7 @@ export type UserQueryVariables = Exact<{
 }>;
 
 
-export type UserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, firstName?: string | null, activeBidsCount?: number | null, bannedSellersCount?: number | null, businessName?: string | null, categoryCount?: number | null, city?: string | null, country?: string | null, createdAt?: any | null, dealerId?: string | null, email?: string | null, emdUpdatesByAdminCount?: number | null, emdUpdatesCount?: number | null, idNo?: number | null, idProofNo?: string | null, idProofType?: UserIdProofTypeType | null, lastName?: string | null, magicAuthIssuedAt?: any | null, magicAuthRedeemedAt?: any | null, mobile?: string | null, pancardNo?: string | null, paymentsCount?: number | null, phone?: string | null, role?: UserRoleType | null, specialVehicleBuyingLimit?: number | null, vehicleBuyingLimit?: number | null, username?: string | null, status?: UserStatusType | null, updatedAt?: any | null, states?: Array<{ __typename?: 'State', name?: string | null }> | null, idProof?: { __typename?: 'ImageFieldOutput', url: string } | null, idProofBack?: { __typename?: 'ImageFieldOutput', url: string } | null, image?: { __typename: 'ImageFieldOutput', url: string } | null, pancard?: { __typename?: 'ImageFieldOutput', url: string } | null, payments?: Array<{ __typename?: 'Payment', amount?: number | null }> | null, dealership?: { __typename?: 'ImageFieldOutput', url: string } | null, bannedSellers?: Array<{ __typename?: 'Seller', name?: string | null }> | null } | null };
+export type UserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, firstName?: string | null, vehicleBuyingLimit?: number | null, bannedSellersCount?: number | null, businessName?: string | null, categoryCount?: number | null, city?: string | null, country?: string | null, createdAt?: any | null, dealerId?: string | null, email?: string | null, emdUpdatesByAdminCount?: number | null, emdUpdatesCount?: number | null, idNo?: number | null, idProofNo?: string | null, idProofType?: UserIdProofTypeType | null, lastName?: string | null, magicAuthIssuedAt?: any | null, magicAuthRedeemedAt?: any | null, mobile?: string | null, pancardNo?: string | null, paymentsCount?: number | null, phone?: string | null, role?: UserRoleType | null, specialVehicleBuyingLimit?: number | null, username?: string | null, status?: UserStatusType | null, updatedAt?: any | null, states?: Array<{ __typename?: 'State', name?: string | null, locations?: Array<{ __typename?: 'Location', city?: string | null, id: string, name?: string | null }> | null }> | null, idProof?: { __typename?: 'ImageFieldOutput', url: string } | null, idProofBack?: { __typename?: 'ImageFieldOutput', url: string } | null, image?: { __typename: 'ImageFieldOutput', url: string } | null, pancard?: { __typename?: 'ImageFieldOutput', url: string } | null, payments?: Array<{ __typename?: 'Payment', amount?: number | null }> | null, dealership?: { __typename?: 'ImageFieldOutput', url: string } | null, bannedSellers?: Array<{ __typename?: 'Seller', name?: string | null, id: string }> | null } | null };
 
 export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3658,6 +3658,7 @@ export const EditUserDocument = gql`
     state
     city
     status
+    vehicleBuyingLimit
   }
 }
     `;
@@ -4331,6 +4332,7 @@ export const StatesDocument = gql`
     query states {
   states {
     name
+    id
     users {
       id
       firstName
@@ -4413,12 +4415,17 @@ export const UserDocument = gql`
   user(where: $where) {
     id
     firstName
-    activeBidsCount
+    vehicleBuyingLimit
     bannedSellersCount
     businessName
     categoryCount
     states {
       name
+      locations {
+        city
+        id
+        name
+      }
     }
     city
     country
@@ -4466,6 +4473,7 @@ export const UserDocument = gql`
     updatedAt
     bannedSellers {
       name
+      id
     }
   }
 }
