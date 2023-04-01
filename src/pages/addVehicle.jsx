@@ -1,5 +1,5 @@
 import React from 'react'
-import AddVehicleComponent from '../components/Vehicle/addVehicleComponent'
+import AddVehicleComponent from '../components/Vehicle/addVehicleCom'
 
 
 const AddVehicle = () => {
