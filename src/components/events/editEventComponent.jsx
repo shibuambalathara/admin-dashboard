@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Input } from "@material-tailwind/react";
 import { useForm,Controller } from "react-hook-form";
 import Select from 'react-select'
@@ -9,7 +9,11 @@ import { useNavigate, useParams } from "react-router-dom";
 
 
 const EditEventComponent = () => {
+const[startDatedata,setStartDate]=useState('')
+const[isoStartDate,setIsoStartDate]=useState()
 
+const[endDatedata,setEndDate]=useState('')
+const[isoEndDatedata,setIsoEndDate]=useState('')
  const {id}=useParams()
   const navigate=useNavigate()
   const sellersItem=useSellersItemQuery()
@@ -18,38 +22,17 @@ const EditEventComponent = () => {
   const [editEvent,response]=useEditEventMutation({variables:{where:{id}}})
    const {data,loading,error}=useEventQuery({variables:{where:{id}}})
 
-
-   const date=new Date( data?.event?.startDate)
-
-
-   const year = date.getFullYear();
-   const month = (date.getMonth() + 1).toString().padStart(2, '0');
-   const day = date.getDate().toString().padStart(2, '0');
-   const hours = date.getHours().toString().padStart(2, '0');
-   const minutes = date.getMinutes().toString().padStart(2, '0');
-   
-   const dateTimeLocal = `${year}-${month}-${day}T${hours}:${minutes}`;
-
-   
-
-
-
-   const dateEnd=new Date( data?.event?.endDate)
-
-
-   const year1 = dateEnd.getFullYear();
-   const month1 = (dateEnd.getMonth() + 1).toString().padStart(2, '0');
-   const day1 = dateEnd.getDate().toString().padStart(2, '0');
-   const hours1 = dateEnd.getHours().toString().padStart(2, '0');
-   const minutes1 = dateEnd.getMinutes().toString().padStart(2, '0');
-   
-   const dateTimeLocal1 = `${year1}-${month1}-${day1}T${hours1}:${minutes1}`;
-
-
-
-
-
-
+useEffect(()=>{
+  if(data?.event?.startDate){
+    setIsoStartDate(data?.event?.startDate)
+    setStartDate(new Date(data?.event?.startDate).toISOString().slice(0, 16))
+    
+  }
+  if(data?.event?.endDate){
+    setIsoEndDate(data?.event?.endDate)
+    setEndDate(new Date(data?.event?.endDate).toISOString().slice(0, 16))
+  }
+},[data])
 
 
 
@@ -62,21 +45,15 @@ if(loading){
   
   const onSubmit = dataOnSubmit =>{ console.log(dataOnSubmit);
 
-    const isoDateTime = new Date(dataOnSubmit?.startDate).toISOString();
+  
     const endDateTime = new Date(dataOnSubmit?.endDate).toISOString();
-    const bids=+dataOnSubmit?.noOfBids
-    const extraTimeTriger=+dataOnSubmit?.timeTriger
-    const extraTime=+dataOnSubmit?.extraTime
-    const gap=+dataOnSubmit?.gap
-    const live=+dataOnSubmit?.liveTime
-  
-  
-
+    
+ 
     const eventData={
       eventCategory:dataOnSubmit?.eventCategory,
-      startDate:isoDateTime,
-      endDate:endDateTime,
-      noOfBids:bids,
+      startDate:isoStartDate,
+      endDate:isoEndDatedata,
+      noOfBids:+dataOnSubmit?.noOfBids,
       seller:{connect:{id:dataOnSubmit?.sellerName ||""}},
      
       eventType: {
@@ -88,10 +65,10 @@ if(loading){
       termsAndConditions:dataOnSubmit?.conditions,
       bidLock:dataOnSubmit?.lockedOrNot,
       isSpecialEvent:dataOnSubmit?.special,
-      extraTimeTrigerIn:extraTimeTriger,
-      extraTime:extraTime,
-      vehicleLiveTimeIn:live,
-      gapInBetweenVehicles:gap,
+      extraTimeTrigerIn:+dataOnSubmit?.timeTriger,
+      extraTime:+dataOnSubmit?.extraTime,
+      vehicleLiveTimeIn:+dataOnSubmit?.liveTime,
+      gapInBetweenVehicles:+dataOnSubmit?.gap,
       
     }
     if (dataOnSubmit.downloadable[0] && dataOnSubmit.downloadable.length) {
@@ -106,10 +83,16 @@ if(loading){
 
   }
 
-const handleOnClick=()=>{
-  // console.log(data,"return data")
-  // navigate(`/excel-upload/${data.createEvent.id}`)
+ const handleStartDateToIso=(date)=>{
+ console.log(date,"return data")
+ setIsoStartDate( new Date(date).toISOString())
+
 }
+const handleEndDateToIso=(date)=>{
+  console.log(date,"return data")
+  setIsoEndDate( new Date(date).toISOString())
+ 
+ }
 
   return (
     <div className="max-w-7xl mx-auto h-fit  my-10 bg-slate-100 ">
@@ -138,8 +121,8 @@ const handleOnClick=()=>{
                   className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
                 >
               <option value={data?.event?.eventCategory}>{data?.event?.eventCategory}</option>
-                  <option value="online">Online Auction </option>
-                  <option value="open">Open Auction</option>
+                  <option value="online">Online  </option>
+                  <option value="open">Open </option>
                 </select>
                 <p className="text-red-500"> {errors.eventCategory&& <span>Event type required</span>}</p> 
 
@@ -151,13 +134,13 @@ const handleOnClick=()=>{
                   <input
                     type="datetime-local"
                     className="btn btn-outline"
-                 defaultValue={dateTimeLocal}
-                    {...register("startDate",{required:true})}
+                 defaultValue={startDatedata}   onChange={(event) => handleStartDateToIso(event.target.value)}
+                    // {...register("startDate",{})}
                   />
  <p className="text-red-500"> {errors.startDate&& <span>Start date and time required</span>}</p> 
                  
                 </div>
-              </div>resp
+              </div>
               <div className=" flex flex-col space-y-2 space-x-px ">
                 <label htmlFor="">End Date and Time</label>
                 <div className="flex space-x-6">
@@ -165,8 +148,9 @@ const handleOnClick=()=>{
                     type="datetime-local"
                     className="btn btn-outline "
                     placeholder="mm//dd/yy"
-                    defaultValue={dateTimeLocal1}
-                    {...register("endDate",{required:true})}
+                    defaultValue={endDatedata}
+                    onChange={(event) => handleEndDateToIso(event.target.value)}
+                    // {...register("endDate",{})}
                   />
                
                   
@@ -184,7 +168,7 @@ const handleOnClick=()=>{
                 <select
                   
                   placeholder="select"
-                  {...register("sellerName",{required:true})}
+                  {...register("sellerName",{})}
                   className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
                 >
                 
@@ -248,7 +232,7 @@ const handleOnClick=()=>{
                      <option  value={data?.event?.location?.id}>{data?.event?.location?.name}</option>
                    {location?.data?.locations?.map((location)=>
                  (
-                     <option key={location.name} value={location.id}>{location.name}</option>
+                     <option key={location.id} value={location.id}>{location.name}</option>
                  ) )}
                 </select>
                 <p className="text-red-500"> {errors.location&& <span>location required</span>}</p> 

@@ -3147,10 +3147,17 @@ export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', firstName?: string | null, lastName?: string | null, email?: string | null, mobile?: string | null, status?: UserStatusType | null, idNo?: number | null, id: string, pancardNo?: string | null }> | null };
 
+export type VehicleDetailsQueryVariables = Exact<{
+  where: VehicleWhereUniqueInput;
+}>;
+
+
+export type VehicleDetailsQuery = { __typename?: 'Query', vehicle?: { __typename?: 'Vehicle', id: string, registrationNumber?: string | null, bidStatus?: VehicleBidStatusType | null, loanAgreementNo?: string | null, registeredOwnerName?: string | null, quoteIncreament?: number | null, make?: string | null, model?: string | null, varient?: string | null, categoty?: string | null, fuel?: string | null, type?: string | null, rcStatus?: string | null, yearOfManufacture?: number | null, ownership?: number | null, mileage?: number | null, kmReading?: number | null, insuranceStatus?: string | null, yardLocation?: string | null, startPrice?: number | null, reservePrice?: number | null, repoDt?: any | null, veicleLocation?: string | null, vehicleRemarks?: string | null, auctionManager?: string | null, parkingCharges?: string | null, insurance?: string | null, insuranceValidTill?: any | null, tax?: string | null, taxValidityDate?: any | null, fitness?: string | null, permit?: string | null, fitnessPermit?: string | null, engineNo?: string | null, chassisNo?: string | null, frontImage?: string | null, backImage?: string | null, leftImage?: string | null, rightImage?: string | null, image5?: string | null, image6?: string | null, inspectionLink?: string | null, autobseContact?: string | null, autobse_contact_person?: string | null, vehicleCondition?: string | null, powerSteering?: string | null, shape?: string | null, color?: string | null, city?: string | null, area?: string | null, state?: string | null, paymentTerms?: string | null, dateOfRegistration?: any | null, hypothication?: string | null, climateControl?: string | null, doorCount?: number | null, gearBox?: string | null, buyerFees?: string | null, rtoFine?: string | null, parkingRate?: string | null, approxParkingCharges?: string | null, clientContactPerson?: string | null, clientContactNo?: string | null, additionalRemarks?: string | null } | null };
+
 export type VehicleTableQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type VehicleTableQuery = { __typename?: 'Query', vehicles?: Array<{ __typename?: 'Vehicle', registrationNumber?: string | null, vehicleIndexNo?: number | null, bidTimeExpire?: any | null }> | null };
+export type VehicleTableQuery = { __typename?: 'Query', vehicles?: Array<{ __typename?: 'Vehicle', id: string, registrationNumber?: string | null, vehicleIndexNo?: number | null, bidTimeExpire?: any | null }> | null };
 
 
 export const CreateEventDocument = gql`
@@ -4633,9 +4640,109 @@ export function useUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<User
 export type UsersQueryHookResult = ReturnType<typeof useUsersQuery>;
 export type UsersLazyQueryHookResult = ReturnType<typeof useUsersLazyQuery>;
 export type UsersQueryResult = Apollo.QueryResult<UsersQuery, UsersQueryVariables>;
+export const VehicleDetailsDocument = gql`
+    query VehicleDetails($where: VehicleWhereUniqueInput!) {
+  vehicle(where: $where) {
+    id
+    registrationNumber
+    bidStatus
+    loanAgreementNo
+    registeredOwnerName
+    quoteIncreament
+    make
+    model
+    varient
+    categoty
+    fuel
+    type
+    rcStatus
+    yearOfManufacture
+    ownership
+    mileage
+    kmReading
+    insuranceStatus
+    yardLocation
+    startPrice
+    reservePrice
+    repoDt
+    veicleLocation
+    vehicleRemarks
+    auctionManager
+    parkingCharges
+    insurance
+    insuranceValidTill
+    tax
+    taxValidityDate
+    fitness
+    permit
+    fitnessPermit
+    engineNo
+    chassisNo
+    frontImage
+    backImage
+    leftImage
+    leftImage
+    rightImage
+    image5
+    image6
+    inspectionLink
+    autobseContact
+    autobse_contact_person
+    vehicleCondition
+    powerSteering
+    shape
+    color
+    city
+    area
+    state
+    paymentTerms
+    dateOfRegistration
+    hypothication
+    climateControl
+    doorCount
+    gearBox
+    buyerFees
+    rtoFine
+    parkingRate
+    approxParkingCharges
+    clientContactPerson
+    clientContactNo
+    additionalRemarks
+  }
+}
+    `;
+
+/**
+ * __useVehicleDetailsQuery__
+ *
+ * To run a query within a React component, call `useVehicleDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useVehicleDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useVehicleDetailsQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useVehicleDetailsQuery(baseOptions: Apollo.QueryHookOptions<VehicleDetailsQuery, VehicleDetailsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<VehicleDetailsQuery, VehicleDetailsQueryVariables>(VehicleDetailsDocument, options);
+      }
+export function useVehicleDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<VehicleDetailsQuery, VehicleDetailsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<VehicleDetailsQuery, VehicleDetailsQueryVariables>(VehicleDetailsDocument, options);
+        }
+export type VehicleDetailsQueryHookResult = ReturnType<typeof useVehicleDetailsQuery>;
+export type VehicleDetailsLazyQueryHookResult = ReturnType<typeof useVehicleDetailsLazyQuery>;
+export type VehicleDetailsQueryResult = Apollo.QueryResult<VehicleDetailsQuery, VehicleDetailsQueryVariables>;
 export const VehicleTableDocument = gql`
     query VehicleTable {
   vehicles {
+    id
     registrationNumber
     vehicleIndexNo
     bidTimeExpire

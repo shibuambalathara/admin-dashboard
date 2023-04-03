@@ -17,7 +17,7 @@ const ViewLocationComponent = () => {
     () => [
       { Header: "City", accessor: "name" },
       { Header: "Country", accessor: "country" },
-      { Header: "State", accessor: (state) => state.state.name },
+      // { Header: "State", accessor: (state) => state.state.name },
     ],
     []
   );
