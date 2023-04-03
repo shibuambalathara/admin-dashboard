@@ -58,14 +58,14 @@ const ViewExcels = () => {
     if (error) return <p>Error :{error}</p>;
   return (
     <div className="w-full  h-full ">
-      <div className="w-full">
+      {/* <div className="w-full">
         <Button
           onClick={() => navigate("/addlocation")}
           className="m-5 justify-end w-fit bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-8 border border-blue-500 hover:border-transparent rounded"
         >
           Add Excel File
         </Button>
-      </div>
+      </div> */}
       <div className="  max-w-6xl mx-auto h-fit ">
         <div className="   flex flex-col justify-center m-auto w-full">
           <div className="mb-2">

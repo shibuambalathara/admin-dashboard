@@ -29,6 +29,8 @@ import ViewLocations from "./pages/viewLocations";
 import Table from "./components/Sellers/table";
 import EditEvent from "./pages/editEvent";
 
+import EditVehicle from "./pages/editVehicle";
+
 function App() {
   return (
     <div>
@@ -54,6 +56,7 @@ function App() {
               <Route path="sellers" element={<Sellers />} />
               <Route path="addevent" element={<AddEventForm />} />
               <Route path="add-vehicle/:id" element={<AddVehicle />} />
+              <Route path="edit-vehicle/:id" element={<EditVehicle />} />
               <Route path="addBid" element={<AddBidForm />} />
               <Route
                 path="create-payment/:id"

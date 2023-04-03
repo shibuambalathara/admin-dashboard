@@ -12,6 +12,12 @@ const VehicleTable = () => {
     const {data,loading,error}=useVehicleTableQuery()
     const navigate=useNavigate()
 
+
+    const handleViewMore=(id)=>{
+      console.log("id.........",id)
+navigate(`/edit-vehicle/${id}`)
+    }
+
     const columns = useMemo(
         () => [
           { Header: "Registration Number", accessor: "registrationNumber" },
@@ -20,12 +26,12 @@ const VehicleTable = () => {
          
 
          
-        //   {
-        //     Header: "View more",
-        //     Cell: ({ row }) => (
-        //       <button className="bg-green-500 p-2 rounded" onClick={()=>handleViewMore(row.original.id) }>View More</button>
-        //     )
-        //   },
+          {
+            Header: "View more",
+            Cell: ({ row }) => (
+              <button className="bg-green-500 p-2 rounded" onClick={()=>handleViewMore(row.original.id) }>View More</button>
+            )
+          },
         //   {
         //     Header: "Delete",
         //     Cell: ({ row }) => (
