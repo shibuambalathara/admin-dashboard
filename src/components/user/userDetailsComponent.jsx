@@ -19,6 +19,7 @@ const UserDetailsComponent = () => {
     variables: { where: { id: id } },
     
   });
+  console.log(data?.user,"Dataaaaaa")
 
   const {
     register,
@@ -38,6 +39,7 @@ const UserDetailsComponent = () => {
    businessName:dataOnSubmit?.bussiness ,
    pancardNo:dataOnSubmit?.pancardNumber,
     role:dataOnSubmit?.role, 
+    vehicleBuyingLimit:+dataOnSubmit?.buyingLimitCount,
      
     
   //    password:dataOnSubmit?.confirmPassword,
@@ -196,23 +198,24 @@ console.log(err,"error")
 
         
           <div className="flex  justify-around  ">
-            {/* <div className="flex flex-col w-1/3 ">
-              <label htmlFor="">Category</label>
-              <select
-                defaultValue={data.user.category}
+          <div className="flex flex-col w-1/3 ">
+              <label htmlFor="">Active Buying Limit Count</label>
+              <input
+                type="number"
+                defaultValue={data.user.vehicleBuyingLimit}
                 className="input input-bordered input-secondary w-full "
-                {...register("category", {})}
-              >
-                <option value=""></option>
-                <option>2W</option>
-                <option>4W</option>
-                <option>CV</option>
-              </select>
+                {...register("buyingLimitCount", {
+                  required: true,
+                
+                })}
+              ></input>
               <p className="text-red-500">
                 {" "}
-                {errors.category && <span>Please select Category</span>}
+                {errors.phoneRequired && (
+                  <span>phone number 10 digits required</span>
+                )}
               </p>
-            </div> */}
+            </div>
           
               <div className="flex flex-col  w-1/3">
                 <label htmlFor="">Bannned Sellers</label>
@@ -297,7 +300,7 @@ console.log(err,"error")
             </div>
             <div className="w-1/3">
               <label htmlFor="">ID proof Number</label>
-              <Input  defaultValue={data?.user?.idProofNo} type="text" className="input input-bordered input-secondary w-full " {...register("IdNumber", {minLength:8 })}></Input>
+              <input  defaultValue={data?.user?.idProofNo} type="text" className="input input-bordered input-secondary w-full " {...register("IdNumber", {minLength:8 })}/>
               <p className="text-red-500"> {errors.IdNumber && <span>Atleast 8 charators required</span>}</p>
             </div>
           </div>
@@ -310,7 +313,8 @@ console.log(err,"error")
            <div className="w-1/3">
              <label htmlFor="">State</label>
         
-        <select defaultValue={data?.user?.city} className="input input-bordered input-secondary w-full " {...register("state", {})}>
+        <select className="input input-bordered input-secondary w-full " {...register("state", {})}>
+ <option value={data?.user?.states[0]?.name}>{data?.user?.states[0]?.name}</option>
  {selectors?.data?.states.map((state) => (
    <option  value={state.name} key={state.name}>{state.name}</option>
  ))}
@@ -324,7 +328,9 @@ console.log(err,"error")
             <div className="w-1/3">
               <label htmlFor="">City</label>
          
+        
          <select  defaultValue={data?.user?.city} className="input input-bordered input-secondary w-full " {...register("city", {})}>
+  <option>{data?.user?.city}</option>
   {selectors?.data?.locations?.map((loc) => (
     <option  value={loc.id} key={loc.id}>{loc.city}</option>
   ))}
@@ -362,7 +368,7 @@ console.log(err,"error")
           <div className="flex space-x-2 justify-around">
             <div className="flex w-1/3 flex-col">
               <label htmlFor="">Dealership Image</label>
-              <Input className="text-black" type="file" {...register("dealership", {})}/>
+              <Input className="" type="file" {...register("dealership", {})}/>
               <img
                 className="w-full h-36 border"
                 src={`https://api.autobse.com${data?.user?.dealership?.url}`}
@@ -371,7 +377,7 @@ console.log(err,"error")
             </div>
             <div className="flex  flex-col w-1/3">
               <label htmlFor="">Country</label>
-              <Input defaultValue={data?.user?.country} className="input input-bordered input-secondary w-full " {...register("country", { })}/>
+              <input defaultValue={data?.user?.country} className="input input-bordered input-secondary w-full " {...register("country", { })}/>
               <p className="text-red-500">
                 {" "}
                 {errors.country && <span>country Required</span>}

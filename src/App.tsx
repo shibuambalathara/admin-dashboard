@@ -53,7 +53,7 @@ function App() {
               <Route path="excel-uploads" element={<ExcelUploads />} />
               <Route path="sellers" element={<Sellers />} />
               <Route path="addevent" element={<AddEventForm />} />
-              <Route path="addvehicle" element={<AddVehicle />} />
+              <Route path="add-vehicle/:id" element={<AddVehicle />} />
               <Route path="addBid" element={<AddBidForm />} />
               <Route
                 path="create-payment/:id"

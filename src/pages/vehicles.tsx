@@ -1,5 +1,5 @@
 import React from 'react'
-import VehicleTable from '../components/Vehicle/vehicle'
+import VehicleTable from '../components/Vehicle/vehicleTable'
 
 const Vehicles = () => {
   return (

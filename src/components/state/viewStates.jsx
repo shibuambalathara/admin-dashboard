@@ -12,6 +12,7 @@ const ViewStates = () => {
   const [userData, setUserData] = useState([]);
   const navigate = useNavigate();
   const { data, loading, error } = useStatesQuery();
+  console.log(data,"state")
 
   console.log("this is the data form viewSatates %%%%",data);
 
