@@ -1,9 +1,20 @@
-query bidsTable {
+query BidsTable {
   bids {
-    name
-    amount
-    user {
-    username 
-    }
+  id
+  amount
+  name 
+  createdAt
+  updatedAt
+
+    bidVehicle {
+    id
+    registrationNumber
   }
+  user {
+    firstName
+    lastName
+    id
+  }
+
+}
 }

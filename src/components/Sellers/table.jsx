@@ -12,82 +12,66 @@ const Table = () => {
   const navigate = useNavigate();
 
   const { data, loading, error } = useSellersItemQuery();
-
-  console.log("this is from seller table $$", data);
-
-  // const columns = useMemo(
-  //   () => [
-  //     { Header: "Seller Name", accessor: (seller) => data.sellers.map((seller) => seller.name)  },
-
-  //     { Header: "Events", accessor: (seller) => data.events.map((event) => event.eventNo) },
-
-  //   ],
-  //   [data]
-  // );
-  // const tableDataSellers = useMemo(() => (data ? data.sellers : []), [data]);
-  // const tableDataEvents = useMemo(() => (data ? data.events : []), [data]);
-
-  ///////////////////////////////////////////////////////////////////////////////////////////////////
+console.log(data,"sellers")
+ 
+const handleBannedUsers=(id)=>{
+console.log(id,"banned Users")
+navigate(`/banned-users/${id}`)
+}
+ 
 
   const columns = useMemo(
     () => [
+      { Header: "Name", accessor: "name" },
+    
+      { Header: "Total Events Condocted", accessor: "eventsCount" },
       {
-        Header: "Seller Name",
-        accessor: (seller) => seller.name,
+        Header: "Banned Users ",
+        Cell: ({ row }) => (
+          <button className="btn btn-info" onClick={() => handleBannedUsers(row.original?.id)}>{row.original?.bannedUsersCount}</button>
+        )
       },
-      // {
-      //   Header: "Event No",
-      //   accessor: (seller) => {
-      //     const events = seller.data?.events || [];
-      //     const eventNos = events.map((event) => event.eventNo);
-      //     return eventNos.join(", ");
-      //   },
-      // },
     ],
     []
   );
 
-  const tableDataSellers = useMemo(() => (data ? data.sellers : []), [data]);
-  const tableDataEvents = useMemo(() => (data ? data.events : []), [data]);
 
-  const tableInstance = useTable(
-    {
-      columns,
-      data: tableDataSellers,
-    },
-    useGlobalFilter,
-    usePagination
-  );
+  const tableData=useMemo(() => (data ? data?.sellers : []), [data]);
+ 
 
+  const tableInstance=useTable({
+    columns ,
+    data: tableData,
+  },useGlobalFilter,usePagination);
+ 
+    const {
+      getTableProps,
+      getTableBodyProps,
+      headerGroups,
+     
+      page,
+      prepareRow,
+      nextPage,
+      previousPage,
+      canNextPage,
+      canPreviousPage,
+      pageOptions,
+      pageCount,
+      gotoPage,
+      setPageSize: setTablePageSize,
+      state: { pageIndex: tablePageIndex, pageSize: tablePageSize },
+      state,
+      setGlobalFilter
+    } = tableInstance;
 
-
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    page,
-    prepareRow,
-    nextPage,
-    previousPage,
-    canNextPage,
-    canPreviousPage,
-    pageOptions,
-    pageCount,
-    gotoPage,
-    setPageSize: setTablePageSize,
-    state: { pageIndex: tablePageIndex, pageSize: tablePageSize },
-    state,
-    setGlobalFilter,
-  } = tableInstance;
-
-  const { globalFilter } = state;
+    const {globalFilter}=state
 
   if (loading) return <p>Loading...</p>;
 
   if (error) return <p>Error :{error}</p>;
 
   return (
-    <div className="w-full  h-full ">
+    <div className=" w-full ">
          
       <div className="  max-w-4xl mx-auto h-fit ">
         <div className="   flex flex-col justify-center m-auto w-full">

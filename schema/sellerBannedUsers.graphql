@@ -1,0 +1,13 @@
+query BannedUsers($where: SellerWhereInput!) {
+  sellers(where: $where) {
+    id
+    name
+   bannedUsers {
+     id
+     username
+     firstName
+     lastName
+     mobile
+   } 
+  }
+}

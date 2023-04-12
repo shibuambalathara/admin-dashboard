@@ -14,6 +14,10 @@ const EventsTableComponent = () => {
 
     const navigate=useNavigate()
 
+    const handleViewVehicle=(id)=>{
+      navigate(`/view-vehicls/${id}`)
+     }
+
    const handleUploadExcelFile=(id)=>{
     navigate(`/excel-upload/${id}`)
    }
@@ -32,8 +36,14 @@ const EventsTableComponent = () => {
           { Header: "Event Category ", accessor: "eventCategory" },
           { Header: "Start Date ", accessor: ({startDate})=>{return format(new Date (startDate),`dd/MM/yy, HH:mm:ss`)} },
           { Header: "End Date ", accessor: ({endDate})=>{return format(new Date (endDate),`dd/MM/yy, HH:mm:ss`)} },
-          { Header: "Status ", accessor: "status" },
-
+          { Header: "Status ", accessor: "status" }, 
+          { Header: "Number Of Vehicles", accessor: "vehiclesCount" },
+          {
+            Header: "View Vehicles",
+            Cell: ({ row }) => (
+              <button className="btn btn-secondary" onClick={()=>handleViewVehicle(row.original.id) }>View vehicls</button>
+            )
+          },
          
           {
             Header: "Upload Excel File",
@@ -48,9 +58,9 @@ const EventsTableComponent = () => {
             )
           },
           {
-            Header: "Edit Event",
+            Header: "View/Edit Event",
             Cell: ({ row }) => (
-              <button className="btn btn-warning" onClick={() => handleEditEvent(row.original.id)}>Edit</button>
+              <button className="btn btn-warning" onClick={() => handleEditEvent(row.original.id)}>View/Edit</button>
             )
           }
           

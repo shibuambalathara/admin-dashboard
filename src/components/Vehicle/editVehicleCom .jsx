@@ -129,7 +129,7 @@ const vehicle={
    
       <div className="py-4 bg-gray-200 rounded px-4 flex items-center justify-center ">
         <h2 className="text-xl py-3 leading-3 font-bold text-gray-900">
-          ADD VECHILE
+           VEHICLE DETAILS
         </h2>
       </div>
       <div className="  max-w-6xl h-full mx-auto mt-5">

@@ -1,7 +1,20 @@
 query emdTable {
   emdUpdates {
+    id
     emdNo
     specialVehicleBuyingLimitIncrement
     vehicleBuyingLimitIncrement
+      user {
+    id
+    firstName
+    lastName
+  }
+   createdAt
+    updatedAt
+  createdBy {
+    id
+    firstName
+    lastName
+  }
   }
 }

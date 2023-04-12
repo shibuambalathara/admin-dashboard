@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from "react-hook-form";
 import { useParams } from 'react-router-dom';
 import{useUserQuery,useUpdatePaymentMutation,usePaymentDetailsQuery} from '../../utils/graphql'
 
 const UpdatePayment = () => {
+  
   const {id}=useParams()
   const { data, loading, error } = useUserQuery({variables: { where: { id: id } }});
   const payment = usePaymentDetailsQuery({variables: { where: { id: id } }});
-  console.log(payment?.data,"payment")
+  // console.log(payment?.data,"payment" ,defaultData)
   const [addAmount]=useUpdatePaymentMutation({variables: { where: { id: id } }})
  
 
@@ -18,10 +19,10 @@ const UpdatePayment = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = async(dataOnSubmit) =>{ console.log(dataOnSubmit,"data")
-  const price=+dataOnSubmit.amount
+ 
   const amount={
    
-      amount:price,
+      amount:+dataOnSubmit.amount,
  paymentFor:dataOnSubmit?.paymentFor,
  status:dataOnSubmit?.paymentStatus,
  description:dataOnSubmit?.description
@@ -36,8 +37,10 @@ const UpdatePayment = () => {
   
   };
 
-  if(payment?.loading){
-    <di>Loading............</di>
+
+  if (loading ||payment?.loading) {
+
+    return <div>Loading............</div>;
   }
   return (
     <div className="flex flex-col space-y-10 justify-center align-middle w-full bg-gray-50  my-10">
@@ -67,8 +70,8 @@ const UpdatePayment = () => {
           </div>
           <div className="min-w-[300px] w-1/3">
             <label htmlFor="">Payment For</label>
-            <select defaultValue={payment?.data?.payment?.paymentFor}  className="input input-bordered input-secondary w-full " {...register("paymentFor", {})}>
-            <option value=""></option>
+            <select defaultValue={payment?.data?.payment?.paymentFor} className="input input-bordered input-secondary w-full " {...register("paymentFor", {})}>
+            <option value={payment?.data?.payment?.paymentFor}>{payment?.data?.payment?.paymentFor}</option>
       <option value="registrations">Registration</option>
       <option value="emd">EMD</option>
       <option value="refund">Refund</option>
@@ -91,8 +94,8 @@ const UpdatePayment = () => {
           </div>
           <div className="min-w-[300px] w-1/3">
             <label htmlFor="">Payment Status</label>
-            <select defaultValue={payment?.data?.payment?.status}   className="input input-bordered input-secondary w-full " {...register("paymentStatus", {})}>
-            <option value=""></option>
+            <select  defaultValue={payment?.data?.payment?.status}   className="input input-bordered input-secondary w-full " {...register("paymentStatus", {})}>
+            <option value={payment?.data?.payment?.status}>{payment?.data?.payment?.status}</option>
       <option value="pending">Pending</option>
       <option value="success">Success</option>
       <option value="failed">Failed</option>
