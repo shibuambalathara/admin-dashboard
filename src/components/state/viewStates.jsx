@@ -3,18 +3,30 @@ import { Button } from "@material-tailwind/react";
 import React, { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTable, usePagination, useGlobalFilter } from "react-table";
-import { useEventTableQuery } from "../../utils/graphql";
+import { useDeleteStateMutation, useEventTableQuery } from "../../utils/graphql";
 import SearchUser from "../users/searchUser";
 import { useStatesQuery } from "../../utils/graphql";
 
 
 const ViewStates = () => {
-  const [userData, setUserData] = useState([]);
+ 
   const navigate = useNavigate();
   const { data, loading, error } = useStatesQuery();
-  console.log(data,"state")
+  const [deleteState]=useDeleteStateMutation({variables:{where:{}}})
+ 
+  const handleRemoveState=async(stateId)=>{
+    const confirm=window.confirm("are you sure?")
+    if(confirm){
 
-  console.log("this is the data form viewSatates %%%%",data);
+      const result=await  deleteState({variables:{where:{id:stateId}}})
+    
+    if(result?.data?.deleteState?.id){
+     
+      alert(`the state ${result?.data?.deleteState?.name} deleted Successfully`)
+      window.location.reload()
+    }
+    }
+  }
 
   
 
@@ -23,13 +35,19 @@ const ViewStates = () => {
       { Header: "Name", accessor: "name" },
       { Header: "Users", accessor:  (user) => user.users.map(user =><span className=" "> { user.firstName},</span>) },
       { Header: "Locations", accessor:(location) => location.locations.map(location => location.name).join(', ') },
+      {
+        Header: "Remove State",
+        Cell: ({ row }) => (
+          <button className="btn btn-error" onClick={() => handleRemoveState(row.original?.id)}>Remove</button>
+        )
+      },
     ],
     []
   );
 
 
   const tableData=useMemo(() => (data ? data.states : []), [data]);
-  console.log("this is table data from view states",tableData);
+  
   const tableInstance=useTable({
     columns ,
     data: tableData,

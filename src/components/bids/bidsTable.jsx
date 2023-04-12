@@ -13,26 +13,34 @@ const BidsTable = () => {
     const {data,loading,error}=useBidsTableQuery()
     const navigate=useNavigate()
 
+    const handleUserDetails=(userId)=>{
+console.log("user Id",userId)
+navigate(`/view-user/${userId}`)
+    }
+    const handleVehicleDetails=(vehicleId)=>{
+      navigate(`/edit-vehicle/${vehicleId}`)
+    }
+
     const columns = useMemo(
         () => [
           { Header: "Bids Name", accessor: "name" },
           { Header: "Amount", accessor: "amount" },
-            { Header: "User Id", accessor: "user.username" },
+          { Header: "createdAt", accessor: "createdAt" },
+          { Header: "updatedAt", accessor: "updatedAt" },
+        
          
-
-         
-        //   {
-        //     Header: "View more",
-        //     Cell: ({ row }) => (
-        //       <button className="bg-green-500 p-2 rounded" onClick={()=>handleViewMore(row.original.id) }>View More</button>
-        //     )
-        //   },
-        //   {
-        //     Header: "Delete",
-        //     Cell: ({ row }) => (
-        //       <button className="bg-red-600 text-white p-2 rounded" onClick={() => handleDelete(row.original.id)}>Delete</button>
-        //     )
-        //   }
+          {
+            Header: "User Details",
+            Cell: ({ row }) => (
+              <button className="btn btn-info" onClick={()=>handleUserDetails(row.original.user.id) }>{row.original.user.firstName} {row.original.user.lastName}</button>
+            )
+          },
+          {
+            Header: "Vehicle Details",
+            Cell: ({ row }) => (
+              <button className="btn btn-secondary" onClick={() => handleVehicleDetails(row.original.bidVehicle.id)}>{row.original.bidVehicle.registrationNumber}</button>
+            )
+          }
           
         ],
         []
@@ -71,6 +79,7 @@ const BidsTable = () => {
 
   return (
     <div className="flex  flex-col w-full justify-around ">
+      
     <Button
       onClick={() => navigate("/add-user")}
       className="m-5 justify-end w-fit bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"

@@ -17,19 +17,30 @@ const VehicleTable = () => {
       console.log("id.........",id)
 navigate(`/edit-vehicle/${id}`)
     }
+    const handleBidDetails=(id)=>{
+      navigate(`/bid-details/${id}`)
+    }
 
     const columns = useMemo(
         () => [
           { Header: "Registration Number", accessor: "registrationNumber" },
           { Header: "Vehicle Index No", accessor: "vehicleIndexNo" },
+          { Header: "Event Status", accessor: "vehicleEventStatus" }, 
+          { Header: "Total bids count", accessor: "userVehicleBidsCount" }, 
+          { Header: "Event Category", accessor: "event.eventCategory" }, 
           { Header: "Bid Time Expire", accessor: ({bidTimeExpire})=>{return format(new Date (bidTimeExpire),`dd/MM/yy,  HH:mm:ss`)}  },
          
-
+          {
+            Header: "Bid Detais",
+            Cell: ({ row }) => (
+              <button className="btn btn-accent" onClick={()=>handleBidDetails(row.original.id) }>Bid Details</button>
+            )
+          },
          
           {
-            Header: "View more",
+            Header: "Vehicle Detais",
             Cell: ({ row }) => (
-              <button className="bg-green-500 p-2 rounded" onClick={()=>handleViewMore(row.original.id) }>View More</button>
+              <button className="btn btn-info" onClick={()=>handleViewMore(row.original.id) }>View Vehicle</button>
             )
           },
         //   {

@@ -1,0 +1,18 @@
+query VehicleDetailsPerEvent($where: EventWhereUniqueInput!) {
+  event(where: $where) {
+  id 
+  status
+  vehiclesCount
+  vehicles {
+    id
+    vehicleIndexNo 
+    registrationNumber
+    totalBids
+    frontImage
+    vehicleEventStatus
+    bidStatus
+state
+city
+  } 
+  }
+}

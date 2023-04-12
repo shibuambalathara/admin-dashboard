@@ -5,12 +5,23 @@ query PaymentDetails($where: PaymentWhereUniqueInput!) {
     status
     paymentFor
     description
+    refNo
     image {
       url
     }
     user {
+      id
       firstName
       username
     }
+     emdUpdate {
+    emdNo
+    vehicleBuyingLimitIncrement
+     createdAt
+      createdBy {
+        id
+        firstName
+      }
+  }  
   }
 }

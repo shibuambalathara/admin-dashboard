@@ -1,0 +1,11 @@
+
+
+
+mutation CreateEmdUpdate($data: EmdUpdateCreateInput!) {
+  createEmdUpdate(data: $data) {
+  payment {
+    id
+  }
+  vehicleBuyingLimitIncrement  
+  }
+}

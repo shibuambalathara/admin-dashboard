@@ -1,0 +1,6 @@
+mutation DeleteState($where: StateWhereUniqueInput!) {
+  deleteState(where: $where) {
+  id  
+  name
+  }
+}

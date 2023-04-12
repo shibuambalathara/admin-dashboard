@@ -36,7 +36,7 @@ const AddEventComponent = () => {
       endDate:endDateTime,
       noOfBids:bids,
       seller:{connect:{id:dataOnSubmit?.sellerName ||""}},
-      // eventType:{connect:{id:dataOnSubmit?.event ||"" }},
+     
       eventType: {
         set: dataOnSubmit?.eventId?.map((event) => ({id: event.value}))
       },

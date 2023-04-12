@@ -6,6 +6,7 @@ query User($where: UserWhereUniqueInput!) {
   bannedSellersCount
   businessName
   categoryCount
+  state
  states {
    name
    locations {
@@ -54,7 +55,9 @@ query User($where: UserWhereUniqueInput!) {
      dealership {
      url
    }
-   vehicleBuyingLimit
+    currentVehicleBuyingLimit {
+    vehicleBuyingLimit
+  }
    username
     status
     updatedAt

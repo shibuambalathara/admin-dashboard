@@ -8,7 +8,7 @@ import{useSellersItemQuery,useEventTypesQuery,useLocationsQuery,useEventQuery,us
 import { useNavigate, useParams } from "react-router-dom";
 
 
-const EditEventComponent = () => {
+const EditEventComponent =() => {
 const[startDatedata,setStartDate]=useState('')
 const[isoStartDate,setIsoStartDate]=useState()
 
@@ -21,6 +21,10 @@ const[isoEndDatedata,setIsoEndDate]=useState('')
   const location=useLocationsQuery()
   const [editEvent,response]=useEditEventMutation({variables:{where:{id}}})
    const {data,loading,error}=useEventQuery({variables:{where:{id}}})
+
+
+
+   console.log(data,"data")
 
 useEffect(()=>{
   if(data?.event?.startDate){
@@ -37,16 +41,14 @@ useEffect(()=>{
 
 
 
-if(loading){
-  <div>Loading........</div>
-}
+
 
   const { register, handleSubmit,control, watch, formState: { errors } } = useForm();
   
-  const onSubmit = dataOnSubmit =>{ console.log(dataOnSubmit);
+  const onSubmit =async dataOnSubmit =>{ console.log(dataOnSubmit);
 
   
-    const endDateTime = new Date(dataOnSubmit?.endDate).toISOString();
+    // const endDateTime = new Date(dataOnSubmit?.endDate).toISOString();
     
  
     const eventData={
@@ -93,6 +95,9 @@ const handleEndDateToIso=(date)=>{
   setIsoEndDate( new Date(date).toISOString())
  
  }
+
+
+ if(loading ||location.loading||sellersItem.loading|| eventType.loading) return<p>Loading........</p>
 
   return (
     <div className="max-w-7xl mx-auto h-fit  my-10 bg-slate-100 ">
@@ -224,9 +229,9 @@ const handleEndDateToIso=(date)=>{
                   <div class="h-5 w-0.5 border bg-gray-400 "></div>
                 </div>
                 <select
-                  
+                  defaultValue={data?.event?.location?.id}
                   placeholder="select"
-                  {...register("location",{required:true})}
+                  {...register("location",{})}
                   className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700   hover:bg-white "
                 >
                      <option  value={data?.event?.location?.id}>{data?.event?.location?.name}</option>
@@ -244,7 +249,7 @@ const handleEndDateToIso=(date)=>{
                 <label htmlFor="">Number of Bids(per User)</label>
                 <input
                   type="number"
-                  {...register("noOfBids",{required:true})}
+                  {...register("noOfBids",{})}
                   defaultValue={data?.event?.noOfBids}
                   className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
@@ -274,6 +279,8 @@ const handleEndDateToIso=(date)=>{
           
              
                <div className="flex flex-col items-start  ">
+             
+             {data?.event?.downloadableFile?.url ?   <a href={`https://api.autobse.com${data?.event?.downloadableFile?.url}`}> <span className="text-red-500">Click here for down load the excel file</span></a>: <span className="text-red-500">Currently there is no excel file for download</span>}
                 <label>Downloadable File</label>
                 <input type="file"
                   {...register("downloadable",{})}

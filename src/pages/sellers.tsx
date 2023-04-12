@@ -5,7 +5,8 @@ import Table from '../components/Sellers/table'
 
 const Sellers = () => {
   return (
-    <div className='w-full'>
+    <div className='w-full  flex flex-col'>
+      
       <AddSeller/>
       <Table/>
     </div>
