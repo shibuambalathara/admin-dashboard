@@ -1,62 +1,36 @@
+
+
 import React, { useEffect, useMemo, useState } from "react";
 import { Button } from "@material-tailwind/react";
-import { useNavigate } from "react-router-dom";
-import { useUsersQuery, useDeleteUserMutation } from "../../utils/graphql";
+import { useNavigate, useParams } from "react-router-dom";
+import {  useBannedUsersQuery } from "../../utils/graphql";
 import { useTable,useSortBy, usePagination, useGlobalFilter } from "react-table";
-import SearchUser from "./searchUser";
+import SearchUser from "../../components/users/searchUser";
 
-const ViewUsers = () => {
-  const [userData, setUserData] = useState([]);
-  const [pageIndex, setPageIndex] = useState(0);
-  const [pageSize, setPageSize] = useState(10);
-
-
-
-
+const BannedUsersComponent = () => {
+ const {id}=useParams()
+ 
   const navigate = useNavigate();
 
-  const { data, loading, error } = useUsersQuery();
-  const [deleteUserMutation] = useDeleteUserMutation();
+   const { data, loading, error } = useBannedUsersQuery({variables:{where:{id:{equals:id}}}});
+ 
 
-  console.log("this is the data from view users11", data);
+   console.log("this is the data from view users11", data?.sellers[0].name);
 
   const handleViewMore = (id) => {
+    console.log(id,"id")
     navigate(`/view-user/${id}`);
   };
-  const paymentDetails = (id) => {
-    navigate(`/payment/${id}`);
-  };
-  const handleDelete = (id) => {
-    console.log(id, "delete");
-    deleteUserMutation({ variables: { where: { id: id } } });
-    navigate("/users");
-  };
-  const handleBuyingLimit=(id)=>{
-    navigate(`/buying-limit/${id}`)
-  }
+ 
 
   const columns = useMemo(
     () => [
-      { Header: "ID", accessor: "idNo" ,  className: 'w-1/3',  },
-      { Header: "First Name", accessor: "firstName" ,  className: 'w-1/3', },
-      { Header: "Last Name", accessor: "lastName" ,  className: 'w-1/3', },
-      { Header: "Role", accessor: "role",  className: 'w-1/3', },
-      { Header: "Mobile", accessor: "mobile",  className: 'w-1/3',   },
-      { Header: "Status", accessor: "status",  className: 'w-1/3',   },
-      // { Header: "Pancard Number", accessor: "pancardNo",  className: 'w-1/3',   },
-      //  { Header: "Total Vehicle Buying Limit", accessor: "currentVehicleBuyingLimit.vehicleBuyingLimit" ,   },
+   { Header: " User Name", accessor: "username" ,  className: 'w-1/3',  },
+       { Header: "First Name", accessor: "firstName" ,  className: 'w-1/3', },
+       { Header: "Last Name", accessor: "lastName" ,  className: 'w-1/3', },
 
-       {
-        Header: "Current Buying Limit",
-        Cell: ({ row }) => (
-          <button
-            className="btn btn-info"
-            onClick={() => handleBuyingLimit(row.original.id)}
-          >
-           {row.original.currentVehicleBuyingLimit.vehicleBuyingLimit}
-          </button>
-        ),
-      },
+
+   
 
       {
         Header: "View more",
@@ -69,33 +43,12 @@ const ViewUsers = () => {
           </button>
         ),
       },
-      {
-        Header: "Payment details",
-        Cell: ({ row }) => (
-          <button
-            className="btn btn-warning"
-            onClick={() => paymentDetails(row.original.id)}
-          >
-            Payment Details
-          </button>
-        ),
-      },
-      {
-        Header: "Delete",
-        Cell: ({ row }) => (
-          <button
-            className="btn btn-block"
-            onClick={() => handleDelete(row.original.id)}
-          >
-            Delete
-          </button>
-        ),
-      },
+
     ],
     []
   );
-  const tableData = useMemo(() => (data ? data.users : []), [data]);
-  console.log("this is the tabledata from view users",tableData);
+   const tableData = useMemo(() => (data ? data?.sellers[0]?.bannedUsers : []), [data]);
+ 
 
   const tableInstance = useTable(
     {
@@ -136,22 +89,15 @@ const ViewUsers = () => {
   
 
   return (
-    <div className="w-full   ">
-      <div className=" w-full ">
-        <Button
-          onClick={() => navigate("/add-user")}
-          className="m-5 justify-end w-fit bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-        >
-          Add User
-        </Button>
-      </div>
+    <div className="w-full  h-fit  ">
+  
 
       <div className=" max-w-7xl mx-auto h-fit">
         <div className=" flex flex-col justify-center m-auto w-full">
           <div className="mb-4">
             <div className="text-center font-extrabold my-1  text-2xl w-full">
               {" "}
-              User Data{" "}
+              {data?.sellers[0].name} {"Banned Users "}
             </div>
             <SearchUser
               filter={globalFilter}
@@ -236,7 +182,8 @@ const ViewUsers = () => {
         </div>
       </div>
     </div>
+
   );
 };
 
-export default ViewUsers;
+export default BannedUsersComponent;

@@ -1,5 +1,6 @@
 
 import { Button } from "@material-tailwind/react";
+
 import React, { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTable, usePagination, useGlobalFilter } from "react-table";
@@ -12,14 +13,22 @@ const ViewExcels = () => {
     const { data, loading, error } = useExcelUploadsQuery();
   
     console.log("this is the data form excel uploads %%%%",data);
-  
+  const handleEvent=(eventId)=>{
+navigate(`/edit-event/${eventId}`)
+  }
     
   
     const columns = useMemo(
       () => [
         { Header: "Name", accessor: "name" },
         { Header: "File", accessor: (row)=>row.file.filename  },
-        { Header: "EventNo", accessor: (row) => (row.event ? row.event.eventNo : '')  }
+       
+        {
+          Header: "View Event",
+          Cell: ({ row }) => (
+            <button className="btn btn-info w-16" onClick={()=>handleEvent(row.original?.event?.id) }>{row.original?.event?.eventNo || "No event"}</button>
+          )
+        },
       ],
       []
     );
@@ -56,6 +65,10 @@ const ViewExcels = () => {
   
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :{error}</p>;
+
+
+
+
   return (
     <div className="w-full  h-full ">
       {/* <div className="w-full">

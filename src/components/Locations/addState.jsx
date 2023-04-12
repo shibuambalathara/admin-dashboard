@@ -2,6 +2,7 @@ import React from "react";
 
 import { useForm } from "react-hook-form";
 import { useCreateStateMutation } from "../../utils/graphql";
+import Success from "../alerts/success";
 const AddState = () => {
   const [createState] = useCreateStateMutation();
   const {
@@ -17,6 +18,11 @@ const AddState = () => {
     const result = await createState({
       variables: { data: { name: dataOnSubmit?.name } },
     });
+    if(result?.data?.createState){
+   
+      alert(`New state ${result?.data?.createState.name} added successfully`)
+      window.location.reload()
+    }
 
     console.log("this is the result", result);
   };

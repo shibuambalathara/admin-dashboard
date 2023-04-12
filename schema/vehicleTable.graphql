@@ -4,5 +4,10 @@ query VehicleTable {
   registrationNumber  
   vehicleIndexNo
   bidTimeExpire
+  userVehicleBidsCount
+  vehicleEventStatus
+   event {
+    eventCategory
+  }
   }
 }

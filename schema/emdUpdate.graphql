@@ -1,0 +1,18 @@
+query EmdUpdate($where: EmdUpdateWhereUniqueInput!) {
+  emdUpdate(where: $where) {
+  id
+  emdNo
+  vehicleBuyingLimitIncrement
+  payment {
+    amount
+      image {
+      url
+    }
+  }
+  user {
+    id
+    firstName
+    username
+  }  
+  }
+}

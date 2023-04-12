@@ -19,8 +19,8 @@ const UserDetailsComponent = () => {
     variables: { where: { id: id } },
     
   });
-  console.log(data?.user,"Dataaaaaa")
-
+ 
+console.log(data,"data")
   const {
     register,
     control,
@@ -28,7 +28,7 @@ const UserDetailsComponent = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = async(dataOnSubmit) =>{ console.log(dataOnSubmit);
+  const onSubmit = (dataOnSubmit) =>{ console.log(dataOnSubmit);
 
   const user = {
     firstName:dataOnSubmit?.first_Name,
@@ -199,10 +199,10 @@ console.log(err,"error")
         
           <div className="flex  justify-around  ">
           <div className="flex flex-col w-1/3 ">
-              <label htmlFor="">Active Buying Limit Count</label>
+              <label htmlFor="">Current Buying Limit </label>
               <input
-                type="number"
-                defaultValue={data.user.vehicleBuyingLimit}
+                type="number" 
+                defaultValue={data?.user?.currentVehicleBuyingLimit?.vehicleBuyingLimit}
                 className="input input-bordered input-secondary w-full "
                 {...register("buyingLimitCount", {
                   required: true,
@@ -314,7 +314,7 @@ console.log(err,"error")
              <label htmlFor="">State</label>
         
         <select className="input input-bordered input-secondary w-full " {...register("state", {})}>
- <option value={data?.user?.states[0]?.name}>{data?.user?.states[0]?.name}</option>
+ <option value={data?.user?.state}>{data?.user?.state}</option>
  {selectors?.data?.states.map((state) => (
    <option  value={state.name} key={state.name}>{state.name}</option>
  ))}
@@ -330,9 +330,9 @@ console.log(err,"error")
          
         
          <select  defaultValue={data?.user?.city} className="input input-bordered input-secondary w-full " {...register("city", {})}>
-  <option>{data?.user?.city}</option>
+  <option value={data?.user?.city}>{data?.user?.city}</option>
   {selectors?.data?.locations?.map((loc) => (
-    <option  value={loc.id} key={loc.id}>{loc.city}</option>
+    <option  value={loc.city} key={loc.id}>{loc.city}</option>
   ))}
 </select>
       <p className="text-red-500"> {errors.city && <span>Please select city</span>}</p>

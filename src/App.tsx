@@ -11,7 +11,7 @@ import UserDetails from "./pages/userDetails";
 import Payments from "./pages/payments";
 import Emd from "./pages/emd";
 import Vehicles from "./pages/vehicles";
-import Bids from "./pages/bids";
+import Bids from "./pages/bidsTable";
 import EventTypes from "./pages/eventTypes";
 
 import States from "./pages/states";
@@ -30,6 +30,15 @@ import Table from "./components/Sellers/table";
 import EditEvent from "./pages/editEvent";
 
 import EditVehicle from "./pages/editVehicle";
+import VehicleBuyingLimit from "./pages/vehicleBuyingLimit";
+
+import VehicleDetailsPerEvent from "./pages/vehicleDetailsPerEvent";
+import BannedUsers from "./pages/bannedUsers";
+import BidDetailsPerVehicle from "./pages/bidDetailsPerVehicle";
+import AddEmd from "./pages/createEmd";
+import EmdUpdate from "./pages/emdUpdate";
+import EmdPerPayment from "./pages/emdPerPayment";
+
 
 function App() {
   return (
@@ -72,6 +81,14 @@ function App() {
               <Route path="edit-event/:id" element={<EditEvent />} />
               <Route path="viewlocation" element={<ViewLocations />} />
               <Route path="excel-upload/:id" element={<AddExcel />} />
+              <Route path="buying-limit/:userId" element={<VehicleBuyingLimit />} />
+              <Route path="add-emd/:id" element={<AddEmd />} />
+              <Route path="emd-payment/:id" element={<EmdPerPayment />} /> 
+              <Route path="view-vehicls/:id" element={<VehicleDetailsPerEvent />} />
+              <Route path="banned-users/:id" element={<BannedUsers />} />
+              <Route path="bid-details/:id" element={<BidDetailsPerVehicle />} />
+
+              
             </Route>
           </Routes>
         </div>

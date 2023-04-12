@@ -1,66 +1,72 @@
+
+
+
 import { Button } from '@material-tailwind/react'
-import React, { useMemo } from 'react'
+import React, { useMemo,useState } from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import { useTable,usePagination,useGlobalFilter } from "react-table"
-import {usePaymentOfUserQuery} from '../../utils/graphql'
+import {useDeleteVehicleMutation, useVehicleDetailsPerEventQuery, useVehicleTableQuery} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
+import format from 'date-fns/format'
 
 
-const PaymentPerUser = () => {
-    const {id}=useParams()
-    const {data,loading,error}=usePaymentOfUserQuery({variables:{where:{id:id}}})
-    console.log(data?.user?.firstName,"dataaaaaaa")
-    
+const VehicleDetailsPerEventComponent = () => {
+    // const [vid,setVid]=useState('')
+    const{id}=useParams()
     const navigate=useNavigate()
-    const handleUserDetails=(userId)=>{
-    
-      navigate(`/view-user/${userId}`)
-    }
+    const {data,loading,error}=useVehicleDetailsPerEventQuery({variables:{where:{id}}})
+    const [DeleteV]=useDeleteVehicleMutation();
+console.log(data,"data")
 
-    const handlePaymentStatus=(paymentId)=>{
-console.log(paymentId,"payment id")
-navigate(`/update-payment/${paymentId}`)
+    const handleViewMore=(id)=>{
+      console.log("id.........",id)
+navigate(`/edit-vehicle/${id}`)
+    }
+    const handleDelete=(deleteVehicleId)=>{
+console.log(deleteVehicleId)
+DeleteV({variables:{where:{id:deleteVehicleId}}})
+
+    }
+    const handleBidDetails=(id)=>{
+      navigate(`/bid-details/${id}`)
     }
 
     const columns = useMemo(
         () => [
-           { Header: "Ref No", accessor: "refNo" },
-            { Header: "Amount", accessor: "amount" },
-            {Header:"Payment For",accessor:"paymentFor"},
-           { Header: "Status ", accessor: "status" },
-           { Header: "Created At ", accessor: "createdAt" },
-           { Header: "Updated At ", accessor: "updatedAt" },
-
-            {
-            Header: "Update Payment",
+          { Header: "Registration Number", accessor: "registrationNumber" },
+          { Header: "Index No", accessor: "vehicleIndexNo" },
+          { Header: "State", accessor: "state" },
+         { Header: "City", accessor: "city" },
+         { Header: "total bids count", accessor: "totalBids" },
+         { Header: "Status", accessor: "vehicleEventStatus" },
+        //  { Header: "Bid Status", accessor: "bidStatus" },
+        //   { Header: "Bid Time Expire", accessor: ({bidTimeExpire})=>{return format(new Date (bidTimeExpire),`dd/MM/yy,  HH:mm:ss`)}  },
+         
+        {
+          Header: "Bid Detais",
+          Cell: ({ row }) => (
+            <button className="btn btn-accent" onClick={()=>handleBidDetails(row.original.id) }>Bid Details</button>
+          )
+        },
+         
+          {
+            Header: "Vehicle Details",
             Cell: ({ row }) => (
-              <button className="btn btn-accent" onClick={() => handlePaymentStatus(row.original?.id)}>Update Payment</button>
+              <button className="btn btn-info" onClick={()=>handleViewMore(row.original.id) }>View Vehicle</button>
             )
           },
-        //   {
-        //     Header: "Change Status",
-        //     Cell: ({ row }) => (
-        //         <select defaultValue={data?.user?.payments} className="input input-bordered input-secondary  ">
-        //         <option value=""></option>
-        //   <option value="pending">Pending</option>
-        //   <option value="success">Success</option>
-        //   <option value="failed">Failed</option>
-          
-        
-        // </select>         )
-        //   },
-        //   {
-        //     Header: "Delete",
-        //     Cell: ({ row }) => (
-        //       <button className="bg-red-600 text-white p-2 rounded" onClick={() => handleDelete(row.original.id)}>Delete</button>
-        //     )
-        //   }
+          {
+            Header: "Remove",
+            Cell: ({ row }) => (
+              <button className="btn btn-error" onClick={() => handleDelete(row.original.id)}>Remove</button>
+            )
+          }
           
         ],
         []
       );
 
-      const tableData=useMemo(() => (data ? data.user.payments : []), [data]);
+      const tableData=useMemo(() => (data ? data.event?.vehicles : []), [data]);
       const tableInstance=useTable({
         columns ,
         data: tableData,
@@ -93,13 +99,19 @@ navigate(`/update-payment/${paymentId}`)
 
   return (
     <div className="flex  flex-col w-full justify-around ">
- 
+
     
     <div className=" flex flex-col w-full justify-center m-auto ">
-    <div className="mb-2">
-  <div className="text-center font-extrabold my-5 text-lg min-w-full">  Payment Data Table of {data?.user?.firstName} {data?.user?.lastName} </div>
+    <div className="mb-2 ">
+  <div className="text-center font-extrabold my-5 text-lg min-w-full">  Vehicle Data Table </div>
+  
+    <div className='flex  justify-evenly'>
     <SearchUser filter={globalFilter} className="  text-white " setFilter={setGlobalFilter}/>
+        <label>Number Of  Vehicles <p className='text-red-500'>{data?.event?.vehiclesCount}</p></label>
+    
+    </div>
   </div>
+  
       <table
         className="w-full divide-y divide-gray-200"
         {...getTableProps()}
@@ -167,4 +179,6 @@ navigate(`/update-payment/${paymentId}`)
   )
 }
 
-export default PaymentPerUser
+export default  VehicleDetailsPerEventComponent 
+
+

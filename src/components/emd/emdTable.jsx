@@ -10,29 +10,35 @@ import SearchUser from '../users/searchUser'
 
 
 const EmdTable = () => {
+
     const {data,loading,error}=useEmdTableQuery()
+
     const navigate=useNavigate()
+    
+console.log("emd table",data)
+
+const handleUser=(userId)=>{
+navigate(`/view-user/${userId}`)
+}
+
 
     const columns = useMemo(
         () => [
           { Header: "Emd Number", accessor: "emdNo" },
-          { Header: "Vehicle Buying Limit ", accessor: "specialVehicleBuyingLimitIncrement" },
-          { Header: "Special buying limit", accessor: "vehicleBuyingLimitIncrement" },
+          { Header: "Vehicle buying limit", accessor: "vehicleBuyingLimitIncrement" },
+          { Header: "Created At ", accessor:"createdAt"  },
+         
+          { Header: "Created By ", accessor:"createdBy.firstName"  },
          
 
          
-        //   {
-        //     Header: "View more",
-        //     Cell: ({ row }) => (
-        //       <button className="bg-green-500 p-2 rounded" onClick={()=>handleViewMore(row.original.id) }>View More</button>
-        //     )
-        //   },
-        //   {
-        //     Header: "Delete",
-        //     Cell: ({ row }) => (
-        //       <button className="bg-red-600 text-white p-2 rounded" onClick={() => handleDelete(row.original.id)}>Delete</button>
-        //     )
-        //   }
+          {
+            Header: "View User",
+            Cell: ({ row }) => (
+              <button className="btn btn-info w-28" onClick={()=>handleUser(row.original.user?.id) }>{row.original.user?.firstName} {row.original.user?.lastName}</button>
+            )
+          },
+          
           
         ],
         []
@@ -71,12 +77,12 @@ const EmdTable = () => {
 
   return (
     <div className="flex  flex-col w-full justify-around ">
-    <Button
-      onClick={() => navigate("/add-user")}
+    {/* <Button
+      onClick={() => navigate(`/add-emd`)}
       className="m-5 justify-end w-fit bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
     >
-     Add User
-    </Button>
+     Add Emd
+    </Button> */}
     
     <div className=" flex flex-col w-full justify-center m-auto ">
     <div className="mb-2">

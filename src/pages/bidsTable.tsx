@@ -1,5 +1,5 @@
 import React from 'react'
-import BidsTable from '../components/bids/bids'
+import BidsTable from '../components/bids/bidsTable'
 
 const Bids = () => {
   return (

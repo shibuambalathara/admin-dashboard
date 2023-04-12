@@ -1,0 +1,25 @@
+# query emdDetails($where: EmdUpdateWhereUniqueInput!) {
+#   emdUpdate(where: $where) {
+#   id
+#    emdNo
+#     createdAt
+#     createdBy {
+#     id
+#     firstName
+#     lastName
+#   }
+#     payment {
+#       id
+#     amount
+#     paymentFor
+#     description
+#     status 
+#     image {
+#       url  
+#       } 
+#     }
+#     user {
+#     firstName
+#   }
+#   }
+# }
