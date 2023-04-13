@@ -1,7 +1,7 @@
 import { Button } from '@material-tailwind/react'
 import React, { useMemo } from 'react'
 import {useNavigate} from 'react-router-dom'
-import { useTable,usePagination,useGlobalFilter } from "react-table"
+import { useTable,useSortBy,usePagination,useGlobalFilter } from "react-table"
 import {usePaymentTableQuery} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
 
@@ -80,7 +80,7 @@ const PaymentTableComponent = () => {
       const tableInstance=useTable({
         columns ,
         data: tableData,
-      },useGlobalFilter,usePagination);
+      },useGlobalFilter,useSortBy,usePagination);
      
         const {
           getTableProps,
@@ -127,9 +127,12 @@ const PaymentTableComponent = () => {
                 <th
                   scope="col"
                   className="py-3 pl-4"
-                  {...column.getHeaderProps()}
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
                 >
                   {column.render("Header")}
+                  <span>
+                      {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                      </span>
                 </th>
               ))}
             </tr>

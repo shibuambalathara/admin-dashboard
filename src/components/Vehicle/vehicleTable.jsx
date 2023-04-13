@@ -2,7 +2,7 @@
 import { Button } from '@material-tailwind/react'
 import React, { useMemo } from 'react'
 import {useNavigate} from 'react-router-dom'
-import { useTable,usePagination,useGlobalFilter } from "react-table"
+import { useTable,useSortBy ,usePagination,useGlobalFilter } from "react-table"
 import {useVehicleTableQuery} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
 import format from 'date-fns/format'
@@ -58,7 +58,7 @@ navigate(`/edit-vehicle/${id}`)
       const tableInstance=useTable({
         columns ,
         data: tableData,
-      },useGlobalFilter,usePagination);
+      },useGlobalFilter,useSortBy,usePagination);
      
         const {
           getTableProps,
@@ -110,9 +110,12 @@ navigate(`/edit-vehicle/${id}`)
                 <th
                   scope="col"
                   className="py-3 pl-4"
-                  {...column.getHeaderProps()}
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
                 >
                   {column.render("Header")}
+                  <span>
+                      {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                      </span>
                 </th>
               ))}
             </tr>
