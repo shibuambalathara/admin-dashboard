@@ -38,7 +38,7 @@ const AddEventComponent = () => {
       seller:{connect:{id:dataOnSubmit?.sellerName ||""}},
      
       eventType: {
-        set: dataOnSubmit?.eventId?.map((event) => ({id: event.value}))
+        connect: dataOnSubmit?.eventId?.map((event) => ({id: event.value}))
       },
       location :{connect:{id:dataOnSubmit?.location ||""}},
       status:dataOnSubmit?.status,

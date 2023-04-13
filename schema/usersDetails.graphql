@@ -9,6 +9,7 @@ query Users {
     idNo
     id
      pancardNo
+     activeBidsCount
      currentVehicleBuyingLimit {
     vehicleBuyingLimit  
     }

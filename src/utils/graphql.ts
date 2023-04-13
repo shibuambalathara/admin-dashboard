@@ -2952,6 +2952,13 @@ export enum VehicleEventStatus {
   Upcoming = 'upcoming'
 }
 
+export type ActiveBidsPerUserQueryVariables = Exact<{
+  where: UserWhereUniqueInput;
+}>;
+
+
+export type ActiveBidsPerUserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, activeBidsCount?: number | null, states?: Array<{ __typename?: 'State', id: string, name?: string | null }> | null, activeBids?: Array<{ __typename?: 'Vehicle', bidAmountUpdate?: number | null, startBidAmount?: number | null, currentBidAmount?: number | null, id: string, registrationNumber?: string | null, bidStatus?: VehicleBidStatusType | null, bidTimeExpire?: any | null, totalBids?: number | null, userVehicleBidsCount?: number | null }> | null } | null };
+
 export type CreateEventMutationVariables = Exact<{
   data: EventCreateInput;
 }>;
@@ -3041,14 +3048,6 @@ export type EditEventMutationVariables = Exact<{
 
 export type EditEventMutation = { __typename?: 'Mutation', updateEvent?: { __typename?: 'Event', id: string, eventCategory?: string | null, startDate?: any | null, endDate?: any | null, noOfBids?: number | null, status?: EventStatusType | null, termsAndConditions?: string | null, bidLock?: EventBidLockType | null, isSpecialEvent?: boolean | null, extraTimeTrigerIn?: number | null, extraTime?: number | null, vehicleLiveTimeIn?: number | null, gapInBetweenVehicles?: number | null, seller?: { __typename?: 'Seller', name?: string | null, id: string } | null, eventType?: Array<{ __typename?: 'EventType', id: string, name?: string | null }> | null, location?: { __typename?: 'Location', id: string, name?: string | null } | null, downloadableFile?: { __typename?: 'FileFieldOutput', url: string } | null } | null };
 
-export type EditUserMutationVariables = Exact<{
-  where: UserWhereUniqueInput;
-  data: UserUpdateInput;
-}>;
-
-
-export type EditUserMutation = { __typename?: 'Mutation', updateUser?: { __typename?: 'User', firstName?: string | null, lastName?: string | null, email?: string | null, username?: string | null, mobile?: string | null, businessName?: string | null, role?: UserRoleType | null, idProofType?: UserIdProofTypeType | null, idProofNo?: string | null, pancardNo?: string | null, country?: string | null, state?: string | null, city?: string | null, status?: UserStatusType | null, vehicleBuyingLimit?: number | null, category?: Array<{ __typename?: 'EventType', name?: string | null }> | null, bannedSellers?: Array<{ __typename?: 'Seller', name?: string | null, id: string }> | null, password?: { __typename?: 'PasswordState', isSet: boolean } | null, image?: { __typename?: 'ImageFieldOutput', url: string } | null, pancard?: { __typename?: 'ImageFieldOutput', url: string } | null, idProof?: { __typename?: 'ImageFieldOutput', url: string } | null, idProofBack?: { __typename?: 'ImageFieldOutput', url: string } | null, dealership?: { __typename?: 'ImageFieldOutput', url: string } | null } | null };
-
 export type CreateEmdUpdateMutationVariables = Exact<{
   data: EmdUpdateCreateInput;
 }>;
@@ -3081,6 +3080,13 @@ export type EventStartTimeQueryVariables = Exact<{
 
 
 export type EventStartTimeQuery = { __typename?: 'Query', event?: { __typename?: 'Event', id: string, startDate?: any | null } | null };
+
+export type EventsPerSellerQueryVariables = Exact<{
+  where: SellerWhereUniqueInput;
+}>;
+
+
+export type EventsPerSellerQuery = { __typename?: 'Query', seller?: { __typename?: 'Seller', id: string, name?: string | null, events?: Array<{ __typename?: 'Event', id: string, eventNo?: number | null, eventCategory?: string | null, startDate?: any | null, status?: EventStatusType | null, endDate?: any | null, vehiclesCount?: number | null, location?: { __typename?: 'Location', name?: string | null } | null, seller?: { __typename?: 'Seller', name?: string | null } | null }> | null } | null };
 
 export type EventTableQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3177,12 +3183,20 @@ export type UserQueryVariables = Exact<{
 }>;
 
 
-export type UserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, firstName?: string | null, vehicleBuyingLimit?: number | null, bannedSellersCount?: number | null, businessName?: string | null, categoryCount?: number | null, state?: string | null, city?: string | null, country?: string | null, createdAt?: any | null, dealerId?: string | null, email?: string | null, emdUpdatesByAdminCount?: number | null, emdUpdatesCount?: number | null, idNo?: number | null, idProofNo?: string | null, idProofType?: UserIdProofTypeType | null, lastName?: string | null, magicAuthIssuedAt?: any | null, magicAuthRedeemedAt?: any | null, mobile?: string | null, pancardNo?: string | null, paymentsCount?: number | null, phone?: string | null, role?: UserRoleType | null, specialVehicleBuyingLimit?: number | null, username?: string | null, status?: UserStatusType | null, updatedAt?: any | null, states?: Array<{ __typename?: 'State', name?: string | null, locations?: Array<{ __typename?: 'Location', city?: string | null, id: string, name?: string | null }> | null }> | null, idProof?: { __typename?: 'ImageFieldOutput', url: string } | null, idProofBack?: { __typename?: 'ImageFieldOutput', url: string } | null, image?: { __typename: 'ImageFieldOutput', url: string } | null, pancard?: { __typename?: 'ImageFieldOutput', url: string } | null, payments?: Array<{ __typename?: 'Payment', amount?: number | null }> | null, dealership?: { __typename?: 'ImageFieldOutput', url: string } | null, currentVehicleBuyingLimit?: { __typename?: 'vehicleBuyingLimits', vehicleBuyingLimit?: number | null } | null, bannedSellers?: Array<{ __typename?: 'Seller', name?: string | null, id: string }> | null } | null };
+export type UserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, firstName?: string | null, vehicleBuyingLimit?: number | null, bannedSellersCount?: number | null, businessName?: string | null, categoryCount?: number | null, state?: string | null, city?: string | null, country?: string | null, createdAt?: any | null, dealerId?: string | null, email?: string | null, emdUpdatesByAdminCount?: number | null, emdUpdatesCount?: number | null, idNo?: number | null, idProofNo?: string | null, idProofType?: UserIdProofTypeType | null, lastName?: string | null, magicAuthIssuedAt?: any | null, magicAuthRedeemedAt?: any | null, mobile?: string | null, pancardNo?: string | null, paymentsCount?: number | null, phone?: string | null, role?: UserRoleType | null, specialVehicleBuyingLimit?: number | null, username?: string | null, status?: UserStatusType | null, updatedAt?: any | null, states?: Array<{ __typename?: 'State', id: string, name?: string | null, locations?: Array<{ __typename?: 'Location', city?: string | null, id: string, name?: string | null }> | null }> | null, idProof?: { __typename?: 'ImageFieldOutput', url: string } | null, idProofBack?: { __typename?: 'ImageFieldOutput', url: string } | null, image?: { __typename: 'ImageFieldOutput', url: string } | null, pancard?: { __typename?: 'ImageFieldOutput', url: string } | null, payments?: Array<{ __typename?: 'Payment', amount?: number | null }> | null, dealership?: { __typename?: 'ImageFieldOutput', url: string } | null, currentVehicleBuyingLimit?: { __typename?: 'vehicleBuyingLimits', vehicleBuyingLimit?: number | null } | null, bannedSellers?: Array<{ __typename?: 'Seller', name?: string | null, id: string }> | null } | null };
+
+export type EditUserMutationVariables = Exact<{
+  where: UserWhereUniqueInput;
+  data: UserUpdateInput;
+}>;
+
+
+export type EditUserMutation = { __typename?: 'Mutation', updateUser?: { __typename?: 'User', firstName?: string | null, lastName?: string | null, email?: string | null, username?: string | null, mobile?: string | null, businessName?: string | null, role?: UserRoleType | null, idProofType?: UserIdProofTypeType | null, idProofNo?: string | null, pancardNo?: string | null, country?: string | null, state?: string | null, city?: string | null, status?: UserStatusType | null, vehicleBuyingLimit?: number | null, category?: Array<{ __typename?: 'EventType', name?: string | null }> | null, bannedSellers?: Array<{ __typename?: 'Seller', name?: string | null, id: string }> | null, password?: { __typename?: 'PasswordState', isSet: boolean } | null, image?: { __typename?: 'ImageFieldOutput', url: string } | null, pancard?: { __typename?: 'ImageFieldOutput', url: string } | null, idProof?: { __typename?: 'ImageFieldOutput', url: string } | null, idProofBack?: { __typename?: 'ImageFieldOutput', url: string } | null, dealership?: { __typename?: 'ImageFieldOutput', url: string } | null, states?: Array<{ __typename?: 'State', id: string, name?: string | null }> | null } | null };
 
 export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', firstName?: string | null, lastName?: string | null, email?: string | null, mobile?: string | null, status?: UserStatusType | null, role?: UserRoleType | null, idNo?: number | null, id: string, pancardNo?: string | null, currentVehicleBuyingLimit?: { __typename?: 'vehicleBuyingLimits', vehicleBuyingLimit?: number | null } | null }> | null };
+export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', firstName?: string | null, lastName?: string | null, email?: string | null, mobile?: string | null, status?: UserStatusType | null, role?: UserRoleType | null, idNo?: number | null, id: string, pancardNo?: string | null, activeBidsCount?: number | null, currentVehicleBuyingLimit?: { __typename?: 'vehicleBuyingLimits', vehicleBuyingLimit?: number | null } | null }> | null };
 
 export type DeleteVehicleMutationVariables = Exact<{
   where: VehicleWhereUniqueInput;
@@ -3211,6 +3225,59 @@ export type VehicleTableQueryVariables = Exact<{ [key: string]: never; }>;
 export type VehicleTableQuery = { __typename?: 'Query', vehicles?: Array<{ __typename?: 'Vehicle', id: string, registrationNumber?: string | null, vehicleIndexNo?: number | null, bidTimeExpire?: any | null, userVehicleBidsCount?: number | null, vehicleEventStatus?: VehicleEventStatus | null, event?: { __typename?: 'Event', eventCategory?: string | null } | null }> | null };
 
 
+export const ActiveBidsPerUserDocument = gql`
+    query ActiveBidsPerUser($where: UserWhereUniqueInput!) {
+  user(where: $where) {
+    id
+    firstName
+    lastName
+    activeBidsCount
+    states {
+      id
+      name
+    }
+    activeBids {
+      bidAmountUpdate
+      startBidAmount
+      currentBidAmount
+      id
+      registrationNumber
+      bidStatus
+      bidTimeExpire
+      totalBids
+      userVehicleBidsCount
+    }
+  }
+}
+    `;
+
+/**
+ * __useActiveBidsPerUserQuery__
+ *
+ * To run a query within a React component, call `useActiveBidsPerUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useActiveBidsPerUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useActiveBidsPerUserQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useActiveBidsPerUserQuery(baseOptions: Apollo.QueryHookOptions<ActiveBidsPerUserQuery, ActiveBidsPerUserQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ActiveBidsPerUserQuery, ActiveBidsPerUserQueryVariables>(ActiveBidsPerUserDocument, options);
+      }
+export function useActiveBidsPerUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ActiveBidsPerUserQuery, ActiveBidsPerUserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ActiveBidsPerUserQuery, ActiveBidsPerUserQueryVariables>(ActiveBidsPerUserDocument, options);
+        }
+export type ActiveBidsPerUserQueryHookResult = ReturnType<typeof useActiveBidsPerUserQuery>;
+export type ActiveBidsPerUserLazyQueryHookResult = ReturnType<typeof useActiveBidsPerUserLazyQuery>;
+export type ActiveBidsPerUserQueryResult = Apollo.QueryResult<ActiveBidsPerUserQuery, ActiveBidsPerUserQueryVariables>;
 export const CreateEventDocument = gql`
     mutation CreateEvent($data: EventCreateInput!) {
   createEvent(data: $data) {
@@ -3880,79 +3947,6 @@ export function useEditEventMutation(baseOptions?: Apollo.MutationHookOptions<Ed
 export type EditEventMutationHookResult = ReturnType<typeof useEditEventMutation>;
 export type EditEventMutationResult = Apollo.MutationResult<EditEventMutation>;
 export type EditEventMutationOptions = Apollo.BaseMutationOptions<EditEventMutation, EditEventMutationVariables>;
-export const EditUserDocument = gql`
-    mutation editUser($where: UserWhereUniqueInput!, $data: UserUpdateInput!) {
-  updateUser(where: $where, data: $data) {
-    firstName
-    lastName
-    email
-    username
-    mobile
-    businessName
-    category {
-      name
-    }
-    bannedSellers {
-      name
-      id
-    }
-    role
-    password {
-      isSet
-    }
-    idProofType
-    idProofNo
-    image {
-      url
-    }
-    pancard {
-      url
-    }
-    pancardNo
-    idProof {
-      url
-    }
-    idProofBack {
-      url
-    }
-    dealership {
-      url
-    }
-    country
-    state
-    city
-    status
-    vehicleBuyingLimit
-  }
-}
-    `;
-export type EditUserMutationFn = Apollo.MutationFunction<EditUserMutation, EditUserMutationVariables>;
-
-/**
- * __useEditUserMutation__
- *
- * To run a mutation, you first call `useEditUserMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useEditUserMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [editUserMutation, { data, loading, error }] = useEditUserMutation({
- *   variables: {
- *      where: // value for 'where'
- *      data: // value for 'data'
- *   },
- * });
- */
-export function useEditUserMutation(baseOptions?: Apollo.MutationHookOptions<EditUserMutation, EditUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<EditUserMutation, EditUserMutationVariables>(EditUserDocument, options);
-      }
-export type EditUserMutationHookResult = ReturnType<typeof useEditUserMutation>;
-export type EditUserMutationResult = Apollo.MutationResult<EditUserMutation>;
-export type EditUserMutationOptions = Apollo.BaseMutationOptions<EditUserMutation, EditUserMutationVariables>;
 export const CreateEmdUpdateDocument = gql`
     mutation CreateEmdUpdate($data: EmdUpdateCreateInput!) {
   createEmdUpdate(data: $data) {
@@ -4184,6 +4178,57 @@ export function useEventStartTimeLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type EventStartTimeQueryHookResult = ReturnType<typeof useEventStartTimeQuery>;
 export type EventStartTimeLazyQueryHookResult = ReturnType<typeof useEventStartTimeLazyQuery>;
 export type EventStartTimeQueryResult = Apollo.QueryResult<EventStartTimeQuery, EventStartTimeQueryVariables>;
+export const EventsPerSellerDocument = gql`
+    query eventsPerSeller($where: SellerWhereUniqueInput!) {
+  seller(where: $where) {
+    id
+    name
+    events {
+      id
+      eventNo
+      eventCategory
+      startDate
+      status
+      endDate
+      vehiclesCount
+      location {
+        name
+      }
+      seller {
+        name
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useEventsPerSellerQuery__
+ *
+ * To run a query within a React component, call `useEventsPerSellerQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEventsPerSellerQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEventsPerSellerQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useEventsPerSellerQuery(baseOptions: Apollo.QueryHookOptions<EventsPerSellerQuery, EventsPerSellerQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EventsPerSellerQuery, EventsPerSellerQueryVariables>(EventsPerSellerDocument, options);
+      }
+export function useEventsPerSellerLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EventsPerSellerQuery, EventsPerSellerQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EventsPerSellerQuery, EventsPerSellerQueryVariables>(EventsPerSellerDocument, options);
+        }
+export type EventsPerSellerQueryHookResult = ReturnType<typeof useEventsPerSellerQuery>;
+export type EventsPerSellerLazyQueryHookResult = ReturnType<typeof useEventsPerSellerLazyQuery>;
+export type EventsPerSellerQueryResult = Apollo.QueryResult<EventsPerSellerQuery, EventsPerSellerQueryVariables>;
 export const EventTableDocument = gql`
     query eventTable {
   events {
@@ -4839,6 +4884,7 @@ export const UserDocument = gql`
     categoryCount
     state
     states {
+      id
       name
       locations {
         city
@@ -4927,6 +4973,83 @@ export function useUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserQ
 export type UserQueryHookResult = ReturnType<typeof useUserQuery>;
 export type UserLazyQueryHookResult = ReturnType<typeof useUserLazyQuery>;
 export type UserQueryResult = Apollo.QueryResult<UserQuery, UserQueryVariables>;
+export const EditUserDocument = gql`
+    mutation editUser($where: UserWhereUniqueInput!, $data: UserUpdateInput!) {
+  updateUser(where: $where, data: $data) {
+    firstName
+    lastName
+    email
+    username
+    mobile
+    businessName
+    category {
+      name
+    }
+    bannedSellers {
+      name
+      id
+    }
+    role
+    password {
+      isSet
+    }
+    idProofType
+    idProofNo
+    image {
+      url
+    }
+    pancard {
+      url
+    }
+    pancardNo
+    idProof {
+      url
+    }
+    idProofBack {
+      url
+    }
+    dealership {
+      url
+    }
+    country
+    state
+    states {
+      id
+      name
+    }
+    city
+    status
+    vehicleBuyingLimit
+  }
+}
+    `;
+export type EditUserMutationFn = Apollo.MutationFunction<EditUserMutation, EditUserMutationVariables>;
+
+/**
+ * __useEditUserMutation__
+ *
+ * To run a mutation, you first call `useEditUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editUserMutation, { data, loading, error }] = useEditUserMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useEditUserMutation(baseOptions?: Apollo.MutationHookOptions<EditUserMutation, EditUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<EditUserMutation, EditUserMutationVariables>(EditUserDocument, options);
+      }
+export type EditUserMutationHookResult = ReturnType<typeof useEditUserMutation>;
+export type EditUserMutationResult = Apollo.MutationResult<EditUserMutation>;
+export type EditUserMutationOptions = Apollo.BaseMutationOptions<EditUserMutation, EditUserMutationVariables>;
 export const UsersDocument = gql`
     query Users {
   users {
@@ -4939,6 +5062,7 @@ export const UsersDocument = gql`
     idNo
     id
     pancardNo
+    activeBidsCount
     currentVehicleBuyingLimit {
       vehicleBuyingLimit
     }

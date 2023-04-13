@@ -86,17 +86,7 @@ const ExcelUploadsComponent = () => {
           </div>
         </form>
         </div>
-        <div className="flex flex-col ml-5 mt-4 mb-5">
-          <label>vehicles</label>
-        <Select
-        styles={customStyles}
-          className="w-full text-black max-w-[560px] mt-2"
-          options={data?.createExcelUpload?.vehicles.map((vehicle) => ({
-            label: vehicle.registrationNumber,
-          }))}
-          isMulti
-        />
-        </div>
+ 
       </div>
     </div>
   );

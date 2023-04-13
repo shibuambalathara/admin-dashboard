@@ -1,0 +1,21 @@
+query eventsPerSeller($where: SellerWhereUniqueInput!) {
+  seller(where: $where) {
+  id
+  name
+   events {
+    id
+  eventNo
+  eventCategory  
+  startDate
+  status
+  endDate
+  vehiclesCount
+  location {
+    name
+  }
+  seller {
+    name
+  }
+  }
+  }
+}

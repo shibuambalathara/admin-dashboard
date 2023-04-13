@@ -8,6 +8,7 @@ query User($where: UserWhereUniqueInput!) {
   categoryCount
   state
  states {
+  id
    name
    locations {
      city

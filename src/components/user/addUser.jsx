@@ -348,16 +348,9 @@ const AddUser = () => {
 
               <div className="flex flex-col  w-1/3">
                 <label htmlFor="">City</label>
-                <select
-                  className="p-3 input input-bordered input-secondary w-full"
-                  {...register("city", {})}
-                >
-                  {data?.locations.map((loc) => (
-                    <option value={loc.city} key={loc.city}>
-                      {loc.city}
-                    </option>
-                  ))}
-                </select>
+              
+                <input  className="input input-bordered input-secondary w-full " {...register("city", {})}/>
+
                 <p className="text-red-500">
                   {" "}
                   {errors.city && <span>Please select city</span>}

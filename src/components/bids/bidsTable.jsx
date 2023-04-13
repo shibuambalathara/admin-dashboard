@@ -32,7 +32,7 @@ navigate(`/view-user/${userId}`)
           {
             Header: "User Details",
             Cell: ({ row }) => (
-              <button className="btn btn-info" onClick={()=>handleUserDetails(row.original.user.id) }>{row.original.user.firstName} {row.original.user.lastName}</button>
+              <button className="btn btn-info w-24" onClick={()=>handleUserDetails(row.original.user.id) }>{row.original.user.firstName} {row.original.user.lastName}</button>
             )
           },
           {
@@ -80,12 +80,7 @@ navigate(`/view-user/${userId}`)
   return (
     <div className="flex  flex-col w-full justify-around ">
       
-    <Button
-      onClick={() => navigate("/add-user")}
-      className="m-5 justify-end w-fit bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-    >
-     Add User
-    </Button>
+
     
     <div className=" flex flex-col w-full justify-center m-auto ">
     <div className="mb-2">
