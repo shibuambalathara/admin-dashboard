@@ -4,7 +4,7 @@
 import { Button } from '@material-tailwind/react'
 import React, { useMemo,useState } from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
-import { useTable,usePagination,useGlobalFilter } from "react-table"
+import { useTable,useSortBy,usePagination,useGlobalFilter } from "react-table"
 import {useDeleteVehicleMutation, useVehicleDetailsPerEventQuery, useVehicleTableQuery} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
 import format from 'date-fns/format'
@@ -70,7 +70,7 @@ DeleteV({variables:{where:{id:deleteVehicleId}}})
       const tableInstance=useTable({
         columns ,
         data: tableData,
-      },useGlobalFilter,usePagination);
+      },useGlobalFilter,useSortBy,usePagination);
      
         const {
           getTableProps,
@@ -123,9 +123,12 @@ DeleteV({variables:{where:{id:deleteVehicleId}}})
                 <th
                   scope="col"
                   className="py-3 pl-4"
-                  {...column.getHeaderProps()}
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
                 >
                   {column.render("Header")}
+                  <span>
+                      {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                      </span>
                 </th>
               ))}
             </tr>
