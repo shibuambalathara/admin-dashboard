@@ -3,42 +3,52 @@
 
 import { Button } from '@material-tailwind/react'
 import React, { useMemo } from 'react'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 import { useTable,usePagination,useGlobalFilter } from "react-table"
-import {useEventTypesQuery} from '../../utils/graphql'
+import {useActiveBidsPerUserQuery, useBidsTableQuery} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
 
 
-const EventTypesTable = () => {
-    const {data,loading,error}=useEventTypesQuery()
+const BidsTablePerUser = () => {
+  const {id}=useParams()
+    const {data,loading,error}=useActiveBidsPerUserQuery({variables:{where:{id}}})
     const navigate=useNavigate()
+
+    console.log("bids",data)
+    const handleUserDetails=(userId)=>{
+navigate(`/view-user/${userId}`)
+    }
+    const handleVehicleDetails=(vehicleId)=>{
+      navigate(`/edit-vehicle/${vehicleId}`)
+    }
 
     const columns = useMemo(
         () => [
-          { Header: "Name", accessor: "name" },
-          { Header: "Events", accessor: "events.eventNo" },
-          { Header: "Users", accessor: "users.id" },
+          { Header: "Reg Number", accessor: "registrationNumber" },
+           { Header: "Start Price", accessor: "startBidAmount" },
+           { Header: "Current Bid Amount", accessor: "currentBidAmount" },
+           
+           { Header: "Bid Status", accessor: "bidStatus" },
+        
          
-
-         
-        //   {
-        //     Header: "View more",
-        //     Cell: ({ row }) => (
-        //       <button className="bg-green-500 p-2 rounded" onClick={()=>handleViewMore(row.original.id) }>View More</button>
-        //     )
-        //   },
-        //   {
-        //     Header: "Delete",
-        //     Cell: ({ row }) => (
-        //       <button className="bg-red-600 text-white p-2 rounded" onClick={() => handleDelete(row.original.id)}>Delete</button>
-        //     )
-        //   }
+          // {
+          //   Header: "User Details",
+          //   Cell: ({ row }) => (
+          //     <button className="btn btn-info w-24" onClick={()=>handleUserDetails(row.original.user.id) }>{row.original.user.firstName} {row.original.user.lastName}</button>
+          //   )
+          // },
+          {
+            Header: "Vehicle Details",
+            Cell: ({ row }) => (
+              <button className="btn btn-secondary" onClick={() => handleVehicleDetails(row.original.id)}>{row.original.registrationNumber}</button>
+            )
+          }
           
         ],
         []
       );
 
-      const tableData=useMemo(() => (data ? data.eventTypes : []), [data]);
+      const tableData=useMemo(() => (data ? data.user.activeBids : []), [data]);
       const tableInstance=useTable({
         columns ,
         data: tableData,
@@ -71,16 +81,12 @@ const EventTypesTable = () => {
 
   return (
     <div className="flex  flex-col w-full justify-around ">
-    <Button
-      onClick={() => navigate("/add-user")}
-      className="m-5 justify-end w-fit bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-    >
-     Add Event Types
-    </Button>
+      
+
     
     <div className=" flex flex-col w-full justify-center m-auto ">
     <div className="mb-2">
-  <div className="text-center font-extrabold my-5 text-lg min-w-full">  Events type Table </div>
+  <div className="text-center font-extrabold my-5 text-lg min-w-full">  Bids Data Table Of {data?.user?.firstName} {data?.user?.lastName} </div>
     <SearchUser filter={globalFilter} className="  text-white " setFilter={setGlobalFilter}/>
   </div>
       <table
@@ -150,4 +156,4 @@ const EventTypesTable = () => {
   )
 }
 
-export default EventTypesTable
+export default  BidsTablePerUser

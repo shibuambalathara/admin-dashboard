@@ -1,7 +1,7 @@
 import React from 'react'
 import AddSeller from '../components/Sellers/addSeller'
 
-import Table from '../components/Sellers/table'
+import Table from '../components/Sellers/sellersTable'
 
 const Sellers = () => {
   return (

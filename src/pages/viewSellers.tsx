@@ -1,5 +1,5 @@
 import React from 'react'
-import Table from '../components/Sellers/table'
+import Table from '../components/Sellers/sellersTable'
 
 const ViewSellers = () => {
   return (

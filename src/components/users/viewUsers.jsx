@@ -34,6 +34,10 @@ const ViewUsers = () => {
   const handleBuyingLimit=(id)=>{
     navigate(`/buying-limit/${id}`)
   }
+  
+  const handleBids=(id)=>{
+    navigate(`/bids-user/${id}`)
+  }
 
   const columns = useMemo(
     () => [
@@ -43,14 +47,24 @@ const ViewUsers = () => {
       { Header: "Role", accessor: "role",  className: 'w-1/3', },
       { Header: "Mobile", accessor: "mobile",  className: 'w-1/3',   },
       { Header: "Status", accessor: "status",  className: 'w-1/3',   },
-      // { Header: "Pancard Number", accessor: "pancardNo",  className: 'w-1/3',   },
-      //  { Header: "Total Vehicle Buying Limit", accessor: "currentVehicleBuyingLimit.vehicleBuyingLimit" ,   },
+      //  { Header: "Active Bids Count", accessor: "activeBidsCount",  className: 'w-1/3',   },
 
+      {
+        Header: "Active Bids ",
+        Cell: ({ row }) => (
+          <button
+            className="btn btn-primary"
+            onClick={() => handleBids(row.original.id)}
+          >
+           {row.original.activeBidsCount}
+          </button>
+        ),
+      },
        {
         Header: "Current Buying Limit",
         Cell: ({ row }) => (
           <button
-            className="btn btn-info"
+            className="btn btn-secondary"
             onClick={() => handleBuyingLimit(row.original.id)}
           >
            {row.original.currentVehicleBuyingLimit.vehicleBuyingLimit}
@@ -62,7 +76,7 @@ const ViewUsers = () => {
         Header: "View more",
         Cell: ({ row }) => (
           <button
-            className="btn btn-primary"
+            className="btn btn-info"
             onClick={() => handleViewMore(row.original.id)}
           >
             View More
@@ -95,7 +109,7 @@ const ViewUsers = () => {
     []
   );
   const tableData = useMemo(() => (data ? data.users : []), [data]);
-  console.log("this is the tabledata from view users",tableData);
+
 
   const tableInstance = useTable(
     {

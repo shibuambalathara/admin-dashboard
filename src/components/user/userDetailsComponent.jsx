@@ -4,13 +4,14 @@ import React from "react";
 import { useForm,Controller } from "react-hook-form";
 
 import { useParams } from "react-router-dom";
-import { useUserQuery,useSellersItemQuery,useEditUserMutation,useSelectorsQuery} from "../../utils/graphql";
+import { useUserQuery,useSellersItemQuery,useEditUserMutation,useSelectorsQuery, useStatesQuery} from "../../utils/graphql";
 
 import AddUser from "./addUser";
 
 const UserDetailsComponent = () => {
   const { id } = useParams();
  const sellers = useSellersItemQuery();
+ const allStates=useStatesQuery()
 
  const selectors=useSelectorsQuery()
  const [updatedDetails,response]=useEditUserMutation({variables:{where:{id:id}}})
@@ -53,6 +54,10 @@ console.log(data,"data")
      bannedSellers: {
       set: dataOnSubmit.bannedSellers.map((seller) => ({id: seller.value}))
     },
+    states: {
+      set: dataOnSubmit.states.map((state) => ({id: state.value}))
+    },
+
      
     
   
@@ -245,6 +250,11 @@ console.log(err,"error")
 
                 
               </div>
+
+
+            
+
+
             </div>
          
 
@@ -328,13 +338,8 @@ console.log(err,"error")
             <div className="w-1/3">
               <label htmlFor="">City</label>
          
-        
-         <select  defaultValue={data?.user?.city} className="input input-bordered input-secondary w-full " {...register("city", {})}>
-  <option value={data?.user?.city}>{data?.user?.city}</option>
-  {selectors?.data?.locations?.map((loc) => (
-    <option  value={loc.city} key={loc.id}>{loc.city}</option>
-  ))}
-</select>
+
+<input  defaultValue={data?.user?.city} className="input input-bordered input-secondary w-full " {...register("city", {})}/>
       <p className="text-red-500"> {errors.city && <span>Please select city</span>}</p>
             </div>
             </div>
@@ -382,6 +387,36 @@ console.log(err,"error")
                 {" "}
                 {errors.country && <span>country Required</span>}
               </p>
+
+              <div className="flex flex-col  w-full">
+                <label htmlFor="">Auction Allowed states</label>
+              
+
+                <Controller
+  name="states"
+  control={control}
+  defaultValue={data?.user?.states.map((state) => ({
+    label: state.name,
+    value: state.id
+  }))}
+  render={({ field }) => (
+    <Select
+      className="w-full text-black max-w-[560px] mt-2"
+      option=""
+      options={allStates?.data?.states?.map((state) => ({
+        label: state.name,
+        value: state.id
+      }))}
+      {...field}
+      isMulti
+      getOptionValue={(option) => option.value}
+    />
+  )}
+/>
+
+                
+              </div>
+
             </div>
           </div>
         </div>

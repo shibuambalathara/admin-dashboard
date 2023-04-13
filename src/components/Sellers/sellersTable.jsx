@@ -18,17 +18,27 @@ const handleBannedUsers=(id)=>{
 console.log(id,"banned Users")
 navigate(`/banned-users/${id}`)
 }
+const handleEvents=(id)=>{
+  console.log(id,"banned Users")
+  navigate(`/events-seller/${id}`)
+  }
  
 
   const columns = useMemo(
     () => [
       { Header: "Name", accessor: "name" },
     
-      { Header: "Total Events Condocted", accessor: "eventsCount" },
+      { Header: "Total Events Conducted", accessor: "eventsCount" },
       {
         Header: "Banned Users ",
         Cell: ({ row }) => (
           <button className="btn btn-info" onClick={() => handleBannedUsers(row.original?.id)}>{row.original?.bannedUsersCount}</button>
+        )
+      },
+      {
+        Header: "View Events",
+        Cell: ({ row }) => (
+          <button className="btn btn-info" onClick={() => handleEvents(row.original?.id)}>View</button>
         )
       },
     ],

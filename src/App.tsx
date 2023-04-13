@@ -26,7 +26,7 @@ import AddStateForm from "./pages/addStateForm";
 import AddExcel from "./pages/addExcel";
 import AddEventType from "./pages/addEventType";
 import ViewLocations from "./pages/viewLocations";
-import Table from "./components/Sellers/table";
+import Table from "./components/Sellers/sellersTable";
 import EditEvent from "./pages/editEvent";
 
 import EditVehicle from "./pages/editVehicle";
@@ -38,6 +38,8 @@ import BidDetailsPerVehicle from "./pages/bidDetailsPerVehicle";
 import AddEmd from "./pages/createEmd";
 import EmdUpdate from "./pages/emdUpdate";
 import EmdPerPayment from "./pages/emdPerPayment";
+import BidsPerUser from "./pages/bidsPerUser";
+import EventsPerSeller from "./pages/eventsPerSeller";
 
 
 function App() {
@@ -87,6 +89,8 @@ function App() {
               <Route path="view-vehicls/:id" element={<VehicleDetailsPerEvent />} />
               <Route path="banned-users/:id" element={<BannedUsers />} />
               <Route path="bid-details/:id" element={<BidDetailsPerVehicle />} />
+              <Route path="bids-user/:id" element={<BidsPerUser />} />
+              <Route path="events-seller/:id" element={<EventsPerSeller />} />
 
               
             </Route>

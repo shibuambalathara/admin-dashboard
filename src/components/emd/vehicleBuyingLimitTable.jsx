@@ -29,7 +29,7 @@ console.log(userId,"userId")
   // };
   const handleBuyingLimit=(id)=>{
     console.log("payment id",id)
-    navigate(`/edit-emd/${id}`)
+    navigate(`/update-payment/${id}`)
   }
 
   const columns = useMemo(
@@ -48,7 +48,7 @@ console.log(userId,"userId")
         Cell: ({ row }) => (
           <button
             className="btn btn-info"
-            onClick={() => handleBuyingLimit(row.original.id)}
+            onClick={() => handleBuyingLimit(row.original.payment.id)}
           >
          Edit
           </button>

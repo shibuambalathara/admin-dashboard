@@ -37,6 +37,11 @@ mutation editUser($where: UserWhereUniqueInput!, $data: UserUpdateInput!) {
    },
    country,
    state,
+    states {
+    id
+    name
+    
+  },
    city,
    status,
    vehicleBuyingLimit
