@@ -3,6 +3,7 @@ import Select from "react-select";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { useCreateExcelUploadMutation } from "../../utils/graphql";
+import { ShowPopup } from "../alerts/popUps";
 const ExcelUploadsComponent = () => {
   // const [vehicles,setVehicles]=useState([])
   const { id } = useParams();
@@ -17,13 +18,32 @@ const ExcelUploadsComponent = () => {
   const onSubmit = (dataOnSubmit) => {
     console.log(dataOnSubmit);
 
-    const excel = {
-      file: { upload: dataOnSubmit?.uploadFile[0] },
-      name: dataOnSubmit?.uploadFileName,
-      event: { connect: { id: id } },
-    };
-    create({ variables: { data: excel } });
+   try {
+     const excel = {
+       file: { upload: dataOnSubmit?.uploadFile[0] },
+       name: dataOnSubmit?.uploadFileName,
+       event: { connect: { id: id } },
+     };
+     create({ variables: { data: excel } });
+     ShowPopup(
+      "Success!",
+      `${dataOnSubmit?.uploadFileName} Excel File Added successfully!`,
+      "success",
+      5000,
+      true
+    );
+   } catch (error) {
+    console.log("error in excel uploads",error.message);
+    ShowPopup(
+      "Failed!",
+      `${error.message} `,
+      "error",
+      5000,
+      true
+    );
+   }
   };
+
   if (data) {
     console.log(data?.createExcelUpload?.vehicles, "data............");
     // setVehicles([data?.createExcelUpload?.vehicles?.registrationNumber])

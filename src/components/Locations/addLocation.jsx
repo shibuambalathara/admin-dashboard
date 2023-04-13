@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { Input } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
-import { useAddLocationMutation, useStatesQuery } from "../../utils/graphql";
+import { useAddLocationMutation, useStatesQuery ,useLocationsQuery} from "../../utils/graphql";
 import States from "../../pages/states";
+import { ShowPopup } from '../alerts/popUps';
 
 const AddLocation = () => {
   const [successMsg, setSuccessMsg] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const {  refetch } = useLocationsQuery(); // get the data from the server
+
   const {
     register,
     handleSubmit,
@@ -33,13 +37,14 @@ const AddLocation = () => {
     try {
       const result = await createLocation({ variables: { data } });
       console.log("RESULT", result);
+      ShowPopup("Success!", `Location Added successfully!`, "success", 5000, true);
     } catch (error) {
+      ShowPopup("Failed!", `${error?.message}`, "error", 5000, true);
       console.log("DATABASE ERROR", error.stack);
     }
-
-    // console.log("DATA LOADED TO SERVER",data);
-
-    setSuccessMsg("User registration is successful.");
+    
+    refetch()
+    setIsModalOpen(false);
     reset();
   };
 
@@ -52,13 +57,20 @@ const AddLocation = () => {
       </div>
 
       {/* Put this part before </body> tag */}
-      <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+      <input
+        type="checkbox"
+        id="my-modal-3"
+        className="modal-toggle"
+        checked={isModalOpen}
+        onChange={() => setIsModalOpen(!isModalOpen)}
+      />
       <div className="modal ">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="modal-box relative w-96">
-            <label
-              htmlFor="my-modal-3"
+          <label
+              htmlFor="modal-toggle"
               className="btn btn-sm btn-circle absolute right-2 top-2"
+              onClick={() => setIsModalOpen(false)} // add click handler to close modal
             >
               ✕
             </label>

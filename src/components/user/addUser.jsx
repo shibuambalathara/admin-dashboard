@@ -4,12 +4,13 @@ import Select from 'react-select';
 
 import React, { useState } from "react";
 import { useCreateUserMutation, useSelectorsQuery } from "../../utils/graphql";
-
+import { ShowPopup } from '../alerts/popUps';
 const AddUser = () => {
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm();
   const [createUser, { loading, error }] = useCreateUserMutation();
@@ -55,7 +56,10 @@ const AddUser = () => {
 
     try {
       const result = await createUser({ variables: { data } });
+      ShowPopup("Success!", `${dataOnSubmit?.first_Name}Added successfully!`, "success", 5000, true);
+      reset()
     } catch (err) {
+      ShowPopup("Failed!", `${error?.message}`, "error", 5000, true);
       console.log(err, "error");
     }
   };
@@ -207,9 +211,9 @@ const AddUser = () => {
                   {...register("idType", {})}
                 >
                   
-                  <option value="Aadhar">Aadhar</option>
+                  <option value="aadhar">Aadhar</option>
                   <option value="drivingLicense">Driving Licence</option>
-                  <option value="Passport">Passport</option>
+                  <option value="passport">Passport</option>
                 </select>
                 <p className="text-red-500">
                   {" "}

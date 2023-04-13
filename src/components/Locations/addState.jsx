@@ -1,35 +1,43 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useCreateStateMutation } from "../../utils/graphql";
-import Success from "../alerts/success";
-import Swal from "sweetalert2";
+import { useCreateStateMutation, useStatesQuery } from "../../utils/graphql";
+import { ShowPopup } from "../alerts/popUps";
 
 const AddState = () => {
   const [createState] = useCreateStateMutation();
-  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { refetch } = useStatesQuery(); // get the data from the server
+
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm();
 
   const onSubmit = async (dataOnSubmit) => {
     console.log("dataOnSubmit", dataOnSubmit);
 
-    const result = await createState({
-      variables: { data: { name: dataOnSubmit?.name } },
-    });
-
-    Swal.fire({
-      title: "Success!",
-      text: `${dataOnSubmit?.name} Added successfully!`,
-      icon: "success",
-      timer: 1000,
-      showConfirmButton: true,
-    });
+    try {
+      const result = await createState({
+        variables: { data: { name: dataOnSubmit?.name } },
+      });
+      ShowPopup(
+        "Success!",
+        `${dataOnSubmit?.name} Added successfully!`,
+        "success",
+        5000,
+        true
+      );
+    } catch (error) {
+      ShowPopup("Failed!", `${error?.message}`, "error", 5000, true);
+      console.log("the error occured in creating state", error);
+    }
 
     setIsModalOpen(false);
+    refetch();
+    reset();
   };
   return (
     <div className="w-full max-w-xs     relative ml-50 ">
