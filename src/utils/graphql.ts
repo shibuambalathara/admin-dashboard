@@ -3081,6 +3081,20 @@ export type EventStartTimeQueryVariables = Exact<{
 
 export type EventStartTimeQuery = { __typename?: 'Query', event?: { __typename?: 'Event', id: string, startDate?: any | null } | null };
 
+export type CreateEventTypeMutationVariables = Exact<{
+  data: EventTypeCreateInput;
+}>;
+
+
+export type CreateEventTypeMutation = { __typename?: 'Mutation', createEventType?: { __typename?: 'EventType', name?: string | null } | null };
+
+export type DeleteEventTypeMutationVariables = Exact<{
+  where: EventTypeWhereUniqueInput;
+}>;
+
+
+export type DeleteEventTypeMutation = { __typename?: 'Mutation', deleteEventType?: { __typename?: 'EventType', id: string } | null };
+
 export type EventsPerSellerQueryVariables = Exact<{
   where: SellerWhereUniqueInput;
 }>;
@@ -3091,7 +3105,7 @@ export type EventsPerSellerQuery = { __typename?: 'Query', seller?: { __typename
 export type EventTableQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type EventTableQuery = { __typename?: 'Query', events?: Array<{ __typename?: 'Event', id: string, eventNo?: number | null, eventCategory?: string | null, startDate?: any | null, status?: EventStatusType | null, endDate?: any | null, vehiclesCount?: number | null, location?: { __typename?: 'Location', name?: string | null } | null, seller?: { __typename?: 'Seller', name?: string | null } | null }> | null };
+export type EventTableQuery = { __typename?: 'Query', events?: Array<{ __typename?: 'Event', id: string, eventNo?: number | null, eventCategory?: string | null, startDate?: any | null, status?: EventStatusType | null, endDate?: any | null, vehiclesCount?: number | null, Report?: any | null, location?: { __typename?: 'Location', name?: string | null } | null, seller?: { __typename?: 'Seller', name?: string | null } | null }> | null };
 
 export type EventTypesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3222,7 +3236,7 @@ export type VehicleDetailsPerEventQuery = { __typename?: 'Query', event?: { __ty
 export type VehicleTableQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type VehicleTableQuery = { __typename?: 'Query', vehicles?: Array<{ __typename?: 'Vehicle', id: string, registrationNumber?: string | null, vehicleIndexNo?: number | null, bidTimeExpire?: any | null, userVehicleBidsCount?: number | null, vehicleEventStatus?: VehicleEventStatus | null, event?: { __typename?: 'Event', eventCategory?: string | null } | null }> | null };
+export type VehicleTableQuery = { __typename?: 'Query', vehicles?: Array<{ __typename?: 'Vehicle', id: string, registrationNumber?: string | null, vehicleIndexNo?: number | null, bidTimeExpire?: any | null, bidStatus?: VehicleBidStatusType | null, userVehicleBidsCount?: number | null, vehicleEventStatus?: VehicleEventStatus | null, event?: { __typename?: 'Event', eventCategory?: string | null } | null }> | null };
 
 
 export const ActiveBidsPerUserDocument = gql`
@@ -4178,6 +4192,72 @@ export function useEventStartTimeLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type EventStartTimeQueryHookResult = ReturnType<typeof useEventStartTimeQuery>;
 export type EventStartTimeLazyQueryHookResult = ReturnType<typeof useEventStartTimeLazyQuery>;
 export type EventStartTimeQueryResult = Apollo.QueryResult<EventStartTimeQuery, EventStartTimeQueryVariables>;
+export const CreateEventTypeDocument = gql`
+    mutation CreateEventType($data: EventTypeCreateInput!) {
+  createEventType(data: $data) {
+    name
+  }
+}
+    `;
+export type CreateEventTypeMutationFn = Apollo.MutationFunction<CreateEventTypeMutation, CreateEventTypeMutationVariables>;
+
+/**
+ * __useCreateEventTypeMutation__
+ *
+ * To run a mutation, you first call `useCreateEventTypeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateEventTypeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createEventTypeMutation, { data, loading, error }] = useCreateEventTypeMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateEventTypeMutation(baseOptions?: Apollo.MutationHookOptions<CreateEventTypeMutation, CreateEventTypeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateEventTypeMutation, CreateEventTypeMutationVariables>(CreateEventTypeDocument, options);
+      }
+export type CreateEventTypeMutationHookResult = ReturnType<typeof useCreateEventTypeMutation>;
+export type CreateEventTypeMutationResult = Apollo.MutationResult<CreateEventTypeMutation>;
+export type CreateEventTypeMutationOptions = Apollo.BaseMutationOptions<CreateEventTypeMutation, CreateEventTypeMutationVariables>;
+export const DeleteEventTypeDocument = gql`
+    mutation DeleteEventType($where: EventTypeWhereUniqueInput!) {
+  deleteEventType(where: $where) {
+    id
+  }
+}
+    `;
+export type DeleteEventTypeMutationFn = Apollo.MutationFunction<DeleteEventTypeMutation, DeleteEventTypeMutationVariables>;
+
+/**
+ * __useDeleteEventTypeMutation__
+ *
+ * To run a mutation, you first call `useDeleteEventTypeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteEventTypeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteEventTypeMutation, { data, loading, error }] = useDeleteEventTypeMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useDeleteEventTypeMutation(baseOptions?: Apollo.MutationHookOptions<DeleteEventTypeMutation, DeleteEventTypeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteEventTypeMutation, DeleteEventTypeMutationVariables>(DeleteEventTypeDocument, options);
+      }
+export type DeleteEventTypeMutationHookResult = ReturnType<typeof useDeleteEventTypeMutation>;
+export type DeleteEventTypeMutationResult = Apollo.MutationResult<DeleteEventTypeMutation>;
+export type DeleteEventTypeMutationOptions = Apollo.BaseMutationOptions<DeleteEventTypeMutation, DeleteEventTypeMutationVariables>;
 export const EventsPerSellerDocument = gql`
     query eventsPerSeller($where: SellerWhereUniqueInput!) {
   seller(where: $where) {
@@ -4245,6 +4325,7 @@ export const EventTableDocument = gql`
     seller {
       name
     }
+    Report
   }
 }
     `;
@@ -5283,6 +5364,7 @@ export const VehicleTableDocument = gql`
     registrationNumber
     vehicleIndexNo
     bidTimeExpire
+    bidStatus
     userVehicleBidsCount
     vehicleEventStatus
     event {

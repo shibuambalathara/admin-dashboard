@@ -1,0 +1,11 @@
+mutation CreateEventType($data: EventTypeCreateInput!) {
+  createEventType(data: $data) {
+    name
+  }
+}
+
+mutation DeleteEventType($where: EventTypeWhereUniqueInput!) {
+  deleteEventType(where: $where) {
+  id  
+  }
+}

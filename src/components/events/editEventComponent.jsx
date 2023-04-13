@@ -115,9 +115,9 @@ const handleEndDateToIso=(date)=>{
                 <label className="text-base" htmlFor="">
                   Event Category
                 </label>
-                {/* <div class="absolute inset-y-10 - right-32 flex items-center ">
+                <div class="absolute inset-y-10 - right-32 flex items-center ">
                   <div class="h-5 w-0.5 border bg-gray-400 "></div>
-                </div> */}
+                </div>
                 
                 <select
                   defaultValue={data?.event?.eventCategory}

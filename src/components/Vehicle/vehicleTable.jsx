@@ -26,6 +26,7 @@ navigate(`/edit-vehicle/${id}`)
           { Header: "Registration Number", accessor: "registrationNumber" },
           { Header: "Vehicle Index No", accessor: "vehicleIndexNo" },
           { Header: "Event Status", accessor: "vehicleEventStatus" }, 
+          { Header: "Bid Status", accessor: "bidStatus" }, 
           { Header: "Total bids count", accessor: "userVehicleBidsCount" }, 
           { Header: "Event Category", accessor: "event.eventCategory" }, 
           { Header: "Bid Time Expire", accessor: ({bidTimeExpire})=>{return format(new Date (bidTimeExpire),`dd/MM/yy,  HH:mm:ss`)}  },
