@@ -4,6 +4,7 @@ query VehicleTable {
   registrationNumber  
   vehicleIndexNo
   bidTimeExpire
+  bidStatus
   userVehicleBidsCount
   vehicleEventStatus
    event {

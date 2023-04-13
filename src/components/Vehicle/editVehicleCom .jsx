@@ -142,6 +142,7 @@ const vehicle={
                 </label>
                 <Input defaultValue={data?.vehicle?.registrationNumber}  {...register("regNo",{required:true})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
                 <p className="text-red-500"> {errors.regNo&& <span>Register Number required</span>}</p> 
+
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
