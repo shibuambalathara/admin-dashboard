@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Input } from "@material-tailwind/react";
 import { useForm,Controller } from "react-hook-form";
 import Select from 'react-select'
-
+import { ShowPopup } from "../alerts/popUps";
 
 import{useSellersItemQuery,useEventTypesQuery,useLocationsQuery,useCreateEventMutation}from '../../utils/graphql'
 import { useNavigate } from "react-router-dom";
@@ -57,9 +57,24 @@ const AddEventComponent = () => {
     }
  addEvent({variables:{data:eventData}})
  .then(result=>{console.log("result",result)
-
+ ShowPopup(
+  "Success!",
+  `Event Created Successfully! Upload Excel Now`,
+  "success",
+  5000,
+  true
+);
 })
- .catch((error)=>console.log("error",error))
+ .catch((error)=>{
+  console.log("error",error)
+  ShowPopup(
+    "Failed!",
+    `${error.message} `,
+    "error",
+    5000,
+    true
+  );
+ })
 
 
   }
