@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useCreateEventTypeMutation, useCreateStateMutation } from "../../utils/graphql";
-import Success from "../alerts/success";
+
 import Swal from "sweetalert2";
 
 const AddEventType = () => {
