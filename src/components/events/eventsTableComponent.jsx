@@ -5,10 +5,12 @@ import { useTable,useSortBy,usePagination,useGlobalFilter } from "react-table"
 import {useEventTableQuery} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
 import format from 'date-fns/format'
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
 
 const EventsTableComponent = () => {
     const {data,loading,error}=useEventTableQuery()
-
+console.log(data,"data")
 
 
 
@@ -27,6 +29,18 @@ const EventsTableComponent = () => {
    const handleAddVehicle=(id)=>{
     navigate(`/add-vehicle/${id}`)
    }
+   const handleReport=(report)=>{
+    console.log(report,"report")
+
+    const convertToExcel = (report) => {
+      const worksheet = XLSX.utils.json_to_sheet(report);
+      const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+      const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+      const excelData = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+      FileSaver.saveAs(excelData, 'Event-Report.xlsx');
+    }
+    convertToExcel(report);
+   }
 
     const columns = useMemo(
         () => [
@@ -38,6 +52,7 @@ const EventsTableComponent = () => {
           { Header: "End Date ", accessor: ({endDate})=>{return format(new Date (endDate),`dd/MM/yy, HH:mm:ss`)} },
           { Header: "Status ", accessor: "status" }, 
           { Header: "Number Of Vehicles", accessor: "vehiclesCount" },
+        
           {
             Header: "View Vehicles",
             Cell: ({ row }) => (
@@ -62,6 +77,12 @@ const EventsTableComponent = () => {
             Cell: ({ row }) => (
               <button className="btn btn-warning" onClick={() => handleEditEvent(row.original.id)}>View/Edit</button>
             )
+          },
+          {
+            Header: "Report (excel)",
+            Cell: ({ row }) => (
+              <button className="btn btn-success" onClick={() => handleReport(row.original.Report)}>Report</button>
+            )
           }
           
         ],
@@ -69,7 +90,7 @@ const EventsTableComponent = () => {
       );
 
       const tableData=useMemo(() => (data ? data.events : []), [data]);
-      console.log("this is table data from events",tableData);
+     
       const tableInstance=useTable({
         columns ,
         data: tableData,
@@ -102,6 +123,7 @@ const EventsTableComponent = () => {
 
   return (
     <div className="flex  flex-col w-full justify-around ">
+      
     <Button
       onClick={() => navigate("/addevent")}
       className="m-5 justify-end w-fit bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"

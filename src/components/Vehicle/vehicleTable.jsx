@@ -102,7 +102,42 @@ const VehicleTable = () => {
     setGlobalFilter,
   } = tableInstance;
 
+
   const { globalFilter } = state;
+    const columns = useMemo(
+        () => [
+          { Header: "Registration Number", accessor: "registrationNumber" },
+          { Header: "Vehicle Index No", accessor: "vehicleIndexNo" },
+          { Header: "Event Status", accessor: "vehicleEventStatus" }, 
+          { Header: "Bid Status", accessor: "bidStatus" }, 
+          { Header: "Total bids count", accessor: "userVehicleBidsCount" }, 
+          { Header: "Event Category", accessor: "event.eventCategory" }, 
+          { Header: "Bid Time Expire", accessor: ({bidTimeExpire})=>{return format(new Date (bidTimeExpire),`dd/MM/yy,  HH:mm:ss`)}  },
+         
+          {
+            Header: "Bid Detais",
+            Cell: ({ row }) => (
+              <button className="btn btn-accent" onClick={()=>handleBidDetails(row.original.id) }>Bid Details</button>
+            )
+          },
+         
+          {
+            Header: "Vehicle Detais",
+            Cell: ({ row }) => (
+              <button className="btn btn-info" onClick={()=>handleViewMore(row.original.id) }>View Vehicle</button>
+            )
+          },
+        //   {
+        //     Header: "Delete",
+        //     Cell: ({ row }) => (
+        //       <button className="bg-red-600 text-white p-2 rounded" onClick={() => handleDelete(row.original.id)}>Delete</button>
+        //     )
+        //   }
+          
+        ],
+        []
+      );
+
 
   if (loading) return <p>Loading...</p>;
 
