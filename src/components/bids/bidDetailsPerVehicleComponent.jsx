@@ -3,7 +3,7 @@ import { Button } from '@material-tailwind/react'
 import React, { useMemo } from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import { useTable,usePagination,useSortBy,useGlobalFilter } from "react-table"
-import {useBidDetailsPerVehicleQuery,} from '../../utils/graphql'
+import {useBidDetailsPerVehicleQuery, useDeleteBidMutation,} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
 import format from 'date-fns/format'
 
@@ -11,13 +11,14 @@ import format from 'date-fns/format'
 const BidDetailsPerVehicleComponent = () => {
     const {id}=useParams()
     const {data,loading,error}=useBidDetailsPerVehicleQuery({variables:{where:{id}}})
+    const [deleteBid]=useDeleteBidMutation()
     const navigate=useNavigate()
 
     console.log(data?.vehicle?.userVehicleBids,"0000")
 
-    const handleViewMore=(id)=>{
+    const handleDeleteBid=(id)=>{
       console.log("id.........",id)
-navigate(`/edit-vehicle/${id}`)
+const result=deleteBid({variables:{where:{id}}})
     }
     const handleUserDetails=(id)=>{
       navigate(`/view-user/${id}`)
@@ -30,22 +31,22 @@ navigate(`/edit-vehicle/${id}`)
                 { Header: "Mobile", accessor: "user.mobile" },
           { Header: "Amount", accessor: "amount" },
        
-        //   { Header: "Bid Time Expire", accessor: ({bidTimeExpire})=>{return format(new Date (bidTimeExpire),`dd/MM/yy,  HH:mm:ss`)}  },
-         
+                
           {
             Header: "View User",
             Cell: ({ row }) => (
               <button className="btn btn-info" onClick={()=>handleUserDetails(row.original.user.id) }>View User</button>
             )
           },
+          {
+            Header: "Delete Bid",
+            Cell: ({ row }) => (
+              <button className="btn btn-error" onClick={()=>handleDeleteBid(row.original.id) }>Delete </button>
+            )
+          },  
          
     
-        //   {
-        //     Header: "Delete",
-        //     Cell: ({ row }) => (
-        //       <button className="bg-red-600 text-white p-2 rounded" onClick={() => handleDelete(row.original.id)}>Delete</button>
-        //     )
-        //   }
+       
           
         ],
         []
