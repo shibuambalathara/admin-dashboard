@@ -6,20 +6,43 @@ import { useTable,usePagination,useSortBy,useGlobalFilter } from "react-table"
 import {useBidDetailsPerVehicleQuery, useDeleteBidMutation,} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
 import format from 'date-fns/format'
+import Swal from "sweetalert2";
 
 
 const BidDetailsPerVehicleComponent = () => {
     const {id}=useParams()
-    const {data,loading,error}=useBidDetailsPerVehicleQuery({variables:{where:{id}}})
+    const {data,loading,error,refetch}=useBidDetailsPerVehicleQuery({variables:{where:{id}}})
     const [deleteBid]=useDeleteBidMutation()
     const navigate=useNavigate()
 
     console.log(data?.vehicle?.userVehicleBids,"0000")
 
-    const handleDeleteBid=(id)=>{
-      console.log("id.........",id)
-const result=deleteBid({variables:{where:{id}}})
+    const handleDeleteBid=async(id)=>{
+      const response = await Swal.fire({
+        title: 'Are you sure?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+      });
+      if (response.isConfirmed) {
+      
+        const result=await  deleteBid({variables:{where:{id}}})
+
+        if (result?.data) {
+          console.log(result)
+          await Swal.fire({
+            title: `  deleted Successfully`,
+            icon: 'success',
+          });
+        console.log(result,"result")
     }
+
+   
+     
+      refetch()
+    }
+  }
     const handleUserDetails=(id)=>{
       navigate(`/view-user/${id}`)
     }
