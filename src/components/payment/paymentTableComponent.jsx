@@ -41,7 +41,9 @@ const PaymentTableComponent = () => {
           { Header: "Amount", accessor: "amount" },
           { Header: "Payment For ", accessor: "paymentFor" },
           { Header: "Status ", accessor: "status" },
-           {Header:"user Name",accessor:"user.firstName"},
+          {Header:"Mobile",accessor:"user.mobile"},
+           {Header:"user First Name",accessor:"user.firstName"},
+           {Header:"user Last Name",accessor:"user.lastName"},
 
            {
             Header: "Create Emd",
