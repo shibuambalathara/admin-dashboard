@@ -38,8 +38,8 @@ DeleteV({variables:{where:{id:deleteVehicleId}}})
           { Header: "State", accessor: "state" },
          { Header: "City", accessor: "city" },
          { Header: "total bids count", accessor: "totalBids" },
-         { Header: "Status", accessor: "vehicleEventStatus" },
-        //  { Header: "Bid Status", accessor: "bidStatus" },
+         { Header: "Event Status", accessor: "vehicleEventStatus" },
+          { Header: "Bid Status", accessor: "bidStatus" },
         //   { Header: "Bid Time Expire", accessor: ({bidTimeExpire})=>{return format(new Date (bidTimeExpire),`dd/MM/yy,  HH:mm:ss`)}  },
          
         {

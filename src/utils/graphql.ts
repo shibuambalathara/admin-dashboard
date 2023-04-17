@@ -2994,13 +2994,6 @@ export type CreateUserMutationVariables = Exact<{
 
 export type CreateUserMutation = { __typename?: 'Mutation', createUser?: { __typename?: 'User', mobile?: string | null, username?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, city?: string | null, businessName?: string | null, role?: UserRoleType | null, status?: UserStatusType | null, idProofType?: UserIdProofTypeType | null, idProofNo?: string | null, state?: string | null, country?: string | null, password?: { __typename?: 'PasswordState', isSet: boolean } | null, image?: { __typename?: 'ImageFieldOutput', url: string } | null, pancard?: { __typename?: 'ImageFieldOutput', url: string } | null, idProof?: { __typename?: 'ImageFieldOutput', id: string } | null, idProofBack?: { __typename?: 'ImageFieldOutput', url: string } | null, dealership?: { __typename?: 'ImageFieldOutput', url: string } | null, category?: Array<{ __typename?: 'EventType', name?: string | null }> | null } | null };
 
-export type CreateVehicleMutationVariables = Exact<{
-  data: VehicleCreateInput;
-}>;
-
-
-export type CreateVehicleMutation = { __typename?: 'Mutation', createVehicle?: { __typename?: 'Vehicle', registrationNumber?: string | null, bidStartTime?: any | null, bidStatus?: VehicleBidStatusType | null, loanAgreementNo?: string | null, registeredOwnerName?: string | null, quoteIncreament?: number | null, make?: string | null, model?: string | null, varient?: string | null, categoty?: string | null, fuel?: string | null, type?: string | null, rcStatus?: string | null, yearOfManufacture?: number | null, ownership?: number | null, mileage?: number | null, kmReading?: number | null, insuranceStatus?: string | null, yardLocation?: string | null, startPrice?: number | null, reservePrice?: number | null, repoDt?: any | null, veicleLocation?: string | null, vehicleRemarks?: string | null, auctionManager?: string | null, parkingCharges?: string | null, insurance?: string | null, insuranceValidTill?: any | null, tax?: string | null, taxValidityDate?: any | null, fitness?: string | null, permit?: string | null, fitnessPermit?: string | null, engineNo?: string | null, chassisNo?: string | null, frontImage?: string | null, leftImage?: string | null, rightImage?: string | null, image5?: string | null, image6?: string | null, inspectionLink?: string | null, autobseContact?: string | null, autobse_contact_person?: string | null, vehicleCondition?: string | null, powerSteering?: string | null, shape?: string | null, color?: string | null, city?: string | null, area?: string | null, state?: string | null, paymentTerms?: string | null, dateOfRegistration?: any | null, hypothication?: string | null, climateControl?: string | null, doorCount?: number | null, gearBox?: string | null, buyerFees?: string | null, rtoFine?: string | null, parkingRate?: string | null, approxParkingCharges?: string | null, clientContactPerson?: string | null, clientContactNo?: string | null, additionalRemarks?: string | null, event?: { __typename?: 'Event', id: string } | null, watchedBy?: Array<{ __typename?: 'User', firstName?: string | null, id: string }> | null } | null };
-
 export type LoginMutationVariables = Exact<{
   mobile: Scalars['String'];
   password: Scalars['String'];
@@ -3212,6 +3205,13 @@ export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', firstName?: string | null, lastName?: string | null, email?: string | null, mobile?: string | null, status?: UserStatusType | null, role?: UserRoleType | null, idNo?: number | null, id: string, pancardNo?: string | null, activeBidsCount?: number | null, currentVehicleBuyingLimit?: { __typename?: 'vehicleBuyingLimits', vehicleBuyingLimit?: number | null } | null }> | null };
 
+export type CreateVehicleMutationVariables = Exact<{
+  data: VehicleCreateInput;
+}>;
+
+
+export type CreateVehicleMutation = { __typename?: 'Mutation', createVehicle?: { __typename?: 'Vehicle', registrationNumber?: string | null, bidStartTime?: any | null, bidStatus?: VehicleBidStatusType | null, loanAgreementNo?: string | null, registeredOwnerName?: string | null, quoteIncreament?: number | null, make?: string | null, model?: string | null, varient?: string | null, categoty?: string | null, fuel?: string | null, type?: string | null, rcStatus?: string | null, yearOfManufacture?: number | null, ownership?: number | null, mileage?: number | null, kmReading?: number | null, insuranceStatus?: string | null, yardLocation?: string | null, startPrice?: number | null, reservePrice?: number | null, repoDt?: any | null, veicleLocation?: string | null, vehicleRemarks?: string | null, auctionManager?: string | null, parkingCharges?: string | null, insurance?: string | null, insuranceValidTill?: any | null, tax?: string | null, taxValidityDate?: any | null, fitness?: string | null, permit?: string | null, fitnessPermit?: string | null, engineNo?: string | null, chassisNo?: string | null, frontImage?: string | null, leftImage?: string | null, rightImage?: string | null, image5?: string | null, image6?: string | null, inspectionLink?: string | null, autobseContact?: string | null, autobse_contact_person?: string | null, vehicleCondition?: string | null, powerSteering?: string | null, shape?: string | null, color?: string | null, city?: string | null, area?: string | null, state?: string | null, paymentTerms?: string | null, dateOfRegistration?: any | null, hypothication?: string | null, climateControl?: string | null, doorCount?: number | null, gearBox?: string | null, buyerFees?: string | null, rtoFine?: string | null, parkingRate?: string | null, approxParkingCharges?: string | null, clientContactPerson?: string | null, clientContactNo?: string | null, additionalRemarks?: string | null, event?: { __typename?: 'Event', id: string } | null, watchedBy?: Array<{ __typename?: 'User', firstName?: string | null, id: string }> | null } | null };
+
 export type DeleteVehicleMutationVariables = Exact<{
   where: VehicleWhereUniqueInput;
 }>;
@@ -3237,6 +3237,14 @@ export type VehicleTableQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type VehicleTableQuery = { __typename?: 'Query', vehicles?: Array<{ __typename?: 'Vehicle', id: string, registrationNumber?: string | null, vehicleIndexNo?: number | null, bidTimeExpire?: any | null, bidStatus?: VehicleBidStatusType | null, userVehicleBidsCount?: number | null, vehicleEventStatus?: VehicleEventStatus | null, event?: { __typename?: 'Event', eventCategory?: string | null } | null }> | null };
+
+export type UpdateVehicleMutationVariables = Exact<{
+  where: VehicleWhereUniqueInput;
+  data: VehicleUpdateInput;
+}>;
+
+
+export type UpdateVehicleMutation = { __typename?: 'Mutation', updateVehicle?: { __typename?: 'Vehicle', id: string, registrationNumber?: string | null, bidStatus?: VehicleBidStatusType | null, loanAgreementNo?: string | null, registeredOwnerName?: string | null, quoteIncreament?: number | null, make?: string | null, model?: string | null, varient?: string | null, categoty?: string | null, fuel?: string | null, type?: string | null, rcStatus?: string | null, yearOfManufacture?: number | null, ownership?: number | null, mileage?: number | null, kmReading?: number | null, insuranceStatus?: string | null, yardLocation?: string | null, startPrice?: number | null, reservePrice?: number | null, repoDt?: any | null, veicleLocation?: string | null, vehicleRemarks?: string | null, auctionManager?: string | null, parkingCharges?: string | null, insurance?: string | null, insuranceValidTill?: any | null, tax?: string | null, taxValidityDate?: any | null, fitness?: string | null, permit?: string | null, fitnessPermit?: string | null, engineNo?: string | null, chassisNo?: string | null, frontImage?: string | null, backImage?: string | null, leftImage?: string | null, rightImage?: string | null, image5?: string | null, image6?: string | null, inspectionLink?: string | null, autobseContact?: string | null, autobse_contact_person?: string | null, vehicleCondition?: string | null, powerSteering?: string | null, shape?: string | null, color?: string | null, city?: string | null, area?: string | null, state?: string | null, paymentTerms?: string | null, dateOfRegistration?: any | null, hypothication?: string | null, climateControl?: string | null, doorCount?: number | null, gearBox?: string | null, buyerFees?: string | null, rtoFine?: string | null, parkingRate?: string | null, approxParkingCharges?: string | null, clientContactPerson?: string | null, clientContactNo?: string | null, additionalRemarks?: string | null } | null };
 
 
 export const ActiveBidsPerUserDocument = gql`
@@ -3525,109 +3533,6 @@ export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
 export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
 export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
-export const CreateVehicleDocument = gql`
-    mutation CreateVehicle($data: VehicleCreateInput!) {
-  createVehicle(data: $data) {
-    event {
-      id
-    }
-    registrationNumber
-    bidStartTime
-    bidStatus
-    loanAgreementNo
-    registeredOwnerName
-    quoteIncreament
-    make
-    model
-    varient
-    categoty
-    fuel
-    type
-    rcStatus
-    yearOfManufacture
-    ownership
-    mileage
-    kmReading
-    insuranceStatus
-    yardLocation
-    startPrice
-    reservePrice
-    repoDt
-    veicleLocation
-    vehicleRemarks
-    auctionManager
-    parkingCharges
-    insurance
-    insuranceValidTill
-    tax
-    taxValidityDate
-    fitness
-    permit
-    fitnessPermit
-    engineNo
-    chassisNo
-    frontImage
-    leftImage
-    leftImage
-    rightImage
-    image5
-    image6
-    inspectionLink
-    autobseContact
-    autobse_contact_person
-    vehicleCondition
-    powerSteering
-    shape
-    color
-    city
-    area
-    state
-    paymentTerms
-    dateOfRegistration
-    hypothication
-    climateControl
-    doorCount
-    gearBox
-    buyerFees
-    rtoFine
-    parkingRate
-    approxParkingCharges
-    clientContactPerson
-    clientContactNo
-    additionalRemarks
-    watchedBy {
-      firstName
-      id
-    }
-  }
-}
-    `;
-export type CreateVehicleMutationFn = Apollo.MutationFunction<CreateVehicleMutation, CreateVehicleMutationVariables>;
-
-/**
- * __useCreateVehicleMutation__
- *
- * To run a mutation, you first call `useCreateVehicleMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateVehicleMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createVehicleMutation, { data, loading, error }] = useCreateVehicleMutation({
- *   variables: {
- *      data: // value for 'data'
- *   },
- * });
- */
-export function useCreateVehicleMutation(baseOptions?: Apollo.MutationHookOptions<CreateVehicleMutation, CreateVehicleMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateVehicleMutation, CreateVehicleMutationVariables>(CreateVehicleDocument, options);
-      }
-export type CreateVehicleMutationHookResult = ReturnType<typeof useCreateVehicleMutation>;
-export type CreateVehicleMutationResult = Apollo.MutationResult<CreateVehicleMutation>;
-export type CreateVehicleMutationOptions = Apollo.BaseMutationOptions<CreateVehicleMutation, CreateVehicleMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($mobile: String!, $password: String!) {
   authenticateUserWithPassword(mobile: $mobile, password: $password) {
@@ -5177,6 +5082,109 @@ export function useUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<User
 export type UsersQueryHookResult = ReturnType<typeof useUsersQuery>;
 export type UsersLazyQueryHookResult = ReturnType<typeof useUsersLazyQuery>;
 export type UsersQueryResult = Apollo.QueryResult<UsersQuery, UsersQueryVariables>;
+export const CreateVehicleDocument = gql`
+    mutation CreateVehicle($data: VehicleCreateInput!) {
+  createVehicle(data: $data) {
+    event {
+      id
+    }
+    registrationNumber
+    bidStartTime
+    bidStatus
+    loanAgreementNo
+    registeredOwnerName
+    quoteIncreament
+    make
+    model
+    varient
+    categoty
+    fuel
+    type
+    rcStatus
+    yearOfManufacture
+    ownership
+    mileage
+    kmReading
+    insuranceStatus
+    yardLocation
+    startPrice
+    reservePrice
+    repoDt
+    veicleLocation
+    vehicleRemarks
+    auctionManager
+    parkingCharges
+    insurance
+    insuranceValidTill
+    tax
+    taxValidityDate
+    fitness
+    permit
+    fitnessPermit
+    engineNo
+    chassisNo
+    frontImage
+    leftImage
+    leftImage
+    rightImage
+    image5
+    image6
+    inspectionLink
+    autobseContact
+    autobse_contact_person
+    vehicleCondition
+    powerSteering
+    shape
+    color
+    city
+    area
+    state
+    paymentTerms
+    dateOfRegistration
+    hypothication
+    climateControl
+    doorCount
+    gearBox
+    buyerFees
+    rtoFine
+    parkingRate
+    approxParkingCharges
+    clientContactPerson
+    clientContactNo
+    additionalRemarks
+    watchedBy {
+      firstName
+      id
+    }
+  }
+}
+    `;
+export type CreateVehicleMutationFn = Apollo.MutationFunction<CreateVehicleMutation, CreateVehicleMutationVariables>;
+
+/**
+ * __useCreateVehicleMutation__
+ *
+ * To run a mutation, you first call `useCreateVehicleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateVehicleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createVehicleMutation, { data, loading, error }] = useCreateVehicleMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateVehicleMutation(baseOptions?: Apollo.MutationHookOptions<CreateVehicleMutation, CreateVehicleMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateVehicleMutation, CreateVehicleMutationVariables>(CreateVehicleDocument, options);
+      }
+export type CreateVehicleMutationHookResult = ReturnType<typeof useCreateVehicleMutation>;
+export type CreateVehicleMutationResult = Apollo.MutationResult<CreateVehicleMutation>;
+export type CreateVehicleMutationOptions = Apollo.BaseMutationOptions<CreateVehicleMutation, CreateVehicleMutationVariables>;
 export const DeleteVehicleDocument = gql`
     mutation DeleteVehicle($where: VehicleWhereUniqueInput!) {
   deleteVehicle(where: $where) {
@@ -5400,3 +5408,101 @@ export function useVehicleTableLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type VehicleTableQueryHookResult = ReturnType<typeof useVehicleTableQuery>;
 export type VehicleTableLazyQueryHookResult = ReturnType<typeof useVehicleTableLazyQuery>;
 export type VehicleTableQueryResult = Apollo.QueryResult<VehicleTableQuery, VehicleTableQueryVariables>;
+export const UpdateVehicleDocument = gql`
+    mutation UpdateVehicle($where: VehicleWhereUniqueInput!, $data: VehicleUpdateInput!) {
+  updateVehicle(where: $where, data: $data) {
+    id
+    registrationNumber
+    bidStatus
+    loanAgreementNo
+    registeredOwnerName
+    quoteIncreament
+    make
+    model
+    varient
+    categoty
+    fuel
+    type
+    rcStatus
+    yearOfManufacture
+    ownership
+    mileage
+    kmReading
+    insuranceStatus
+    yardLocation
+    startPrice
+    reservePrice
+    repoDt
+    veicleLocation
+    vehicleRemarks
+    auctionManager
+    parkingCharges
+    insurance
+    insuranceValidTill
+    tax
+    taxValidityDate
+    fitness
+    permit
+    fitnessPermit
+    engineNo
+    chassisNo
+    frontImage
+    backImage
+    leftImage
+    leftImage
+    rightImage
+    image5
+    image6
+    inspectionLink
+    autobseContact
+    autobse_contact_person
+    vehicleCondition
+    powerSteering
+    shape
+    color
+    city
+    area
+    state
+    paymentTerms
+    dateOfRegistration
+    hypothication
+    climateControl
+    doorCount
+    gearBox
+    buyerFees
+    rtoFine
+    parkingRate
+    approxParkingCharges
+    clientContactPerson
+    clientContactNo
+    additionalRemarks
+  }
+}
+    `;
+export type UpdateVehicleMutationFn = Apollo.MutationFunction<UpdateVehicleMutation, UpdateVehicleMutationVariables>;
+
+/**
+ * __useUpdateVehicleMutation__
+ *
+ * To run a mutation, you first call `useUpdateVehicleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateVehicleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateVehicleMutation, { data, loading, error }] = useUpdateVehicleMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useUpdateVehicleMutation(baseOptions?: Apollo.MutationHookOptions<UpdateVehicleMutation, UpdateVehicleMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateVehicleMutation, UpdateVehicleMutationVariables>(UpdateVehicleDocument, options);
+      }
+export type UpdateVehicleMutationHookResult = ReturnType<typeof useUpdateVehicleMutation>;
+export type UpdateVehicleMutationResult = Apollo.MutationResult<UpdateVehicleMutation>;
+export type UpdateVehicleMutationOptions = Apollo.BaseMutationOptions<UpdateVehicleMutation, UpdateVehicleMutationVariables>;
