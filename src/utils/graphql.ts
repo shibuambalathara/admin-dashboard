@@ -3002,6 +3002,13 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = { __typename?: 'Mutation', authenticateUserWithPassword?: { __typename?: 'UserAuthenticationWithPasswordFailure', message: string } | { __typename?: 'UserAuthenticationWithPasswordSuccess', sessionToken: string } | null };
 
+export type DeleteBidMutationVariables = Exact<{
+  where: BidWhereUniqueInput;
+}>;
+
+
+export type DeleteBidMutation = { __typename?: 'Mutation', deleteBid?: { __typename?: 'Bid', id: string } | null };
+
 export type BidDetailsPerVehicleQueryVariables = Exact<{
   where: VehicleWhereUniqueInput;
 }>;
@@ -3572,6 +3579,39 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const DeleteBidDocument = gql`
+    mutation DeleteBid($where: BidWhereUniqueInput!) {
+  deleteBid(where: $where) {
+    id
+  }
+}
+    `;
+export type DeleteBidMutationFn = Apollo.MutationFunction<DeleteBidMutation, DeleteBidMutationVariables>;
+
+/**
+ * __useDeleteBidMutation__
+ *
+ * To run a mutation, you first call `useDeleteBidMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteBidMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteBidMutation, { data, loading, error }] = useDeleteBidMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useDeleteBidMutation(baseOptions?: Apollo.MutationHookOptions<DeleteBidMutation, DeleteBidMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteBidMutation, DeleteBidMutationVariables>(DeleteBidDocument, options);
+      }
+export type DeleteBidMutationHookResult = ReturnType<typeof useDeleteBidMutation>;
+export type DeleteBidMutationResult = Apollo.MutationResult<DeleteBidMutation>;
+export type DeleteBidMutationOptions = Apollo.BaseMutationOptions<DeleteBidMutation, DeleteBidMutationVariables>;
 export const BidDetailsPerVehicleDocument = gql`
     query BidDetailsPerVehicle($where: VehicleWhereUniqueInput!) {
   vehicle(where: $where) {
