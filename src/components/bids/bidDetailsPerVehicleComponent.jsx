@@ -7,6 +7,10 @@ import {useBidDetailsPerVehicleQuery, useDeleteBidMutation,} from '../../utils/g
 import SearchUser from '../users/searchUser'
 import format from 'date-fns/format'
 
+import Swal from "sweetalert2";
+
+import { ShowPopup } from '../alerts/popUps';
+
 
 const BidDetailsPerVehicleComponent = () => {
   // const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,12 +19,46 @@ const BidDetailsPerVehicleComponent = () => {
     const [deleteBid]=useDeleteBidMutation()
     const navigate=useNavigate()
 
-    console.log(data?.vehicle?.userVehicleBids,"0000")
+   
 
-    const handleDeleteBid=(id)=>{
-      console.log("id.........",id)
-const result=deleteBid({variables:{where:{id}}})
+    const handleDeleteBid=async(id)=>{
+
+      const response = await Swal.fire({
+        title: 'Are you sure?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+      });
+      if (response.isConfirmed) {
+      
+        const result=await  deleteBid({variables:{where:{id}}})
+
+        if (result?.data) {
+          console.log(result)
+          await Swal.fire({
+            title: `  deleted Successfully`,
+            icon: 'success',
+          });
+       
+
+      try{
+
+        const result=await deleteBid({variables:{where:{id}}})
+        console.log(result,"result")
+        ShowPopup("Success!", `successfully Deleted!`,"success", 5000, true);
+      }
+      catch(err){
+        console.log(err)
+      }
+
     }
+
+   
+     
+      refetch()
+    }
+  }
     const handleUserDetails=(id)=>{
       navigate(`/view-user/${id}`)
     }
