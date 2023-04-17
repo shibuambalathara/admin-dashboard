@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from 'react-router-dom';
 import{useCreateEmdUpdateMutation, useEmdDetailsQuery, usePaymentDetailsQuery, useUpdatePaymentMutation} from '../../utils/graphql'
-
+import { ShowPopup } from '../alerts/popUps';
 const CreateEmdComponent = () => {
   const {id}=useParams()
   const { data, loading, error } =usePaymentDetailsQuery ({variables:{where:{id}}});
@@ -29,7 +29,15 @@ payment:{connect:{id}},
  vehicleBuyingLimitIncrement:+dataOnSubmit.buyingLimit
 }
 
-   addEmd({variables: {data:buyingLmt}})
+try {
+  const result = addEmd({variables: {data:buyingLmt}})
+  if(result){
+    ShowPopup("Success!", `EMD Added successfully!`, "success", 5000, true);
+  }
+} catch (error) {
+  ShowPopup("Failed!", `${error.message}`, "error", 5000, true);
+}
+  
   
   };
 

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { useVehicleDetailsQuery, useUpdateVehicleMutation } from "../../utils/graphql";
-
+import { ShowPopup } from '../alerts/popUps';
 
 
 const EditVehicleComponent = () => {
@@ -121,9 +121,14 @@ const vehicle={
 }
 try{
   const result=editVehicle({variables:{data:vehicle}})
+  if(result){
+    ShowPopup("Success!", `Vechile ${dataOnSubmit?.regNo} Updated  successfully!`, "success", 5000, true);
+  }
 }
 catch(err){
+  ShowPopup("Failed!", `${err.message}`, "error", 5000, true);
   console.log(err)
+
 }
 
   }

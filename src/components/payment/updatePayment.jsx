@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from "react-hook-form";
 import { useParams } from 'react-router-dom';
 import{useUserQuery,useUpdatePaymentMutation,usePaymentDetailsQuery} from '../../utils/graphql'
-
+import { ShowPopup } from '../alerts/popUps';
 const UpdatePayment = () => {
   
   const {id}=useParams()
@@ -33,7 +33,16 @@ const UpdatePayment = () => {
   if(dataOnSubmit.imgForPaymentProof && dataOnSubmit.imgForPaymentProof.length){
    amount["image"] = { upload: dataOnSubmit.imgForPaymentProof[0] }
   }
-  addAmount({variables: {data:amount,id:id}})
+  try {
+    const result =addAmount({variables: {data:amount,id:id}})
+    if(result){
+      ShowPopup("Success!", `${dataOnSubmit?.paymentFor} updated successfully!`, "success", 5000, true);
+
+    }
+  } catch (error) {
+    ShowPopup("Error!", `${error.message} `, "error", 5000, true);
+  }
+  
   
   };
 

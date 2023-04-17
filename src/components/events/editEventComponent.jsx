@@ -6,7 +6,7 @@ import Select from 'react-select'
 
 import{useSellersItemQuery,useEventTypesQuery,useLocationsQuery,useEventQuery,useEditEventMutation}from '../../utils/graphql'
 import { useNavigate, useParams } from "react-router-dom";
-
+import { ShowPopup } from '../alerts/popUps';
 
 const EditEventComponent =() => {
 const[startDatedata,setStartDate]=useState('')
@@ -76,11 +76,25 @@ useEffect(()=>{
     if (dataOnSubmit.downloadable[0] && dataOnSubmit.downloadable.length) {
       eventData["downloadableFile"] = { upload: dataOnSubmit.downloadable[0] };
     }
-   editEvent({variables:{data:eventData}})
+    try {
+      const result= editEvent({variables:{data:eventData}})
+      if(result){
+       ShowPopup("Success!", `Event updated  successfully!`, "success", 5000, true);
+      }
+      
+       
+    
+   
+      } catch (error) {
+       if(response?.error){
+         ShowPopup("Failed !", `${error.message}!`, "Error", 5000, true);
+        console.log("error......",response?.error?.message)}
+      }
+   
   
 
 
-  if(response?.error){console.log("error......",response?.error?.message)}
+
 
 
   }
