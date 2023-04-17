@@ -3161,7 +3161,7 @@ export type UpdatePaymentMutation = { __typename?: 'Mutation', updatePayment?: {
 export type PaymentTableQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PaymentTableQuery = { __typename?: 'Query', payments?: Array<{ __typename?: 'Payment', id: string, refNo?: number | null, status?: string | null, amount?: number | null, paymentFor?: string | null, user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, username?: string | null } | null }> | null };
+export type PaymentTableQuery = { __typename?: 'Query', payments?: Array<{ __typename?: 'Payment', id: string, refNo?: number | null, status?: string | null, amount?: number | null, paymentFor?: string | null, user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, username?: string | null, mobile?: string | null } | null }> | null };
 
 export type SelectorsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -4670,6 +4670,7 @@ export const PaymentTableDocument = gql`
       firstName
       lastName
       username
+      mobile
     }
   }
 }

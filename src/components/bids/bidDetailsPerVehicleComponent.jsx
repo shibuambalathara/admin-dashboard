@@ -1,4 +1,4 @@
-
+import {useState} from 'react'
 import { Button } from '@material-tailwind/react'
 import React, { useMemo } from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
@@ -6,19 +6,29 @@ import { useTable,usePagination,useSortBy,useGlobalFilter } from "react-table"
 import {useBidDetailsPerVehicleQuery, useDeleteBidMutation,} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
 import format from 'date-fns/format'
+import { ShowPopup } from '../alerts/popUps';
 
 
 const BidDetailsPerVehicleComponent = () => {
+  // const [isModalOpen, setIsModalOpen] = useState(false);
     const {id}=useParams()
-    const {data,loading,error}=useBidDetailsPerVehicleQuery({variables:{where:{id}}})
+    const {data,loading,error,refetch}=useBidDetailsPerVehicleQuery({variables:{where:{id}}})
     const [deleteBid]=useDeleteBidMutation()
     const navigate=useNavigate()
 
-    console.log(data?.vehicle?.userVehicleBids,"0000")
+   
 
-    const handleDeleteBid=(id)=>{
+    const handleDeleteBid=async(id)=>{
       console.log("id.........",id)
-const result=deleteBid({variables:{where:{id}}})
+      try{
+
+        const result=await deleteBid({variables:{where:{id}}})
+        console.log(result,"result")
+        ShowPopup("Success!", `successfully Deleted!`,"success", 5000, true);
+      }
+      catch(err){
+        console.log(err)
+      }
     }
     const handleUserDetails=(id)=>{
       navigate(`/view-user/${id}`)
@@ -82,7 +92,9 @@ const result=deleteBid({variables:{where:{id}}})
     
       if (loading) return <p>Loading...</p>;
       
-
+      refetch()
+   
+   
   return (
     <div className="flex  flex-col w-full justify-around ">
     {/* <Button
