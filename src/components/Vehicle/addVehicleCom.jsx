@@ -2,7 +2,7 @@ import { Input } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { useCreateVehicleMutation,useEventStartTimeQuery } from "../../utils/graphql";
-
+import { ShowPopup } from '../alerts/popUps';
 
 const AddVehicleComponent = () => {
 
@@ -99,7 +99,15 @@ const vehicle={
 
 
 }
-const result=createVehicle({variables:{data:vehicle}})
+try {
+  const result=createVehicle({variables:{data:vehicle}})
+if(result){
+  ShowPopup("Success!", `${dataOnSubmit?.regNo}Added successfully!`, "success", 5000, true);
+
+}
+} catch (error) {
+  ShowPopup("Failed!", `${error.message}`, "error", 5000, true);
+}
   }
   return (
     <div className="max-w-7xl mx-auto h-fit  my-10 bg-slate-100  ">

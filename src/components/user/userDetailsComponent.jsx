@@ -5,7 +5,7 @@ import { useForm,Controller } from "react-hook-form";
 
 import { useParams } from "react-router-dom";
 import { useUserQuery,useSellersItemQuery,useEditUserMutation,useSelectorsQuery, useStatesQuery} from "../../utils/graphql";
-
+import { ShowPopup } from '../alerts/popUps';
 import AddUser from "./addUser";
 
 const UserDetailsComponent = () => {
@@ -81,13 +81,19 @@ console.log(data,"data")
    user["dealership"] = { upload: dataOnSubmit.dealership[0] }
   }
   
+  
   try{
 
-    updatedDetails({variables: {data:user}})
-  }
-  catch(err){
-console.log(err,"error")
-  }
+    const result= updatedDetails({variables: {data:user}})
+    if(result){
+     ShowPopup("Success!", `${dataOnSubmit?.first_Name} Updated successfully!`, "success", 5000, true);
+ }
+   }
+   catch(err){
+     ShowPopup("user updation Failed!", `${err.message}`, "error", 5000, true);
+ 
+ console.log(err,"error")
+   }
 }
 
   if (loading) return <p>Loading...</p>;
