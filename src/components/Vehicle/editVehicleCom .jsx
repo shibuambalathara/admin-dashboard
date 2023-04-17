@@ -2,7 +2,7 @@ import { Input } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import { useVehicleDetailsQuery,useEventStartTimeQuery } from "../../utils/graphql";
+import { useVehicleDetailsQuery, useUpdateVehicleMutation } from "../../utils/graphql";
 
 
 
@@ -14,10 +14,10 @@ const EditVehicleComponent = () => {
   const [registrationValidTill,setregistrationValidTil]=useState('')
   const {id}=useParams()
   
-  // const[createVehicle]=useCreateVehicleMutation()
+   const[editVehicle]=useUpdateVehicleMutation({variables:{where:{id}}})
   const{data,loading,error}=useVehicleDetailsQuery({variables:{where:{id:id}}})
   
-  console.log(data,"data")
+ 
  
   useEffect(() => {
     if (data?.vehicle?.repoDt) {
@@ -35,7 +35,7 @@ const EditVehicleComponent = () => {
   }, [data]);
   const { register, handleSubmit,control, watch, formState: { errors } } = useForm();
 
-  const onSubmit = dataOnSubmit =>{ console.log(dataOnSubmit)
+  const onSubmit = dataOnSubmit =>{ console.log(dataOnSubmit,"data on submit")
 
 
 let repo,tax,Insurance
@@ -49,7 +49,7 @@ if(dataOnSubmit?.taxValidityDate){
   tax=   new Date(dataOnSubmit?.taxValidityDate).toISOString();
 }
 const vehicle={
-  event:{connect:{id}},
+  // event:{connect:{id}},
   registrationNumber:dataOnSubmit?.regNo,
   loanAgreementNo:dataOnSubmit?.loanANum,
   bidStartTime:data?.event?.startDate,
@@ -114,16 +114,21 @@ const vehicle={
   clientContactPerson:dataOnSubmit?.clientContactPerson,
   clientContactNo:dataOnSubmit?.clientContactNo,
   additionalRemarks:dataOnSubmit?.AdditionalRemarks,
-  //watchedBy {
-  //     firstName
-  //     id
-  //   }
+
 
 
 
 }
-// const result=createVehicle({variables:{data:vehicle}})
+try{
+  const result=editVehicle({variables:{data:vehicle}})
+}
+catch(err){
+  console.log(err)
+}
+
   }
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
   return (
     <div className="max-w-7xl mx-auto h-fit  my-10 bg-slate-100  ">
    
