@@ -10,6 +10,7 @@ query paymentTable {
       firstName
       lastName
       username
+       mobile
     }
   }
 }

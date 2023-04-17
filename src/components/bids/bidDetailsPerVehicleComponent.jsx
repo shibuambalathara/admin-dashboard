@@ -1,4 +1,4 @@
-
+import {useState} from 'react'
 import { Button } from '@material-tailwind/react'
 import React, { useMemo } from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
@@ -6,10 +6,10 @@ import { useTable,usePagination,useSortBy,useGlobalFilter } from "react-table"
 import {useBidDetailsPerVehicleQuery, useDeleteBidMutation,} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
 import format from 'date-fns/format'
-import Swal from "sweetalert2";
 
 
 const BidDetailsPerVehicleComponent = () => {
+  // const [isModalOpen, setIsModalOpen] = useState(false);
     const {id}=useParams()
     const {data,loading,error,refetch}=useBidDetailsPerVehicleQuery({variables:{where:{id}}})
     const [deleteBid]=useDeleteBidMutation()
@@ -17,32 +17,10 @@ const BidDetailsPerVehicleComponent = () => {
 
     console.log(data?.vehicle?.userVehicleBids,"0000")
 
-    const handleDeleteBid=async(id)=>{
-      const response = await Swal.fire({
-        title: 'Are you sure?',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonText: 'Yes',
-        cancelButtonText: 'Cancel',
-      });
-      if (response.isConfirmed) {
-      
-        const result=await  deleteBid({variables:{where:{id}}})
-
-        if (result?.data) {
-          console.log(result)
-          await Swal.fire({
-            title: `  deleted Successfully`,
-            icon: 'success',
-          });
-        console.log(result,"result")
+    const handleDeleteBid=(id)=>{
+      console.log("id.........",id)
+const result=deleteBid({variables:{where:{id}}})
     }
-
-   
-     
-      refetch()
-    }
-  }
     const handleUserDetails=(id)=>{
       navigate(`/view-user/${id}`)
     }
@@ -105,7 +83,9 @@ const BidDetailsPerVehicleComponent = () => {
     
       if (loading) return <p>Loading...</p>;
       
-
+      refetch()
+   
+   
   return (
     <div className="flex  flex-col w-full justify-around ">
     {/* <Button
