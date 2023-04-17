@@ -47,12 +47,7 @@ const VehicleTable = () => {
               <button className="btn btn-info" onClick={()=>handleViewMore(row.original.id) }>View Vehicle</button>
             )
           },
-        //   {
-        //     Header: "Delete",
-        //     Cell: ({ row }) => (
-        //       <button className="bg-red-600 text-white p-2 rounded" onClick={() => handleDelete(row.original.id)}>Delete</button>
-        //     )
-        //   }
+      
           
         ],
         []
