@@ -105,7 +105,7 @@ const handleOnClick=()=>{
                 <select
                  
                   placeholder="select"
-                   {...register("eventCategory",{})}
+                   {...register("eventCategory",{required:true})}
                   className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
                 >
               

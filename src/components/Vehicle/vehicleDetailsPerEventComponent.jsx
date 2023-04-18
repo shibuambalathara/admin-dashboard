@@ -8,24 +8,42 @@ import { useTable,useSortBy,usePagination,useGlobalFilter } from "react-table"
 import {useDeleteVehicleMutation, useVehicleDetailsPerEventQuery, useVehicleTableQuery} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
 import format from 'date-fns/format'
-
+import Swal from "sweetalert2";
 
 const VehicleDetailsPerEventComponent = () => {
-    // const [vid,setVid]=useState('')
+   
     const{id}=useParams()
     const navigate=useNavigate()
-    const {data,loading,error}=useVehicleDetailsPerEventQuery({variables:{where:{id}}})
-    const [DeleteV]=useDeleteVehicleMutation();
+    const {data,loading,error,refetch}=useVehicleDetailsPerEventQuery({variables:{where:{id}}})
+    const [DeleteVehicle]=useDeleteVehicleMutation();
 console.log(data,"data")
 
     const handleViewMore=(id)=>{
       console.log("id.........",id)
 navigate(`/edit-vehicle/${id}`)
     }
-    const handleDelete=(deleteVehicleId)=>{
+    const handleDelete=async(deleteVehicleId)=>{
 console.log(deleteVehicleId)
-DeleteV({variables:{where:{id:deleteVehicleId}}})
+const result = await Swal.fire({
+  title: 'Are you sure?',
+  icon: 'question',
+  showCancelButton: true,
+  confirmButtonText: 'Yes',
+  cancelButtonText: 'Cancel',
+});
+if (result.isConfirmed) {
+  const deleteResult = await DeleteVehicle({variables:{where:{id:deleteVehicleId}}})
+console.log(deleteResult,"delete result")
+    
 
+    if (deleteResult?.data?.deleteVehicle?.id) {
+      await Swal.fire({
+        title: `The vehicle deleted Successfully`,
+        icon: 'success',
+      });
+    }
+    refetch()
+}
     }
     const handleBidDetails=(id)=>{
       navigate(`/bid-details/${id}`)

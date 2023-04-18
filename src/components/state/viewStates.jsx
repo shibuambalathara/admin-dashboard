@@ -5,28 +5,18 @@ import { useNavigate } from "react-router-dom";
 import { useTable, usePagination, useGlobalFilter } from "react-table";
 import { useDeleteStateMutation, useEventTableQuery ,useStatesQuery} from "../../utils/graphql";
 import SearchUser from "../users/searchUser";
-// import { useStatesQuery } from "../../utils/graphql";
+
 import Swal from "sweetalert2";
 
 
 const ViewStates = () => {
  
   const navigate = useNavigate();
-  const { data, loading, error } = useStatesQuery();
-  const [deleteState]=useDeleteStateMutation({variables:{where:{}}})
-  const {  refetch } = useStatesQuery(); // get the data from the server
+  const { data, loading, error,refetch } = useStatesQuery();
+  const [deleteState]=useDeleteStateMutation()
+ 
   const handleRemoveState=async(stateId)=>{
-    // const confirm=window.confirm("are you sure?")
-    // if(confirm){
 
-    //   const result=await  deleteState({variables:{where:{id:stateId}}})
-    
-    // if(result?.data?.deleteState?.id){
-     
-    //   alert(`the state ${result?.data?.deleteState?.name} deleted Successfully`)
-    //   window.location.reload()
-    // }
-    // }
     const result = await Swal.fire({
       title: 'Are you sure?',
       icon: 'question',

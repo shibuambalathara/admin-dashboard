@@ -4,18 +4,19 @@ import { useForm,Controller } from "react-hook-form";
 import Select from 'react-select'
 
 
+
 import{useSellersItemQuery,useEventTypesQuery,useLocationsQuery,useEventQuery,useEditEventMutation}from '../../utils/graphql'
-import { useNavigate, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import { ShowPopup } from '../alerts/popUps';
 
 const EditEventComponent =() => {
 const[startDatedata,setStartDate]=useState('')
-const[isoStartDate,setIsoStartDate]=useState()
+
 
 const[endDatedata,setEndDate]=useState('')
-const[isoEndDatedata,setIsoEndDate]=useState('')
+
  const {id}=useParams()
-  const navigate=useNavigate()
+ 
   const sellersItem=useSellersItemQuery()
   const eventType=useEventTypesQuery()
   const location=useLocationsQuery()
@@ -24,19 +25,36 @@ const[isoEndDatedata,setIsoEndDate]=useState('')
 
 
 
-   console.log(data,"data")
 
 useEffect(()=>{
   if(data?.event?.startDate){
-    setIsoStartDate(data?.event?.startDate)
-    setStartDate(new Date(data?.event?.startDate).toISOString().slice(0, 16))
-    
-  }
-  if(data?.event?.endDate){
-    setIsoEndDate(data?.event?.endDate)
-    setEndDate(new Date(data?.event?.endDate).toISOString().slice(0, 16))
-  }
+    const dateObj = new Date(data?.event?.startDate);
+const year = dateObj.getFullYear();
+const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+const day = String(dateObj.getDate()).padStart(2, '0');
+const hours = String(dateObj.getHours()).padStart(2, '0');
+const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+
+const formattedString = `${year}-${month}-${day}T${hours}:${minutes}`;
+setStartDate(formattedString)
+
+
+
+}
+if(data?.event?.endDate){
+  const dateObj = new Date(data?.event?.endDate);
+  const year = dateObj.getFullYear();
+  const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+  const day = String(dateObj.getDate()).padStart(2, '0');
+  const hours = String(dateObj.getHours()).padStart(2, '0');
+  const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+  
+  const formattedString = `${year}-${month}-${day}T${hours}:${minutes}`;
+  
+  setEndDate(formattedString)
+}
 },[data])
+
 
 
 
@@ -47,14 +65,10 @@ useEffect(()=>{
   
   const onSubmit =async dataOnSubmit =>{ console.log(dataOnSubmit);
 
-  
-    // const endDateTime = new Date(dataOnSubmit?.endDate).toISOString();
-    
- 
     const eventData={
-      eventCategory:dataOnSubmit?.eventCategory,
-      startDate:isoStartDate,
-      endDate:isoEndDatedata,
+      eventCategory:dataOnSubmit?.eventCategory,  
+      startDate:await new Date(dataOnSubmit?.startDate).toISOString(),
+      endDate:await new Date(dataOnSubmit?.endDate).toISOString(),
       noOfBids:+dataOnSubmit?.noOfBids,
       seller:{connect:{id:dataOnSubmit?.sellerName ||""}},
      
@@ -86,7 +100,7 @@ useEffect(()=>{
     
    
       } catch (error) {
-       if(response?.error){
+       if(error){
          ShowPopup("Failed !", `${error.message}!`, "Error", 5000, true);
         console.log("error......",response?.error?.message)}
       }
@@ -99,19 +113,11 @@ useEffect(()=>{
 
   }
 
- const handleStartDateToIso=(date)=>{
- console.log(date,"return data")
- setIsoStartDate( new Date(date).toISOString())
 
-}
-const handleEndDateToIso=(date)=>{
-  console.log(date,"return data")
-  setIsoEndDate( new Date(date).toISOString())
- 
- }
 
 
  if(loading ||location.loading||sellersItem.loading|| eventType.loading) return<p>Loading........</p>
+ if(error) return<p>{error}</p>
 
   return (
     <div className="max-w-7xl mx-auto h-fit  my-10 bg-slate-100 ">
@@ -153,8 +159,8 @@ const handleEndDateToIso=(date)=>{
                   <input
                     type="datetime-local"
                     className="btn btn-outline"
-                 defaultValue={startDatedata}   onChange={(event) => handleStartDateToIso(event.target.value)}
-                    // {...register("startDate",{})}
+                 defaultValue={startDatedata}   
+                     {...register("startDate",{})}
                   />
  <p className="text-red-500"> {errors.startDate&& <span>Start date and time required</span>}</p> 
                  
@@ -168,8 +174,8 @@ const handleEndDateToIso=(date)=>{
                     className="btn btn-outline "
                     placeholder="mm//dd/yy"
                     defaultValue={endDatedata}
-                    onChange={(event) => handleEndDateToIso(event.target.value)}
-                    // {...register("endDate",{})}
+                    // onChange={(event) => handleEndDateToIso(event.target.value)}
+                     {...register("endDate",{})}
                   />
                
                   
