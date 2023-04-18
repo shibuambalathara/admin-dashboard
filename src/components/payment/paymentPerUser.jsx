@@ -17,6 +17,11 @@ const PaymentPerUser = () => {
       navigate(`/view-user/${userId}`)
     }
 
+    const handlePaymentStatus=(paymentId)=>{
+console.log(paymentId,"payment id")
+navigate(`/update-payment/${paymentId}`)
+    }
+
     const columns = useMemo(
         () => [
            { Header: "Ref No", accessor: "refNo" },
@@ -25,6 +30,13 @@ const PaymentPerUser = () => {
            { Header: "Status ", accessor: "status" },
            { Header: "Created At ", accessor: "createdAt" },
            { Header: "Updated At ", accessor: "updatedAt" },
+
+            {
+            Header: "Update Payment",
+            Cell: ({ row }) => (
+              <button className="btn btn-accent" onClick={() => handlePaymentStatus(row.original?.id)}>Update Payment</button>
+            )
+          },
         //   {
         //     Header: "Change Status",
         //     Cell: ({ row }) => (

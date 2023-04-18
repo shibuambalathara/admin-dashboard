@@ -1,20 +1,21 @@
-import { Input } from "@material-tailwind/react";
+import { input } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
 import Select from 'react-select';
 
 import React, { useState } from "react";
 import { useCreateUserMutation, useSelectorsQuery } from "../../utils/graphql";
-
+import { ShowPopup } from '../alerts/popUps';
 const AddUser = () => {
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm();
   const [createUser, { loading, error }] = useCreateUserMutation();
   const { data } = useSelectorsQuery();
-  // console.log(data.eventTypes,"ddddd")
+  console.log("DATA ",data);
   const onSubmit = async (dataOnSubmit) => {
     console.log(dataOnSubmit, "onSubmit");
 
@@ -55,7 +56,10 @@ const AddUser = () => {
 
     try {
       const result = await createUser({ variables: { data } });
+      ShowPopup("Success!", `${dataOnSubmit?.first_Name}Added successfully!`, "success", 5000, true);
+      reset()
     } catch (err) {
+      ShowPopup("Failed!", `${error?.message}`, "error", 5000, true);
       console.log(err, "error");
     }
   };
@@ -75,11 +79,11 @@ const AddUser = () => {
                 <label className="" htmlFor="">
                   First Name
                 </label>
-                <Input
+                <input
                   type="text"
                   className="p-3  input input-bordered input-secondary w-full"
                   {...register("first_Name", { required: true })}
-                ></Input>
+                />
                 <p className="text-red-500">
                   {" "}
                   {errors.first_Name && <span>first Name is required</span>}
@@ -87,11 +91,11 @@ const AddUser = () => {
               </div>
               <div className="flex flex-col  w-1/3">
                 <label htmlFor="">Last Name</label>
-                <Input
+                <input
                   type="text"
                   className="p-3 input input-bordered input-secondary w-full"
                   {...register("last_Name", {})}
-                ></Input>
+                ></input>
                 <p className="text-red-500">
                   {" "}
                   {errors.last_Name && <span>last Name is required</span>}
@@ -102,11 +106,11 @@ const AddUser = () => {
             <div className="flex  justify-around">
               <div className="flex flex-col  w-1/3 ">
                 <label htmlFor="">Email</label>
-                <Input
+                <input
                   type="email"
                   className="p-3 input input-bordered input-secondary w-full"
                   {...register("email", {})}
-                ></Input>
+                ></input>
                 <p className="text-red-500">
                   {" "}
                   {errors.email && <span> email required</span>}
@@ -114,11 +118,11 @@ const AddUser = () => {
               </div>
               <div className="flex flex-col  w-1/3 ">
                 <label htmlFor="">User Name</label>
-                <Input
+                <input
                   type="text"
                   className="p-3 input input-bordered input-secondary w-full"
                   {...register("user_Name", { required: true })}
-                ></Input>
+                ></input>
                 <p className="text-red-500">
                   {" "}
                   {errors.user_Name && <span>User Name required</span>}
@@ -129,7 +133,7 @@ const AddUser = () => {
             <div className="flex  justify-around">
               <div className="flex flex-col  w-1/3">
                 <label htmlFor="">Mobile</label>
-                <Input
+                <input
                   type="number"
                   className="p-3 input input-bordered input-secondary w-full"
                   {...register("mobile", {
@@ -137,7 +141,7 @@ const AddUser = () => {
                     minLength: 10,
                     maxLength: 10,
                   })}
-                ></Input>
+                ></input>
                 <p className="text-red-500">
                   {" "}
                   {errors.mobile && (
@@ -147,11 +151,11 @@ const AddUser = () => {
               </div>
               <div className="flex flex-col  w-1/3">
                 <label htmlFor="">Bussiness Name</label>
-                <Input
+                <input
                   type="text"
                   className="p-3 input input-bordered input-secondary w-full"
                   {...register("bussiness", {})}
-                ></Input>
+                ></input>
                 <p className="text-red-500">
                   {" "}
                   {errors.bussiness && <span>Bussiness Name required</span>}
@@ -160,18 +164,18 @@ const AddUser = () => {
             </div>
 
             <div className="flex  justify-around ">
-              <div className="flex flex-col  w-1/3">
+              {/* <div className="flex flex-col  w-1/3">
                 <label htmlFor="">Bannned Sellers</label>
                 <Select isMulti className="p-3 input input-bordered input-secondary w-full"/>
                  
-              </div>
+              </div> */}
               <div className="flex flex-col  w-1/3">
                 <label htmlFor="">Confirm Password</label>
-                <Input
+                <input
                   type="text"
                   className="p-3 input input-bordered input-secondary w-full"
                   {...register("confirmPassword", {})}
-                ></Input>
+                ></input>
                 <p className="text-red-500">
                   {" "}
                   {errors.confirmPassword && (
@@ -207,9 +211,9 @@ const AddUser = () => {
                   {...register("idType", {})}
                 >
                   
-                  <option value="Aadhar">Aadhar</option>
+                  <option value="aadhar">Aadhar</option>
                   <option value="drivingLicense">Driving Licence</option>
-                  <option value="Passport">Passport</option>
+                  <option value="passport">Passport</option>
                 </select>
                 <p className="text-red-500">
                   {" "}
@@ -221,11 +225,11 @@ const AddUser = () => {
             <div className="flex  justify-around ">
               <div className="lex flex-col  w-1/3">
                 <label htmlFor="">ID proof Number</label>
-                <Input
+                <input
                   type="text"
                   className="p-3 input input-bordered input-secondary w-full"
                   {...register("IdNumber", { minLength: 8 })}
-                ></Input>
+                ></input>
                 <p className="text-red-500">
                   {" "}
                   {errors.IdNumber && <span>Atleast 8 charators required</span>}
@@ -233,7 +237,7 @@ const AddUser = () => {
               </div>
               <div className="flex flex-col  w-1/3">
                 <label htmlFor="">Image</label>
-                <Input
+                <input
                   className="p-3 input input-bordered input-secondary w-full"
                   type="file"
                   {...register("user_image", {})}
@@ -248,11 +252,11 @@ const AddUser = () => {
             <div className="flex  justify-around ">
               <div className="flex flex-col  w-1/3">
                 <label htmlFor="">Pancard</label>
-                <Input
+                <input
                   type="file"
                   className="p-3 input input-bordered input-secondary w-full"
                   {...register("pancardImage", {})}
-                ></Input>
+                ></input>
                 <p className="text-red-500">
                   {" "}
                   {errors.pancardImage && <span>pancard Image Required</span>}
@@ -260,7 +264,7 @@ const AddUser = () => {
               </div>
               <div className="flex flex-col  w-1/3">
                 <label htmlFor="">Pancard Number</label>
-                <Input
+                <input
                   className="p-3  input input-bordered input-secondary w-full"
                   type="text"
                   {...register("pancardNumber", {})}
@@ -275,7 +279,7 @@ const AddUser = () => {
             <div className="flex  justify-around ">
               <div className="flex flex-col  w-1/3">
                 <label htmlFor="">ID proof(front page)</label>
-                <Input
+                <input
                   className="p-3 input input-bordered input-secondary w-full"
                   type="file"
                   {...register("idProof", {})}
@@ -287,11 +291,11 @@ const AddUser = () => {
               </div>
               <div className="flex flex-col  w-1/3">
                 <label htmlFor="">ID proof(Back page)</label>
-                <Input
+                <input
                   type="file"
                   className="p-3 input input-bordered input-secondary w-full"
                   {...register("idBack", {})}
-                ></Input>
+                ></input>
                 <p className="text-red-500">
                   {" "}
                   {errors.idBack && <span>ID proof image Required</span>}
@@ -302,7 +306,7 @@ const AddUser = () => {
             <div className="flex  justify-around ">
               <div className="flex flex-col  w-1/3">
                 <label htmlFor="">Dealership Image</label>
-                <Input
+                <input
                   className="p-3 input input-bordered input-secondary w-full"
                   type="file"
                   {...register("dealership", {})}
@@ -314,7 +318,7 @@ const AddUser = () => {
               </div>
               <div className="flex flex-col  w-1/3">
                 <label htmlFor="">Country</label>
-                <Input
+                <input
                   className="p-3 input input-bordered input-secondary w-full"
                   type="text"
                   {...register("country", {})}
@@ -348,16 +352,9 @@ const AddUser = () => {
 
               <div className="flex flex-col  w-1/3">
                 <label htmlFor="">City</label>
-                <select
-                  className="p-3 input input-bordered input-secondary w-full"
-                  {...register("city", {})}
-                >
-                  {data?.locations.map((loc) => (
-                    <option value={loc.city} key={loc.city}>
-                      {loc.city}
-                    </option>
-                  ))}
-                </select>
+              
+                <input  className="input input-bordered input-secondary w-full " {...register("city", {})}/>
+
                 <p className="text-red-500">
                   {" "}
                   {errors.city && <span>Please select city</span>}

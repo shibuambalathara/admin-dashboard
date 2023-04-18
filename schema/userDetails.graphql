@@ -2,12 +2,19 @@ query User($where: UserWhereUniqueInput!) {
   user(where: $where) {
     id
     firstName
-    activeBidsCount
+    vehicleBuyingLimit  
   bannedSellersCount
   businessName
   categoryCount
+  state
  states {
+  id
    name
+   locations {
+     city
+     id
+     name
+   }
  } 
   city
   country
@@ -49,12 +56,15 @@ query User($where: UserWhereUniqueInput!) {
      dealership {
      url
    }
-   vehicleBuyingLimit
+    currentVehicleBuyingLimit {
+    vehicleBuyingLimit
+  }
    username
     status
     updatedAt
     bannedSellers {
       name
+      id
     }
   }
 }

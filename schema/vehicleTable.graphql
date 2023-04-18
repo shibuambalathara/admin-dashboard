@@ -1,7 +1,14 @@
 query VehicleTable {
   vehicles {
+    id
   registrationNumber  
   vehicleIndexNo
   bidTimeExpire
+  bidStatus
+  userVehicleBidsCount
+  vehicleEventStatus
+   event {
+    eventCategory
+  }
   }
 }

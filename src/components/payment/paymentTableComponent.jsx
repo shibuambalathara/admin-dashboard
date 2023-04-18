@@ -1,7 +1,7 @@
 import { Button } from '@material-tailwind/react'
 import React, { useMemo } from 'react'
 import {useNavigate} from 'react-router-dom'
-import { useTable,usePagination,useGlobalFilter } from "react-table"
+import { useTable,useSortBy,usePagination,useGlobalFilter } from "react-table"
 import {usePaymentTableQuery} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
 
@@ -11,10 +11,10 @@ const PaymentTableComponent = () => {
   
     const navigate=useNavigate()
     
-    const handlePaymentStatus=(userId)=>{
-    console.log(userId,"payment id")
-      navigate(`/update-payment/${userId}`)
-    }
+    console.log(data,"payment ")
+    // const handlePaymentStatus=(userId)=>{
+    //   navigate(`/update-payment/${userId}`)
+    // }
 
     const handleUserDetails=(userId)=>{
     
@@ -26,6 +26,14 @@ const PaymentTableComponent = () => {
     
       navigate(`/payment/${userId}`)
     }
+    const  handleCreateEmd=(paymentId)=>{
+    
+      navigate(`/add-emd/${paymentId}`)
+    }
+    const  handleViewEmd=(paymentId)=>{
+    
+      navigate(`/emd-payment/${paymentId}`)
+    }
 
     const columns = useMemo(
         () => [
@@ -33,14 +41,24 @@ const PaymentTableComponent = () => {
           { Header: "Amount", accessor: "amount" },
           { Header: "Payment For ", accessor: "paymentFor" },
           { Header: "Status ", accessor: "status" },
-           {Header:"user Name",accessor:"user.firstName"},
-         
+          {Header:"Mobile",accessor:"user.mobile"},
+           {Header:"user First Name",accessor:"user.firstName"},
+           {Header:"user Last Name",accessor:"user.lastName"},
+
            {
-            Header: "Change Status",
+            Header: "Create Emd",
             Cell: ({ row }) => (
-              <button className="btn btn-accent" onClick={() => handlePaymentStatus(row.original?.id)}>Update Payment</button>
+              <button className="btn btn-secondary" onClick={() => handleCreateEmd(row.original.id)}>Create Emd</button>
             )
           },
+          {
+            Header: "View Emds",
+            Cell: ({ row }) => (
+              <button className="btn btn-accent" onClick={() => handleViewEmd(row.original.id)}>Emds </button>
+            )
+          },
+         
+          
            {
             Header: "Payment details",
             Cell: ({ row }) => (
@@ -64,7 +82,7 @@ const PaymentTableComponent = () => {
       const tableInstance=useTable({
         columns ,
         data: tableData,
-      },useGlobalFilter,usePagination);
+      },useGlobalFilter,useSortBy,usePagination);
      
         const {
           getTableProps,
@@ -111,9 +129,12 @@ const PaymentTableComponent = () => {
                 <th
                   scope="col"
                   className="py-3 pl-4"
-                  {...column.getHeaderProps()}
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
                 >
                   {column.render("Header")}
+                  <span>
+                      {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                      </span>
                 </th>
               ))}
             </tr>

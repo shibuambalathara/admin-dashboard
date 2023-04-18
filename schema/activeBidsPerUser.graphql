@@ -1,0 +1,27 @@
+query ActiveBidsPerUser($where: UserWhereUniqueInput!) {
+  user(where: $where) {
+    id
+    firstName
+    lastName
+    activeBidsCount
+  states {
+    id
+    name
+  }
+   
+    activeBids {
+bidAmountUpdate
+startBidAmount
+currentBidAmount
+      id
+    registrationNumber 
+    bidStatus
+    bidTimeExpire
+   
+   
+    totalBids
+    userVehicleBidsCount
+
+    }
+  }
+}

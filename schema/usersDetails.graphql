@@ -5,8 +5,13 @@ query Users {
     email
     mobile
     status
+    role
     idNo
     id
      pancardNo
+     activeBidsCount
+     currentVehicleBuyingLimit {
+    vehicleBuyingLimit  
+    }
   }
 }

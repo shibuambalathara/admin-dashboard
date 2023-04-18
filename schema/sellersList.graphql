@@ -2,9 +2,9 @@ query SellersItem {
  sellers {
    name
    id
+   bannedUsersCount
+   eventsCount
  }
- events {
-   eventNo
- } 
+ 
 
 }

@@ -2,7 +2,7 @@ import { Input } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { useCreateVehicleMutation,useEventStartTimeQuery } from "../../utils/graphql";
-
+import { ShowPopup } from '../alerts/popUps';
 
 const AddVehicleComponent = () => {
 
@@ -10,7 +10,21 @@ const AddVehicleComponent = () => {
   const[createVehicle]=useCreateVehicleMutation()
   const{data}=useEventStartTimeQuery({variables:{where:{id:id}}})
   const { register, handleSubmit,control, watch, formState: { errors } } = useForm();
+
   const onSubmit = dataOnSubmit =>{ console.log(dataOnSubmit)
+
+
+
+let repo,tax,Insurance
+if(dataOnSubmit?.repoDate){
+   repo=   new Date(dataOnSubmit?.repoDate).toISOString() ;
+}
+if(dataOnSubmit?.insuranceValidDate){
+  Insurance=   new Date(dataOnSubmit?.insuranceValidDate).toISOString();
+}
+if(dataOnSubmit?.taxValidityDate){
+  tax=   new Date(dataOnSubmit?.taxValidityDate).toISOString();
+}
 const vehicle={
   event:{connect:{id}},
   registrationNumber:dataOnSubmit?.regNo,
@@ -18,7 +32,7 @@ const vehicle={
   bidStartTime:data?.event?.startDate,
   bidStatus:dataOnSubmit?.bidStatus,
   registeredOwnerName:dataOnSubmit?.regOwnerName,
-  quoteIncreament:dataOnSubmit?.quoteInc,
+  quoteIncreament:+dataOnSubmit?.quoteInc|| null,
   make:dataOnSubmit?.vehicleCompanyName,
   model:dataOnSubmit?.model,
   varient:dataOnSubmit?.varient,
@@ -26,38 +40,74 @@ const vehicle={
   fuel:dataOnSubmit?.fuel,
   type:dataOnSubmit?.type,
   rcStatus:dataOnSubmit?.rcStatus,
-  yearOfManufacture:dataOnSubmit?.yearOfManuFacture,
-  ownership:dataOnSubmit?.Ownership,
-  mileage:dataOnSubmit?.mileage,
-  kmReading:dataOnSubmit?.kmReading,
+  yearOfManufacture:+dataOnSubmit?.yearOfManuFacture || null,
+   ownership:+dataOnSubmit?.Ownership || null,
+  mileage:+dataOnSubmit?.mileage|| null,
+  kmReading:+dataOnSubmit?.kmReading|| null,
   insuranceStatus:dataOnSubmit?.insuranceStatus,
   yardLocation:dataOnSubmit?.yardLocation,
-  startPrice:dataOnSubmit?.startPrice,
-  reservePrice:dataOnSubmit?.reservePrice,
-  repoDt:dataOnSubmit?.repoDate,
+  startPrice:+dataOnSubmit?.startPrice|| null,
+  reservePrice:+dataOnSubmit?.reservePrice || null,
+   repoDt:repo || null,
   veicleLocation:dataOnSubmit?.vehicleLocation,
   vehicleRemarks:dataOnSubmit?.vehicleRemarks,
   auctionManager:dataOnSubmit?.autionManager,
   parkingCharges:dataOnSubmit?.approxParkingCharges,
   insurance:dataOnSubmit?.insuranceStatus,
 
-  // insuranceValidTill:dataOnSubmit,
+   insuranceValidTill:Insurance || null,
   tax:dataOnSubmit?.tax,
-  taxValidityDate:dataOnSubmit?.taxValidityDate,
+   taxValidityDate:tax || null,
   fitness:dataOnSubmit?.fitness,
   permit:dataOnSubmit?.permit,
   fitnessPermit:dataOnSubmit?.fitnessPermit,
-  
-
-
-
-
-
+  engineNo:dataOnSubmit?.engineNumber,
+  chassisNo:dataOnSubmit?.chassisNo,
+  frontImage:dataOnSubmit?.frontImage,
+  leftImage:dataOnSubmit?.leftImage,
+  rightImage:dataOnSubmit?.rightImage,
+  image5:dataOnSubmit?.image5,
+  image6:dataOnSubmit?.image6,
+  inspectionLink:dataOnSubmit?.inspectionLink,
+   autobseContact:dataOnSubmit?.autobseContact,
+    autobse_contact_person:dataOnSubmit?.autoBseContactPerson,
+    vehicleCondition:dataOnSubmit?.vehicleLocation,
+    powerSteering:dataOnSubmit?.powerSteering,
+   shape:dataOnSubmit?.shape,
+    color:dataOnSubmit?.color,
+    city:dataOnSubmit?.city,
+     area:dataOnSubmit?.area,
+     state:dataOnSubmit?.state,
+     paymentTerms:dataOnSubmit?.paymentTerms,
+  // dateOfRegistration:dataOnSubmit?.
+     hypothication:dataOnSubmit?.hypothication,
+  climateControl:dataOnSubmit?.climateControl,
+  doorCount:+dataOnSubmit?.doorCount || null,
+  gearBox:dataOnSubmit?.gearBox,
+  buyerFees:dataOnSubmit?.buyerFees,
+  rtoFine:dataOnSubmit?.rtoFine,
+  parkingRate:dataOnSubmit?.parkingRate,
+  approxParkingCharges:dataOnSubmit?.approxParkingCharges,
+  clientContactPerson:dataOnSubmit?.clientContactPerson,
+  clientContactNo:dataOnSubmit?.clientContactNo,
+  additionalRemarks:dataOnSubmit?.AdditionalRemarks,
+  //watchedBy {
+  //     firstName
+  //     id
+  //   }
 
 
 
 }
-const result=createVehicle({variables:{data:vehicle}})
+try {
+  const result=createVehicle({variables:{data:vehicle}})
+if(result){
+  ShowPopup("Success!", `${dataOnSubmit?.regNo}Added successfully!`, "success", 5000, true);
+
+}
+} catch (error) {
+  ShowPopup("Failed!", `${error.message}`, "error", 5000, true);
+}
   }
   return (
     <div className="max-w-7xl mx-auto h-fit  my-10 bg-slate-100  ">
@@ -197,7 +247,7 @@ const result=createVehicle({variables:{data:vehicle}})
                 <label className="t" htmlFor=" ">
                   Mileage{" "}
                 </label>
-                <Input {...register("mileage",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input type='number' {...register("mileage",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
@@ -205,7 +255,7 @@ const result=createVehicle({variables:{data:vehicle}})
                 <label className="t" htmlFor=" ">
                   Km Reading
                 </label>
-                <Input {...register("kmReading",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input type='number' {...register("kmReading",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
@@ -225,7 +275,7 @@ const result=createVehicle({variables:{data:vehicle}})
                 <label className="t" htmlFor=" ">
                   Start Price{" "}
                 </label>
-                <Input {...register("startPrice",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input type='number' {...register("startPrice",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
@@ -233,7 +283,7 @@ const result=createVehicle({variables:{data:vehicle}})
                 <label className="t" htmlFor=" ">
                   Reserve price
                 </label>
-                <Input {...register("reservePrice",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input type='number' {...register("reservePrice",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
@@ -287,7 +337,7 @@ const result=createVehicle({variables:{data:vehicle}})
                   Insurance
                 </label>
                 <Input
-                  type="number"
+                  type="text"
                   {...register("insurance",{})}
                   className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
@@ -318,7 +368,7 @@ const result=createVehicle({variables:{data:vehicle}})
                   Tax
                 </label>
                 <Input
-                  type="number"
+                  type="text"
                   {...register("tax",{})}
                   className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
@@ -533,7 +583,7 @@ const result=createVehicle({variables:{data:vehicle}})
                 <label className="t" htmlFor=" ">
                   Door Count
                 </label>
-                <Input {...register("doorCount",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input type='number' {...register("doorCount",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">

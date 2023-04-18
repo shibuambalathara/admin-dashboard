@@ -15,9 +15,9 @@ const ViewLocationComponent = () => {
 
   const columns = useMemo(
     () => [
-      { Header: "City", accessor: "name" },
+      { Header: "City", accessor: "name" }, 
       { Header: "Country", accessor: "country" },
-      { Header: "State", accessor: (state) => state.state.name },
+      // { Header: "State", accessor: (state) => state.state.name },
     ],
     []
   );
@@ -62,14 +62,7 @@ const ViewLocationComponent = () => {
 
   return (
     <div className="w-full  h-full ">
-      <div className="w-full">
-        <Button
-          onClick={() => navigate("/addlocation")}
-          className="m-5 justify-end w-fit bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-8 border border-blue-500 hover:border-transparent rounded"
-        >
-          Add Location
-        </Button>
-      </div>
+   
       <div className="  max-w-6xl mx-auto h-fit ">
         <div className="   flex flex-col justify-center m-auto w-full">
           <div className="mb-2">

@@ -12,84 +12,78 @@ const Table = () => {
   const navigate = useNavigate();
 
   const { data, loading, error } = useSellersItemQuery();
-
-  console.log("this is from seller table $$", data);
-
-  // const columns = useMemo(
-  //   () => [
-  //     { Header: "Seller Name", accessor: (seller) => data.sellers.map((seller) => seller.name)  },
-
-  //     { Header: "Events", accessor: (seller) => data.events.map((event) => event.eventNo) },
-
-  //   ],
-  //   [data]
-  // );
-  // const tableDataSellers = useMemo(() => (data ? data.sellers : []), [data]);
-  // const tableDataEvents = useMemo(() => (data ? data.events : []), [data]);
-
-  ///////////////////////////////////////////////////////////////////////////////////////////////////
+console.log(data,"sellers")
+ 
+const handleBannedUsers=(id)=>{
+console.log(id,"banned Users")
+navigate(`/banned-users/${id}`)
+}
+const handleEvents=(id)=>{
+  console.log(id,"banned Users")
+  navigate(`/events-seller/${id}`)
+  }
+ 
 
   const columns = useMemo(
     () => [
+      { Header: "Name", accessor: "name" },
+    
+      { Header: "Total Events Conducted", accessor: "eventsCount" },
       {
-        Header: "Seller Name",
-        accessor: (seller) => seller.name,
+        Header: "Banned Users ",
+        Cell: ({ row }) => (
+          <button className="btn btn-info" onClick={() => handleBannedUsers(row.original?.id)}>{row.original?.bannedUsersCount}</button>
+        )
       },
-      // {
-      //   Header: "Event No",
-      //   accessor: (seller) => {
-      //     const events = seller.data?.events || [];
-      //     const eventNos = events.map((event) => event.eventNo);
-      //     return eventNos.join(", ");
-      //   },
-      // },
+      {
+        Header: "View Events",
+        Cell: ({ row }) => (
+          <button className="btn btn-info" onClick={() => handleEvents(row.original?.id)}>View</button>
+        )
+      },
     ],
     []
   );
 
-  const tableDataSellers = useMemo(() => (data ? data.sellers : []), [data]);
-  const tableDataEvents = useMemo(() => (data ? data.events : []), [data]);
 
-  const tableInstance = useTable(
-    {
-      columns,
-      data: tableDataSellers,
-    },
-    useGlobalFilter,
-    usePagination
-  );
+  const tableData=useMemo(() => (data ? data?.sellers : []), [data]);
+ 
 
+  const tableInstance=useTable({
+    columns ,
+    data: tableData,
+  },useGlobalFilter,usePagination);
+ 
+    const {
+      getTableProps,
+      getTableBodyProps,
+      headerGroups,
+     
+      page,
+      prepareRow,
+      nextPage,
+      previousPage,
+      canNextPage,
+      canPreviousPage,
+      pageOptions,
+      pageCount,
+      gotoPage,
+      setPageSize: setTablePageSize,
+      state: { pageIndex: tablePageIndex, pageSize: tablePageSize },
+      state,
+      setGlobalFilter
+    } = tableInstance;
 
-
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    page,
-    prepareRow,
-    nextPage,
-    previousPage,
-    canNextPage,
-    canPreviousPage,
-    pageOptions,
-    pageCount,
-    gotoPage,
-    setPageSize: setTablePageSize,
-    state: { pageIndex: tablePageIndex, pageSize: tablePageSize },
-    state,
-    setGlobalFilter,
-  } = tableInstance;
-
-  const { globalFilter } = state;
+    const {globalFilter}=state
 
   if (loading) return <p>Loading...</p>;
 
   if (error) return <p>Error :{error}</p>;
 
   return (
-    <div className="w-full  h-full ">
+    <div className=" w-full ">
          
-      <div className="  max-w-6xl mx-auto h-fit ">
+      <div className="  max-w-4xl mx-auto h-fit ">
         <div className="   flex flex-col justify-center m-auto w-full">
           <div className="mb-2">
             <div className="text-center font-extrabold my-5 text-lg w-full">
@@ -103,7 +97,7 @@ const Table = () => {
           </div>
 
           <table
-            className=" w-full bg-white border-collapse border border-gray-300  table-auto divide-y  text-gray-900"
+            className=" max-w-2xl mt-5 bg-white border-collapse border border-gray-300  table-auto divide-y  text-gray-900"
             {...getTableProps()}
           >
             <thead className="bg-gray-50">

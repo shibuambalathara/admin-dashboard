@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Input } from "@material-tailwind/react";
 import { useForm,Controller } from "react-hook-form";
 import Select from 'react-select'
-
+import { ShowPopup } from "../alerts/popUps";
 
 import{useSellersItemQuery,useEventTypesQuery,useLocationsQuery,useCreateEventMutation}from '../../utils/graphql'
 import { useNavigate } from "react-router-dom";
@@ -36,9 +36,9 @@ const AddEventComponent = () => {
       endDate:endDateTime,
       noOfBids:bids,
       seller:{connect:{id:dataOnSubmit?.sellerName ||""}},
-      // eventType:{connect:{id:dataOnSubmit?.event ||"" }},
+     
       eventType: {
-        set: dataOnSubmit?.eventId?.map((event) => ({id: event.value}))
+        connect: dataOnSubmit?.eventId?.map((event) => ({id: event.value}))
       },
       location :{connect:{id:dataOnSubmit?.location ||""}},
       status:dataOnSubmit?.status,
@@ -57,9 +57,24 @@ const AddEventComponent = () => {
     }
  addEvent({variables:{data:eventData}})
  .then(result=>{console.log("result",result)
-
+ ShowPopup(
+  "Success!",
+  `Event Created Successfully! Upload Excel Now`,
+  "success",
+  5000,
+  true
+);
 })
- .catch((error)=>console.log("error",error))
+ .catch((error)=>{
+  console.log("error",error)
+  ShowPopup(
+    "Failed!",
+    `${error.message} `,
+    "error",
+    5000,
+    true
+  );
+ })
 
 
   }
@@ -90,7 +105,7 @@ const handleOnClick=()=>{
                 <select
                  
                   placeholder="select"
-                   {...register("eventCategory",{})}
+                   {...register("eventCategory",{required:true})}
                   className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
                 >
               
@@ -197,7 +212,7 @@ const handleOnClick=()=>{
                    {location?.data?.locations?.map((location)=>
                  (
                      <option key={location.name} value={location.id}>{location.name}</option>
-                 ) )}
+                 ))}
                 </select>
                 <p className="text-red-500"> {errors.location&& <span>location required</span>}</p> 
 

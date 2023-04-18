@@ -8,7 +8,9 @@ query paymentTable {
     user {
       id
       firstName
+      lastName
       username
+       mobile
     }
   }
 }

@@ -21,7 +21,7 @@ const HomeComonent = () => {
     let hoverClass=` w-50 space-x-4 hover:transform  hover:scale-125 ${isHovering ?'stop-animation'  : 'animate-pulse duration-500' }`
 
   return (
-    <div className='flex flex-wrap m-10 space-x-12 space-y-20 justify-center items-center '>
+    <div className='flex flex-wrap m-5 space-x-12 space-y-20 justify-center items-center bg'>
       
   <div className={hoverClass} style={{marginTop:'80px'}}>
     <div   onMouseEnter={handleMouseEnter}

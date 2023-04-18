@@ -1,0 +1,12 @@
+mutation addLocation($data: LocationCreateInput!) {
+  createLocation(data: $data) {
+    city
+    name
+    country
+  state {
+    name
+    id
+  }
+  }
+
+}

@@ -1,0 +1,5 @@
+mutation DeleteVehicle($where: VehicleWhereUniqueInput!) {
+  deleteVehicle(where: $where) {
+  id 
+  }
+}

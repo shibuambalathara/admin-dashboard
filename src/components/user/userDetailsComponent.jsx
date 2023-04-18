@@ -4,13 +4,14 @@ import React from "react";
 import { useForm,Controller } from "react-hook-form";
 
 import { useParams } from "react-router-dom";
-import { useUserQuery,useSellersItemQuery,useEditUserMutation,useSelectorsQuery} from "../../utils/graphql";
-
+import { useUserQuery,useSellersItemQuery,useEditUserMutation,useSelectorsQuery, useStatesQuery} from "../../utils/graphql";
+import { ShowPopup } from '../alerts/popUps';
 import AddUser from "./addUser";
 
 const UserDetailsComponent = () => {
   const { id } = useParams();
  const sellers = useSellersItemQuery();
+ const allStates=useStatesQuery()
 
  const selectors=useSelectorsQuery()
  const [updatedDetails,response]=useEditUserMutation({variables:{where:{id:id}}})
@@ -19,7 +20,8 @@ const UserDetailsComponent = () => {
     variables: { where: { id: id } },
     
   });
-
+ 
+console.log(data,"data")
   const {
     register,
     control,
@@ -27,7 +29,7 @@ const UserDetailsComponent = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = async(dataOnSubmit) =>{ console.log(dataOnSubmit);
+  const onSubmit = (dataOnSubmit) =>{ console.log(dataOnSubmit);
 
   const user = {
     firstName:dataOnSubmit?.first_Name,
@@ -38,6 +40,7 @@ const UserDetailsComponent = () => {
    businessName:dataOnSubmit?.bussiness ,
    pancardNo:dataOnSubmit?.pancardNumber,
     role:dataOnSubmit?.role, 
+    vehicleBuyingLimit:+dataOnSubmit?.buyingLimitCount,
      
     
   //    password:dataOnSubmit?.confirmPassword,
@@ -51,6 +54,10 @@ const UserDetailsComponent = () => {
      bannedSellers: {
       set: dataOnSubmit.bannedSellers.map((seller) => ({id: seller.value}))
     },
+    states: {
+      set: dataOnSubmit.states.map((state) => ({id: state.value}))
+    },
+
      
     
   
@@ -74,13 +81,19 @@ const UserDetailsComponent = () => {
    user["dealership"] = { upload: dataOnSubmit.dealership[0] }
   }
   
+  
   try{
 
-    updatedDetails({variables: {data:user}})
-  }
-  catch(err){
-console.log(err,"error")
-  }
+    const result= updatedDetails({variables: {data:user}})
+    if(result){
+     ShowPopup("Success!", `${dataOnSubmit?.first_Name} Updated successfully!`, "success", 5000, true);
+ }
+   }
+   catch(err){
+     ShowPopup("user updation Failed!", `${err.message}`, "error", 5000, true);
+ 
+ console.log(err,"error")
+   }
 }
 
   if (loading) return <p>Loading...</p>;
@@ -196,23 +209,24 @@ console.log(err,"error")
 
         
           <div className="flex  justify-around  ">
-            {/* <div className="flex flex-col w-1/3 ">
-              <label htmlFor="">Category</label>
-              <select
-                defaultValue={data.user.category}
+          <div className="flex flex-col w-1/3 ">
+              <label htmlFor="">Current Buying Limit </label>
+              <input
+                type="number" 
+                defaultValue={data?.user?.currentVehicleBuyingLimit?.vehicleBuyingLimit}
                 className="input input-bordered input-secondary w-full "
-                {...register("category", {})}
-              >
-                <option value=""></option>
-                <option>2W</option>
-                <option>4W</option>
-                <option>CV</option>
-              </select>
+                {...register("buyingLimitCount", {
+                  required: true,
+                
+                })}
+              ></input>
               <p className="text-red-500">
                 {" "}
-                {errors.category && <span>Please select Category</span>}
+                {errors.phoneRequired && (
+                  <span>phone number 10 digits required</span>
+                )}
               </p>
-            </div> */}
+            </div>
           
               <div className="flex flex-col  w-1/3">
                 <label htmlFor="">Bannned Sellers</label>
@@ -242,6 +256,11 @@ console.log(err,"error")
 
                 
               </div>
+
+
+            
+
+
             </div>
          
 
@@ -297,7 +316,7 @@ console.log(err,"error")
             </div>
             <div className="w-1/3">
               <label htmlFor="">ID proof Number</label>
-              <Input  defaultValue={data?.user?.idProofNo} type="text" className="input input-bordered input-secondary w-full " {...register("IdNumber", {minLength:8 })}></Input>
+              <input  defaultValue={data?.user?.idProofNo} type="text" className="input input-bordered input-secondary w-full " {...register("IdNumber", {minLength:8 })}/>
               <p className="text-red-500"> {errors.IdNumber && <span>Atleast 8 charators required</span>}</p>
             </div>
           </div>
@@ -310,7 +329,8 @@ console.log(err,"error")
            <div className="w-1/3">
              <label htmlFor="">State</label>
         
-        <select defaultValue={data?.user?.city} className="input input-bordered input-secondary w-full " {...register("state", {})}>
+        <select className="input input-bordered input-secondary w-full " {...register("state", {})}>
+ <option value={data?.user?.state}>{data?.user?.state}</option>
  {selectors?.data?.states.map((state) => (
    <option  value={state.name} key={state.name}>{state.name}</option>
  ))}
@@ -324,11 +344,8 @@ console.log(err,"error")
             <div className="w-1/3">
               <label htmlFor="">City</label>
          
-         <select  defaultValue={data?.user?.city} className="input input-bordered input-secondary w-full " {...register("city", {})}>
-  {selectors?.data?.locations?.map((loc) => (
-    <option  value={loc.id} key={loc.id}>{loc.city}</option>
-  ))}
-</select>
+
+<input  defaultValue={data?.user?.city} className="input input-bordered input-secondary w-full " {...register("city", {})}/>
       <p className="text-red-500"> {errors.city && <span>Please select city</span>}</p>
             </div>
             </div>
@@ -362,7 +379,7 @@ console.log(err,"error")
           <div className="flex space-x-2 justify-around">
             <div className="flex w-1/3 flex-col">
               <label htmlFor="">Dealership Image</label>
-              <Input className="text-black" type="file" {...register("dealership", {})}/>
+              <Input className="" type="file" {...register("dealership", {})}/>
               <img
                 className="w-full h-36 border"
                 src={`https://api.autobse.com${data?.user?.dealership?.url}`}
@@ -371,11 +388,41 @@ console.log(err,"error")
             </div>
             <div className="flex  flex-col w-1/3">
               <label htmlFor="">Country</label>
-              <Input defaultValue={data?.user?.country} className="input input-bordered input-secondary w-full " {...register("country", { })}/>
+              <input defaultValue={data?.user?.country} className="input input-bordered input-secondary w-full " {...register("country", { })}/>
               <p className="text-red-500">
                 {" "}
                 {errors.country && <span>country Required</span>}
               </p>
+
+              <div className="flex flex-col  w-full">
+                <label htmlFor="">Auction Allowed states</label>
+              
+
+                <Controller
+  name="states"
+  control={control}
+  defaultValue={data?.user?.states.map((state) => ({
+    label: state.name,
+    value: state.id
+  }))}
+  render={({ field }) => (
+    <Select
+      className="w-full text-black max-w-[560px] mt-2"
+      option=""
+      options={allStates?.data?.states?.map((state) => ({
+        label: state.name,
+        value: state.id
+      }))}
+      {...field}
+      isMulti
+      getOptionValue={(option) => option.value}
+    />
+  )}
+/>
+
+                
+              </div>
+
             </div>
           </div>
         </div>

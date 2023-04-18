@@ -5,19 +5,26 @@ import { Button } from '@material-tailwind/react'
 import React, { useMemo } from 'react'
 import {useNavigate} from 'react-router-dom'
 import { useTable,usePagination,useGlobalFilter } from "react-table"
-import {useEventTypesQuery} from '../../utils/graphql'
+import {useDeleteEventTypeMutation, useEventTypesQuery} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
+import AddEventType from './eventTypeAdd'
 
 
 const EventTypesTable = () => {
     const {data,loading,error}=useEventTypesQuery()
+    const [deleteEventType]=useDeleteEventTypeMutation()
     const navigate=useNavigate()
+
+    const handleDelete=(id)=>{
+      console.log(id)
+ const result=deleteEventType({variables:{where:{id}}})
+    }
 
     const columns = useMemo(
         () => [
           { Header: "Name", accessor: "name" },
-          { Header: "Events", accessor: "events.eventNo" },
-          { Header: "Users", accessor: "users.id" },
+          // { Header: "Events", accessor: "events.eventNo" },
+          // { Header: "Users", accessor: "users.id" },
          
 
          
@@ -27,12 +34,12 @@ const EventTypesTable = () => {
         //       <button className="bg-green-500 p-2 rounded" onClick={()=>handleViewMore(row.original.id) }>View More</button>
         //     )
         //   },
-        //   {
-        //     Header: "Delete",
-        //     Cell: ({ row }) => (
-        //       <button className="bg-red-600 text-white p-2 rounded" onClick={() => handleDelete(row.original.id)}>Delete</button>
-        //     )
-        //   }
+          {
+            Header: "Delete",
+            Cell: ({ row }) => (
+              <button className="btn btn-error" onClick={() => handleDelete(row.original.id)}>Delete</button>
+            )
+          }
           
         ],
         []
@@ -71,12 +78,13 @@ const EventTypesTable = () => {
 
   return (
     <div className="flex  flex-col w-full justify-around ">
-    <Button
+    {/* <Button
       onClick={() => navigate("/add-user")}
       className="m-5 justify-end w-fit bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
     >
-     Add User
-    </Button>
+     Add Event Types
+     <AddEventType/>
+    </Button> */}
     
     <div className=" flex flex-col w-full justify-center m-auto ">
     <div className="mb-2">

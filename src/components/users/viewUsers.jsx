@@ -31,21 +31,52 @@ const ViewUsers = () => {
     deleteUserMutation({ variables: { where: { id: id } } });
     navigate("/users");
   };
+  const handleBuyingLimit=(id)=>{
+    navigate(`/buying-limit/${id}`)
+  }
+  
+  const handleBids=(id)=>{
+    navigate(`/bids-user/${id}`)
+  }
 
   const columns = useMemo(
     () => [
       { Header: "ID", accessor: "idNo" ,  className: 'w-1/3',  },
       { Header: "First Name", accessor: "firstName" ,  className: 'w-1/3', },
       { Header: "Last Name", accessor: "lastName" ,  className: 'w-1/3', },
-      { Header: "Email", accessor: "email",  className: 'w-1/3', },
+      { Header: "Role", accessor: "role",  className: 'w-1/3', },
       { Header: "Mobile", accessor: "mobile",  className: 'w-1/3',   },
       { Header: "Status", accessor: "status",  className: 'w-1/3',   },
-      { Header: "Pancard Number", accessor: "pancardNo",  className: 'w-1/3',   },
+      //  { Header: "Active Bids Count", accessor: "activeBidsCount",  className: 'w-1/3',   },
+
+      {
+        Header: "Active Bids ",
+        Cell: ({ row }) => (
+          <button
+            className="btn btn-primary"
+            onClick={() => handleBids(row.original.id)}
+          >
+           {row.original.activeBidsCount}
+          </button>
+        ),
+      },
+       {
+        Header: "Current Buying Limit",
+        Cell: ({ row }) => (
+          <button
+            className="btn btn-secondary"
+            onClick={() => handleBuyingLimit(row.original.id)}
+          >
+           {row.original.currentVehicleBuyingLimit.vehicleBuyingLimit}
+          </button>
+        ),
+      },
+
       {
         Header: "View more",
         Cell: ({ row }) => (
           <button
-            className="bg-green-500 p-2 rounded"
+            className="btn btn-info"
             onClick={() => handleViewMore(row.original.id)}
           >
             View More
@@ -56,7 +87,7 @@ const ViewUsers = () => {
         Header: "Payment details",
         Cell: ({ row }) => (
           <button
-            className="bg-cyan-500 p-2 rounded"
+            className="btn btn-warning"
             onClick={() => paymentDetails(row.original.id)}
           >
             Payment Details
@@ -67,7 +98,7 @@ const ViewUsers = () => {
         Header: "Delete",
         Cell: ({ row }) => (
           <button
-            className="bg-red-600 text-white p-2 rounded"
+            className="btn btn-block"
             onClick={() => handleDelete(row.original.id)}
           >
             Delete
@@ -78,7 +109,7 @@ const ViewUsers = () => {
     []
   );
   const tableData = useMemo(() => (data ? data.users : []), [data]);
-  console.log("this is the tabledata from view users",tableData);
+
 
   const tableInstance = useTable(
     {
@@ -119,7 +150,7 @@ const ViewUsers = () => {
   
 
   return (
-    <div className="w-full  h-fit  ">
+    <div className="w-full   ">
       <div className=" w-full ">
         <Button
           onClick={() => navigate("/add-user")}

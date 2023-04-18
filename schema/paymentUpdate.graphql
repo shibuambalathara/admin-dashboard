@@ -1,5 +1,6 @@
 mutation UpdatePayment($where: PaymentWhereUniqueInput!, $data: PaymentUpdateInput!) {
   updatePayment(where: $where, data: $data) {
+    id
   amount
   image {
     url

@@ -1,17 +1,22 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Input } from "@material-tailwind/react";
 import { useForm,Controller } from "react-hook-form";
 import Select from 'react-select'
 
 
+
 import{useSellersItemQuery,useEventTypesQuery,useLocationsQuery,useEventQuery,useEditEventMutation}from '../../utils/graphql'
-import { useNavigate, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
+import { ShowPopup } from '../alerts/popUps';
+
+const EditEventComponent =() => {
+const[startDatedata,setStartDate]=useState('')
 
 
-const EditEventComponent = () => {
+const[endDatedata,setEndDate]=useState('')
 
  const {id}=useParams()
-  const navigate=useNavigate()
+ 
   const sellersItem=useSellersItemQuery()
   const eventType=useEventTypesQuery()
   const location=useLocationsQuery()
@@ -19,64 +24,52 @@ const EditEventComponent = () => {
    const {data,loading,error}=useEventQuery({variables:{where:{id}}})
 
 
-   const date=new Date( data?.event?.startDate)
 
 
-   const year = date.getFullYear();
-   const month = (date.getMonth() + 1).toString().padStart(2, '0');
-   const day = date.getDate().toString().padStart(2, '0');
-   const hours = date.getHours().toString().padStart(2, '0');
-   const minutes = date.getMinutes().toString().padStart(2, '0');
-   
-   const dateTimeLocal = `${year}-${month}-${day}T${hours}:${minutes}`;
+useEffect(()=>{
+  if(data?.event?.startDate){
+    const dateObj = new Date(data?.event?.startDate);
+const year = dateObj.getFullYear();
+const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+const day = String(dateObj.getDate()).padStart(2, '0');
+const hours = String(dateObj.getHours()).padStart(2, '0');
+const minutes = String(dateObj.getMinutes()).padStart(2, '0');
 
-   
-
-
-
-   const dateEnd=new Date( data?.event?.endDate)
-
-
-   const year1 = dateEnd.getFullYear();
-   const month1 = (dateEnd.getMonth() + 1).toString().padStart(2, '0');
-   const day1 = dateEnd.getDate().toString().padStart(2, '0');
-   const hours1 = dateEnd.getHours().toString().padStart(2, '0');
-   const minutes1 = dateEnd.getMinutes().toString().padStart(2, '0');
-   
-   const dateTimeLocal1 = `${year1}-${month1}-${day1}T${hours1}:${minutes1}`;
+const formattedString = `${year}-${month}-${day}T${hours}:${minutes}`;
+setStartDate(formattedString)
 
 
 
-
-
-
-
-
-
-
-if(loading){
-  <div>Loading........</div>
 }
+if(data?.event?.endDate){
+  const dateObj = new Date(data?.event?.endDate);
+  const year = dateObj.getFullYear();
+  const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+  const day = String(dateObj.getDate()).padStart(2, '0');
+  const hours = String(dateObj.getHours()).padStart(2, '0');
+  const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+  
+  const formattedString = `${year}-${month}-${day}T${hours}:${minutes}`;
+  
+  setEndDate(formattedString)
+}
+},[data])
+
+
+
+
+
+
 
   const { register, handleSubmit,control, watch, formState: { errors } } = useForm();
   
-  const onSubmit = dataOnSubmit =>{ console.log(dataOnSubmit);
-
-    const isoDateTime = new Date(dataOnSubmit?.startDate).toISOString();
-    const endDateTime = new Date(dataOnSubmit?.endDate).toISOString();
-    const bids=+dataOnSubmit?.noOfBids
-    const extraTimeTriger=+dataOnSubmit?.timeTriger
-    const extraTime=+dataOnSubmit?.extraTime
-    const gap=+dataOnSubmit?.gap
-    const live=+dataOnSubmit?.liveTime
-  
-  
+  const onSubmit =async dataOnSubmit =>{ console.log(dataOnSubmit);
 
     const eventData={
-      eventCategory:dataOnSubmit?.eventCategory,
-      startDate:isoDateTime,
-      endDate:endDateTime,
-      noOfBids:bids,
+      eventCategory:dataOnSubmit?.eventCategory,  
+      startDate:await new Date(dataOnSubmit?.startDate).toISOString(),
+      endDate:await new Date(dataOnSubmit?.endDate).toISOString(),
+      noOfBids:+dataOnSubmit?.noOfBids,
       seller:{connect:{id:dataOnSubmit?.sellerName ||""}},
      
       eventType: {
@@ -88,28 +81,43 @@ if(loading){
       termsAndConditions:dataOnSubmit?.conditions,
       bidLock:dataOnSubmit?.lockedOrNot,
       isSpecialEvent:dataOnSubmit?.special,
-      extraTimeTrigerIn:extraTimeTriger,
-      extraTime:extraTime,
-      vehicleLiveTimeIn:live,
-      gapInBetweenVehicles:gap,
+      extraTimeTrigerIn:+dataOnSubmit?.timeTriger,
+      extraTime:+dataOnSubmit?.extraTime,
+      vehicleLiveTimeIn:+dataOnSubmit?.liveTime,
+      gapInBetweenVehicles:+dataOnSubmit?.gap,
       
     }
     if (dataOnSubmit.downloadable[0] && dataOnSubmit.downloadable.length) {
       eventData["downloadableFile"] = { upload: dataOnSubmit.downloadable[0] };
     }
-   editEvent({variables:{data:eventData}})
+    try {
+      const result= editEvent({variables:{data:eventData}})
+      if(result){
+       ShowPopup("Success!", `Event updated  successfully!`, "success", 5000, true);
+      }
+      
+       
+    
+   
+      } catch (error) {
+       if(error){
+         ShowPopup("Failed !", `${error.message}!`, "Error", 5000, true);
+        console.log("error......",response?.error?.message)}
+      }
+   
   
 
 
-  if(response?.error){console.log("error......",response?.error?.message)}
+
 
 
   }
 
-const handleOnClick=()=>{
-  // console.log(data,"return data")
-  // navigate(`/excel-upload/${data.createEvent.id}`)
-}
+
+
+
+ if(loading ||location.loading||sellersItem.loading|| eventType.loading) return<p>Loading........</p>
+ if(error) return<p>{error}</p>
 
   return (
     <div className="max-w-7xl mx-auto h-fit  my-10 bg-slate-100 ">
@@ -138,8 +146,8 @@ const handleOnClick=()=>{
                   className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
                 >
               <option value={data?.event?.eventCategory}>{data?.event?.eventCategory}</option>
-                  <option value="online">Online Auction </option>
-                  <option value="open">Open Auction</option>
+                  <option value="online">Online  </option>
+                  <option value="open">Open </option>
                 </select>
                 <p className="text-red-500"> {errors.eventCategory&& <span>Event type required</span>}</p> 
 
@@ -151,13 +159,13 @@ const handleOnClick=()=>{
                   <input
                     type="datetime-local"
                     className="btn btn-outline"
-                 defaultValue={dateTimeLocal}
-                    {...register("startDate",{required:true})}
+                 defaultValue={startDatedata}   
+                     {...register("startDate",{})}
                   />
  <p className="text-red-500"> {errors.startDate&& <span>Start date and time required</span>}</p> 
                  
                 </div>
-              </div>resp
+              </div>
               <div className=" flex flex-col space-y-2 space-x-px ">
                 <label htmlFor="">End Date and Time</label>
                 <div className="flex space-x-6">
@@ -165,8 +173,9 @@ const handleOnClick=()=>{
                     type="datetime-local"
                     className="btn btn-outline "
                     placeholder="mm//dd/yy"
-                    defaultValue={dateTimeLocal1}
-                    {...register("endDate",{required:true})}
+                    defaultValue={endDatedata}
+                    // onChange={(event) => handleEndDateToIso(event.target.value)}
+                     {...register("endDate",{})}
                   />
                
                   
@@ -184,7 +193,7 @@ const handleOnClick=()=>{
                 <select
                   
                   placeholder="select"
-                  {...register("sellerName",{required:true})}
+                  {...register("sellerName",{})}
                   className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
                 >
                 
@@ -240,15 +249,15 @@ const handleOnClick=()=>{
                   <div class="h-5 w-0.5 border bg-gray-400 "></div>
                 </div>
                 <select
-                  
+                  defaultValue={data?.event?.location?.id}
                   placeholder="select"
-                  {...register("location",{required:true})}
+                  {...register("location",{})}
                   className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700   hover:bg-white "
                 >
                      <option  value={data?.event?.location?.id}>{data?.event?.location?.name}</option>
                    {location?.data?.locations?.map((location)=>
                  (
-                     <option key={location.name} value={location.id}>{location.name}</option>
+                     <option key={location.id} value={location.id}>{location.name}</option>
                  ) )}
                 </select>
                 <p className="text-red-500"> {errors.location&& <span>location required</span>}</p> 
@@ -260,7 +269,7 @@ const handleOnClick=()=>{
                 <label htmlFor="">Number of Bids(per User)</label>
                 <input
                   type="number"
-                  {...register("noOfBids",{required:true})}
+                  {...register("noOfBids",{})}
                   defaultValue={data?.event?.noOfBids}
                   className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
@@ -290,6 +299,8 @@ const handleOnClick=()=>{
           
              
                <div className="flex flex-col items-start  ">
+             
+             {data?.event?.downloadableFile?.url ?   <a href={`https://api.autobse.com${data?.event?.downloadableFile?.url}`}> <span className="text-red-500">Click here for down load the excel file</span></a>: <span className="text-red-500">Currently there is no excel file for download</span>}
                 <label>Downloadable File</label>
                 <input type="file"
                   {...register("downloadable",{})}

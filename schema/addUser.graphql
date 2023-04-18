@@ -4,7 +4,7 @@ mutation CreateUser($data: UserCreateInput!) {
     username
     firstName
     lastName
-    email
+    email  
     username
     city
     password {

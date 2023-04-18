@@ -1,35 +1,57 @@
-import React from "react";
+import React,{useState}from "react";
 import { useForm } from "react-hook-form";
-import {useCreateSellerMutation} from '../../utils/graphql'
+import {useCreateSellerMutation,useSellersItemQuery} from '../../utils/graphql'
+import { ShowPopup } from '../alerts/popUps';
 
 const AddSeller = () => {
   
   const [sellerName]=useCreateSellerMutation()
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { register,reset, handleSubmit, watch, formState: { errors } } = useForm();
+  const {  refetch } = useSellersItemQuery();
+  const onSubmit = dataOnSubmit =>{
+     console.log(dataOnSubmit);
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  try {
+     const result=sellerName({variables:{data:{name:dataOnSubmit?.sellerName}}})
+     ShowPopup("Success!", `${dataOnSubmit?.sellerName} Added successfully!`,"success", 5000, true);
+  } catch (error) {
+    console.log("the error in add seller",error);
+    ShowPopup("Failed!", `${error?.message}`, "error", 5000, true);
+  }
 
-  const onSubmit = dataOnSubmit =>{ console.log(dataOnSubmit);
-
-   const result=sellerName({variables:{data:{name:dataOnSubmit?.sellerName}}})
+  refetch()
+  setIsModalOpen(false);
+  reset()
+  
   }
   return (
-    <div className="w-full">
+    <div className="w-full max-w-xs relative ml-50">
    
+   <div className="absolute top-3 left-10 ">
       <label htmlFor="my-modal-3" className="btn  btn-outline btn-secondary">
         Add Seller
       </label>
+      </div>
 
       {/* Put this part before </body> tag */}
-      <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+      <input
+        type="checkbox"
+        id="my-modal-3"
+        className="modal-toggle"
+        checked={isModalOpen}
+        onChange={() => setIsModalOpen(!isModalOpen)}
+      />
       <div className="modal ">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="modal-box relative w-96">
-          <label
-            htmlFor="my-modal-3"
-            className="btn btn-sm btn-circle absolute right-2 top-2"
-          >
-            ✕
-          </label>
+        <label
+              htmlFor="modal-toggle"
+              className="btn btn-sm btn-circle absolute right-2 top-2"
+              onClick={() => setIsModalOpen(false)} // add click handler to close modal
+            >
+              ✕
+            </label>
 
           <div className="flex flex-col">
        

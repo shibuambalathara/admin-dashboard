@@ -6,11 +6,13 @@ query eventTable {
   startDate
   status
   endDate
+  vehiclesCount
   location {
     name
   }
   seller {
     name
   }
+  Report
   }
 }

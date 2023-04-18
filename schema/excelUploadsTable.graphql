@@ -5,6 +5,7 @@ query ExcelUploads {
     filename
   }  
   event {
+    id
     eventNo
   }
   }
