@@ -32,7 +32,7 @@ const VehicleTable = () => {
           { Header: "Bid Status", accessor: "bidStatus" }, 
           { Header: "Total bids count", accessor: "userVehicleBidsCount" }, 
           { Header: "Event Category", accessor: "event.eventCategory" }, 
-          { Header: "Bid Time Expire", accessor: ({bidTimeExpire})=>{return format(new Date (bidTimeExpire),`dd/MM/yy,  HH:mm:ss`)}  },
+          { Header: "Bid Time Expire", accessor: ({bidTimeExpire})=>{return format(new Date (bidTimeExpire),`dd/MM/yy,  HH:mm`)}  },
          
           {
             Header: "Bid Detais",

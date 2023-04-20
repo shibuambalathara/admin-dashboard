@@ -7,6 +7,7 @@ import {useNavigate} from 'react-router-dom'
 import { useTable,usePagination,useGlobalFilter } from "react-table"
 import {useEmdTableQuery} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
+import format from 'date-fns/format'
 
 
 const EmdTable = () => {
@@ -26,7 +27,7 @@ navigate(`/view-user/${userId}`)
         () => [
           { Header: "Emd Number", accessor: "emdNo" },
           { Header: "Vehicle buying limit", accessor: "vehicleBuyingLimitIncrement" },
-          { Header: "Created At ", accessor:"createdAt"  },
+          { Header: "Created At ", accessor: ({createdAt})=>{return format(new Date (createdAt),`dd/MM/yy, HH:mm`)}  },
          
           { Header: "Created By ", accessor:"createdBy.firstName"  },
          

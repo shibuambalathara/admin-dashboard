@@ -222,7 +222,7 @@ const handleOnClick=()=>{
               <div className="w-full max-w-xl">
                 <label htmlFor="">Number of Bids(per User)</label>
                 <Input
-                  type="number"
+                  type="number" defaultValue={10}
                   {...register("noOfBids",{required:true})}
                   
                   className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
@@ -243,9 +243,9 @@ const handleOnClick=()=>{
                   className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700  hover:bg-white"
                 >
         
+                  <option value="active">active</option>
                   <option value="pending">pending </option>
                   <option value="blocked">blocked</option>
-                  <option value="active">active</option>
                   <option value="inactive">inactive</option>
                   <option value="stop">stop</option>
                 </select>
@@ -295,7 +295,7 @@ const handleOnClick=()=>{
               <div className="w-full max-w-xl">
                 <label htmlFor="">Extra Time Trigger in Minutes</label>
                 <Input
-                  type="number"
+                  type="number" defaultValue={2}
                   {...register("timeTriger",{})}
                   className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
@@ -303,7 +303,7 @@ const handleOnClick=()=>{
               <div className="w-full max-w-xl">
                 <label htmlFor="">Extra Time in minutes</label>
                 <Input
-                  type="number"
+                  type="number" defaultValue={2}
                   {...register("extraTime",{})}
                   className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
@@ -313,7 +313,7 @@ const handleOnClick=()=>{
                   Open Auction Vehicle Live Time in minutes
                 </label>
                 <Input
-                  type="number"
+                  type="number" defaultValue={3}
                   {...register("liveTime",{})}
                   className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
@@ -324,7 +324,7 @@ const handleOnClick=()=>{
                   Time Increase in Minuts
                 </label>
                 <Input
-                  type="number"
+                  type="number" defaultValue={2}
                   {...register("gap",{})}
                   className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />

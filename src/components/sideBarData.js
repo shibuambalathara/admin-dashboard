@@ -39,10 +39,10 @@ const Sidebar_items=[
     name:"States",
     path:"states"
   },
-  {
-    name:"Excel Uploads",
-    path:"excel-uploads"
-  },
+  // {
+  //   name:"Excel Uploads",
+  //   path:"excel-uploads"
+  // },
   {
     name:"Sellers",
     path:"sellers"
