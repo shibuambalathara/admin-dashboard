@@ -16,8 +16,8 @@ const ViewLocationComponent = () => {
   const columns = useMemo(
     () => [
       { Header: "City", accessor: "name" }, 
+      { Header: "State", accessor: (state) => state.state.name },
       { Header: "Country", accessor: "country" },
-      // { Header: "State", accessor: (state) => state.state.name },
     ],
     []
   );
