@@ -1,6 +1,0 @@
-mutation CreateSeller($data: SellerCreateInput!) {
-  createSeller(data: $data) {
-    id
-    name
-  }
-}

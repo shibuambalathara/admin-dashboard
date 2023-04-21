@@ -8,3 +8,23 @@ query locations {
     }
   }
 }
+
+mutation addLocation($data: LocationCreateInput!) {
+  createLocation(data: $data) {
+    city
+    name
+    country
+  state {
+    name
+    id
+  }
+  }
+
+}
+
+mutation DeleteLocation($where: LocationWhereUniqueInput!) {
+  deleteLocation(where: $where) {
+    id
+    name
+  }
+}

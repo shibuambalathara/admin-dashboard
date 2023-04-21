@@ -2966,20 +2966,6 @@ export type CreateEventMutationVariables = Exact<{
 
 export type CreateEventMutation = { __typename?: 'Mutation', createEvent?: { __typename?: 'Event', id: string, eventCategory?: string | null, startDate?: any | null, endDate?: any | null, noOfBids?: number | null, status?: EventStatusType | null, termsAndConditions?: string | null, bidLock?: EventBidLockType | null, isSpecialEvent?: boolean | null, extraTime?: number | null, extraTimeTrigerIn?: number | null, vehicleLiveTimeIn?: number | null, gapInBetweenVehicles?: number | null, seller?: { __typename?: 'Seller', name?: string | null, id: string } | null, eventType?: Array<{ __typename?: 'EventType', name?: string | null, id: string }> | null, location?: { __typename?: 'Location', city?: string | null, id: string } | null, downloadableFile?: { __typename?: 'FileFieldOutput', url: string } | null } | null };
 
-export type AddLocationMutationVariables = Exact<{
-  data: LocationCreateInput;
-}>;
-
-
-export type AddLocationMutation = { __typename?: 'Mutation', createLocation?: { __typename?: 'Location', city?: string | null, name?: string | null, country?: string | null, state?: { __typename?: 'State', name?: string | null, id: string } | null } | null };
-
-export type CreateSellerMutationVariables = Exact<{
-  data: SellerCreateInput;
-}>;
-
-
-export type CreateSellerMutation = { __typename?: 'Mutation', createSeller?: { __typename?: 'Seller', id: string, name?: string | null } | null };
-
 export type CreateStateMutationVariables = Exact<{
   data: StateCreateInput;
 }>;
@@ -3000,7 +2986,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', authenticateUserWithPassword?: { __typename?: 'UserAuthenticationWithPasswordFailure', message: string } | { __typename?: 'UserAuthenticationWithPasswordSuccess', sessionToken: string } | null };
+export type LoginMutation = { __typename?: 'Mutation', authenticateUserWithPassword?: { __typename?: 'UserAuthenticationWithPasswordFailure', message: string } | { __typename?: 'UserAuthenticationWithPasswordSuccess', sessionToken: string, item: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, role?: UserRoleType | null } } | null };
 
 export type DeleteBidMutationVariables = Exact<{
   where: BidWhereUniqueInput;
@@ -3129,6 +3115,20 @@ export type LocationsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type LocationsQuery = { __typename?: 'Query', locations?: Array<{ __typename?: 'Location', name?: string | null, id: string, country?: string | null, state?: { __typename?: 'State', name?: string | null } | null }> | null };
 
+export type AddLocationMutationVariables = Exact<{
+  data: LocationCreateInput;
+}>;
+
+
+export type AddLocationMutation = { __typename?: 'Mutation', createLocation?: { __typename?: 'Location', city?: string | null, name?: string | null, country?: string | null, state?: { __typename?: 'State', name?: string | null, id: string } | null } | null };
+
+export type DeleteLocationMutationVariables = Exact<{
+  where: LocationWhereUniqueInput;
+}>;
+
+
+export type DeleteLocationMutation = { __typename?: 'Mutation', deleteLocation?: { __typename?: 'Location', id: string, name?: string | null } | null };
+
 export type CreatePaymentMutationVariables = Exact<{
   data: PaymentCreateInput;
 }>;
@@ -3180,6 +3180,20 @@ export type SellersItemQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type SellersItemQuery = { __typename?: 'Query', sellers?: Array<{ __typename?: 'Seller', name?: string | null, id: string, bannedUsersCount?: number | null, eventsCount?: number | null }> | null };
 
+export type CreateSellerMutationVariables = Exact<{
+  data: SellerCreateInput;
+}>;
+
+
+export type CreateSellerMutation = { __typename?: 'Mutation', createSeller?: { __typename?: 'Seller', id: string, name?: string | null } | null };
+
+export type DeleteSellerMutationVariables = Exact<{
+  where: SellerWhereUniqueInput;
+}>;
+
+
+export type DeleteSellerMutation = { __typename?: 'Mutation', deleteSeller?: { __typename?: 'Seller', id: string, name?: string | null } | null };
+
 export type DeleteStateMutationVariables = Exact<{
   where: StateWhereUniqueInput;
 }>;
@@ -3191,6 +3205,11 @@ export type StatesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type StatesQuery = { __typename?: 'Query', states?: Array<{ __typename?: 'State', name?: string | null, id: string, users?: Array<{ __typename?: 'User', id: string, firstName?: string | null }> | null, locations?: Array<{ __typename?: 'Location', name?: string | null }> | null }> | null };
+
+export type UserauthenticationQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type UserauthenticationQuery = { __typename?: 'Query', authenticatedItem?: { __typename?: 'User', username?: string | null, role?: UserRoleType | null } | null };
 
 export type UserQueryVariables = Exact<{
   where: UserWhereUniqueInput;
@@ -3367,79 +3386,6 @@ export function useCreateEventMutation(baseOptions?: Apollo.MutationHookOptions<
 export type CreateEventMutationHookResult = ReturnType<typeof useCreateEventMutation>;
 export type CreateEventMutationResult = Apollo.MutationResult<CreateEventMutation>;
 export type CreateEventMutationOptions = Apollo.BaseMutationOptions<CreateEventMutation, CreateEventMutationVariables>;
-export const AddLocationDocument = gql`
-    mutation addLocation($data: LocationCreateInput!) {
-  createLocation(data: $data) {
-    city
-    name
-    country
-    state {
-      name
-      id
-    }
-  }
-}
-    `;
-export type AddLocationMutationFn = Apollo.MutationFunction<AddLocationMutation, AddLocationMutationVariables>;
-
-/**
- * __useAddLocationMutation__
- *
- * To run a mutation, you first call `useAddLocationMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAddLocationMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [addLocationMutation, { data, loading, error }] = useAddLocationMutation({
- *   variables: {
- *      data: // value for 'data'
- *   },
- * });
- */
-export function useAddLocationMutation(baseOptions?: Apollo.MutationHookOptions<AddLocationMutation, AddLocationMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<AddLocationMutation, AddLocationMutationVariables>(AddLocationDocument, options);
-      }
-export type AddLocationMutationHookResult = ReturnType<typeof useAddLocationMutation>;
-export type AddLocationMutationResult = Apollo.MutationResult<AddLocationMutation>;
-export type AddLocationMutationOptions = Apollo.BaseMutationOptions<AddLocationMutation, AddLocationMutationVariables>;
-export const CreateSellerDocument = gql`
-    mutation CreateSeller($data: SellerCreateInput!) {
-  createSeller(data: $data) {
-    id
-    name
-  }
-}
-    `;
-export type CreateSellerMutationFn = Apollo.MutationFunction<CreateSellerMutation, CreateSellerMutationVariables>;
-
-/**
- * __useCreateSellerMutation__
- *
- * To run a mutation, you first call `useCreateSellerMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateSellerMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createSellerMutation, { data, loading, error }] = useCreateSellerMutation({
- *   variables: {
- *      data: // value for 'data'
- *   },
- * });
- */
-export function useCreateSellerMutation(baseOptions?: Apollo.MutationHookOptions<CreateSellerMutation, CreateSellerMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateSellerMutation, CreateSellerMutationVariables>(CreateSellerDocument, options);
-      }
-export type CreateSellerMutationHookResult = ReturnType<typeof useCreateSellerMutation>;
-export type CreateSellerMutationResult = Apollo.MutationResult<CreateSellerMutation>;
-export type CreateSellerMutationOptions = Apollo.BaseMutationOptions<CreateSellerMutation, CreateSellerMutationVariables>;
 export const CreateStateDocument = gql`
     mutation CreateState($data: StateCreateInput!) {
   createState(data: $data) {
@@ -3545,6 +3491,12 @@ export const LoginDocument = gql`
   authenticateUserWithPassword(mobile: $mobile, password: $password) {
     ... on UserAuthenticationWithPasswordSuccess {
       sessionToken
+      item {
+        id
+        firstName
+        lastName
+        role
+      }
     }
     ... on UserAuthenticationWithPasswordFailure {
       message
@@ -4467,6 +4419,79 @@ export function useLocationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type LocationsQueryHookResult = ReturnType<typeof useLocationsQuery>;
 export type LocationsLazyQueryHookResult = ReturnType<typeof useLocationsLazyQuery>;
 export type LocationsQueryResult = Apollo.QueryResult<LocationsQuery, LocationsQueryVariables>;
+export const AddLocationDocument = gql`
+    mutation addLocation($data: LocationCreateInput!) {
+  createLocation(data: $data) {
+    city
+    name
+    country
+    state {
+      name
+      id
+    }
+  }
+}
+    `;
+export type AddLocationMutationFn = Apollo.MutationFunction<AddLocationMutation, AddLocationMutationVariables>;
+
+/**
+ * __useAddLocationMutation__
+ *
+ * To run a mutation, you first call `useAddLocationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddLocationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addLocationMutation, { data, loading, error }] = useAddLocationMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useAddLocationMutation(baseOptions?: Apollo.MutationHookOptions<AddLocationMutation, AddLocationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddLocationMutation, AddLocationMutationVariables>(AddLocationDocument, options);
+      }
+export type AddLocationMutationHookResult = ReturnType<typeof useAddLocationMutation>;
+export type AddLocationMutationResult = Apollo.MutationResult<AddLocationMutation>;
+export type AddLocationMutationOptions = Apollo.BaseMutationOptions<AddLocationMutation, AddLocationMutationVariables>;
+export const DeleteLocationDocument = gql`
+    mutation DeleteLocation($where: LocationWhereUniqueInput!) {
+  deleteLocation(where: $where) {
+    id
+    name
+  }
+}
+    `;
+export type DeleteLocationMutationFn = Apollo.MutationFunction<DeleteLocationMutation, DeleteLocationMutationVariables>;
+
+/**
+ * __useDeleteLocationMutation__
+ *
+ * To run a mutation, you first call `useDeleteLocationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteLocationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteLocationMutation, { data, loading, error }] = useDeleteLocationMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useDeleteLocationMutation(baseOptions?: Apollo.MutationHookOptions<DeleteLocationMutation, DeleteLocationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteLocationMutation, DeleteLocationMutationVariables>(DeleteLocationDocument, options);
+      }
+export type DeleteLocationMutationHookResult = ReturnType<typeof useDeleteLocationMutation>;
+export type DeleteLocationMutationResult = Apollo.MutationResult<DeleteLocationMutation>;
+export type DeleteLocationMutationOptions = Apollo.BaseMutationOptions<DeleteLocationMutation, DeleteLocationMutationVariables>;
 export const CreatePaymentDocument = gql`
     mutation CreatePayment($data: PaymentCreateInput!) {
   createPayment(data: $data) {
@@ -4824,6 +4849,74 @@ export function useSellersItemLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type SellersItemQueryHookResult = ReturnType<typeof useSellersItemQuery>;
 export type SellersItemLazyQueryHookResult = ReturnType<typeof useSellersItemLazyQuery>;
 export type SellersItemQueryResult = Apollo.QueryResult<SellersItemQuery, SellersItemQueryVariables>;
+export const CreateSellerDocument = gql`
+    mutation CreateSeller($data: SellerCreateInput!) {
+  createSeller(data: $data) {
+    id
+    name
+  }
+}
+    `;
+export type CreateSellerMutationFn = Apollo.MutationFunction<CreateSellerMutation, CreateSellerMutationVariables>;
+
+/**
+ * __useCreateSellerMutation__
+ *
+ * To run a mutation, you first call `useCreateSellerMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSellerMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSellerMutation, { data, loading, error }] = useCreateSellerMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateSellerMutation(baseOptions?: Apollo.MutationHookOptions<CreateSellerMutation, CreateSellerMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateSellerMutation, CreateSellerMutationVariables>(CreateSellerDocument, options);
+      }
+export type CreateSellerMutationHookResult = ReturnType<typeof useCreateSellerMutation>;
+export type CreateSellerMutationResult = Apollo.MutationResult<CreateSellerMutation>;
+export type CreateSellerMutationOptions = Apollo.BaseMutationOptions<CreateSellerMutation, CreateSellerMutationVariables>;
+export const DeleteSellerDocument = gql`
+    mutation DeleteSeller($where: SellerWhereUniqueInput!) {
+  deleteSeller(where: $where) {
+    id
+    name
+  }
+}
+    `;
+export type DeleteSellerMutationFn = Apollo.MutationFunction<DeleteSellerMutation, DeleteSellerMutationVariables>;
+
+/**
+ * __useDeleteSellerMutation__
+ *
+ * To run a mutation, you first call `useDeleteSellerMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteSellerMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteSellerMutation, { data, loading, error }] = useDeleteSellerMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useDeleteSellerMutation(baseOptions?: Apollo.MutationHookOptions<DeleteSellerMutation, DeleteSellerMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteSellerMutation, DeleteSellerMutationVariables>(DeleteSellerDocument, options);
+      }
+export type DeleteSellerMutationHookResult = ReturnType<typeof useDeleteSellerMutation>;
+export type DeleteSellerMutationResult = Apollo.MutationResult<DeleteSellerMutation>;
+export type DeleteSellerMutationOptions = Apollo.BaseMutationOptions<DeleteSellerMutation, DeleteSellerMutationVariables>;
 export const DeleteStateDocument = gql`
     mutation DeleteState($where: StateWhereUniqueInput!) {
   deleteState(where: $where) {
@@ -4900,6 +4993,43 @@ export function useStatesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Sta
 export type StatesQueryHookResult = ReturnType<typeof useStatesQuery>;
 export type StatesLazyQueryHookResult = ReturnType<typeof useStatesLazyQuery>;
 export type StatesQueryResult = Apollo.QueryResult<StatesQuery, StatesQueryVariables>;
+export const UserauthenticationDocument = gql`
+    query Userauthentication {
+  authenticatedItem {
+    ... on User {
+      username
+      role
+    }
+  }
+}
+    `;
+
+/**
+ * __useUserauthenticationQuery__
+ *
+ * To run a query within a React component, call `useUserauthenticationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserauthenticationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserauthenticationQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useUserauthenticationQuery(baseOptions?: Apollo.QueryHookOptions<UserauthenticationQuery, UserauthenticationQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UserauthenticationQuery, UserauthenticationQueryVariables>(UserauthenticationDocument, options);
+      }
+export function useUserauthenticationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserauthenticationQuery, UserauthenticationQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UserauthenticationQuery, UserauthenticationQueryVariables>(UserauthenticationDocument, options);
+        }
+export type UserauthenticationQueryHookResult = ReturnType<typeof useUserauthenticationQuery>;
+export type UserauthenticationLazyQueryHookResult = ReturnType<typeof useUserauthenticationLazyQuery>;
+export type UserauthenticationQueryResult = Apollo.QueryResult<UserauthenticationQuery, UserauthenticationQueryVariables>;
 export const UserDocument = gql`
     query User($where: UserWhereUniqueInput!) {
   user(where: $where) {

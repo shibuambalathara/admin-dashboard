@@ -13,12 +13,12 @@ const Login = () => {
   const [loginData, {data, loading, error }] = useLoginMutation();
   const onSubmit = async (dataOnSubmit) => {
     try {
-      const result = await loginData({
-        variables: { mobile: dataOnSubmit.userName, password: dataOnSubmit.password },
+      const result = await loginData({ variables: { mobile: dataOnSubmit.userName, password: dataOnSubmit.password },
+
       });
       
       
-    
+      console.log(result,"result");
 if(data.authenticateUserWithPassword.message){
 
     
