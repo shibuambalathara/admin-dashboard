@@ -33,7 +33,7 @@ navigate(`/view-user/${userId}`)
           {
             Header: "User Details",
             Cell: ({ row }) => (
-              <button className="btn btn-info w-24" onClick={()=>handleUserDetails(row.original.user.id) }>{row.original.user.firstName} {row.original.user.lastName}</button>
+              <button className="btn btn-info w-24" onClick={()=>handleUserDetails(row.original.user.id) }>{row.original?.user?.firstName} {row.original?.user?.lastName}</button>
             )
           },
           {

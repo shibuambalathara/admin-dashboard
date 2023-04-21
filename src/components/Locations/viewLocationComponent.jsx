@@ -2,22 +2,57 @@ import { Button } from "@material-tailwind/react";
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTable, usePagination, useGlobalFilter } from "react-table";
-import { useEventTableQuery } from "../../utils/graphql";
+import { useDeleteLocationMutation, useEventTableQuery } from "../../utils/graphql";
 import SearchUser from "../users/searchUser";
 import { useLocationsQuery } from "../../utils/graphql";
+import Swal from "sweetalert2";
 
 const ViewLocationComponent = () => {
-  const [userData, setUserData] = useState([]);
-  const navigate = useNavigate();
-  const { data, loading, error } = useLocationsQuery();
+  
+ 
+  const { data, loading, error,refetch } = useLocationsQuery();
+  const [deleteLOcation]=useDeleteLocationMutation()
 
   console.log("this is the data from view location",data);
+  const handleDelete=async(id)=>{
+
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'Cancel',
+    });
+
+    if (result.isConfirmed) {
+      const deleteResult = await deleteLOcation({
+        variables: { where: { id } },
+      });
+  
+      if (deleteResult?.data?.deleteLocation?.id) {
+        await Swal.fire({
+          title: `The Location ${deleteResult?.data?.deleteLocation?.name} deleted Successfully`,
+          icon: 'success',
+        });
+       
+        refetch()
+      }
+    }
+  
+  }
 
   const columns = useMemo(
     () => [
       { Header: "City", accessor: "name" }, 
       { Header: "State", accessor: (state) => state.state.name },
       { Header: "Country", accessor: "country" },
+        
+      {
+        Header: "Delete",
+        Cell: ({ row }) => (
+          <button className="btn btn-error" onClick={()=>handleDelete(row.original.id) }>Delete</button>
+        )
+      },
     ],
     []
   );

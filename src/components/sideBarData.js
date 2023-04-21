@@ -16,7 +16,7 @@ const Sidebar_items=[
     path:"payment"
   },
   {
-    name:"Emd Updates",
+    name:"Emds",
     path:"emd"
   },
   {
