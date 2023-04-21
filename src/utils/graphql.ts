@@ -2966,13 +2966,6 @@ export type CreateEventMutationVariables = Exact<{
 
 export type CreateEventMutation = { __typename?: 'Mutation', createEvent?: { __typename?: 'Event', id: string, eventCategory?: string | null, startDate?: any | null, endDate?: any | null, noOfBids?: number | null, status?: EventStatusType | null, termsAndConditions?: string | null, bidLock?: EventBidLockType | null, isSpecialEvent?: boolean | null, extraTime?: number | null, extraTimeTrigerIn?: number | null, vehicleLiveTimeIn?: number | null, gapInBetweenVehicles?: number | null, seller?: { __typename?: 'Seller', name?: string | null, id: string } | null, eventType?: Array<{ __typename?: 'EventType', name?: string | null, id: string }> | null, location?: { __typename?: 'Location', city?: string | null, id: string } | null, downloadableFile?: { __typename?: 'FileFieldOutput', url: string } | null } | null };
 
-export type CreateStateMutationVariables = Exact<{
-  data: StateCreateInput;
-}>;
-
-
-export type CreateStateMutation = { __typename?: 'Mutation', createState?: { __typename?: 'State', name?: string | null } | null };
-
 export type CreateUserMutationVariables = Exact<{
   data: UserCreateInput;
 }>;
@@ -2988,12 +2981,10 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = { __typename?: 'Mutation', authenticateUserWithPassword?: { __typename?: 'UserAuthenticationWithPasswordFailure', message: string } | { __typename?: 'UserAuthenticationWithPasswordSuccess', sessionToken: string, item: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, role?: UserRoleType | null } } | null };
 
-export type DeleteBidMutationVariables = Exact<{
-  where: BidWhereUniqueInput;
-}>;
+export type BidsTableQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type DeleteBidMutation = { __typename?: 'Mutation', deleteBid?: { __typename?: 'Bid', id: string } | null };
+export type BidsTableQuery = { __typename?: 'Query', bids?: Array<{ __typename?: 'Bid', id: string, amount?: number | null, name?: string | null, createdAt?: any | null, updatedAt?: any | null, bidVehicle?: { __typename?: 'Vehicle', id: string, registrationNumber?: string | null } | null, user?: { __typename?: 'User', firstName?: string | null, lastName?: string | null, id: string } | null }> | null };
 
 export type BidDetailsPerVehicleQueryVariables = Exact<{
   where: VehicleWhereUniqueInput;
@@ -3002,10 +2993,12 @@ export type BidDetailsPerVehicleQueryVariables = Exact<{
 
 export type BidDetailsPerVehicleQuery = { __typename?: 'Query', vehicle?: { __typename?: 'Vehicle', registrationNumber?: string | null, currentBidAmount?: number | null, userVehicleBidsCount?: number | null, vehicleEventStatus?: VehicleEventStatus | null, watchedByCount?: number | null, userVehicleBids?: Array<{ __typename?: 'Bid', amount?: number | null, id: string, user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, mobile?: string | null } | null }> | null, currentBidUser?: { __typename?: 'User', id: string, username?: string | null, firstName?: string | null, lastName?: string | null } | null, watchedBy?: Array<{ __typename?: 'User', id: string, username?: string | null, firstName?: string | null }> | null } | null };
 
-export type BidsTableQueryVariables = Exact<{ [key: string]: never; }>;
+export type DeleteBidMutationVariables = Exact<{
+  where: BidWhereUniqueInput;
+}>;
 
 
-export type BidsTableQuery = { __typename?: 'Query', bids?: Array<{ __typename?: 'Bid', id: string, amount?: number | null, name?: string | null, createdAt?: any | null, updatedAt?: any | null, bidVehicle?: { __typename?: 'Vehicle', id: string, registrationNumber?: string | null } | null, user?: { __typename?: 'User', firstName?: string | null, lastName?: string | null, id: string } | null }> | null };
+export type DeleteBidMutation = { __typename?: 'Mutation', deleteBid?: { __typename?: 'Bid', id: string } | null };
 
 export type BuyingLimitQueryVariables = Exact<{
   where: UserWhereUniqueInput;
@@ -3045,6 +3038,13 @@ export type EmdTableQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type EmdTableQuery = { __typename?: 'Query', emdUpdates?: Array<{ __typename?: 'EmdUpdate', id: string, emdNo?: number | null, specialVehicleBuyingLimitIncrement?: number | null, vehicleBuyingLimitIncrement?: number | null, createdAt?: any | null, updatedAt?: any | null, user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null } | null, createdBy?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null } | null }> | null };
+
+export type DeleteEmdUpdateMutationVariables = Exact<{
+  where: EmdUpdateWhereUniqueInput;
+}>;
+
+
+export type DeleteEmdUpdateMutation = { __typename?: 'Mutation', deleteEmdUpdate?: { __typename?: 'EmdUpdate', id: string, emdNo?: number | null } | null };
 
 export type EmdUpdateQueryVariables = Exact<{
   where: EmdUpdateWhereUniqueInput;
@@ -3194,17 +3194,24 @@ export type DeleteSellerMutationVariables = Exact<{
 
 export type DeleteSellerMutation = { __typename?: 'Mutation', deleteSeller?: { __typename?: 'Seller', id: string, name?: string | null } | null };
 
+export type StatesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type StatesQuery = { __typename?: 'Query', states?: Array<{ __typename?: 'State', name?: string | null, id: string, users?: Array<{ __typename?: 'User', id: string, firstName?: string | null }> | null, locations?: Array<{ __typename?: 'Location', name?: string | null }> | null }> | null };
+
+export type CreateStateMutationVariables = Exact<{
+  data: StateCreateInput;
+}>;
+
+
+export type CreateStateMutation = { __typename?: 'Mutation', createState?: { __typename?: 'State', name?: string | null } | null };
+
 export type DeleteStateMutationVariables = Exact<{
   where: StateWhereUniqueInput;
 }>;
 
 
 export type DeleteStateMutation = { __typename?: 'Mutation', deleteState?: { __typename?: 'State', id: string, name?: string | null } | null };
-
-export type StatesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type StatesQuery = { __typename?: 'Query', states?: Array<{ __typename?: 'State', name?: string | null, id: string, users?: Array<{ __typename?: 'User', id: string, firstName?: string | null }> | null, locations?: Array<{ __typename?: 'Location', name?: string | null }> | null }> | null };
 
 export type UserauthenticationQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3386,39 +3393,6 @@ export function useCreateEventMutation(baseOptions?: Apollo.MutationHookOptions<
 export type CreateEventMutationHookResult = ReturnType<typeof useCreateEventMutation>;
 export type CreateEventMutationResult = Apollo.MutationResult<CreateEventMutation>;
 export type CreateEventMutationOptions = Apollo.BaseMutationOptions<CreateEventMutation, CreateEventMutationVariables>;
-export const CreateStateDocument = gql`
-    mutation CreateState($data: StateCreateInput!) {
-  createState(data: $data) {
-    name
-  }
-}
-    `;
-export type CreateStateMutationFn = Apollo.MutationFunction<CreateStateMutation, CreateStateMutationVariables>;
-
-/**
- * __useCreateStateMutation__
- *
- * To run a mutation, you first call `useCreateStateMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateStateMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createStateMutation, { data, loading, error }] = useCreateStateMutation({
- *   variables: {
- *      data: // value for 'data'
- *   },
- * });
- */
-export function useCreateStateMutation(baseOptions?: Apollo.MutationHookOptions<CreateStateMutation, CreateStateMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateStateMutation, CreateStateMutationVariables>(CreateStateDocument, options);
-      }
-export type CreateStateMutationHookResult = ReturnType<typeof useCreateStateMutation>;
-export type CreateStateMutationResult = Apollo.MutationResult<CreateStateMutation>;
-export type CreateStateMutationOptions = Apollo.BaseMutationOptions<CreateStateMutation, CreateStateMutationVariables>;
 export const CreateUserDocument = gql`
     mutation CreateUser($data: UserCreateInput!) {
   createUser(data: $data) {
@@ -3531,39 +3505,53 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
-export const DeleteBidDocument = gql`
-    mutation DeleteBid($where: BidWhereUniqueInput!) {
-  deleteBid(where: $where) {
+export const BidsTableDocument = gql`
+    query BidsTable {
+  bids {
     id
+    amount
+    name
+    createdAt
+    updatedAt
+    bidVehicle {
+      id
+      registrationNumber
+    }
+    user {
+      firstName
+      lastName
+      id
+    }
   }
 }
     `;
-export type DeleteBidMutationFn = Apollo.MutationFunction<DeleteBidMutation, DeleteBidMutationVariables>;
 
 /**
- * __useDeleteBidMutation__
+ * __useBidsTableQuery__
  *
- * To run a mutation, you first call `useDeleteBidMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteBidMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
+ * To run a query within a React component, call `useBidsTableQuery` and pass it any options that fit your needs.
+ * When your component renders, `useBidsTableQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
  *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const [deleteBidMutation, { data, loading, error }] = useDeleteBidMutation({
+ * const { data, loading, error } = useBidsTableQuery({
  *   variables: {
- *      where: // value for 'where'
  *   },
  * });
  */
-export function useDeleteBidMutation(baseOptions?: Apollo.MutationHookOptions<DeleteBidMutation, DeleteBidMutationVariables>) {
+export function useBidsTableQuery(baseOptions?: Apollo.QueryHookOptions<BidsTableQuery, BidsTableQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteBidMutation, DeleteBidMutationVariables>(DeleteBidDocument, options);
+        return Apollo.useQuery<BidsTableQuery, BidsTableQueryVariables>(BidsTableDocument, options);
       }
-export type DeleteBidMutationHookResult = ReturnType<typeof useDeleteBidMutation>;
-export type DeleteBidMutationResult = Apollo.MutationResult<DeleteBidMutation>;
-export type DeleteBidMutationOptions = Apollo.BaseMutationOptions<DeleteBidMutation, DeleteBidMutationVariables>;
+export function useBidsTableLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<BidsTableQuery, BidsTableQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<BidsTableQuery, BidsTableQueryVariables>(BidsTableDocument, options);
+        }
+export type BidsTableQueryHookResult = ReturnType<typeof useBidsTableQuery>;
+export type BidsTableLazyQueryHookResult = ReturnType<typeof useBidsTableLazyQuery>;
+export type BidsTableQueryResult = Apollo.QueryResult<BidsTableQuery, BidsTableQueryVariables>;
 export const BidDetailsPerVehicleDocument = gql`
     query BidDetailsPerVehicle($where: VehicleWhereUniqueInput!) {
   vehicle(where: $where) {
@@ -3624,53 +3612,39 @@ export function useBidDetailsPerVehicleLazyQuery(baseOptions?: Apollo.LazyQueryH
 export type BidDetailsPerVehicleQueryHookResult = ReturnType<typeof useBidDetailsPerVehicleQuery>;
 export type BidDetailsPerVehicleLazyQueryHookResult = ReturnType<typeof useBidDetailsPerVehicleLazyQuery>;
 export type BidDetailsPerVehicleQueryResult = Apollo.QueryResult<BidDetailsPerVehicleQuery, BidDetailsPerVehicleQueryVariables>;
-export const BidsTableDocument = gql`
-    query BidsTable {
-  bids {
+export const DeleteBidDocument = gql`
+    mutation DeleteBid($where: BidWhereUniqueInput!) {
+  deleteBid(where: $where) {
     id
-    amount
-    name
-    createdAt
-    updatedAt
-    bidVehicle {
-      id
-      registrationNumber
-    }
-    user {
-      firstName
-      lastName
-      id
-    }
   }
 }
     `;
+export type DeleteBidMutationFn = Apollo.MutationFunction<DeleteBidMutation, DeleteBidMutationVariables>;
 
 /**
- * __useBidsTableQuery__
+ * __useDeleteBidMutation__
  *
- * To run a query within a React component, call `useBidsTableQuery` and pass it any options that fit your needs.
- * When your component renders, `useBidsTableQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
+ * To run a mutation, you first call `useDeleteBidMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteBidMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
  *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const { data, loading, error } = useBidsTableQuery({
+ * const [deleteBidMutation, { data, loading, error }] = useDeleteBidMutation({
  *   variables: {
+ *      where: // value for 'where'
  *   },
  * });
  */
-export function useBidsTableQuery(baseOptions?: Apollo.QueryHookOptions<BidsTableQuery, BidsTableQueryVariables>) {
+export function useDeleteBidMutation(baseOptions?: Apollo.MutationHookOptions<DeleteBidMutation, DeleteBidMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<BidsTableQuery, BidsTableQueryVariables>(BidsTableDocument, options);
+        return Apollo.useMutation<DeleteBidMutation, DeleteBidMutationVariables>(DeleteBidDocument, options);
       }
-export function useBidsTableLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<BidsTableQuery, BidsTableQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<BidsTableQuery, BidsTableQueryVariables>(BidsTableDocument, options);
-        }
-export type BidsTableQueryHookResult = ReturnType<typeof useBidsTableQuery>;
-export type BidsTableLazyQueryHookResult = ReturnType<typeof useBidsTableLazyQuery>;
-export type BidsTableQueryResult = Apollo.QueryResult<BidsTableQuery, BidsTableQueryVariables>;
+export type DeleteBidMutationHookResult = ReturnType<typeof useDeleteBidMutation>;
+export type DeleteBidMutationResult = Apollo.MutationResult<DeleteBidMutation>;
+export type DeleteBidMutationOptions = Apollo.BaseMutationOptions<DeleteBidMutation, DeleteBidMutationVariables>;
 export const BuyingLimitDocument = gql`
     query buyingLimit($where: UserWhereUniqueInput!) {
   user(where: $where) {
@@ -3943,6 +3917,40 @@ export function useEmdTableLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<E
 export type EmdTableQueryHookResult = ReturnType<typeof useEmdTableQuery>;
 export type EmdTableLazyQueryHookResult = ReturnType<typeof useEmdTableLazyQuery>;
 export type EmdTableQueryResult = Apollo.QueryResult<EmdTableQuery, EmdTableQueryVariables>;
+export const DeleteEmdUpdateDocument = gql`
+    mutation DeleteEmdUpdate($where: EmdUpdateWhereUniqueInput!) {
+  deleteEmdUpdate(where: $where) {
+    id
+    emdNo
+  }
+}
+    `;
+export type DeleteEmdUpdateMutationFn = Apollo.MutationFunction<DeleteEmdUpdateMutation, DeleteEmdUpdateMutationVariables>;
+
+/**
+ * __useDeleteEmdUpdateMutation__
+ *
+ * To run a mutation, you first call `useDeleteEmdUpdateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteEmdUpdateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteEmdUpdateMutation, { data, loading, error }] = useDeleteEmdUpdateMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useDeleteEmdUpdateMutation(baseOptions?: Apollo.MutationHookOptions<DeleteEmdUpdateMutation, DeleteEmdUpdateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteEmdUpdateMutation, DeleteEmdUpdateMutationVariables>(DeleteEmdUpdateDocument, options);
+      }
+export type DeleteEmdUpdateMutationHookResult = ReturnType<typeof useDeleteEmdUpdateMutation>;
+export type DeleteEmdUpdateMutationResult = Apollo.MutationResult<DeleteEmdUpdateMutation>;
+export type DeleteEmdUpdateMutationOptions = Apollo.BaseMutationOptions<DeleteEmdUpdateMutation, DeleteEmdUpdateMutationVariables>;
 export const EmdUpdateDocument = gql`
     query EmdUpdate($where: EmdUpdateWhereUniqueInput!) {
   emdUpdate(where: $where) {
@@ -4917,40 +4925,6 @@ export function useDeleteSellerMutation(baseOptions?: Apollo.MutationHookOptions
 export type DeleteSellerMutationHookResult = ReturnType<typeof useDeleteSellerMutation>;
 export type DeleteSellerMutationResult = Apollo.MutationResult<DeleteSellerMutation>;
 export type DeleteSellerMutationOptions = Apollo.BaseMutationOptions<DeleteSellerMutation, DeleteSellerMutationVariables>;
-export const DeleteStateDocument = gql`
-    mutation DeleteState($where: StateWhereUniqueInput!) {
-  deleteState(where: $where) {
-    id
-    name
-  }
-}
-    `;
-export type DeleteStateMutationFn = Apollo.MutationFunction<DeleteStateMutation, DeleteStateMutationVariables>;
-
-/**
- * __useDeleteStateMutation__
- *
- * To run a mutation, you first call `useDeleteStateMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteStateMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteStateMutation, { data, loading, error }] = useDeleteStateMutation({
- *   variables: {
- *      where: // value for 'where'
- *   },
- * });
- */
-export function useDeleteStateMutation(baseOptions?: Apollo.MutationHookOptions<DeleteStateMutation, DeleteStateMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteStateMutation, DeleteStateMutationVariables>(DeleteStateDocument, options);
-      }
-export type DeleteStateMutationHookResult = ReturnType<typeof useDeleteStateMutation>;
-export type DeleteStateMutationResult = Apollo.MutationResult<DeleteStateMutation>;
-export type DeleteStateMutationOptions = Apollo.BaseMutationOptions<DeleteStateMutation, DeleteStateMutationVariables>;
 export const StatesDocument = gql`
     query states {
   states {
@@ -4993,6 +4967,73 @@ export function useStatesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Sta
 export type StatesQueryHookResult = ReturnType<typeof useStatesQuery>;
 export type StatesLazyQueryHookResult = ReturnType<typeof useStatesLazyQuery>;
 export type StatesQueryResult = Apollo.QueryResult<StatesQuery, StatesQueryVariables>;
+export const CreateStateDocument = gql`
+    mutation CreateState($data: StateCreateInput!) {
+  createState(data: $data) {
+    name
+  }
+}
+    `;
+export type CreateStateMutationFn = Apollo.MutationFunction<CreateStateMutation, CreateStateMutationVariables>;
+
+/**
+ * __useCreateStateMutation__
+ *
+ * To run a mutation, you first call `useCreateStateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateStateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createStateMutation, { data, loading, error }] = useCreateStateMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateStateMutation(baseOptions?: Apollo.MutationHookOptions<CreateStateMutation, CreateStateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateStateMutation, CreateStateMutationVariables>(CreateStateDocument, options);
+      }
+export type CreateStateMutationHookResult = ReturnType<typeof useCreateStateMutation>;
+export type CreateStateMutationResult = Apollo.MutationResult<CreateStateMutation>;
+export type CreateStateMutationOptions = Apollo.BaseMutationOptions<CreateStateMutation, CreateStateMutationVariables>;
+export const DeleteStateDocument = gql`
+    mutation DeleteState($where: StateWhereUniqueInput!) {
+  deleteState(where: $where) {
+    id
+    name
+  }
+}
+    `;
+export type DeleteStateMutationFn = Apollo.MutationFunction<DeleteStateMutation, DeleteStateMutationVariables>;
+
+/**
+ * __useDeleteStateMutation__
+ *
+ * To run a mutation, you first call `useDeleteStateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteStateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteStateMutation, { data, loading, error }] = useDeleteStateMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useDeleteStateMutation(baseOptions?: Apollo.MutationHookOptions<DeleteStateMutation, DeleteStateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteStateMutation, DeleteStateMutationVariables>(DeleteStateDocument, options);
+      }
+export type DeleteStateMutationHookResult = ReturnType<typeof useDeleteStateMutation>;
+export type DeleteStateMutationResult = Apollo.MutationResult<DeleteStateMutation>;
+export type DeleteStateMutationOptions = Apollo.BaseMutationOptions<DeleteStateMutation, DeleteStateMutationVariables>;
 export const UserauthenticationDocument = gql`
     query Userauthentication {
   authenticatedItem {
