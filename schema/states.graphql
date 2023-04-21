@@ -11,3 +11,16 @@ query states {
     }
   }
 }
+
+
+mutation CreateState($data: StateCreateInput!) {
+    createState(data: $data) {
+      name
+    }
+  }
+  mutation DeleteState($where: StateWhereUniqueInput!) {
+  deleteState(where: $where) {
+  id  
+  name
+  }
+}

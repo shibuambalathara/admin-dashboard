@@ -7,26 +7,27 @@ import {useNavigate, useParams} from 'react-router-dom'
 import { useTable,usePagination,useGlobalFilter } from "react-table"
 import {useEmdTableQuery, usePaymentDetailsQuery} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
+import format from 'date-fns/format'
 
 
 const EmdTablePerPayment = () => {
 const{id}=useParams()
     const {data,loading,error}=usePaymentDetailsQuery({variables:{where:{id}}})
 
-    const navigate=useNavigate()
+    // const navigate=useNavigate()
     
 console.log("emd table",data)
 
-const handleUser=(userId)=>{
-navigate(`/view-user/${userId}`)
-}
+// const handleUser=(userId)=>{
+// navigate(`/view-user/${userId}`)
+// }
 
 
     const columns = useMemo(
         () => [
           { Header: "Emd Number", accessor: "emdNo" },
           { Header: "Vehicle buying limit", accessor: "vehicleBuyingLimitIncrement" },
-          { Header: "Created At ", accessor:"createdAt"  },
+          { Header: "Created At ", accessor: ({createdAt})=>{return format(new Date( createdAt),`dd/MM/yy, HH:mm`)} },
          
           { Header: "Created By ", accessor:"createdBy.firstName"  },
          
