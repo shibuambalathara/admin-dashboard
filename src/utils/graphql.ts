@@ -2991,7 +2991,7 @@ export type BidDetailsPerVehicleQueryVariables = Exact<{
 }>;
 
 
-export type BidDetailsPerVehicleQuery = { __typename?: 'Query', vehicle?: { __typename?: 'Vehicle', registrationNumber?: string | null, currentBidAmount?: number | null, userVehicleBidsCount?: number | null, vehicleEventStatus?: VehicleEventStatus | null, watchedByCount?: number | null, userVehicleBids?: Array<{ __typename?: 'Bid', amount?: number | null, id: string, user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, mobile?: string | null } | null }> | null, currentBidUser?: { __typename?: 'User', id: string, username?: string | null, firstName?: string | null, lastName?: string | null } | null, watchedBy?: Array<{ __typename?: 'User', id: string, username?: string | null, firstName?: string | null }> | null } | null };
+export type BidDetailsPerVehicleQuery = { __typename?: 'Query', vehicle?: { __typename?: 'Vehicle', registrationNumber?: string | null, currentBidAmount?: number | null, userVehicleBidsCount?: number | null, vehicleEventStatus?: VehicleEventStatus | null, watchedByCount?: number | null, userVehicleBids?: Array<{ __typename?: 'Bid', amount?: number | null, id: string, createdAt?: any | null, user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, mobile?: string | null } | null }> | null, currentBidUser?: { __typename?: 'User', id: string, username?: string | null, firstName?: string | null, lastName?: string | null } | null, watchedBy?: Array<{ __typename?: 'User', id: string, username?: string | null, firstName?: string | null }> | null } | null };
 
 export type DeleteBidMutationVariables = Exact<{
   where: BidWhereUniqueInput;
@@ -3236,7 +3236,7 @@ export type EditUserMutation = { __typename?: 'Mutation', updateUser?: { __typen
 export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', firstName?: string | null, lastName?: string | null, email?: string | null, mobile?: string | null, status?: UserStatusType | null, role?: UserRoleType | null, idNo?: number | null, id: string, pancardNo?: string | null, activeBidsCount?: number | null, currentVehicleBuyingLimit?: { __typename?: 'vehicleBuyingLimits', vehicleBuyingLimit?: number | null } | null }> | null };
+export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', firstName?: string | null, lastName?: string | null, email?: string | null, mobile?: string | null, status?: UserStatusType | null, state?: string | null, role?: UserRoleType | null, idNo?: number | null, id: string, pancardNo?: string | null, activeBidsCount?: number | null, currentVehicleBuyingLimit?: { __typename?: 'vehicleBuyingLimits', vehicleBuyingLimit?: number | null } | null }> | null };
 
 export type CreateVehicleMutationVariables = Exact<{
   data: VehicleCreateInput;
@@ -3559,6 +3559,7 @@ export const BidDetailsPerVehicleDocument = gql`
     userVehicleBids {
       amount
       id
+      createdAt
       user {
         id
         firstName
@@ -5256,6 +5257,7 @@ export const UsersDocument = gql`
     email
     mobile
     status
+    state
     role
     idNo
     id
