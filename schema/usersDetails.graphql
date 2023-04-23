@@ -5,6 +5,7 @@ query Users {
     email
     mobile
     status
+    state
     role
     idNo
     id

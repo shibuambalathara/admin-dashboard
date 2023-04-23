@@ -170,16 +170,16 @@ const AddUser = () => {
                  
               </div> */}
               <div className="flex flex-col  w-1/3">
-                <label htmlFor="">Confirm Password</label>
+                <label htmlFor=""> Password</label>
                 <input
                   type="text"
                   className="p-3 input input-bordered input-secondary w-full"
-                  {...register("confirmPassword", {})}
+                  {...register("confirmPassword", {minLength:8})}
                 ></input>
                 <p className="text-red-500">
                   {" "}
                   {errors.confirmPassword && (
-                    <span>Confirm password required</span>
+                    <span>Confirm password required & minimum 8 charators required</span>
                   )}
                 </p>
               </div>
