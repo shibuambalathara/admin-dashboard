@@ -48,8 +48,8 @@ console.log(data,"data")
           { Header: "seller Name", accessor: "seller.name" },
           { Header: "Location", accessor: "location.name" },
           { Header: "Event Category ", accessor: "eventCategory" },
-          { Header: "Start Date ", accessor: ({startDate})=>{return format(new Date (startDate),`dd/MM/yy, HH:mm:ss`)} },
-          { Header: "End Date ", accessor: ({endDate})=>{return format(new Date (endDate),`dd/MM/yy, HH:mm:ss`)} },
+           { Header: "Start Date ", accessor: ({startDate})=>{return format(new Date( startDate),`dd/MM/yy, HH:mm`)} },
+          { Header: "End Date ", accessor: ({endDate})=>{return format(new Date (endDate),`dd/MM/yy, HH:mm`)} },
           { Header: "Status ", accessor: "status" }, 
           { Header: "Number Of Vehicles", accessor: "vehiclesCount" },
         

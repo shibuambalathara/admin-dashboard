@@ -1,5 +1,0 @@
-mutation DeleteBid($where: BidWhereUniqueInput!) {
-  deleteBid(where: $where) {
-    id
-  }
-}

@@ -1,0 +1,22 @@
+query SellersItem {
+ sellers {
+   name
+   id
+   bannedUsersCount
+   eventsCount
+ }
+}
+
+mutation CreateSeller($data: SellerCreateInput!) {
+  createSeller(data: $data) {
+    id
+    name
+  }
+}
+
+mutation DeleteSeller($where: SellerWhereUniqueInput!) {
+  deleteSeller(where: $where) {
+  id
+    name
+  }
+}

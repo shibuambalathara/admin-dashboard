@@ -40,7 +40,7 @@ console.log(data,"data")
    businessName:dataOnSubmit?.bussiness ,
    pancardNo:dataOnSubmit?.pancardNumber,
     role:dataOnSubmit?.role, 
-    vehicleBuyingLimit:+dataOnSubmit?.buyingLimitCount,
+   // vehicleBuyingLimit:+dataOnSubmit?.buyingLimitCount,
      
     
   //    password:dataOnSubmit?.confirmPassword,
@@ -212,13 +212,13 @@ console.log(data,"data")
           <div className="flex flex-col w-1/3 ">
               <label htmlFor="">Current Buying Limit </label>
               <input
-                type="number" 
+                type="number" disabled
                 defaultValue={data?.user?.currentVehicleBuyingLimit?.vehicleBuyingLimit}
                 className="input input-bordered input-secondary w-full "
-                {...register("buyingLimitCount", {
-                  required: true,
+                // {...register("buyingLimitCount", {
+                 
                 
-                })}
+                // })}
               ></input>
               <p className="text-red-500">
                 {" "}

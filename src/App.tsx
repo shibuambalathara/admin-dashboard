@@ -47,7 +47,7 @@ function App() {
     <div>
       <Router>
         <Header />
-        <div className="flex w-screen ">
+        <div className="flex w-screen  ">
           <Sidebar />
           <Routes>
             <Route path="login" element={<LoginPage />} />

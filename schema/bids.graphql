@@ -18,3 +18,44 @@ query BidsTable {
 
 }
 }
+
+
+query BidDetailsPerVehicle($where: VehicleWhereUniqueInput!) {
+  vehicle(where: $where) {
+    registrationNumber
+    userVehicleBids {
+    amount
+    id
+    createdAt
+  
+      user {
+      id
+      firstName
+      lastName
+      mobile  
+      }
+    }
+    
+    currentBidAmount
+    currentBidUser {
+    id  
+    username
+    firstName
+    lastName
+    }
+    userVehicleBidsCount
+    vehicleEventStatus
+    watchedByCount
+    watchedBy {
+    id
+    username
+    firstName  
+    }
+  }
+}
+
+mutation DeleteBid($where: BidWhereUniqueInput!) {
+  deleteBid(where: $where) {
+    id
+  }
+}

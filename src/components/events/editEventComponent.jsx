@@ -11,9 +11,11 @@ import { ShowPopup } from '../alerts/popUps';
 
 const EditEventComponent =() => {
 const[startDatedata,setStartDate]=useState('')
+const[isoStartDate,setIsoStartDate]=useState()
 
 
 const[endDatedata,setEndDate]=useState('')
+const[isoEndDatedata,setIsoEndDate]=useState('')
 
  const {id}=useParams()
  
@@ -37,7 +39,7 @@ const minutes = String(dateObj.getMinutes()).padStart(2, '0');
 
 const formattedString = `${year}-${month}-${day}T${hours}:${minutes}`;
 setStartDate(formattedString)
-
+setIsoStartDate(data?.event?.startDate)
 
 
 }
@@ -52,10 +54,20 @@ if(data?.event?.endDate){
   const formattedString = `${year}-${month}-${day}T${hours}:${minutes}`;
   
   setEndDate(formattedString)
+  setIsoEndDate(data?.event?.endDate)
 }
 },[data])
 
-
+const handleStartDateToIso=(date)=>{
+  console.log(date,"return data")
+  setIsoStartDate( new Date(date).toISOString())
+ 
+ }
+ const handleEndDateToIso=(date)=>{
+  console.log(date,"return data")
+  setIsoEndDate( new Date(date).toISOString())
+ 
+ }
 
 
 
@@ -67,8 +79,8 @@ if(data?.event?.endDate){
 
     const eventData={
       eventCategory:dataOnSubmit?.eventCategory,  
-      startDate:await new Date(dataOnSubmit?.startDate).toISOString(),
-      endDate:await new Date(dataOnSubmit?.endDate).toISOString(),
+      startDate:isoStartDate,
+      endDate:isoEndDatedata,
       noOfBids:+dataOnSubmit?.noOfBids,
       seller:{connect:{id:dataOnSubmit?.sellerName ||""}},
      
@@ -117,7 +129,9 @@ if(data?.event?.endDate){
 
 
  if(loading ||location.loading||sellersItem.loading|| eventType.loading) return<p>Loading........</p>
- if(error) return<p>{error}</p>
+ if(error) {
+  ShowPopup("Failed !", `${error.message}!`, "Error", 5000, true);
+ }
 
   return (
     <div className="max-w-7xl mx-auto h-fit  my-10 bg-slate-100 ">
@@ -159,8 +173,8 @@ if(data?.event?.endDate){
                   <input
                     type="datetime-local"
                     className="btn btn-outline"
-                 defaultValue={startDatedata}   
-                     {...register("startDate",{})}
+                 defaultValue={startDatedata}  onChange={(event) => handleStartDateToIso(event.target.value)} 
+                    //  {...register("startDate",{})}
                   />
  <p className="text-red-500"> {errors.startDate&& <span>Start date and time required</span>}</p> 
                  
@@ -174,8 +188,8 @@ if(data?.event?.endDate){
                     className="btn btn-outline "
                     placeholder="mm//dd/yy"
                     defaultValue={endDatedata}
-                    // onChange={(event) => handleEndDateToIso(event.target.value)}
-                     {...register("endDate",{})}
+                     onChange={(event) => handleEndDateToIso(event.target.value)}
+                // {...register("endDate",{})}
                   />
                
                   

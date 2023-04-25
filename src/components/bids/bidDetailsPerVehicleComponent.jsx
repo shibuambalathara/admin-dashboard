@@ -16,6 +16,7 @@ const BidDetailsPerVehicleComponent = () => {
   // const [isModalOpen, setIsModalOpen] = useState(false);
     const {id}=useParams()
     const {data,loading,error,refetch}=useBidDetailsPerVehicleQuery({variables:{where:{id}}})
+    console.log(data,"bid")
     const [deleteBid]=useDeleteBidMutation()
     const navigate=useNavigate()
 
@@ -68,6 +69,7 @@ const BidDetailsPerVehicleComponent = () => {
                 { Header: "First Name", accessor: "user.firstName" },
                 { Header: "Last Name", accessor: "user.lastName" },
                 { Header: "Mobile", accessor: "user.mobile" },
+              { Header: "Created At ", accessor: ({createdAt})=>{return format(new Date( createdAt),`dd/MM/yy, HH:mm`)} },
           { Header: "Amount", accessor: "amount" },
        
                 
