@@ -23,7 +23,7 @@ const AddUser = () => {
       firstName: dataOnSubmit?.first_Name,
       lastName: dataOnSubmit?.last_Name || "",
       email: dataOnSubmit?.email || "",
-      username: dataOnSubmit?.user_Name,
+      username: "auto" + dataOnSubmit?.mobile,
       mobile: dataOnSubmit?.mobile,
       businessName: dataOnSubmit?.bussiness,
       pancardNo: dataOnSubmit?.pancardNumber,
@@ -116,7 +116,21 @@ const AddUser = () => {
                   {errors.email && <span> email required</span>}
                 </p>
               </div>
-              <div className="flex flex-col  w-1/3 ">
+              <div className="flex flex-col  w-1/3">
+                <label htmlFor=""> Password</label>
+                <input
+                  type="text"
+                  className="p-3 input input-bordered input-secondary w-full"
+                  {...register("confirmPassword", {minLength:8})}
+                ></input>
+                <p className="text-red-500">
+                  {" "}
+                  {errors.confirmPassword && (
+                    <span>Confirm password required & minimum 8 charators required</span>
+                  )}
+                </p>
+              </div>
+              {/* <div className="flex flex-col  w-1/3 ">
                 <label htmlFor="">User Name</label>
                 <input
                   type="text"
@@ -127,7 +141,7 @@ const AddUser = () => {
                   {" "}
                   {errors.user_Name && <span>User Name required</span>}
                 </p>
-              </div>
+              </div> */}
             </div>
 
             <div className="flex  justify-around">
@@ -169,20 +183,7 @@ const AddUser = () => {
                 <Select isMulti className="p-3 input input-bordered input-secondary w-full"/>
                  
               </div> */}
-              <div className="flex flex-col  w-1/3">
-                <label htmlFor="">Confirm Password</label>
-                <input
-                  type="text"
-                  className="p-3 input input-bordered input-secondary w-full"
-                  {...register("confirmPassword", {})}
-                ></input>
-                <p className="text-red-500">
-                  {" "}
-                  {errors.confirmPassword && (
-                    <span>Confirm password required</span>
-                  )}
-                </p>
-              </div>
+            
             </div>
             <div className="flex  justify-around ">
               <div className="flex flex-col  w-1/3">

@@ -88,13 +88,13 @@ const HomeComonent = () => {
     <div className='text-center mt-2 lowercase '>{data?.statesCount} <span  className='uppercase'>I</span>tems</div>
     </div>
     </div>
-    <div className={hoverClass}>
+    {/* <div className={hoverClass}>
     <div onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave} className={pulseClasses}  onClick={()=>navigate('excel-uploads')}>
     <div className='text-center font-extrabold'>Execel Uploads </div>
     <div className='text-center mt-2 lowercase '>{data?.excelUploadsCount} <span  className='uppercase'>I</span>tems</div>
     </div>
-    </div>
+    </div> */}
     <div className={hoverClass}>
     <div onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave} className={pulseClasses} onClick={()=>navigate('sellers')}>

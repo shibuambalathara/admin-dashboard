@@ -2,16 +2,18 @@ import { Button } from "@material-tailwind/react";
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTable, usePagination, useGlobalFilter } from "react-table";
-import { useEventTableQuery } from "../../utils/graphql";
+import { useDeleteSellerMutation, useEventTableQuery } from "../../utils/graphql";
 import SearchUser from "../users/searchUser";
 import { useSellersItemQuery } from "../../utils/graphql";
-import AddSeller from "./addSeller";
+
+import Swal from "sweetalert2";
 
 const Table = () => {
-  const [userData, setUserData] = useState([]);
+
   const navigate = useNavigate();
 
-  const { data, loading, error } = useSellersItemQuery();
+  const { data, loading, error,refetch } = useSellersItemQuery();
+  const [removeSeller]=useDeleteSellerMutation()
 console.log(data,"sellers")
  
 const handleBannedUsers=(id)=>{
@@ -21,6 +23,32 @@ navigate(`/banned-users/${id}`)
 const handleEvents=(id)=>{
   console.log(id,"banned Users")
   navigate(`/events-seller/${id}`)
+  }
+  const handleRemove=async(id)=>{
+
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'Cancel',
+    });
+
+    if (result.isConfirmed) {
+      const deleteResult = await removeSeller({
+        variables: { where: { id } },
+      });
+  
+      if (deleteResult?.data?.deleteSeller?.id) {
+        await Swal.fire({
+          title: `The Seller ${deleteResult?.data?.deleteSeller?.name} deleted Successfully`,
+          icon: 'success',
+        });
+       
+        refetch()
+      }
+    }
+  
   }
  
 
@@ -32,13 +60,19 @@ const handleEvents=(id)=>{
       {
         Header: "Banned Users ",
         Cell: ({ row }) => (
-          <button className="btn btn-info" onClick={() => handleBannedUsers(row.original?.id)}>{row.original?.bannedUsersCount}</button>
+          <button className="btn btn-primary" onClick={() => handleBannedUsers(row.original?.id)}>{row.original?.bannedUsersCount}</button>
         )
       },
       {
         Header: "View Events",
         Cell: ({ row }) => (
           <button className="btn btn-info" onClick={() => handleEvents(row.original?.id)}>View</button>
+        )
+      },
+      {
+        Header: "Remove Seller",
+        Cell: ({ row }) => (
+          <button className="btn btn-error" onClick={() => handleRemove(row.original?.id)}>Remove</button>
         )
       },
     ],
@@ -81,11 +115,11 @@ const handleEvents=(id)=>{
   if (error) return <p>Error :{error}</p>;
 
   return (
-    <div className=" w-full ">
+    <div className=" w-ful  ">
          
-      <div className="  max-w-4xl mx-auto h-fit ">
+      <div className="w-full  max-w-4xl mx-auto h-fit ">
         <div className="   flex flex-col justify-center m-auto w-full">
-          <div className="mb-2">
+          <div className="w-full mb-2">
             <div className="text-center font-extrabold my-5 text-lg w-full">
               SELLERS{" "}
             </div>
@@ -97,7 +131,7 @@ const handleEvents=(id)=>{
           </div>
 
           <table
-            className=" max-w-2xl mt-5 bg-white border-collapse border border-gray-300  table-auto divide-y  text-gray-900"
+            className="w-full  mt-5 bg-white border-collapse border border-gray-300  table-auto divide-y  text-gray-900"
             {...getTableProps()}
           >
             <thead className="bg-gray-50">

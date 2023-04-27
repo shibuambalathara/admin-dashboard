@@ -1,14 +1,15 @@
 import { Button } from '@material-tailwind/react'
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import { useTable,usePagination,useGlobalFilter } from "react-table"
 import {usePaymentOfUserQuery} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
+import format from 'date-fns/format'
 
 
 const PaymentPerUser = () => {
     const {id}=useParams()
-    const {data,loading,error}=usePaymentOfUserQuery({variables:{where:{id:id}}})
+    const {data,loading,error,refetch}=usePaymentOfUserQuery({variables:{where:{id:id}}})
     console.log(data?.user?.firstName,"dataaaaaaa")
     
     const navigate=useNavigate()
@@ -22,14 +23,15 @@ console.log(paymentId,"payment id")
 navigate(`/update-payment/${paymentId}`)
     }
 
+
     const columns = useMemo(
         () => [
            { Header: "Ref No", accessor: "refNo" },
             { Header: "Amount", accessor: "amount" },
             {Header:"Payment For",accessor:"paymentFor"},
            { Header: "Status ", accessor: "status" },
-           { Header: "Created At ", accessor: "createdAt" },
-           { Header: "Updated At ", accessor: "updatedAt" },
+           { Header: "Created At ", accessor: ({createdAt})=>{return format(new Date( createdAt),`dd/MM/yy, HH:mm`)} },
+           { Header: "Updated At ",  accessor: ({updatedAt})=>{return format(new Date( updatedAt),`dd/MM/yy, HH:mm`)} },
 
             {
             Header: "Update Payment",
@@ -37,24 +39,7 @@ navigate(`/update-payment/${paymentId}`)
               <button className="btn btn-accent" onClick={() => handlePaymentStatus(row.original?.id)}>Update Payment</button>
             )
           },
-        //   {
-        //     Header: "Change Status",
-        //     Cell: ({ row }) => (
-        //         <select defaultValue={data?.user?.payments} className="input input-bordered input-secondary  ">
-        //         <option value=""></option>
-        //   <option value="pending">Pending</option>
-        //   <option value="success">Success</option>
-        //   <option value="failed">Failed</option>
-          
-        
-        // </select>         )
-        //   },
-        //   {
-        //     Header: "Delete",
-        //     Cell: ({ row }) => (
-        //       <button className="bg-red-600 text-white p-2 rounded" onClick={() => handleDelete(row.original.id)}>Delete</button>
-        //     )
-        //   }
+    
           
         ],
         []

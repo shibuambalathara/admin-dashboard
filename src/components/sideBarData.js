@@ -16,7 +16,7 @@ const Sidebar_items=[
     path:"payment"
   },
   {
-    name:"Emd Updates",
+    name:"Emds",
     path:"emd"
   },
   {
@@ -39,10 +39,10 @@ const Sidebar_items=[
     name:"States",
     path:"states"
   },
-  {
-    name:"Excel Uploads",
-    path:"excel-uploads"
-  },
+  // {
+  //   name:"Excel Uploads",
+  //   path:"excel-uploads"
+  // },
   {
     name:"Sellers",
     path:"sellers"

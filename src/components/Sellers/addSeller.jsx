@@ -26,7 +26,7 @@ const AddSeller = () => {
   
   }
   return (
-    <div className="w-full max-w-xs relative ml-50">
+    <div className=" max-w-xs relative ml-50">
    
    <div className="absolute top-3 left-10 ">
       <label htmlFor="my-modal-3" className="btn  btn-outline btn-secondary">

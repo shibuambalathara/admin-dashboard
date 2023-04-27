@@ -7,6 +7,7 @@ import {useNavigate} from 'react-router-dom'
 import { useTable,usePagination,useGlobalFilter } from "react-table"
 import {useBidsTableQuery} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
+import format from 'date-fns/format'
 
 
 const BidsTable = () => {
@@ -25,14 +26,14 @@ navigate(`/view-user/${userId}`)
         () => [
           { Header: "Bids Name", accessor: "name" },
           { Header: "Amount", accessor: "amount" },
-          { Header: "createdAt", accessor: "createdAt" },
-          { Header: "updatedAt", accessor: "updatedAt" },
+          { Header: "createdAt",  accessor: ({createdAt})=>{return format(new Date (createdAt),`dd/MM/yy, HH:mm`)} },
+          { Header: "updatedAt", accessor: ({updatedAt})=>{return format(new Date (updatedAt),`dd/MM/yy, HH:mm`)} },
         
          
           {
             Header: "User Details",
             Cell: ({ row }) => (
-              <button className="btn btn-info w-24" onClick={()=>handleUserDetails(row.original.user.id) }>{row.original.user.firstName} {row.original.user.lastName}</button>
+              <button className="btn btn-info w-24" onClick={()=>handleUserDetails(row.original.user.id) }>{row.original?.user?.firstName} {row.original?.user?.lastName}</button>
             )
           },
           {
