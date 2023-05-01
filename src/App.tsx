@@ -40,6 +40,9 @@ import EmdUpdate from "./pages/emdUpdate";
 import EmdPerPayment from "./pages/emdPerPayment";
 import BidsPerUser from "./pages/bidsPerUser";
 import EventsPerSeller from "./pages/eventsPerSeller";
+import SellerEdit from "./pages/sellerEdit";
+import AddSeller from "./components/Sellers/add";
+
 
 
 function App() {
@@ -91,6 +94,8 @@ function App() {
               <Route path="bid-details/:id" element={<BidDetailsPerVehicle />} />
               <Route path="bids-user/:id" element={<BidsPerUser />} />
               <Route path="events-seller/:id" element={<EventsPerSeller />} />
+              <Route path="edit-seller/:id" element={<SellerEdit />} />
+              <Route path="add-seller" element={<AddSeller />} />
 
               
             </Route>

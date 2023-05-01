@@ -15,6 +15,9 @@ const AddEventComponent = () => {
   const eventType=useEventTypesQuery()
   const location=useLocationsQuery()
   const [addEvent,{data}]=useCreateEventMutation()
+  const[category,setCategory]=useState('online')
+  console.log(category,"category")
+  
 
   const { register, handleSubmit,control, watch, formState: { errors } } = useForm();
   
@@ -31,7 +34,8 @@ const AddEventComponent = () => {
   
 
     const eventData={
-      eventCategory:dataOnSubmit?.eventCategory,
+      // eventCategory:dataOnSubmit?.eventCategory,
+      eventCategory:category,
       startDate:isoDateTime,
       endDate:endDateTime,
       noOfBids:bids,
@@ -103,9 +107,11 @@ const handleOnClick=()=>{
                   <div class="h-5 w-0.5 border bg-gray-400 "></div>
                 </div>
                 <select
-                 
+                  onChange={(e) => {
+                    setCategory(e.target.value);
+                  }}
                   placeholder="select"
-                   {...register("eventCategory",{required:true})}
+                  //  {...register("eventCategory",{required:true})}
                   className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
                 >
               
@@ -308,7 +314,7 @@ const handleOnClick=()=>{
                   className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-              <div className="w-full max-w-xl">
+            {category==='open' &&  <div className="w-full max-w-xl">
                 <label htmlFor="">
                   Open Auction Vehicle Live Time in minutes
                 </label>
@@ -317,7 +323,7 @@ const handleOnClick=()=>{
                   {...register("liveTime",{})}
                   className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
+              </div>}
               <div className="w-full max-w-xl">
                 <label htmlFor="">
                   Open Auction Gap in between vehicles in seconds / Online End

@@ -7,6 +7,9 @@ import SearchUser from "../users/searchUser";
 import { useSellersItemQuery } from "../../utils/graphql";
 
 import Swal from "sweetalert2";
+import EditSeller from "./editSeller1";
+import AddSeller from "./addSeller";
+
 
 const Table = () => {
 
@@ -23,6 +26,10 @@ navigate(`/banned-users/${id}`)
 const handleEvents=(id)=>{
   console.log(id,"banned Users")
   navigate(`/events-seller/${id}`)
+  }
+  const handleSeller=(id)=>{
+    
+     navigate(`/edit-seller/${id}`)
   }
   const handleRemove=async(id)=>{
 
@@ -58,6 +65,12 @@ const handleEvents=(id)=>{
     
       { Header: "Total Events Conducted", accessor: "eventsCount" },
       {
+        Header: "View/Edit Seller",
+        Cell: ({ row }) => (
+      <button className="btn btn-info" onClick={() => handleSeller(row.original?.id)} >View/Edit</button>  
+        )
+      },
+      {
         Header: "Banned Users ",
         Cell: ({ row }) => (
           <button className="btn btn-primary" onClick={() => handleBannedUsers(row.original?.id)}>{row.original?.bannedUsersCount}</button>
@@ -66,7 +79,7 @@ const handleEvents=(id)=>{
       {
         Header: "View Events",
         Cell: ({ row }) => (
-          <button className="btn btn-info" onClick={() => handleEvents(row.original?.id)}>View</button>
+          <button className="btn btn-success" onClick={() => handleEvents(row.original?.id)}>View</button>
         )
       },
       {
@@ -115,8 +128,15 @@ const handleEvents=(id)=>{
   if (error) return <p>Error :{error}</p>;
 
   return (
-    <div className=" w-ful  ">
-         
+    <div className=" w-ful flex flex-col ">
+      <div>
+                 <button
+      onClick={() => navigate("/add-seller")}
+      className="btn btn-outline"
+      >
+     Add Seller
+    </button>
+      </div>
       <div className="w-full  max-w-4xl mx-auto h-fit ">
         <div className="   flex flex-col justify-center m-auto w-full">
           <div className="w-full mb-2">

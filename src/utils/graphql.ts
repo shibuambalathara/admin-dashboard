@@ -238,6 +238,8 @@ export type Event = {
   isSpecialEvent?: Maybe<Scalars['Boolean']>;
   location?: Maybe<Location>;
   noOfBids?: Maybe<Scalars['Int']>;
+  pauseDate?: Maybe<Scalars['DateTime']>;
+  pausedTotalTime?: Maybe<Scalars['Int']>;
   seller?: Maybe<Seller>;
   startDate?: Maybe<Scalars['DateTime']>;
   status?: Maybe<EventStatusType>;
@@ -300,6 +302,8 @@ export type EventCreateInput = {
   isSpecialEvent?: InputMaybe<Scalars['Boolean']>;
   location?: InputMaybe<LocationRelateToOneForCreateInput>;
   noOfBids?: InputMaybe<Scalars['Int']>;
+  pauseDate?: InputMaybe<Scalars['DateTime']>;
+  pausedTotalTime?: InputMaybe<Scalars['Int']>;
   seller?: InputMaybe<SellerRelateToOneForCreateInput>;
   startDate?: InputMaybe<Scalars['DateTime']>;
   status?: InputMaybe<EventStatusType>;
@@ -326,6 +330,8 @@ export type EventOrderByInput = {
   id?: InputMaybe<OrderDirection>;
   isSpecialEvent?: InputMaybe<OrderDirection>;
   noOfBids?: InputMaybe<OrderDirection>;
+  pauseDate?: InputMaybe<OrderDirection>;
+  pausedTotalTime?: InputMaybe<OrderDirection>;
   startDate?: InputMaybe<OrderDirection>;
   status?: InputMaybe<OrderDirection>;
   termsAndConditions?: InputMaybe<OrderDirection>;
@@ -360,6 +366,7 @@ export enum EventStatusType {
   Active = 'active',
   Blocked = 'blocked',
   Inactive = 'inactive',
+  Pause = 'pause',
   Pending = 'pending',
   Stop = 'stop'
 }
@@ -378,6 +385,8 @@ export type EventType = {
   eventsCount?: Maybe<Scalars['Int']>;
   id: Scalars['ID'];
   name?: Maybe<Scalars['String']>;
+  seller?: Maybe<Array<Seller>>;
+  sellerCount?: Maybe<Scalars['Int']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   users?: Maybe<User>;
 };
@@ -395,9 +404,23 @@ export type EventTypeEventsCountArgs = {
   where?: EventWhereInput;
 };
 
+
+export type EventTypeSellerArgs = {
+  orderBy?: Array<SellerOrderByInput>;
+  skip?: Scalars['Int'];
+  take?: InputMaybe<Scalars['Int']>;
+  where?: SellerWhereInput;
+};
+
+
+export type EventTypeSellerCountArgs = {
+  where?: SellerWhereInput;
+};
+
 export type EventTypeCreateInput = {
   events?: InputMaybe<EventRelateToManyForCreateInput>;
   name?: InputMaybe<Scalars['String']>;
+  seller?: InputMaybe<SellerRelateToManyForCreateInput>;
   users?: InputMaybe<UserRelateToOneForCreateInput>;
 };
 
@@ -434,6 +457,7 @@ export type EventTypeUpdateArgs = {
 export type EventTypeUpdateInput = {
   events?: InputMaybe<EventRelateToManyForUpdateInput>;
   name?: InputMaybe<Scalars['String']>;
+  seller?: InputMaybe<SellerRelateToManyForUpdateInput>;
   users?: InputMaybe<UserRelateToOneForUpdateInput>;
 };
 
@@ -445,6 +469,7 @@ export type EventTypeWhereInput = {
   events?: InputMaybe<EventManyRelationFilter>;
   id?: InputMaybe<IdFilter>;
   name?: InputMaybe<StringFilter>;
+  seller?: InputMaybe<SellerManyRelationFilter>;
   updatedAt?: InputMaybe<DateTimeNullableFilter>;
   users?: InputMaybe<UserWhereInput>;
 };
@@ -472,6 +497,8 @@ export type EventUpdateInput = {
   isSpecialEvent?: InputMaybe<Scalars['Boolean']>;
   location?: InputMaybe<LocationRelateToOneForUpdateInput>;
   noOfBids?: InputMaybe<Scalars['Int']>;
+  pauseDate?: InputMaybe<Scalars['DateTime']>;
+  pausedTotalTime?: InputMaybe<Scalars['Int']>;
   seller?: InputMaybe<SellerRelateToOneForUpdateInput>;
   startDate?: InputMaybe<Scalars['DateTime']>;
   status?: InputMaybe<EventStatusType>;
@@ -498,6 +525,8 @@ export type EventWhereInput = {
   isSpecialEvent?: InputMaybe<BooleanFilter>;
   location?: InputMaybe<LocationWhereInput>;
   noOfBids?: InputMaybe<IntFilter>;
+  pauseDate?: InputMaybe<DateTimeNullableFilter>;
+  pausedTotalTime?: InputMaybe<IntNullableFilter>;
   seller?: InputMaybe<SellerWhereInput>;
   startDate?: InputMaybe<DateTimeFilter>;
   status?: InputMaybe<EventStatusTypeNullableFilter>;
@@ -1791,14 +1820,21 @@ export type RedeemUserMagicAuthTokenSuccess = {
 
 export type Seller = {
   __typename?: 'Seller';
+  GSTNumbber?: Maybe<Scalars['String']>;
   bannedUsers?: Maybe<Array<User>>;
   bannedUsersCount?: Maybe<Scalars['Int']>;
+  billingContactPerson?: Maybe<Scalars['String']>;
+  contactPerson?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   events?: Maybe<Array<Event>>;
   eventsCount?: Maybe<Scalars['Int']>;
   id: Scalars['ID'];
+  mobile?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  nationalHead?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
+  vehicleCategory?: Maybe<Array<EventType>>;
+  vehicleCategoryCount?: Maybe<Scalars['Int']>;
 };
 
 
@@ -1827,10 +1863,29 @@ export type SellerEventsCountArgs = {
   where?: EventWhereInput;
 };
 
+
+export type SellerVehicleCategoryArgs = {
+  orderBy?: Array<EventTypeOrderByInput>;
+  skip?: Scalars['Int'];
+  take?: InputMaybe<Scalars['Int']>;
+  where?: EventTypeWhereInput;
+};
+
+
+export type SellerVehicleCategoryCountArgs = {
+  where?: EventTypeWhereInput;
+};
+
 export type SellerCreateInput = {
+  GSTNumbber?: InputMaybe<Scalars['String']>;
   bannedUsers?: InputMaybe<UserRelateToManyForCreateInput>;
+  billingContactPerson?: InputMaybe<Scalars['String']>;
+  contactPerson?: InputMaybe<Scalars['String']>;
   events?: InputMaybe<EventRelateToManyForCreateInput>;
+  mobile?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
+  nationalHead?: InputMaybe<Scalars['String']>;
+  vehicleCategory?: InputMaybe<EventTypeRelateToManyForCreateInput>;
 };
 
 export type SellerManyRelationFilter = {
@@ -1840,9 +1895,14 @@ export type SellerManyRelationFilter = {
 };
 
 export type SellerOrderByInput = {
+  GSTNumbber?: InputMaybe<OrderDirection>;
+  billingContactPerson?: InputMaybe<OrderDirection>;
+  contactPerson?: InputMaybe<OrderDirection>;
   createdAt?: InputMaybe<OrderDirection>;
   id?: InputMaybe<OrderDirection>;
+  mobile?: InputMaybe<OrderDirection>;
   name?: InputMaybe<OrderDirection>;
+  nationalHead?: InputMaybe<OrderDirection>;
   updatedAt?: InputMaybe<OrderDirection>;
 };
 
@@ -1875,21 +1935,33 @@ export type SellerUpdateArgs = {
 };
 
 export type SellerUpdateInput = {
+  GSTNumbber?: InputMaybe<Scalars['String']>;
   bannedUsers?: InputMaybe<UserRelateToManyForUpdateInput>;
+  billingContactPerson?: InputMaybe<Scalars['String']>;
+  contactPerson?: InputMaybe<Scalars['String']>;
   events?: InputMaybe<EventRelateToManyForUpdateInput>;
+  mobile?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
+  nationalHead?: InputMaybe<Scalars['String']>;
+  vehicleCategory?: InputMaybe<EventTypeRelateToManyForUpdateInput>;
 };
 
 export type SellerWhereInput = {
   AND?: InputMaybe<Array<SellerWhereInput>>;
+  GSTNumbber?: InputMaybe<StringFilter>;
   NOT?: InputMaybe<Array<SellerWhereInput>>;
   OR?: InputMaybe<Array<SellerWhereInput>>;
   bannedUsers?: InputMaybe<UserManyRelationFilter>;
+  billingContactPerson?: InputMaybe<StringFilter>;
+  contactPerson?: InputMaybe<StringFilter>;
   createdAt?: InputMaybe<DateTimeNullableFilter>;
   events?: InputMaybe<EventManyRelationFilter>;
   id?: InputMaybe<IdFilter>;
+  mobile?: InputMaybe<StringFilter>;
   name?: InputMaybe<StringFilter>;
+  nationalHead?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeNullableFilter>;
+  vehicleCategory?: InputMaybe<EventTypeManyRelationFilter>;
 };
 
 export type SellerWhereUniqueInput = {
@@ -3185,7 +3257,22 @@ export type CreateSellerMutationVariables = Exact<{
 }>;
 
 
-export type CreateSellerMutation = { __typename?: 'Mutation', createSeller?: { __typename?: 'Seller', id: string, name?: string | null } | null };
+export type CreateSellerMutation = { __typename?: 'Mutation', createSeller?: { __typename?: 'Seller', GSTNumbber?: string | null, billingContactPerson?: string | null, name?: string | null, contactPerson?: string | null, nationalHead?: string | null, mobile?: string | null, bannedUsers?: Array<{ __typename?: 'User', id: string }> | null, vehicleCategory?: Array<{ __typename?: 'EventType', events?: Array<{ __typename?: 'Event', eventType?: Array<{ __typename?: 'EventType', id: string }> | null }> | null }> | null } | null };
+
+export type SellerEditQueryVariables = Exact<{
+  where: SellerWhereUniqueInput;
+}>;
+
+
+export type SellerEditQuery = { __typename?: 'Query', seller?: { __typename?: 'Seller', GSTNumbber?: string | null, billingContactPerson?: string | null, contactPerson?: string | null, mobile?: string | null, name?: string | null, nationalHead?: string | null } | null };
+
+export type SellerUpdateMutationVariables = Exact<{
+  where: SellerWhereUniqueInput;
+  data: SellerUpdateInput;
+}>;
+
+
+export type SellerUpdateMutation = { __typename?: 'Mutation', updateSeller?: { __typename?: 'Seller', id: string, billingContactPerson?: string | null, contactPerson?: string | null, GSTNumbber?: string | null, mobile?: string | null, name?: string | null, nationalHead?: string | null } | null };
 
 export type DeleteSellerMutationVariables = Exact<{
   where: SellerWhereUniqueInput;
@@ -4861,8 +4948,22 @@ export type SellersItemQueryResult = Apollo.QueryResult<SellersItemQuery, Seller
 export const CreateSellerDocument = gql`
     mutation CreateSeller($data: SellerCreateInput!) {
   createSeller(data: $data) {
-    id
+    GSTNumbber
+    bannedUsers {
+      id
+    }
+    billingContactPerson
     name
+    contactPerson
+    vehicleCategory {
+      events {
+        eventType {
+          id
+        }
+      }
+    }
+    nationalHead
+    mobile
   }
 }
     `;
@@ -4892,6 +4993,86 @@ export function useCreateSellerMutation(baseOptions?: Apollo.MutationHookOptions
 export type CreateSellerMutationHookResult = ReturnType<typeof useCreateSellerMutation>;
 export type CreateSellerMutationResult = Apollo.MutationResult<CreateSellerMutation>;
 export type CreateSellerMutationOptions = Apollo.BaseMutationOptions<CreateSellerMutation, CreateSellerMutationVariables>;
+export const SellerEditDocument = gql`
+    query SellerEdit($where: SellerWhereUniqueInput!) {
+  seller(where: $where) {
+    GSTNumbber
+    billingContactPerson
+    contactPerson
+    mobile
+    name
+    nationalHead
+  }
+}
+    `;
+
+/**
+ * __useSellerEditQuery__
+ *
+ * To run a query within a React component, call `useSellerEditQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSellerEditQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSellerEditQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useSellerEditQuery(baseOptions: Apollo.QueryHookOptions<SellerEditQuery, SellerEditQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SellerEditQuery, SellerEditQueryVariables>(SellerEditDocument, options);
+      }
+export function useSellerEditLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SellerEditQuery, SellerEditQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SellerEditQuery, SellerEditQueryVariables>(SellerEditDocument, options);
+        }
+export type SellerEditQueryHookResult = ReturnType<typeof useSellerEditQuery>;
+export type SellerEditLazyQueryHookResult = ReturnType<typeof useSellerEditLazyQuery>;
+export type SellerEditQueryResult = Apollo.QueryResult<SellerEditQuery, SellerEditQueryVariables>;
+export const SellerUpdateDocument = gql`
+    mutation sellerUpdate($where: SellerWhereUniqueInput!, $data: SellerUpdateInput!) {
+  updateSeller(where: $where, data: $data) {
+    id
+    billingContactPerson
+    contactPerson
+    GSTNumbber
+    mobile
+    name
+    nationalHead
+  }
+}
+    `;
+export type SellerUpdateMutationFn = Apollo.MutationFunction<SellerUpdateMutation, SellerUpdateMutationVariables>;
+
+/**
+ * __useSellerUpdateMutation__
+ *
+ * To run a mutation, you first call `useSellerUpdateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSellerUpdateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [sellerUpdateMutation, { data, loading, error }] = useSellerUpdateMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useSellerUpdateMutation(baseOptions?: Apollo.MutationHookOptions<SellerUpdateMutation, SellerUpdateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SellerUpdateMutation, SellerUpdateMutationVariables>(SellerUpdateDocument, options);
+      }
+export type SellerUpdateMutationHookResult = ReturnType<typeof useSellerUpdateMutation>;
+export type SellerUpdateMutationResult = Apollo.MutationResult<SellerUpdateMutation>;
+export type SellerUpdateMutationOptions = Apollo.BaseMutationOptions<SellerUpdateMutation, SellerUpdateMutationVariables>;
 export const DeleteSellerDocument = gql`
     mutation DeleteSeller($where: SellerWhereUniqueInput!) {
   deleteSeller(where: $where) {
