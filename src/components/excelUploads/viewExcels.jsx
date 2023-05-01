@@ -14,14 +14,25 @@ const ViewExcels = () => {
   
     console.log("this is the data form excel uploads %%%%",data);
   const handleEvent=(eventId)=>{
-navigate(`/edit-event/${eventId}`)
+    if(eventId){navigate(`/edit-event/${eventId}`)}
+
   }
+
     
   
     const columns = useMemo(
       () => [
         { Header: "Name", accessor: "name" },
         { Header: "File", accessor: (row)=>row.file.filename  },
+       
+        {
+          Header: "Download",
+          Cell: ({ row }) => (
+            <a href={`https://api.autobse.com/files/excel/${row.original.file.filename}`} download>
+              <button className="btn btn-secondary">Download</button>
+            </a>
+          )
+        },
        
         {
           Header: "View Event",
