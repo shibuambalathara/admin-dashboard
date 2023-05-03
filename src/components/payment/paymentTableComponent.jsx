@@ -16,24 +16,24 @@ const PaymentTableComponent = () => {
     //   navigate(`/update-payment/${userId}`)
     // }
 
-    const handleUserDetails=(userId)=>{
+    // const handleUserDetails=(userId)=>{
     
-      navigate(`/view-user/${userId}`)
-    }
+    //   navigate(`/view-user/${userId}`)
+    // }
 
     
     const  handlePaymentPerUser=(userId)=>{
     
       navigate(`/payment/${userId}`)
     }
-    const  handleCreateEmd=(paymentId)=>{
+    // const  handleCreateEmd=(paymentId)=>{
     
-      navigate(`/add-emd/${paymentId}`)
-    }
-    const  handleViewEmd=(paymentId)=>{
+    //   navigate(`/add-emd/${paymentId}`)
+    // }
+    // const  handleViewEmd=(paymentId)=>{
     
-      navigate(`/emd-payment/${paymentId}`)
-    }
+    //   navigate(`/emd-payment/${paymentId}`)
+    // }
 
     const columns = useMemo(
         () => [
@@ -48,28 +48,36 @@ const PaymentTableComponent = () => {
            {
             Header: "Create Emd",
             Cell: ({ row }) => (
-              <button className="btn btn-secondary" onClick={() => handleCreateEmd(row.original.id)}>Create Emd</button>
-            )
+              // <button className="btn btn-secondary" onClick={() => handleCreateEmd(row.original.id)}>Create Emd</button>
+              <a className="btn btn-secondary" href={`/add-emd/${row.original.id}`} target="_blank" rel="noopener noreferrer">Create Emd</a>
+
+              )
           },
           {
             Header: "View Emds",
             Cell: ({ row }) => (
-              <button className="btn btn-accent" onClick={() => handleViewEmd(row.original.id)}>Emds </button>
-            )
+         //     <button className="btn btn-accent" onClick={() => handleViewEmd(row.original.id)}>Emds </button>
+         <a className="btn btn-accent" href={`/emd-payment/${row.original.id}`} target="_blank" rel="noopener noreferrer">Emd</a>
+
+         )
           },
          
           
            {
             Header: "Payment details",
             Cell: ({ row }) => (
-              <button className="btn btn-warning" onClick={() => handlePaymentPerUser(row.original.user.id)}>Payment Details</button>
-            )
+              // <button className="btn btn-warning" onClick={() => handlePaymentPerUser(row.original.user.id)}>Payment Details</button>
+          
+              <a className="btn btn-warning" href={`/emd-payment/${row.original.id}`} target="_blank" rel="noopener noreferrer">Payment Details</a>
+              )
           },
          
            {
             Header: "View User",
             Cell: ({ row }) => (
-              <button className="btn btn-info" onClick={()=>handleUserDetails(row.original.user.id) }> View User</button>
+          //    <button className="btn btn-info" onClick={()=>handleUserDetails(row.original.user.id) }> View User</button>
+              <a className="btn btn-info" href={`/view-user/${row.original.user?.id}`} target="_blank" rel="noopener noreferrer"> View User</a>
+
             )
           },
          

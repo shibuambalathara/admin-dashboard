@@ -30,7 +30,8 @@ else{
         ,"login")
      localStorage.setItem("token",JSON.stringify( data.authenticateUserWithPassword.sessionToken))
    console.log(  localStorage.getItem('token'),"local ")
-     navigate('/')
+   navigate('/')
+   window.location.reload()
 }
     } catch (err) {
       console.error(err, 'error');

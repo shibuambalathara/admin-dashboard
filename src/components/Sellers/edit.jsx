@@ -73,7 +73,8 @@ const Editseller = () => {
               <input  defaultValue={data?.seller?.name}   type="text" className="input input-bordered input-secondary w-full " {...register("sellerCompanyName", {})}></input>
               <p className="text-red-500"> {errors.IdNumber && <span>Atleast 8 charators required</span>}</p>
             </div>
-
+</div>
+<div className="flex space-x-2 justify-around">
             <div className="w-1/3">
               <label htmlFor="">Contact Person Name</label>
               <input defaultValue={data?.seller?.contactPerson} type="text" className="input input-bordered input-secondary w-full " {...register("ContactPerson", {})}></input>
@@ -88,7 +89,8 @@ const Editseller = () => {
             <input defaultValue={data?.seller?.GSTNumbber}  type="number" className="input input-bordered input-secondary w-full " {...register("gst", {})}></input>
             <p className="text-red-500"> {errors.amount && <span>Amount Required</span>}</p>
           </div>
-       
+          </div>
+          <div className="flex space-x-2 justify-around">
             <div className="w-1/3">
           
             {/* <div className="flex flex-col space-y-2 relative ">
@@ -129,7 +131,8 @@ const Editseller = () => {
             <input defaultValue={data?.seller?.mobile}  type="number" className="input input-bordered input-secondary w-full " {...register("mobile", {})}></input>
             <p className="text-red-500"> {errors.amount && <span>Amount Required</span>}</p>
           </div>
-       
+       </div>
+       <div className="flex space-x-2 justify-around">
             <div className="w-1/3">
             <label htmlFor="">National Head</label>
             <input defaultValue={data?.seller?.nationalHead}  type="text" className="input input-bordered input-secondary w-full " {...register("nationalHead", { })}></input>

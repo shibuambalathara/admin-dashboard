@@ -3351,7 +3351,7 @@ export type VehicleDetailsPerEventQueryVariables = Exact<{
 }>;
 
 
-export type VehicleDetailsPerEventQuery = { __typename?: 'Query', event?: { __typename?: 'Event', id: string, status?: EventStatusType | null, vehiclesCount?: number | null, vehicles?: Array<{ __typename?: 'Vehicle', id: string, vehicleIndexNo?: number | null, registrationNumber?: string | null, totalBids?: number | null, frontImage?: string | null, vehicleEventStatus?: VehicleEventStatus | null, bidStatus?: VehicleBidStatusType | null, state?: string | null, city?: string | null }> | null } | null };
+export type VehicleDetailsPerEventQuery = { __typename?: 'Query', event?: { __typename?: 'Event', id: string, status?: EventStatusType | null, eventNo?: number | null, vehiclesCount?: number | null, vehicles?: Array<{ __typename?: 'Vehicle', bidStartTime?: any | null, bidTimeExpire?: any | null, id: string, vehicleIndexNo?: number | null, registrationNumber?: string | null, totalBids?: number | null, frontImage?: string | null, vehicleEventStatus?: VehicleEventStatus | null, bidStatus?: VehicleBidStatusType | null, state?: string | null, city?: string | null }> | null } | null };
 
 export type VehicleTableQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5717,8 +5717,11 @@ export const VehicleDetailsPerEventDocument = gql`
   event(where: $where) {
     id
     status
+    eventNo
     vehiclesCount
     vehicles {
+      bidStartTime
+      bidTimeExpire
       id
       vehicleIndexNo
       registrationNumber
