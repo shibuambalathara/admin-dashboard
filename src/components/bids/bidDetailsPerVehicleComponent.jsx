@@ -69,7 +69,7 @@ const BidDetailsPerVehicleComponent = () => {
                 { Header: "First Name", accessor: "user.firstName" },
                 { Header: "Last Name", accessor: "user.lastName" },
                 { Header: "Mobile", accessor: "user.mobile" },
-              { Header: "Created At ", accessor: ({createdAt})=>{return format(new Date( createdAt),`dd/MM/yy, HH:mm`)} },
+              { Header: "Created At ", accessor: ({createdAt})=>{return format(new Date( createdAt),`dd/MM/yy, HH:mm:ss`)} },
           { Header: "Amount", accessor: "amount" },
        
                 
@@ -97,6 +97,14 @@ const BidDetailsPerVehicleComponent = () => {
       const tableInstance=useTable({
         columns ,
         data: tableData,
+        initialState: {
+          sortBy: [
+            {
+              id: "amount",
+              desc: true,
+            },
+          ],
+        },
       },useGlobalFilter,useSortBy,usePagination);
      
         const {
@@ -137,7 +145,7 @@ const BidDetailsPerVehicleComponent = () => {
     
     <div className=" flex flex-col w-full justify-center m-auto ">
     <div className="mb-2">
-  <div className="text-center font-extrabold my-5 text-lg min-w-full">  Bidders Details </div>
+  <div className="text-center font-extrabold my-5 text-lg min-w-full">  Bidders Details of Vehicle ID {data?.vehicle?.ve} </div>
     <SearchUser filter={globalFilter} className="  text-white " setFilter={setGlobalFilter}/>
   </div>
       <table

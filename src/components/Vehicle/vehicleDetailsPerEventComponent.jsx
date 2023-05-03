@@ -52,7 +52,7 @@ console.log(deleteResult,"delete result")
     const columns = useMemo(
         () => [
           { Header: "Registration Number", accessor: "registrationNumber" },
-          { Header: "Index No", accessor: "vehicleIndexNo" },
+          { Header: "Vehicle ID", accessor: "vehicleIndexNo" },
           { Header: "State", accessor: "state" },
          { Header: "City", accessor: "city" },
          { Header: "total bids count", accessor: "totalBids" },
