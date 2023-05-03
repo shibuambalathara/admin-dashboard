@@ -6,7 +6,7 @@ import { Home } from "./pages/home";
 import ProtectedRoutes from "./utils/protectedRoute";
 import AddEvents from "./pages/events";
 import AddUser from "./components/user/addUser";
-import Header from "./components/header";
+
 import UserDetails from "./pages/userDetails";
 import Payments from "./pages/payments";
 import Emd from "./pages/emd";
@@ -42,6 +42,7 @@ import BidsPerUser from "./pages/bidsPerUser";
 import EventsPerSeller from "./pages/eventsPerSeller";
 import SellerEdit from "./pages/sellerEdit";
 import AddSeller from "./components/Sellers/add";
+import Header from "./components/header";
 
 
 
