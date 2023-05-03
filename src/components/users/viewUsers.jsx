@@ -35,9 +35,9 @@ const ViewUsers = () => {
     navigate(`/buying-limit/${id}`)
   }
   
-  const handleBids=(id)=>{
-    navigate(`/bids-user/${id}`)
-  }
+  // const handleBids=(id)=>{
+  //   navigate(`/bids-user/${id}`)
+  // }
 
   const columns = useMemo(
     () => [
@@ -53,12 +53,13 @@ const ViewUsers = () => {
       {
         Header: "Active Bids ",
         Cell: ({ row }) => (
-          <button
-            className="btn btn-primary"
-            onClick={() => handleBids(row.original.id)}
-          >
-           {row.original.activeBidsCount}
-          </button>
+          // <button
+          //   className="btn btn-primary"
+          //   onClick={() => handleBids(row.original.id)}
+          // >
+          //  {row.original.activeBidsCount}
+          // </button>
+          <a className="btn btn-primary" href={`/view-user/${row.original.id}`} target="_blank" rel="noopener noreferrer">{row.original.activeBidsCount}</a>
         ),
       },
        {
@@ -76,36 +77,40 @@ const ViewUsers = () => {
       {
         Header: "View more",
         Cell: ({ row }) => (
-          <button
-            className="btn btn-info"
-            onClick={() => handleViewMore(row.original.id)}
-          >
-            View More
-          </button>
+          // <button
+          //   className="btn btn-info"
+          //   onClick={() => handleViewMore(row.original.id)}
+          // >
+          //   View More
+          // </button>
+          <a className="btn btn-info" href={`/view-user/${row.original.id}`} target="_blank" rel="noopener noreferrer">View/Edit</a>
+
         ),
       },
       {
         Header: "Payment details",
         Cell: ({ row }) => (
-          <button
-            className="btn btn-warning"
-            onClick={() => paymentDetails(row.original.id)}
-          >
-            Payment Details
-          </button>
+          // <button
+          //   className="btn btn-warning"
+          //   onClick={() => paymentDetails(row.original.id)}
+          // >
+          //   Payment Details
+          // </button>
+          <a className="btn btn-warning" href={`/payment/${row.original.id}`} target="_blank" rel="noopener noreferrer">View/Edit</a>
+
         ),
       },
-      {
-        Header: "Delete",
-        Cell: ({ row }) => (
-          <button
-            className="btn btn-block"
-            onClick={() => handleDelete(row.original.id)}
-          >
-            Delete
-          </button>
-        ),
-      },
+      // {
+      //   Header: "Delete",
+      //   Cell: ({ row }) => (
+      //     <button
+      //       className="btn btn-block"
+      //       onClick={() => handleDelete(row.original.id)}
+      //     >
+      //       Delete
+      //     </button>
+      //   ),
+      // },
     ],
     []
   );

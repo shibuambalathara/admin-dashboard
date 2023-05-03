@@ -456,12 +456,14 @@ catch(err){
                   Front Image url
                 </label>
                 <Input defaultValue={data?.vehicle?.frontImage} {...register("frontImage",{})} type='text' className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+             <img src={`${data?.vehicle?.frontImage}`}alt="front_image"/>
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                   Back Image url
                 </label>
                 <Input defaultValue={data?.vehicle?.backImage} type='text' {...register("backImage",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <img src={`${data?.vehicle?.backImage}`}alt="back_image"/>
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
@@ -470,12 +472,15 @@ catch(err){
                   Left Image url
                 </label>
                 <Input defaultValue={data?.vehicle?.leftImage} {...register("leftImage",{})} type='text' className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <img src={`${data?.vehicle?.leftImage}`}alt="leftImage"/>
               </div>
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                   Right Image url
                 </label>
                 <Input defaultValue={data?.vehicle?.rightImage} {...register("rightImage",{})} type='text' className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <img src={`${data?.vehicle?.rightImage}`}alt="rightImage"/>
+
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">

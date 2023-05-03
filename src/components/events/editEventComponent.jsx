@@ -308,6 +308,7 @@ const handleStartDateToIso=(date)=>{
                   <option value="active">active</option>
                   <option value="inactive">inactive</option>
                   <option value="stop">stop</option>
+                  <option value="pause">Pause</option>
                 </select>
               </div>
           

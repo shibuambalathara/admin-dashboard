@@ -23,10 +23,10 @@ const Sidebar_items=[
   //   name:"Vehicles",
   //   path:"vehicles"
   // },
-  {
-    name:"Bids",
-    path:"bids"
-  },
+  // {
+  //   name:"Bids",
+  //   path:"bids"
+  // },
   {
     name:"Events types",
     path:"event-types"

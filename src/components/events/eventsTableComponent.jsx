@@ -16,19 +16,19 @@ console.log(data,"data")
 
     const navigate=useNavigate()
 
-    const handleViewVehicle=(id)=>{
-      navigate(`/view-vehicls/${id}`)
-     }
+    // const handleViewVehicle=(id)=>{
+    //   navigate(`/view-vehicls/${id}`)
+    //  }
 
-   const handleUploadExcelFile=(id)=>{
-    navigate(`/excel-upload/${id}`)
-   }
-   const handleEditEvent=(id)=>{
-    navigate(`/edit-event/${id}`)
-   }
-   const handleAddVehicle=(id)=>{
-    navigate(`/add-vehicle/${id}`)
-   }
+  //  const handleUploadExcelFile=(id)=>{
+  //   navigate(`/excel-upload/${id}`)
+  //  }
+  //  const handleEditEvent=(id)=>{
+  //   navigate(`/edit-event/${id}`)
+  //  }
+  //  const handleAddVehicle=(id)=>{
+  //   navigate(`/add-vehicle/${id}`)
+  //  }
    const handleReport=(report)=>{
     console.log(report,"report")
 
@@ -56,27 +56,35 @@ console.log(data,"data")
           {
             Header: "View Vehicles",
             Cell: ({ row }) => (
-              <button className="btn btn-secondary" onClick={()=>handleViewVehicle(row.original.id) }>View vehicls</button>
-            )
+              // <button className="btn btn-secondary" onClick={()=>handleViewVehicle(row.original.id) }>View vehicls</button>
+              <a className="btn btn-secondary" href={`/view-vehicls/${row.original.id}`} target="_blank" rel="noopener noreferrer">View vehicls</a>
+
+              )
           },
          
           {
             Header: "Upload Excel File",
             Cell: ({ row }) => (
-              <button className="btn btn-info" onClick={()=>handleUploadExcelFile(row.original.id) }>Upload</button>
-            )
+      //        <button className="btn btn-info" onClick={()=>handleUploadExcelFile(row.original.id) }>Upload</button>
+      <a className="btn btn-info" href={`/excel-upload/${row.original.id}`} target="_blank" rel="noopener noreferrer">Upload</a>
+   
+      )
           },
           {
             Header: "Add Vehicle",
             Cell: ({ row }) => (
-              <button className="btn btn-accent" onClick={()=>handleAddVehicle(row.original.id) }>Add Vehicle</button>
-            )
+              // <button className="btn btn-accent" onClick={()=>handleAddVehicle(row.original.id) }>Add Vehicle</button>
+              <a className="btn btn-accent" href={`/add-vehicle/${row.original.id}`} target="_blank" rel="noopener noreferrer">Add Vehicle</a>
+
+              )
           },
           {
             Header: "View/Edit Event",
             Cell: ({ row }) => (
-              <button className="btn btn-warning" onClick={() => handleEditEvent(row.original.id)}>View/Edit</button>
-            )
+              // <button className="btn btn-warning" onClick={() => handleEditEvent(row.original.id)}>View/Edit</button>
+              <a className="btn btn-warning" href={`/edit-event/${row.original.id}`} target="_blank" rel="noopener noreferrer">View/Edit</a>
+
+              )
           },
           {
             Header: "Report (excel)",

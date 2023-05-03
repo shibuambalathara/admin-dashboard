@@ -19,18 +19,15 @@ const Table = () => {
   const [removeSeller]=useDeleteSellerMutation()
 console.log(data,"sellers")
  
-const handleBannedUsers=(id)=>{
-console.log(id,"banned Users")
-navigate(`/banned-users/${id}`)
-}
-const handleEvents=(id)=>{
-  console.log(id,"banned Users")
-  navigate(`/events-seller/${id}`)
-  }
-  const handleSeller=(id)=>{
-    
-     navigate(`/edit-seller/${id}`)
-  }
+// const handleBannedUsers=(id)=>{
+// console.log(id,"banned Users")
+// navigate(`/banned-users/${id}`)
+// }
+// const handleEvents=(id)=>{
+//   console.log(id,"banned Users")
+//   navigate(`/events-seller/${id}`)
+//   }
+
   const handleRemove=async(id)=>{
 
     const result = await Swal.fire({
@@ -67,19 +64,24 @@ const handleEvents=(id)=>{
       {
         Header: "View/Edit Seller",
         Cell: ({ row }) => (
-      <button className="btn btn-info" onClick={() => handleSeller(row.original?.id)} >View/Edit</button>  
-        )
+      
+      <a className="btn btn-info" href={`/edit-seller/${row.original.id}`} target="_blank" rel="noopener noreferrer"> View/Edit</a>
+
+      )
       },
       {
         Header: "Banned Users ",
         Cell: ({ row }) => (
-          <button className="btn btn-primary" onClick={() => handleBannedUsers(row.original?.id)}>{row.original?.bannedUsersCount}</button>
-        )
+          // <button className="btn btn-primary" onClick={() => handleBannedUsers(row.original?.id)}>{row.original?.bannedUsersCount}</button>       
+          <a className="btn btn-primary" href={`/banned-users/${row.original.id}`} target="_blank" rel="noopener noreferrer"> View</a>
+          )
       },
       {
         Header: "View Events",
         Cell: ({ row }) => (
-          <button className="btn btn-success" onClick={() => handleEvents(row.original?.id)}>View</button>
+          //<button className="btn btn-success" onClick={() => handleEvents(row.original?.id)}>View</button>
+          <a className="btn btn-success" href={`/events-seller/${row.original?.id}`} target="_blank" rel="noopener noreferrer"> View/Edit</a>
+
         )
       },
       {

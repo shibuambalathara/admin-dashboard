@@ -73,21 +73,22 @@ const AddPayment = () => {
               <input    type="text" className="input input-bordered input-secondary w-full " {...register("sellerCompanyName", {required:true})}></input>
               <p className="text-red-500"> {errors.sellerCompanyName && <span>Seller Name Required</span>}</p>
             </div>
-
+          </div>
+          <div className="flex space-x-2 justify-around">
             <div className="w-1/3">
               <label htmlFor="">Contact Person Name</label>
               <input  type="text" className="input input-bordered input-secondary w-full " {...register("ContactPerson", {})}></input>
               <p className="text-red-500"> {errors.IdNumber && <span>Atleast 8 charators required</span>}</p>
             </div>
-            
-          </div>
+            </div>
           <div className="flex space-x-2 justify-around">
-          
+         
           <div className="w-1/3">
             <label htmlFor="">GST Number</label>
             <input  type="number" className="input input-bordered input-secondary w-full " {...register("gst", {})}></input>
             <p className="text-red-500"> {errors.amount && <span>Amount Required</span>}</p>
           </div>
+      </div>
        
             <div className="w-1/3">
           
@@ -119,7 +120,7 @@ const AddPayment = () => {
                 <p className="text-red-500"> {errors.event&& <span>Event Name required</span>}</p> 
 
               </div>            <p className="text-red-500"> {errors.description && <span>Atleast 8 charators required</span>}</p> */}
-          </div>
+         
         </div>
 
           <div className="flex space-x-2 justify-around">
@@ -129,7 +130,8 @@ const AddPayment = () => {
             <input   type="number" className="input input-bordered input-secondary w-full " {...register("mobile", {})}></input>
             <p className="text-red-500"> {errors.amount && <span>Amount Required</span>}</p>
           </div>
-       
+          </div>
+          <div className="flex space-x-2 justify-around">
             <div className="w-1/3">
             <label htmlFor="">National Head</label>
             <input   type="text" className="input input-bordered input-secondary w-full " {...register("nationalHead", { })}></input>
