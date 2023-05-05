@@ -22,8 +22,16 @@ query BidsTable {
 
 query BidDetailsPerVehicle($where: VehicleWhereUniqueInput!) {
   vehicle(where: $where) {
+    id
     registrationNumber
     vehicleIndexNo
+        userVehicleBidsCount
+    vehicleEventStatus
+    watchedByCount
+    bidStatus
+    event {
+  eventNo
+}
     userVehicleBids {
     amount
     id
@@ -36,22 +44,16 @@ query BidDetailsPerVehicle($where: VehicleWhereUniqueInput!) {
       mobile  
       }
     }
-    currentBidAmount
     
+    currentBidAmount
     currentBidUser {
     id  
     username
     firstName
     lastName
     }
-    userVehicleBidsCount
-    vehicleEventStatus
-    watchedByCount
-    watchedBy {
-    id
-    username
-    firstName  
-    }
+
+  
   }
 }
 

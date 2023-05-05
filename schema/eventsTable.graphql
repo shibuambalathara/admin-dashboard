@@ -1,5 +1,5 @@
-query eventTable {
-  events {
+query eventTable($take: Int, $skip: Int!, $orderBy: [EventOrderByInput!]!) {
+  events(take: $take, skip: $skip orderBy: $orderBy)  {
     id
   eventNo
   eventCategory  

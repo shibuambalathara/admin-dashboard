@@ -3063,7 +3063,7 @@ export type BidDetailsPerVehicleQueryVariables = Exact<{
 }>;
 
 
-export type BidDetailsPerVehicleQuery = { __typename?: 'Query', vehicle?: { __typename?: 'Vehicle', registrationNumber?: string | null, currentBidAmount?: number | null, userVehicleBidsCount?: number | null, vehicleEventStatus?: VehicleEventStatus | null, watchedByCount?: number | null, userVehicleBids?: Array<{ __typename?: 'Bid', amount?: number | null, id: string, createdAt?: any | null, user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, mobile?: string | null } | null }> | null, currentBidUser?: { __typename?: 'User', id: string, username?: string | null, firstName?: string | null, lastName?: string | null } | null, watchedBy?: Array<{ __typename?: 'User', id: string, username?: string | null, firstName?: string | null }> | null } | null };
+export type BidDetailsPerVehicleQuery = { __typename?: 'Query', vehicle?: { __typename?: 'Vehicle', id: string, registrationNumber?: string | null, vehicleIndexNo?: number | null, userVehicleBidsCount?: number | null, vehicleEventStatus?: VehicleEventStatus | null, watchedByCount?: number | null, bidStatus?: VehicleBidStatusType | null, currentBidAmount?: number | null, event?: { __typename?: 'Event', eventNo?: number | null } | null, userVehicleBids?: Array<{ __typename?: 'Bid', amount?: number | null, id: string, createdAt?: any | null, user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, mobile?: string | null } | null }> | null, currentBidUser?: { __typename?: 'User', id: string, username?: string | null, firstName?: string | null, lastName?: string | null } | null } | null };
 
 export type DeleteBidMutationVariables = Exact<{
   where: BidWhereUniqueInput;
@@ -3160,7 +3160,11 @@ export type EventsPerSellerQueryVariables = Exact<{
 
 export type EventsPerSellerQuery = { __typename?: 'Query', seller?: { __typename?: 'Seller', id: string, name?: string | null, events?: Array<{ __typename?: 'Event', id: string, eventNo?: number | null, eventCategory?: string | null, startDate?: any | null, status?: EventStatusType | null, endDate?: any | null, vehiclesCount?: number | null, location?: { __typename?: 'Location', name?: string | null } | null, seller?: { __typename?: 'Seller', name?: string | null } | null }> | null } | null };
 
-export type EventTableQueryVariables = Exact<{ [key: string]: never; }>;
+export type EventTableQueryVariables = Exact<{
+  take?: InputMaybe<Scalars['Int']>;
+  skip: Scalars['Int'];
+  orderBy: Array<EventOrderByInput> | EventOrderByInput;
+}>;
 
 
 export type EventTableQuery = { __typename?: 'Query', events?: Array<{ __typename?: 'Event', id: string, eventNo?: number | null, eventCategory?: string | null, startDate?: any | null, status?: EventStatusType | null, endDate?: any | null, vehiclesCount?: number | null, Report?: any | null, location?: { __typename?: 'Location', name?: string | null } | null, seller?: { __typename?: 'Seller', name?: string | null } | null }> | null };
@@ -3230,10 +3234,14 @@ export type UpdatePaymentMutationVariables = Exact<{
 
 export type UpdatePaymentMutation = { __typename?: 'Mutation', updatePayment?: { __typename?: 'Payment', id: string, amount?: number | null, paymentFor?: string | null, description?: string | null, status?: string | null, image?: { __typename?: 'ImageFieldOutput', url: string } | null } | null };
 
-export type PaymentTableQueryVariables = Exact<{ [key: string]: never; }>;
+export type PaymentTableQueryVariables = Exact<{
+  skip: Scalars['Int'];
+  take?: InputMaybe<Scalars['Int']>;
+  orderBy: Array<PaymentOrderByInput> | PaymentOrderByInput;
+}>;
 
 
-export type PaymentTableQuery = { __typename?: 'Query', payments?: Array<{ __typename?: 'Payment', id: string, refNo?: number | null, status?: string | null, amount?: number | null, paymentFor?: string | null, user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, username?: string | null, mobile?: string | null } | null }> | null };
+export type PaymentTableQuery = { __typename?: 'Query', payments?: Array<{ __typename?: 'Payment', id: string, refNo?: number | null, status?: string | null, amount?: number | null, paymentFor?: string | null, createdAt?: any | null, updatedAt?: any | null, user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, username?: string | null, mobile?: string | null } | null }> | null };
 
 export type SelectorsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3320,7 +3328,11 @@ export type EditUserMutationVariables = Exact<{
 
 export type EditUserMutation = { __typename?: 'Mutation', updateUser?: { __typename?: 'User', firstName?: string | null, lastName?: string | null, email?: string | null, username?: string | null, mobile?: string | null, businessName?: string | null, role?: UserRoleType | null, idProofType?: UserIdProofTypeType | null, idProofNo?: string | null, pancardNo?: string | null, country?: string | null, state?: string | null, city?: string | null, status?: UserStatusType | null, vehicleBuyingLimit?: number | null, category?: Array<{ __typename?: 'EventType', name?: string | null }> | null, bannedSellers?: Array<{ __typename?: 'Seller', name?: string | null, id: string }> | null, password?: { __typename?: 'PasswordState', isSet: boolean } | null, image?: { __typename?: 'ImageFieldOutput', url: string } | null, pancard?: { __typename?: 'ImageFieldOutput', url: string } | null, idProof?: { __typename?: 'ImageFieldOutput', url: string } | null, idProofBack?: { __typename?: 'ImageFieldOutput', url: string } | null, dealership?: { __typename?: 'ImageFieldOutput', url: string } | null, states?: Array<{ __typename?: 'State', id: string, name?: string | null }> | null } | null };
 
-export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
+export type UsersQueryVariables = Exact<{
+  skip: Scalars['Int'];
+  take?: InputMaybe<Scalars['Int']>;
+  orderBy: Array<UserOrderByInput> | UserOrderByInput;
+}>;
 
 
 export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', firstName?: string | null, lastName?: string | null, email?: string | null, mobile?: string | null, status?: UserStatusType | null, state?: string | null, role?: UserRoleType | null, idNo?: number | null, id: string, pancardNo?: string | null, activeBidsCount?: number | null, currentVehicleBuyingLimit?: { __typename?: 'vehicleBuyingLimits', vehicleBuyingLimit?: number | null } | null }> | null };
@@ -3642,7 +3654,16 @@ export type BidsTableQueryResult = Apollo.QueryResult<BidsTableQuery, BidsTableQ
 export const BidDetailsPerVehicleDocument = gql`
     query BidDetailsPerVehicle($where: VehicleWhereUniqueInput!) {
   vehicle(where: $where) {
+    id
     registrationNumber
+    vehicleIndexNo
+    userVehicleBidsCount
+    vehicleEventStatus
+    watchedByCount
+    bidStatus
+    event {
+      eventNo
+    }
     userVehicleBids {
       amount
       id
@@ -3660,14 +3681,6 @@ export const BidDetailsPerVehicleDocument = gql`
       username
       firstName
       lastName
-    }
-    userVehicleBidsCount
-    vehicleEventStatus
-    watchedByCount
-    watchedBy {
-      id
-      username
-      firstName
     }
   }
 }
@@ -4303,8 +4316,8 @@ export type EventsPerSellerQueryHookResult = ReturnType<typeof useEventsPerSelle
 export type EventsPerSellerLazyQueryHookResult = ReturnType<typeof useEventsPerSellerLazyQuery>;
 export type EventsPerSellerQueryResult = Apollo.QueryResult<EventsPerSellerQuery, EventsPerSellerQueryVariables>;
 export const EventTableDocument = gql`
-    query eventTable {
-  events {
+    query eventTable($take: Int, $skip: Int!, $orderBy: [EventOrderByInput!]!) {
+  events(take: $take, skip: $skip, orderBy: $orderBy) {
     id
     eventNo
     eventCategory
@@ -4335,10 +4348,13 @@ export const EventTableDocument = gql`
  * @example
  * const { data, loading, error } = useEventTableQuery({
  *   variables: {
+ *      take: // value for 'take'
+ *      skip: // value for 'skip'
+ *      orderBy: // value for 'orderBy'
  *   },
  * });
  */
-export function useEventTableQuery(baseOptions?: Apollo.QueryHookOptions<EventTableQuery, EventTableQueryVariables>) {
+export function useEventTableQuery(baseOptions: Apollo.QueryHookOptions<EventTableQuery, EventTableQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<EventTableQuery, EventTableQueryVariables>(EventTableDocument, options);
       }
@@ -4779,13 +4795,15 @@ export type UpdatePaymentMutationHookResult = ReturnType<typeof useUpdatePayment
 export type UpdatePaymentMutationResult = Apollo.MutationResult<UpdatePaymentMutation>;
 export type UpdatePaymentMutationOptions = Apollo.BaseMutationOptions<UpdatePaymentMutation, UpdatePaymentMutationVariables>;
 export const PaymentTableDocument = gql`
-    query paymentTable {
-  payments {
+    query paymentTable($skip: Int!, $take: Int, $orderBy: [PaymentOrderByInput!]!) {
+  payments(skip: $skip, take: $take, orderBy: $orderBy) {
     id
     refNo
     status
     amount
     paymentFor
+    createdAt
+    updatedAt
     user {
       id
       firstName
@@ -4809,10 +4827,13 @@ export const PaymentTableDocument = gql`
  * @example
  * const { data, loading, error } = usePaymentTableQuery({
  *   variables: {
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *      orderBy: // value for 'orderBy'
  *   },
  * });
  */
-export function usePaymentTableQuery(baseOptions?: Apollo.QueryHookOptions<PaymentTableQuery, PaymentTableQueryVariables>) {
+export function usePaymentTableQuery(baseOptions: Apollo.QueryHookOptions<PaymentTableQuery, PaymentTableQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<PaymentTableQuery, PaymentTableQueryVariables>(PaymentTableDocument, options);
       }
@@ -5431,8 +5452,8 @@ export type EditUserMutationHookResult = ReturnType<typeof useEditUserMutation>;
 export type EditUserMutationResult = Apollo.MutationResult<EditUserMutation>;
 export type EditUserMutationOptions = Apollo.BaseMutationOptions<EditUserMutation, EditUserMutationVariables>;
 export const UsersDocument = gql`
-    query Users {
-  users {
+    query Users($skip: Int!, $take: Int, $orderBy: [UserOrderByInput!]!) {
+  users(skip: $skip, take: $take, orderBy: $orderBy) {
     firstName
     lastName
     email
@@ -5463,10 +5484,13 @@ export const UsersDocument = gql`
  * @example
  * const { data, loading, error } = useUsersQuery({
  *   variables: {
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *      orderBy: // value for 'orderBy'
  *   },
  * });
  */
-export function useUsersQuery(baseOptions?: Apollo.QueryHookOptions<UsersQuery, UsersQueryVariables>) {
+export function useUsersQuery(baseOptions: Apollo.QueryHookOptions<UsersQuery, UsersQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<UsersQuery, UsersQueryVariables>(UsersDocument, options);
       }

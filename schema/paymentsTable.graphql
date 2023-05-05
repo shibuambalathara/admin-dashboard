@@ -1,10 +1,12 @@
-query paymentTable {
-  payments {
+query paymentTable($skip: Int!, $take: Int, $orderBy: [PaymentOrderByInput!]!) {
+  payments(skip: $skip, take: $take, orderBy: $orderBy) {
     id
     refNo
     status
     amount
     paymentFor
+    createdAt
+    updatedAt
     user {
       id
       firstName
