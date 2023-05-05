@@ -122,23 +122,26 @@ console.log(deleteResult,"delete result")
       
 
   return (
-    <div className="flex  flex-col w-full justify-around ">
+    <div className="flex  flex-col  justify-around ">
 
     
-    <div className=" flex flex-col w-full justify-center m-auto ">
+    <div className=" flex flex-col  justify-center  ">
     <div className="mb-2 ">
   <div className="text-center font-extrabold my-5 text-lg min-w-full">  Vehicle Data Table of Event No {data?.event?.eventNo} </div>
   
-    <div className='flex  justify-evenly'>
+   
+     <div className='flex justify-end'>
     <SearchUser filter={globalFilter} className="  text-white " setFilter={setGlobalFilter}/>
-    <h1 className='text-red-500'>Event Status {data?.event?.status}</h1>
-        <label>Number Of  Vehicles <p className='text-red-500'>{data?.event?.vehiclesCount}</p></label>
-    
+    <div className='min-w-fit mr-10'>
+    <h1 >Event Status: <span className='font-bold'>{data?.event?.status}</span></h1>
+    <h1 >No Of Vehicles: <span className='font-bold'>{data?.event?.vehiclesCount}</span></h1>
+        </div>
+        </div>
     </div>
-  </div>
+
   
       <table
-        className="w-full divide-y divide-gray-200"
+        className="w-full divide-y divide-gray-200 "
         {...getTableProps()}
       >
         <thead className="bg-gray-50">

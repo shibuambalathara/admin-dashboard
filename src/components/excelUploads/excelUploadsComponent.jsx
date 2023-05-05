@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
-import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useForm,} from "react-hook-form";
+import { useParams,useNavigate  } from "react-router-dom";
 import { useCreateExcelUploadMutation } from "../../utils/graphql";
 import { ShowPopup } from "../alerts/popUps";
 const ExcelUploadsComponent = () => {
   // const [vehicles,setVehicles]=useState([])
   const { id } = useParams();
+  const navigate=useNavigate()
   const [create, { data }] = useCreateExcelUploadMutation();
 
   const {
@@ -32,6 +33,7 @@ const ExcelUploadsComponent = () => {
       5000,
       true
     );
+    navigate('/events')
    } catch (error) {
     console.log("error in excel uploads",error.message);
     ShowPopup(

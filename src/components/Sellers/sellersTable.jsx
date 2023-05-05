@@ -73,7 +73,7 @@ console.log(data,"sellers")
         Header: "Banned Users ",
         Cell: ({ row }) => (
           // <button className="btn btn-primary" onClick={() => handleBannedUsers(row.original?.id)}>{row.original?.bannedUsersCount}</button>       
-          <a className="btn btn-primary" href={`/banned-users/${row.original.id}`} target="_blank" rel="noopener noreferrer"> View</a>
+          <a className="btn btn-primary" href={`/banned-users/${row.original.id}`} target="_blank" rel="noopener noreferrer">{row.original?.bannedUsersCount}</a>
           )
       },
       {
@@ -195,31 +195,43 @@ console.log(data,"sellers")
             </tbody>
           </table>
           <div className="flex justify-center">
-            <div className="flex justify-between mt-4">
-              <div>
+            <div className="flex flex-col justify-between mt-4 ">
+            <div className="flex justify-center">
+          Page{' '}
+          <strong>
+            {tablePageIndex + 1} of {tableInstance.pageOptions.length}
+         
+          </strong>{' '}
+        </div>
+              <div className="space-x-2">
                 <button
                   onClick={() => gotoPage(0)}
                   disabled={!canPreviousPage}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
+                  className="btn "
                 >
                   {"<<"}
                 </button>
+               
                 <button
                   onClick={() => previousPage()}
                   disabled={!canPreviousPage}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
+                  className="btn"
                 >
                   {"<"}
                 </button>
                 <button
                   onClick={() => nextPage()}
                   disabled={!canNextPage}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
+                  className="btn"
                 >
                   {" "}
                   {">"}
                 </button>
+                <button className="btn" onClick={() => gotoPage(pageCount - 1)}  disabled={!canNextPage}>
+          {'>>'}
+        </button>{' '}
               </div>
+         
             </div>
           </div>
         </div>

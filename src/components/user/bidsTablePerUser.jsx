@@ -4,9 +4,10 @@
 import { Button } from '@material-tailwind/react'
 import React, { useMemo } from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
-import { useTable,usePagination,useGlobalFilter } from "react-table"
+import {  useTable,usePagination,useSortBy,useGlobalFilter  } from "react-table"
 import {useActiveBidsPerUserQuery, useBidsTableQuery} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
+import format from "date-fns/format";
 
 
 const BidsTablePerUser = () => {
@@ -29,7 +30,13 @@ navigate(`/view-user/${userId}`)
            { Header: "Current Bid Amount", accessor: "currentBidAmount" },
            
            { Header: "Bid Status", accessor: "bidStatus" },
-        
+          //  { Header: "bidTimeExpire",  accessor: ({bidTimeExpire})=>{return format(new Date (bidTimeExpire), `dd/MM/yy,  HH:mm`)} },
+          {
+            Header: "Bid End Time",
+            accessor: ({ bidTimeExpire }) => new Date(bidTimeExpire),
+            sortType: "datetime",
+            Cell: ({ value }) => format(value, "dd/MM/yy, HH:mm"),
+          },    
          
           // {
           //   Header: "User Details",
@@ -38,7 +45,7 @@ navigate(`/view-user/${userId}`)
           //   )
           // },
           {
-            Header: "Vehicle Details",
+            Header: "Vehicle Details/Change Status",
             Cell: ({ row }) => (
               <button className="btn btn-secondary" onClick={() => handleVehicleDetails(row.original.id)}>{row.original.registrationNumber}</button>
             )
@@ -52,7 +59,15 @@ navigate(`/view-user/${userId}`)
       const tableInstance=useTable({
         columns ,
         data: tableData,
-      },useGlobalFilter,usePagination);
+        initialState: {
+          sortBy: [
+            {
+              id: "Bid End Time",
+              desc: true,
+            },
+          ],
+        },
+      },useGlobalFilter,useSortBy,usePagination);
      
         const {
           getTableProps,
@@ -100,9 +115,12 @@ navigate(`/view-user/${userId}`)
                 <th
                   scope="col"
                   className="py-3 pl-4"
-                  {...column.getHeaderProps()}
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
                 >
                   {column.render("Header")}
+                  <span>
+                      {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                      </span>
                 </th>
               ))}
             </tr>

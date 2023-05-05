@@ -1,34 +1,43 @@
 import { Button } from '@material-tailwind/react'
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo,useState } from 'react'
 import {useNavigate} from 'react-router-dom'
 import { useTable,useSortBy,usePagination,useGlobalFilter } from "react-table"
 import {useEventTableQuery} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
+
 import format from 'date-fns/format'
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 
+
+
 const EventsTableComponent = () => {
-    const {data,loading,error}=useEventTableQuery()
+  const [currentPage, setCurrentPage] = useState(0);
+  const [pageSize, setPageSize] = useState(10);
+  const [startDate1,setStartDate1]=useState()
+  const [endDate1,setendDate1]=useState()
+  if(startDate1){
+    console.log(startDate1,"start date")
+  }
+    const {data,loading,error,fetchMore}=useEventTableQuery({variables:{ skip: currentPage * pageSize,take:pageSize, orderBy: {startDate:"desc"}}})
 console.log(data,"data")
 
 
 
     const navigate=useNavigate()
+    
+    // const handleCurrentPage=(action)=>{
+    //   console.log(action,"action")
+    //   if(action==='dec'&& currentPage>0){
+    //     setCurrentPage(currentPage-1)
+    //   }
+    // }
 
-    // const handleViewVehicle=(id)=>{
-    //   navigate(`/view-vehicls/${id}`)
-    //  }
 
-  //  const handleUploadExcelFile=(id)=>{
-  //   navigate(`/excel-upload/${id}`)
-  //  }
-  //  const handleEditEvent=(id)=>{
-  //   navigate(`/edit-event/${id}`)
-  //  }
-  //  const handleAddVehicle=(id)=>{
-  //   navigate(`/add-vehicle/${id}`)
-  //  }
+
+
+
+  
    const handleReport=(report)=>{
     console.log(report,"report")
 
@@ -44,11 +53,17 @@ console.log(data,"data")
 
     const columns = useMemo(
         () => [
-          { Header: "Event No", accessor: "eventNo" },
+          { Header: "Auction No", accessor: "eventNo" },
           { Header: "seller Name", accessor: "seller.name" },
           { Header: "Location", accessor: "location.name" },
           { Header: "Event Category ", accessor: "eventCategory" },
-           { Header: "Start Date ", accessor: ({startDate})=>{return format(new Date( startDate),`dd/MM/yy, HH:mm`)} },
+          //  { Header: "Start Date ", accessor: ({startDate})=>{return format(new Date( startDate),`dd/MM/yy, HH:mm`)} },
+          {
+            Header: "start Date",
+            accessor: ({ startDate }) => new Date( startDate),
+            sortType: "datetime",
+            Cell: ({ value }) => format(value, "dd/MM/yy, HH:mm"),
+          },
           { Header: "End Date ", accessor: ({endDate})=>{return format(new Date (endDate),`dd/MM/yy, HH:mm`)} },
           { Header: "Status ", accessor: "status" }, 
           { Header: "Number Of Vehicles", accessor: "vehiclesCount" },
@@ -73,7 +88,6 @@ console.log(data,"data")
           {
             Header: "Add Vehicle",
             Cell: ({ row }) => (
-              // <button className="btn btn-accent" onClick={()=>handleAddVehicle(row.original.id) }>Add Vehicle</button>
               <a className="btn btn-accent" href={`/add-vehicle/${row.original.id}`} target="_blank" rel="noopener noreferrer">Add Vehicle</a>
 
               )
@@ -81,7 +95,6 @@ console.log(data,"data")
           {
             Header: "View/Edit Event",
             Cell: ({ row }) => (
-              // <button className="btn btn-warning" onClick={() => handleEditEvent(row.original.id)}>View/Edit</button>
               <a className="btn btn-warning" href={`/edit-event/${row.original.id}`} target="_blank" rel="noopener noreferrer">View/Edit</a>
 
               )
@@ -99,9 +112,19 @@ console.log(data,"data")
 
       const tableData=useMemo(() => (data ? data.events : []), [data]);
      
+      
+      
       const tableInstance=useTable({
         columns ,
         data: tableData,
+        initialState: {
+          sortBy: [
+            {
+              id: "start Date",
+              desc: true,
+            },
+          ],
+        },
       },useGlobalFilter,useSortBy,usePagination);
      
         const {
@@ -126,8 +149,10 @@ console.log(data,"data")
     
         const {globalFilter}=state
     
+
       if (loading) return <p>Loading...</p>;
       
+    
 
   return (
     <div className="flex  flex-col w-full justify-around ">
@@ -143,6 +168,9 @@ console.log(data,"data")
     <div className="mb-2">
   <div className="text-center font-extrabold my-5 text-lg min-w-full">  Events Data Table </div>
     <SearchUser filter={globalFilter} className="  text-white " setFilter={setGlobalFilter}/>
+   
+    {/* <input type='datetime-local' onChange={(e)=>setStartDate1(new Date( e.target.value).toISOString())}/>
+    <input type='datetime-local' onChange={(e)=>setendDate1(new Date( e.target.value).toISOString())}/> */}
   </div>
       <table
         className="w-full divide-y divide-gray-200"
@@ -183,32 +211,29 @@ console.log(data,"data")
           })}
         </tbody>
       </table>
-<div className="flex justify-center">
-      <div className="flex justify-between mt-4">
-      <div>
-        <button
-          onClick={() => gotoPage(0)}
-          disabled={!canPreviousPage}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
-        >
-          {'<<'}
-        </button>
-        <button
-          onClick={() => previousPage()}
-          disabled={!canPreviousPage}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
-        >
-          {'<'}
-        </button>
-        <button
-          onClick={() => nextPage()}
-          disabled={!canNextPage}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
-          >  {'>'}</button>
-          </div>
-          </div>
       
-    </div>
+      <div className="flex justify-center">
+            <div className="flex flex-col justify-between mt-4 ">
+            <div className="flex justify-center">
+          Page{' '}
+          <strong>
+            {currentPage + 1}
+             {/* of {tableInstance.pageOptions.length} */}
+         
+          </strong>{' '}
+        </div>
+              <div className="space-x-2">
+             
+                {currentPage>0 ?  <button className="btn" onClick={(e)=>setCurrentPage(0)}>{" "}{"<<"}</button> :<button disabled></button>}
+
+             {currentPage>0 ?  <button className="btn" onClick={(e)=>setCurrentPage(currentPage-1)}>{" "}{"<"}</button> :<button disabled></button>}
+                <button className="btn" onClick={(e)=>setCurrentPage(currentPage+1)}>{" "}{">"}</button> 
+         
+         
+              </div>
+         
+            </div>
+          </div>
   </div>
   </div>
   )

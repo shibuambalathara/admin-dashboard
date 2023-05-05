@@ -29,7 +29,7 @@ const Editseller = () => {
     const result=EditSeller({variables:{data:
      {
        name:dataOnSubmit?.sellerCompanyName,
-      //  billingContactPerson:dataOnSubmit?.billingContactPerson,
+        billingContactPerson:dataOnSubmit?.billingContactPerson,
        contactPerson:dataOnSubmit?.ContactPerson,
        GSTNumbber:dataOnSubmit?.gst,
        mobile:dataOnSubmit?.mobile,
@@ -86,7 +86,7 @@ const Editseller = () => {
           
           <div className="w-1/3">
             <label htmlFor="">GST Number</label>
-            <input defaultValue={data?.seller?.GSTNumbber}  type="number" className="input input-bordered input-secondary w-full " {...register("gst", {})}></input>
+            <input defaultValue={data?.seller?.GSTNumbber}  type="text" className="input input-bordered input-secondary w-full " {...register("gst", {})}></input>
             <p className="text-red-500"> {errors.amount && <span>Amount Required</span>}</p>
           </div>
           </div>
@@ -136,6 +136,13 @@ const Editseller = () => {
             <div className="w-1/3">
             <label htmlFor="">National Head</label>
             <input defaultValue={data?.seller?.nationalHead}  type="text" className="input input-bordered input-secondary w-full " {...register("nationalHead", { })}></input>
+            {/* <p className="text-red-500"> {errors.description && <span>Atleast 8 charators required</span>}</p> */}
+          </div>
+        </div>
+        <div className="flex space-x-2 justify-around">
+            <div className="w-1/3">
+            <label htmlFor="">Billing Contact Person</label>
+            <input defaultValue={data?.seller?.billingContactPerson}  type="text" className="input input-bordered input-secondary w-full " {...register("billingContactPerson", { })}></input>
             {/* <p className="text-red-500"> {errors.description && <span>Atleast 8 charators required</span>}</p> */}
           </div>
         </div>

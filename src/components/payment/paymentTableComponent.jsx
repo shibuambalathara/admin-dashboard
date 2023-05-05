@@ -1,13 +1,16 @@
 import { Button } from '@material-tailwind/react'
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import {useNavigate} from 'react-router-dom'
 import { useTable,useSortBy,usePagination,useGlobalFilter } from "react-table"
 import {usePaymentTableQuery} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
+import format from 'date-fns/format'
 
 
 const PaymentTableComponent = () => {
-    const {data,loading,error}=usePaymentTableQuery()
+  const [currentPage, setCurrentPage] = useState(0);
+  const [pageSize, setPageSize] = useState(10);
+    const {data,loading,error}=usePaymentTableQuery({variables:{ skip: currentPage * pageSize,take:pageSize, orderBy: { createdAt:"desc"}}})
   
     const navigate=useNavigate()
     
@@ -39,11 +42,24 @@ const PaymentTableComponent = () => {
         () => [
           { Header: "Ref No", accessor: "refNo" },
           { Header: "Amount", accessor: "amount" },
+          {
+            Header: "Created At",
+            accessor: ({ createdAt }) => new Date(createdAt),
+            sortType: "datetime",
+            Cell: ({ value }) => format(value, "dd/MM/yy, HH:mm"),
+          },
+          {
+            Header: "Updated At",
+            accessor: ({ updatedAt }) => new Date( updatedAt),
+            sortType: "datetime",
+            Cell: ({ value }) => format(value, "dd/MM/yy, HH:mm"),
+          },
           { Header: "Payment For ", accessor: "paymentFor" },
           { Header: "Status ", accessor: "status" },
           {Header:"Mobile",accessor:"user.mobile"},
            {Header:"user First Name",accessor:"user.firstName"},
            {Header:"user Last Name",accessor:"user.lastName"},
+        
 
            {
             Header: "Create Emd",
@@ -90,6 +106,14 @@ const PaymentTableComponent = () => {
       const tableInstance=useTable({
         columns ,
         data: tableData,
+        initialState: {
+          sortBy: [
+            {
+              id: "Updated At",
+              desc: true,
+            },
+          ],
+        },
       },useGlobalFilter,useSortBy,usePagination);
      
         const {
@@ -165,32 +189,28 @@ const PaymentTableComponent = () => {
           })}
         </tbody>
       </table>
-<div className="flex justify-center">
-      <div className="flex justify-between mt-4">
-      <div>
-        <button
-          onClick={() => gotoPage(0)}
-          disabled={!canPreviousPage}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
-        >
-          {'<<'}
-        </button>
-        <button
-          onClick={() => previousPage()}
-          disabled={!canPreviousPage}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
-        >
-          {'<'}
-        </button>
-        <button
-          onClick={() => nextPage()}
-          disabled={!canNextPage}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
-          >  {'>'}</button>
+      <div className="flex justify-center">
+            <div className="flex flex-col justify-between mt-4 ">
+            <div className="flex justify-center">
+          Page{' '}
+          <strong>
+            {currentPage + 1}
+             {/* of {tableInstance.pageOptions.length} */}
+         
+          </strong>{' '}
+        </div>
+              <div className="space-x-2">
+             
+                {currentPage>0 ?  <button className="btn" onClick={(e)=>setCurrentPage(0)}>{" "}{"<<"}</button> :<button disabled></button>}
+
+             {currentPage>0 ?  <button className="btn" onClick={(e)=>setCurrentPage(currentPage-1)}>{" "}{"<"}</button> :<button disabled></button>}
+                <button className="btn" onClick={(e)=>setCurrentPage(currentPage+1)}>{" "}{">"}</button> 
+         
+         
+              </div>
+         
+            </div>
           </div>
-          </div>
-      
-    </div>
   </div>
   </div>
   )
