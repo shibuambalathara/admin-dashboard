@@ -18,10 +18,10 @@ const VehicleDetailsPerEventComponent = () => {
     const [DeleteVehicle]=useDeleteVehicleMutation();
 console.log(data,"data")
 
-    const handleViewMore=(id)=>{
-      console.log("id.........",id)
-navigate(`/edit-vehicle/${id}`)
-    }
+//     const handleViewMore=(id)=>{
+//       console.log("id.........",id)
+// navigate(`/edit-vehicle/${id}`)
+//     }
     const handleDelete=async(deleteVehicleId)=>{
 console.log(deleteVehicleId)
 const result = await Swal.fire({
@@ -45,33 +45,39 @@ console.log(deleteResult,"delete result")
     refetch()
 }
     }
-    const handleBidDetails=(id)=>{
-      navigate(`/bid-details/${id}`)
-    }
+    // const handleBidDetails=(id)=>{
+    //   navigate(`/bid-details/${id}`)
+    // }
 
     const columns = useMemo(
         () => [
           { Header: "Registration Number", accessor: "registrationNumber" },
-          { Header: "Index No", accessor: "vehicleIndexNo" },
+          { Header: "Vehicle ID", accessor: "vehicleIndexNo" },
           { Header: "State", accessor: "state" },
          { Header: "City", accessor: "city" },
          { Header: "total bids count", accessor: "totalBids" },
-         { Header: "Event Status", accessor: "vehicleEventStatus" },
-          { Header: "Bid Status", accessor: "bidStatus" },
-        //   { Header: "Bid Time Expire", accessor: ({bidTimeExpire})=>{return format(new Date (bidTimeExpire),`dd/MM/yy,  HH:mm:ss`)}  },
+         { Header: "Vehicle Status", accessor: "vehicleEventStatus" },
          
+          { Header: "Bid Status", accessor: "bidStatus" },
+          { Header: "Bid Start Time", accessor: ({bidStartTime})=>{return format(new Date (bidStartTime),`dd/MM/yy,  HH:mm:ss`)}  },
+           { Header: "Bid Time Expire", accessor: ({bidTimeExpire})=>{return format(new Date (bidTimeExpire),`dd/MM/yy,  HH:mm:ss`)}  },
+
         {
           Header: "Bid Detais",
           Cell: ({ row }) => (
-            <button className="btn btn-accent" onClick={()=>handleBidDetails(row.original.id) }>Bid Details</button>
-          )
+            // <button className="btn btn-accent" onClick={()=>handleBidDetails(row.original.id) }>Bid Details</button>
+          
+            <a className="btn btn-accent" href={`/bid-details/${row.original.id}`} target="_blank" rel="noopener noreferrer">Bid Details</a>
+            )
         },
          
           {
             Header: "Vehicle Details",
             Cell: ({ row }) => (
-              <button className="btn btn-info" onClick={()=>handleViewMore(row.original.id) }>View Vehicle</button>
-            )
+              // <button className="btn btn-info" onClick={()=>handleViewMore(row.original.id) }>View Vehicle</button>
+              <a className="btn btn-info" href={`/edit-vehicle/${row.original.id}`} target="_blank" rel="noopener noreferrer">View Vehicle</a>
+
+              )
           },
           {
             Header: "Remove",
@@ -116,22 +122,26 @@ console.log(deleteResult,"delete result")
       
 
   return (
-    <div className="flex  flex-col w-full justify-around ">
+    <div className="flex  flex-col  justify-around ">
 
     
-    <div className=" flex flex-col w-full justify-center m-auto ">
+    <div className=" flex flex-col  justify-center  ">
     <div className="mb-2 ">
-  <div className="text-center font-extrabold my-5 text-lg min-w-full">  Vehicle Data Table </div>
+  <div className="text-center font-extrabold my-5 text-lg min-w-full">  Vehicle Data Table of Event No {data?.event?.eventNo} </div>
   
-    <div className='flex  justify-evenly'>
+   
+     <div className='flex justify-end'>
     <SearchUser filter={globalFilter} className="  text-white " setFilter={setGlobalFilter}/>
-        <label>Number Of  Vehicles <p className='text-red-500'>{data?.event?.vehiclesCount}</p></label>
-    
+    <div className='min-w-fit mr-10'>
+    <h1 >Event Status: <span className='font-bold'>{data?.event?.status}</span></h1>
+    <h1 >No Of Vehicles: <span className='font-bold'>{data?.event?.vehiclesCount}</span></h1>
+        </div>
+        </div>
     </div>
-  </div>
+
   
       <table
-        className="w-full divide-y divide-gray-200"
+        className="w-full divide-y divide-gray-200 "
         {...getTableProps()}
       >
         <thead className="bg-gray-50">

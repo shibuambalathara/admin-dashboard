@@ -1,7 +1,8 @@
 import type { CodegenConfig } from '@graphql-codegen/cli';
  
  const config: CodegenConfig = {
-    schema: 'https://api.autobse.com/api/graphql',
+  //  schema: 'http://localhost:3000/api/graphql',
+   schema:'https://api-dev.autobse.com/api/graphql',
     documents: '**/*.graphql',
  
    generates: {
@@ -15,3 +16,8 @@ import type { CodegenConfig } from '@graphql-codegen/cli';
    },
  };
  export default config;
+
+
+
+
+ 

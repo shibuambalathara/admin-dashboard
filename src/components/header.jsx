@@ -1,5 +1,6 @@
 import { Button } from '@material-tailwind/react'
-import React from 'react'
+
+
 import {useNavigate} from 'react-router-dom'
 import { useUserauthenticationQuery } from '../utils/graphql'
 
@@ -9,8 +10,13 @@ const Header = () => {
   const navigate=useNavigate()
   const onClickHandler=async()=>{
     localStorage.removeItem("token")
-    await refetch();
+    window.location.reload();
   
+    navigate('/login')
+  }
+  const loginHandler=()=>{
+
+   
     navigate('/login')
   }
   return (
@@ -39,10 +45,14 @@ const Header = () => {
         </div>
       </label>
       <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
-        <li>{data?.authenticatedItem?.username} </li>
+       {data ?<>
+        <li>{data.authenticatedItem?.username} </li>
         <li>Role: {data?.authenticatedItem?.role}</li>
         <li><button className='text-white  px-2 py-1  bg-red-500  rounded border'onClick={onClickHandler}>Logout</button></li>
-      </ul>
+        </>
+ :        <li><button className='text-white  px-2 py-1  bg-red-500  rounded border'onClick={loginHandler}>Login</button></li>
+}
+        </ul>
     </div>
   </div>
 </div>

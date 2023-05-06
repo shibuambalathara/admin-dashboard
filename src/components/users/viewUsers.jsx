@@ -6,8 +6,7 @@ import { useTable,useSortBy, usePagination, useGlobalFilter } from "react-table"
 import SearchUser from "./searchUser";
 
 const ViewUsers = () => {
-  const [userData, setUserData] = useState([]);
-  const [pageIndex, setPageIndex] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
   const [pageSize, setPageSize] = useState(10);
 
 
@@ -15,7 +14,7 @@ const ViewUsers = () => {
 
   const navigate = useNavigate();
 
-  const { data, loading, error } = useUsersQuery();
+  const { data, loading, error } = useUsersQuery(({variables:{ skip: currentPage * pageSize,take:pageSize, orderBy: {idNo:"desc"}}}));
   const [deleteUserMutation] = useDeleteUserMutation();
 
   console.log("this is the data from view users11", data);
@@ -35,13 +34,13 @@ const ViewUsers = () => {
     navigate(`/buying-limit/${id}`)
   }
   
-  const handleBids=(id)=>{
-    navigate(`/bids-user/${id}`)
-  }
+  // const handleBids=(id)=>{
+  //   navigate(`/bids-user/${id}`)
+  // }
 
   const columns = useMemo(
     () => [
-      { Header: "ID", accessor: "idNo" ,  className: 'w-1/3',  },
+      { Header: "User ID", accessor: "idNo" ,  className: 'w-1/3',  },
       { Header: "First Name", accessor: "firstName" ,  className: 'w-1/3', },
       { Header: "Last Name", accessor: "lastName" ,  className: 'w-1/3', },
       { Header: "Role", accessor: "role",  className: 'w-1/3', },
@@ -53,12 +52,13 @@ const ViewUsers = () => {
       {
         Header: "Active Bids ",
         Cell: ({ row }) => (
-          <button
-            className="btn btn-primary"
-            onClick={() => handleBids(row.original.id)}
-          >
-           {row.original.activeBidsCount}
-          </button>
+          // <button
+          //   className="btn btn-primary"
+          //   onClick={() => handleBids(row.original.id)}
+          // >
+          //  {row.original.activeBidsCount}
+          // </button>
+          <a className="btn btn-primary" href={`/bids-user/${row.original.id}`} target="_blank" rel="noopener noreferrer">{row.original.activeBidsCount}</a>
         ),
       },
        {
@@ -76,36 +76,40 @@ const ViewUsers = () => {
       {
         Header: "View more",
         Cell: ({ row }) => (
-          <button
-            className="btn btn-info"
-            onClick={() => handleViewMore(row.original.id)}
-          >
-            View More
-          </button>
+          // <button
+          //   className="btn btn-info"
+          //   onClick={() => handleViewMore(row.original.id)}
+          // >
+          //   View More
+          // </button>
+          <a className="btn btn-info" href={`/view-user/${row.original.id}`} target="_blank" rel="noopener noreferrer">View/Edit</a>
+
         ),
       },
       {
         Header: "Payment details",
         Cell: ({ row }) => (
-          <button
-            className="btn btn-warning"
-            onClick={() => paymentDetails(row.original.id)}
-          >
-            Payment Details
-          </button>
+          // <button
+          //   className="btn btn-warning"
+          //   onClick={() => paymentDetails(row.original.id)}
+          // >
+          //   Payment Details
+          // </button>
+          <a className="btn btn-warning" href={`/payment/${row.original.id}`} target="_blank" rel="noopener noreferrer">View/Edit</a>
+
         ),
       },
-      {
-        Header: "Delete",
-        Cell: ({ row }) => (
-          <button
-            className="btn btn-block"
-            onClick={() => handleDelete(row.original.id)}
-          >
-            Delete
-          </button>
-        ),
-      },
+      // {
+      //   Header: "Delete",
+      //   Cell: ({ row }) => (
+      //     <button
+      //       className="btn btn-block"
+      //       onClick={() => handleDelete(row.original.id)}
+      //     >
+      //       Delete
+      //     </button>
+      //   ),
+      // },
     ],
     []
   );
@@ -116,11 +120,20 @@ const ViewUsers = () => {
     {
       columns,
       data: tableData,
+      initialState: {
+        sortBy: [
+          {
+            id: "idNo",
+            desc: true,
+          },
+        ],
+      },
     },
    
     useGlobalFilter,
     useSortBy,
     usePagination,
+    
     
   );
 
@@ -225,37 +238,19 @@ const ViewUsers = () => {
             <div className="flex justify-center">
           Page{' '}
           <strong>
-            {tablePageIndex + 1} of {tableInstance.pageOptions.length}
+            {currentPage + 1}
+             {/* of {tableInstance.pageOptions.length} */}
          
           </strong>{' '}
         </div>
               <div className="space-x-2">
-                <button
-                  onClick={() => gotoPage(0)}
-                  disabled={!canPreviousPage}
-                  className="btn "
-                >
-                  {"<<"}
-                </button>
-               
-                <button
-                  onClick={() => previousPage()}
-                  disabled={!canPreviousPage}
-                  className="btn"
-                >
-                  {"<"}
-                </button>
-                <button
-                  onClick={() => nextPage()}
-                  disabled={!canNextPage}
-                  className="btn"
-                >
-                  {" "}
-                  {">"}
-                </button>
-                <button className="btn" onClick={() => gotoPage(pageCount - 1)}  disabled={!canNextPage}>
-          {'>>'}
-        </button>{' '}
+             
+                {currentPage>0 ?  <button className="btn" onClick={(e)=>setCurrentPage(0)}>{" "}{"<<"}</button> :<button disabled></button>}
+
+             {currentPage>0 ?  <button className="btn" onClick={(e)=>setCurrentPage(currentPage-1)}>{" "}{"<"}</button> :<button disabled></button>}
+                <button className="btn" onClick={(e)=>setCurrentPage(currentPage+1)}>{" "}{">"}</button> 
+         
+         
               </div>
          
             </div>

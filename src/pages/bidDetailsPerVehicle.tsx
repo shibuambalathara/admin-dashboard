@@ -1,4 +1,4 @@
-import React from 'react'
+
 import BidDetailsPerVehicleComponent from '../components/bids/bidDetailsPerVehicleComponent'
 
 const BidDetailsPerVehicle = () => {

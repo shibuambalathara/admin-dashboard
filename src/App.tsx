@@ -6,7 +6,7 @@ import { Home } from "./pages/home";
 import ProtectedRoutes from "./utils/protectedRoute";
 import AddEvents from "./pages/events";
 import AddUser from "./components/user/addUser";
-import Header from "./components/header";
+
 import UserDetails from "./pages/userDetails";
 import Payments from "./pages/payments";
 import Emd from "./pages/emd";
@@ -40,6 +40,10 @@ import EmdUpdate from "./pages/emdUpdate";
 import EmdPerPayment from "./pages/emdPerPayment";
 import BidsPerUser from "./pages/bidsPerUser";
 import EventsPerSeller from "./pages/eventsPerSeller";
+import SellerEdit from "./pages/sellerEdit";
+import AddSeller from "./components/Sellers/add";
+import Header from "./components/header";
+
 
 
 function App() {
@@ -91,6 +95,8 @@ function App() {
               <Route path="bid-details/:id" element={<BidDetailsPerVehicle />} />
               <Route path="bids-user/:id" element={<BidsPerUser />} />
               <Route path="events-seller/:id" element={<EventsPerSeller />} />
+              <Route path="edit-seller/:id" element={<SellerEdit />} />
+              <Route path="add-seller" element={<AddSeller />} />
 
               
             </Route>

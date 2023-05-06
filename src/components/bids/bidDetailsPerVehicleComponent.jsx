@@ -69,7 +69,7 @@ const BidDetailsPerVehicleComponent = () => {
                 { Header: "First Name", accessor: "user.firstName" },
                 { Header: "Last Name", accessor: "user.lastName" },
                 { Header: "Mobile", accessor: "user.mobile" },
-              { Header: "Created At ", accessor: ({createdAt})=>{return format(new Date( createdAt),`dd/MM/yy, HH:mm`)} },
+              { Header: "Bid Time ", accessor: ({createdAt})=>{return format(new Date( createdAt),`dd/MM/yy, HH:mm:ss`)} },
           { Header: "Amount", accessor: "amount" },
        
                 
@@ -97,6 +97,14 @@ const BidDetailsPerVehicleComponent = () => {
       const tableInstance=useTable({
         columns ,
         data: tableData,
+        initialState: {
+          sortBy: [
+            {
+              id: "amount",
+              desc: true,
+            },
+          ],
+        },
       },useGlobalFilter,useSortBy,usePagination);
      
         const {
@@ -137,8 +145,15 @@ const BidDetailsPerVehicleComponent = () => {
     
     <div className=" flex flex-col w-full justify-center m-auto ">
     <div className="mb-2">
-  <div className="text-center font-extrabold my-5 text-lg min-w-full">  Bidders Details </div>
+  <div className="text-center font-extrabold my-5 text-lg min-w-full">  Bidders Details of Vehicle ID:<span className='text-red-500'> {data?.vehicle?.vehicleIndexNo}</span>  & Auction ID:<span className='text-red-500'>{data?.vehicle?.event?.eventNo}</span> </div>
+   <div className='flex justify-end'>
     <SearchUser filter={globalFilter} className="  text-white " setFilter={setGlobalFilter}/>
+    <div>
+<h1>Vehicle Event Status :<span className='font-bold'> {data?.vehicle?.vehicleEventStatus}</span></h1>
+<h1>Bid Status :<span className='font-bold'> {data?.vehicle?.bidStatus}</span></h1>
+<a className='btn' target="_blank" rel="noopener noreferrer" href={`/edit-vehicle/${data?.vehicle?.id}`}> Change Status</a>
+    </div>
+    </div>
   </div>
       <table
         className="w-full divide-y divide-gray-200"

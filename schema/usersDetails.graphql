@@ -1,5 +1,5 @@
-query Users {
-  users {
+query Users($skip: Int!, $take: Int, $orderBy: [UserOrderByInput!]!) {
+  users(skip: $skip, take: $take, orderBy: $orderBy) {
     firstName
     lastName
     email
@@ -15,4 +15,5 @@ query Users {
     vehicleBuyingLimit  
     }
   }
+ 
 }

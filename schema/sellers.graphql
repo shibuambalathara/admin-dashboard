@@ -9,8 +9,45 @@ query SellersItem {
 
 mutation CreateSeller($data: SellerCreateInput!) {
   createSeller(data: $data) {
-    id
+    GSTNumbber
+    bannedUsers {
+    id  
+    }
+    billingContactPerson
     name
+    contactPerson
+    vehicleCategory {
+      events {
+        eventType {
+          id
+        }
+      }
+
+    }
+    nationalHead
+    mobile
+  }
+}
+query SellerEdit($where: SellerWhereUniqueInput!) {
+  seller(where: $where) {
+    GSTNumbber
+    billingContactPerson
+    contactPerson
+    mobile
+    name
+    nationalHead
+  }
+}
+mutation sellerUpdate($where: SellerWhereUniqueInput!, $data: SellerUpdateInput!) {
+  updateSeller(where: $where, data: $data) {
+    id
+  billingContactPerson
+  contactPerson
+  GSTNumbber
+  mobile
+  name
+  nationalHead
+  
   }
 }
 

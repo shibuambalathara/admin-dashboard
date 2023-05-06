@@ -127,32 +127,46 @@ navigate(`/view-user/${userId}`)
           })}
         </tbody>
       </table>
-<div className="flex justify-center">
-      <div className="flex justify-between mt-4">
-      <div>
-        <button
-          onClick={() => gotoPage(0)}
-          disabled={!canPreviousPage}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
-        >
-          {'<<'}
-        </button>
-        <button
-          onClick={() => previousPage()}
-          disabled={!canPreviousPage}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
-        >
-          {'<'}
-        </button>
-        <button
-          onClick={() => nextPage()}
-          disabled={!canNextPage}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
-          >  {'>'}</button>
+      <div className="flex justify-center">
+            <div className="flex flex-col justify-between mt-4 ">
+            <div className="flex justify-center">
+          Page{' '}
+          <strong>
+            {tablePageIndex + 1} of {tableInstance.pageOptions.length}
+         
+          </strong>{' '}
+        </div>
+              <div className="space-x-2">
+                <button
+                  onClick={() => gotoPage(0)}
+                  disabled={!canPreviousPage}
+                  className="btn "
+                >
+                  {"<<"}
+                </button>
+               
+                <button
+                  onClick={() => previousPage()}
+                  disabled={!canPreviousPage}
+                  className="btn"
+                >
+                  {"<"}
+                </button>
+                <button
+                  onClick={() => nextPage()}
+                  disabled={!canNextPage}
+                  className="btn"
+                >
+                  {" "}
+                  {">"}
+                </button>
+                <button className="btn" onClick={() => gotoPage(pageCount - 1)}  disabled={!canNextPage}>
+          {'>>'}
+        </button>{' '}
+              </div>
+         
+            </div>
           </div>
-          </div>
-      
-    </div>
   </div>
   </div>
   )

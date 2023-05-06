@@ -19,14 +19,14 @@ const Sidebar_items=[
     name:"Emds",
     path:"emd"
   },
-  {
-    name:"Vehicles",
-    path:"vehicles"
-  },
-  {
-    name:"Bids",
-    path:"bids"
-  },
+  // {
+  //   name:"Vehicles",
+  //   path:"vehicles"
+  // },
+  // {
+  //   name:"Bids",
+  //   path:"bids"
+  // },
   {
     name:"Events types",
     path:"event-types"

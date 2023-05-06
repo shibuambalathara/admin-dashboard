@@ -7,6 +7,9 @@ import SearchUser from "../users/searchUser";
 import { useSellersItemQuery } from "../../utils/graphql";
 
 import Swal from "sweetalert2";
+import EditSeller from "./editSeller1";
+import AddSeller from "./addSeller";
+
 
 const Table = () => {
 
@@ -16,14 +19,15 @@ const Table = () => {
   const [removeSeller]=useDeleteSellerMutation()
 console.log(data,"sellers")
  
-const handleBannedUsers=(id)=>{
-console.log(id,"banned Users")
-navigate(`/banned-users/${id}`)
-}
-const handleEvents=(id)=>{
-  console.log(id,"banned Users")
-  navigate(`/events-seller/${id}`)
-  }
+// const handleBannedUsers=(id)=>{
+// console.log(id,"banned Users")
+// navigate(`/banned-users/${id}`)
+// }
+// const handleEvents=(id)=>{
+//   console.log(id,"banned Users")
+//   navigate(`/events-seller/${id}`)
+//   }
+
   const handleRemove=async(id)=>{
 
     const result = await Swal.fire({
@@ -58,15 +62,26 @@ const handleEvents=(id)=>{
     
       { Header: "Total Events Conducted", accessor: "eventsCount" },
       {
+        Header: "View/Edit Seller",
+        Cell: ({ row }) => (
+      
+      <a className="btn btn-info" href={`/edit-seller/${row.original.id}`} target="_blank" rel="noopener noreferrer"> View/Edit</a>
+
+      )
+      },
+      {
         Header: "Banned Users ",
         Cell: ({ row }) => (
-          <button className="btn btn-primary" onClick={() => handleBannedUsers(row.original?.id)}>{row.original?.bannedUsersCount}</button>
-        )
+          // <button className="btn btn-primary" onClick={() => handleBannedUsers(row.original?.id)}>{row.original?.bannedUsersCount}</button>       
+          <a className="btn btn-primary" href={`/banned-users/${row.original.id}`} target="_blank" rel="noopener noreferrer">{row.original?.bannedUsersCount}</a>
+          )
       },
       {
         Header: "View Events",
         Cell: ({ row }) => (
-          <button className="btn btn-info" onClick={() => handleEvents(row.original?.id)}>View</button>
+          //<button className="btn btn-success" onClick={() => handleEvents(row.original?.id)}>View</button>
+          <a className="btn btn-success" href={`/events-seller/${row.original?.id}`} target="_blank" rel="noopener noreferrer"> View/Edit</a>
+
         )
       },
       {
@@ -115,8 +130,15 @@ const handleEvents=(id)=>{
   if (error) return <p>Error :{error}</p>;
 
   return (
-    <div className=" w-ful  ">
-         
+    <div className=" w-ful flex flex-col ">
+      <div>
+                 <button
+      onClick={() => navigate("/add-seller")}
+      className="btn btn-outline"
+      >
+     Add Seller
+    </button>
+      </div>
       <div className="w-full  max-w-4xl mx-auto h-fit ">
         <div className="   flex flex-col justify-center m-auto w-full">
           <div className="w-full mb-2">
@@ -173,31 +195,43 @@ const handleEvents=(id)=>{
             </tbody>
           </table>
           <div className="flex justify-center">
-            <div className="flex justify-between mt-4">
-              <div>
+            <div className="flex flex-col justify-between mt-4 ">
+            <div className="flex justify-center">
+          Page{' '}
+          <strong>
+            {tablePageIndex + 1} of {tableInstance.pageOptions.length}
+         
+          </strong>{' '}
+        </div>
+              <div className="space-x-2">
                 <button
                   onClick={() => gotoPage(0)}
                   disabled={!canPreviousPage}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
+                  className="btn "
                 >
                   {"<<"}
                 </button>
+               
                 <button
                   onClick={() => previousPage()}
                   disabled={!canPreviousPage}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
+                  className="btn"
                 >
                   {"<"}
                 </button>
                 <button
                   onClick={() => nextPage()}
                   disabled={!canNextPage}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
+                  className="btn"
                 >
                   {" "}
                   {">"}
                 </button>
+                <button className="btn" onClick={() => gotoPage(pageCount - 1)}  disabled={!canNextPage}>
+          {'>>'}
+        </button>{' '}
               </div>
+         
             </div>
           </div>
         </div>
