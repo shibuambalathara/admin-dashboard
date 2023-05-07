@@ -3125,13 +3125,6 @@ export type EmdUpdateQueryVariables = Exact<{
 
 export type EmdUpdateQuery = { __typename?: 'Query', emdUpdate?: { __typename?: 'EmdUpdate', id: string, emdNo?: number | null, vehicleBuyingLimitIncrement?: number | null, payment?: { __typename?: 'Payment', amount?: number | null, image?: { __typename?: 'ImageFieldOutput', url: string } | null } | null, user?: { __typename?: 'User', id: string, firstName?: string | null, username?: string | null } | null } | null };
 
-export type EventQueryVariables = Exact<{
-  where: EventWhereUniqueInput;
-}>;
-
-
-export type EventQuery = { __typename?: 'Query', event?: { __typename?: 'Event', id: string, eventCategory?: string | null, startDate?: any | null, endDate?: any | null, noOfBids?: number | null, status?: EventStatusType | null, termsAndConditions?: string | null, bidLock?: EventBidLockType | null, isSpecialEvent?: boolean | null, extraTime?: number | null, extraTimeTrigerIn?: number | null, vehicleLiveTimeIn?: number | null, gapInBetweenVehicles?: number | null, seller?: { __typename?: 'Seller', name?: string | null, id: string } | null, eventType?: Array<{ __typename?: 'EventType', name?: string | null, id: string }> | null, location?: { __typename?: 'Location', name?: string | null, id: string } | null, downloadableFile?: { __typename?: 'FileFieldOutput', url: string } | null } | null };
-
 export type EventStartTimeQueryVariables = Exact<{
   where: EventWhereUniqueInput;
 }>;
@@ -3152,6 +3145,20 @@ export type DeleteEventTypeMutationVariables = Exact<{
 
 
 export type DeleteEventTypeMutation = { __typename?: 'Mutation', deleteEventType?: { __typename?: 'EventType', id: string } | null };
+
+export type EventQueryVariables = Exact<{
+  where: EventWhereUniqueInput;
+}>;
+
+
+export type EventQuery = { __typename?: 'Query', event?: { __typename?: 'Event', id: string, eventCategory?: string | null, startDate?: any | null, endDate?: any | null, noOfBids?: number | null, status?: EventStatusType | null, termsAndConditions?: string | null, bidLock?: EventBidLockType | null, isSpecialEvent?: boolean | null, extraTime?: number | null, extraTimeTrigerIn?: number | null, vehicleLiveTimeIn?: number | null, gapInBetweenVehicles?: number | null, seller?: { __typename?: 'Seller', name?: string | null, id: string } | null, eventType?: Array<{ __typename?: 'EventType', name?: string | null, id: string }> | null, location?: { __typename?: 'Location', name?: string | null, id: string } | null, downloadableFile?: { __typename?: 'FileFieldOutput', url: string } | null } | null };
+
+export type EventsReportQueryVariables = Exact<{
+  where: EventWhereInput;
+}>;
+
+
+export type EventsReportQuery = { __typename?: 'Query', events?: Array<{ __typename?: 'Event', vehiclesCount?: number | null, eventCategory?: string | null, startDate?: any | null, endDate?: any | null, noOfBids?: number | null, status?: EventStatusType | null, eventNo?: number | null, seller?: { __typename?: 'Seller', name?: string | null } | null, location?: { __typename?: 'Location', name?: string | null } | null }> | null };
 
 export type EventsPerSellerQueryVariables = Exact<{
   where: SellerWhereUniqueInput;
@@ -4100,68 +4107,6 @@ export function useEmdUpdateLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type EmdUpdateQueryHookResult = ReturnType<typeof useEmdUpdateQuery>;
 export type EmdUpdateLazyQueryHookResult = ReturnType<typeof useEmdUpdateLazyQuery>;
 export type EmdUpdateQueryResult = Apollo.QueryResult<EmdUpdateQuery, EmdUpdateQueryVariables>;
-export const EventDocument = gql`
-    query Event($where: EventWhereUniqueInput!) {
-  event(where: $where) {
-    id
-    eventCategory
-    startDate
-    endDate
-    seller {
-      name
-      id
-    }
-    eventType {
-      name
-      id
-    }
-    location {
-      name
-      id
-    }
-    noOfBids
-    status
-    downloadableFile {
-      url
-    }
-    termsAndConditions
-    bidLock
-    isSpecialEvent
-    extraTime
-    extraTimeTrigerIn
-    vehicleLiveTimeIn
-    gapInBetweenVehicles
-  }
-}
-    `;
-
-/**
- * __useEventQuery__
- *
- * To run a query within a React component, call `useEventQuery` and pass it any options that fit your needs.
- * When your component renders, `useEventQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useEventQuery({
- *   variables: {
- *      where: // value for 'where'
- *   },
- * });
- */
-export function useEventQuery(baseOptions: Apollo.QueryHookOptions<EventQuery, EventQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<EventQuery, EventQueryVariables>(EventDocument, options);
-      }
-export function useEventLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EventQuery, EventQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<EventQuery, EventQueryVariables>(EventDocument, options);
-        }
-export type EventQueryHookResult = ReturnType<typeof useEventQuery>;
-export type EventLazyQueryHookResult = ReturnType<typeof useEventLazyQuery>;
-export type EventQueryResult = Apollo.QueryResult<EventQuery, EventQueryVariables>;
 export const EventStartTimeDocument = gql`
     query EventStartTime($where: EventWhereUniqueInput!) {
   event(where: $where) {
@@ -4264,6 +4209,115 @@ export function useDeleteEventTypeMutation(baseOptions?: Apollo.MutationHookOpti
 export type DeleteEventTypeMutationHookResult = ReturnType<typeof useDeleteEventTypeMutation>;
 export type DeleteEventTypeMutationResult = Apollo.MutationResult<DeleteEventTypeMutation>;
 export type DeleteEventTypeMutationOptions = Apollo.BaseMutationOptions<DeleteEventTypeMutation, DeleteEventTypeMutationVariables>;
+export const EventDocument = gql`
+    query Event($where: EventWhereUniqueInput!) {
+  event(where: $where) {
+    id
+    eventCategory
+    startDate
+    endDate
+    seller {
+      name
+      id
+    }
+    eventType {
+      name
+      id
+    }
+    location {
+      name
+      id
+    }
+    noOfBids
+    status
+    downloadableFile {
+      url
+    }
+    termsAndConditions
+    bidLock
+    isSpecialEvent
+    extraTime
+    extraTimeTrigerIn
+    vehicleLiveTimeIn
+    gapInBetweenVehicles
+  }
+}
+    `;
+
+/**
+ * __useEventQuery__
+ *
+ * To run a query within a React component, call `useEventQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEventQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEventQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useEventQuery(baseOptions: Apollo.QueryHookOptions<EventQuery, EventQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EventQuery, EventQueryVariables>(EventDocument, options);
+      }
+export function useEventLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EventQuery, EventQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EventQuery, EventQueryVariables>(EventDocument, options);
+        }
+export type EventQueryHookResult = ReturnType<typeof useEventQuery>;
+export type EventLazyQueryHookResult = ReturnType<typeof useEventLazyQuery>;
+export type EventQueryResult = Apollo.QueryResult<EventQuery, EventQueryVariables>;
+export const EventsReportDocument = gql`
+    query eventsReport($where: EventWhereInput!) {
+  events(where: $where) {
+    vehiclesCount
+    eventCategory
+    startDate
+    endDate
+    seller {
+      name
+    }
+    location {
+      name
+    }
+    noOfBids
+    status
+    eventNo
+  }
+}
+    `;
+
+/**
+ * __useEventsReportQuery__
+ *
+ * To run a query within a React component, call `useEventsReportQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEventsReportQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEventsReportQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useEventsReportQuery(baseOptions: Apollo.QueryHookOptions<EventsReportQuery, EventsReportQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EventsReportQuery, EventsReportQueryVariables>(EventsReportDocument, options);
+      }
+export function useEventsReportLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EventsReportQuery, EventsReportQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EventsReportQuery, EventsReportQueryVariables>(EventsReportDocument, options);
+        }
+export type EventsReportQueryHookResult = ReturnType<typeof useEventsReportQuery>;
+export type EventsReportLazyQueryHookResult = ReturnType<typeof useEventsReportLazyQuery>;
+export type EventsReportQueryResult = Apollo.QueryResult<EventsReportQuery, EventsReportQueryVariables>;
 export const EventsPerSellerDocument = gql`
     query eventsPerSeller($where: SellerWhereUniqueInput!) {
   seller(where: $where) {

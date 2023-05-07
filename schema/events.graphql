@@ -33,3 +33,25 @@ query Event($where: EventWhereUniqueInput!) {
   }
  
 }
+
+
+query eventsReport( $where: EventWhereInput!) {
+  events(where: $where)  {
+   vehiclesCount
+    eventCategory
+    startDate
+    endDate
+    seller {
+      name
+      
+    }
+    location {
+      name
+      
+    }
+    noOfBids
+    status
+    eventNo
+
+  }
+}

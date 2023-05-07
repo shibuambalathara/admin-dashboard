@@ -14,11 +14,8 @@ import * as FileSaver from 'file-saver';
 const EventsTableComponent = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [pageSize, setPageSize] = useState(10);
-  const [startDate1,setStartDate1]=useState()
-  const [endDate1,setendDate1]=useState()
-  if(startDate1){
-    console.log(startDate1,"start date")
-  }
+
+
     const {data,loading,error,fetchMore}=useEventTableQuery({variables:{ skip: currentPage * pageSize,take:pageSize, orderBy: {startDate:"desc"}}})
 console.log(data,"data")
 

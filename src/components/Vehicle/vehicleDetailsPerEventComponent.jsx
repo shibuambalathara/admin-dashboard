@@ -9,6 +9,9 @@ import {useDeleteVehicleMutation, useVehicleDetailsPerEventQuery, useVehicleTabl
 import SearchUser from '../users/searchUser'
 import format from 'date-fns/format'
 import Swal from "sweetalert2";
+import Report from './report'
+
+
 
 const VehicleDetailsPerEventComponent = () => {
    
@@ -45,9 +48,10 @@ console.log(deleteResult,"delete result")
     refetch()
 }
     }
-    // const handleBidDetails=(id)=>{
-    //   navigate(`/bid-details/${id}`)
-    // }
+    const handleReport=(id)=>{
+   
+       return <Report id={id} />;
+    }
 
     const columns = useMemo(
         () => [
@@ -74,9 +78,14 @@ console.log(deleteResult,"delete result")
           {
             Header: "Vehicle Details",
             Cell: ({ row }) => (
-              // <button className="btn btn-info" onClick={()=>handleViewMore(row.original.id) }>View Vehicle</button>
               <a className="btn btn-info" href={`/edit-vehicle/${row.original.id}`} target="_blank" rel="noopener noreferrer">View Vehicle</a>
 
+              )
+          },
+          {
+            Header: "Report",
+            Cell: ({ row }) => (
+            <button className="btn btn-success" onClick={() => handleReport(row.original.id)}>Report</button>
               )
           },
           {
