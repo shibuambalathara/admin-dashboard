@@ -15,14 +15,11 @@ const Sidebar_items=[
     name:"Payments",
     path:"payment"
   },
-  {
-    name:"Emds",
-    path:"emd"
-  },
   // {
-  //   name:"Vehicles",
-  //   path:"vehicles"
+  //   name:"Emds",
+  //   path:"emd"
   // },
+
   // {
   //   name:"Bids",
   //   path:"bids"
@@ -46,6 +43,10 @@ const Sidebar_items=[
   {
     name:"Sellers",
     path:"sellers"
+  },
+  {
+    name:" Reports",
+    path:"report"
   },
 
   
