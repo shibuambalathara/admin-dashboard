@@ -9,4 +9,4 @@ const AddLoactionForm = () => {
   )
 }
 
-export default AddLoactionForm
+export default AddLoactionForm 
