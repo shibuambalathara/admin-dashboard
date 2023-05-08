@@ -75,12 +75,12 @@ console.log(reportData,"reportdata..")
 
   if (loading) return <p>Loading...</p>;
   return (
-  <div className="flex flex-col mt-10 justify-center w-full ">
+  <div className="flex flex-col  justify-center w-full  ">
      <form onSubmit={handleSubmit(onSubmit)}>
-   <div className="text-red-500 flex justify-center font-bold my-10"> Events Report In Excel Format</div>
-    <div className="flex justify-evenly">
+   <div className="text-red-500 flex justify-center font-bold "> Events Report In Excel Format</div>
+    <div className="flex justify-evenly space-x-5">
       
-      <div className="flex flex-col">
+      <div className="flex flex-col ">
         <label>Enter event from date</label>
         <input className="btn" type="datetime-local" {...register("eventfromdate", { required: true })} />
         {errors.eventfromdate && <span className="text-red-500">This field is required</span>}
@@ -90,8 +90,8 @@ console.log(reportData,"reportdata..")
         <input className="btn" type="datetime-local" {...register("eventTodate", { required: true })}/>
         {errors.eventTodate && <span className="text-red-500">This field is required</span>}
       </div>
-   {!data  && <input className="btn btn-primary" type="submit" />}
-      {data && <button className="btn btn-success" onClick={(e) => handleReport(data?.events)}>Download</button> }
+   {!data  && <input className="btn btn-primary mt-6" type="submit" />}
+      {data && <button className="btn btn-success mt-6" onClick={(e) => handleReport(data?.events)}>Download</button> }
     </div>
     </form>
     </div>

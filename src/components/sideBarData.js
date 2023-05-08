@@ -44,10 +44,7 @@ const Sidebar_items=[
     name:"Sellers",
     path:"sellers"
   },
-  {
-    name:" Reports",
-    path:"report"
-  },
+
 
   
   ]
