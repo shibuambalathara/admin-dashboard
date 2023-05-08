@@ -19,7 +19,7 @@ const VehicleDetailsPerEventComponent = () => {
     const navigate=useNavigate()
     const {data,loading,error,refetch}=useVehicleDetailsPerEventQuery({variables:{where:{id}}})
     const [DeleteVehicle]=useDeleteVehicleMutation();
-console.log(data,"data")
+// console.log(data,"data")
 
 //     const handleViewMore=(id)=>{
 //       console.log("id.........",id)
@@ -82,12 +82,12 @@ console.log(deleteResult,"delete result")
 
               )
           },
-          {
-            Header: "Report",
-            Cell: ({ row }) => (
-            <button className="btn btn-success" onClick={() => handleReport(row.original.id)}>Report</button>
-              )
-          },
+          // {
+          //   Header: "Report",
+          //   Cell: ({ row }) => (
+          //   <button className="btn btn-success" onClick={() => handleReport(row.original.id)}>Report</button>
+          //     )
+          // },
           {
             Header: "Remove",
             Cell: ({ row }) => (
@@ -128,6 +128,7 @@ console.log(deleteResult,"delete result")
         const {globalFilter}=state
     
       if (loading) return <p>Loading...</p>;
+
       
 
   return (
