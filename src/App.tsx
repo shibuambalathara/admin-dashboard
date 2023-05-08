@@ -43,7 +43,7 @@ import EventsPerSeller from "./pages/eventsPerSeller";
 import SellerEdit from "./pages/sellerEdit";
 import AddSeller from "./components/Sellers/add";
 import Header from "./components/header";
-import EventsReport from "./pages/eventsReport";
+
 
 
 
@@ -98,7 +98,7 @@ function App() {
               <Route path="events-seller/:id" element={<EventsPerSeller />} />
               <Route path="edit-seller/:id" element={<SellerEdit />} />
               <Route path="add-seller" element={<AddSeller />} />
-              <Route path="report" element={<EventsReport />} />
+            
 
               
             </Route>

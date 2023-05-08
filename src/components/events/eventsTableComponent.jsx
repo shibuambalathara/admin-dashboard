@@ -8,6 +8,7 @@ import SearchUser from '../users/searchUser'
 import format from 'date-fns/format'
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import Report from './report'
 
 
 
@@ -153,18 +154,26 @@ console.log(data,"data")
 
   return (
     <div className="flex  flex-col w-full justify-around ">
-      
-    <Button
+         <div className='flex  justify-between  m-2'> 
+        <div>
+    <button
       onClick={() => navigate("/addevent")}
-      className="m-5 justify-end w-fit bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+      className="btn btn-outline"
     >
      Add Event
-    </Button>
-    
+    </button>
+    </div>
+    <div>
+        <Report/>
+        </div>
+        </div> 
     <div className=" flex flex-col w-full justify-center m-auto ">
     <div className="mb-2">
   <div className="text-center font-extrabold my-5 text-lg min-w-full">  Events Data Table </div>
-    <SearchUser filter={globalFilter} className="  text-white " setFilter={setGlobalFilter}/>
+
+    <SearchUser filter={globalFilter} className="  text-white bg-red-200" setFilter={setGlobalFilter}/>
+ 
+ 
    
     {/* <input type='datetime-local' onChange={(e)=>setStartDate1(new Date( e.target.value).toISOString())}/>
     <input type='datetime-local' onChange={(e)=>setendDate1(new Date( e.target.value).toISOString())}/> */}
