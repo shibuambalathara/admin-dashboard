@@ -16,7 +16,7 @@ const AddEventComponent = () => {
   const location=useLocationsQuery()
   const [addEvent,{data}]=useCreateEventMutation()
   const[category,setCategory]=useState('online')
-  console.log(category,"category")
+  
   
 
   const { register, handleSubmit,control, watch, formState: { errors } } = useForm();
@@ -275,7 +275,7 @@ const handleOnClick=()=>{
               </div>
              
               
-              <div className="flex flex-col space-y-2 relative ">
+          { category ==='online'  &&   <div className="flex flex-col space-y-2 relative ">
                 <label className="text-base" htmlFor="">
                 Bids on Amount Smaller than the Winning bid amount is
                 </label>
@@ -292,7 +292,7 @@ const handleOnClick=()=>{
                   <option value="locked">locked </option>
                   <option value="unlocked">unlocked</option>
                 </select>
-              </div>
+              </div>}
               <div className="flex space-x-6">
                 <input type="checkbox"   {...register("special",{})}
                  className="checkbox checkbox-success hover:bg-white" />
