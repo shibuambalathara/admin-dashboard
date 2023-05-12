@@ -52,7 +52,7 @@ else{
                                 htmlFor="userName"
                                 className="block text-sm font-semibold text-gray-800"
                             >
-                                User Name
+                                Mobile
                             </label>
                             <input
                                 {...register("userName", { required: true })}

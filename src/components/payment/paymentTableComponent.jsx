@@ -15,28 +15,14 @@ const PaymentTableComponent = () => {
     const navigate=useNavigate()
     
     console.log(data,"payment ")
-    // const handlePaymentStatus=(userId)=>{
-    //   navigate(`/update-payment/${userId}`)
-    // }
 
-    // const handleUserDetails=(userId)=>{
-    
-    //   navigate(`/view-user/${userId}`)
-    // }
 
     
     const  handlePaymentPerUser=(userId)=>{
     
       navigate(`/payment/${userId}`)
     }
-    // const  handleCreateEmd=(paymentId)=>{
-    
-    //   navigate(`/add-emd/${paymentId}`)
-    // }
-    // const  handleViewEmd=(paymentId)=>{
-    
-    //   navigate(`/emd-payment/${paymentId}`)
-    // }
+
 
     const columns = useMemo(
         () => [
@@ -84,7 +70,7 @@ const PaymentTableComponent = () => {
             Cell: ({ row }) => (
               // <button className="btn btn-warning" onClick={() => handlePaymentPerUser(row.original.user.id)}>Payment Details</button>
           
-              <a className="btn btn-warning" href={`/emd-payment/${row.original.id}`} target="_blank" rel="noopener noreferrer">Payment Details</a>
+              <a className="btn btn-warning" href={`/payment/${row.original.user.id}`} target="_blank" rel="noopener noreferrer">Payment Details</a>
               )
           },
          
