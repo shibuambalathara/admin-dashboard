@@ -195,21 +195,21 @@ console.log(deleteResult,"delete result")
         <button
           onClick={() => gotoPage(0)}
           disabled={!canPreviousPage}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
+          className="btn"
         >
           {'<<'}
         </button>
         <button
           onClick={() => previousPage()}
           disabled={!canPreviousPage}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
+          className="btn "
         >
           {'<'}
         </button>
         <button
           onClick={() => nextPage()}
           disabled={!canNextPage}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
+          className="btn"
           >  {'>'}</button>
           </div>
           </div>
