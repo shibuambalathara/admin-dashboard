@@ -71,9 +71,19 @@ const BidDetailsPerVehicleComponent = () => {
 
     const handleReport=(report)=>{
       console.log(report,"report")
+    const arr=[]
+    arr.push(report)
+   const take =arr.map((element)=>({
+     Auction_No:element.event.eventNo,
+     Lot_no:element.vehicleIndexNo,
+     RegistrationNumber:element.registrationNumber,
+    }))
+  
+  console.log(take,"repor")
+  
        report=report?.userVehicleBids.map((element)=>({
         
-        First_Name:element.user.firstName,
+       Bidder_First_Name:element.user.firstName,
         Last_Name:element.user.lastName,
         Mobile:element.user.mobile,
         Amount:element.amount,
@@ -84,16 +94,19 @@ const BidDetailsPerVehicleComponent = () => {
         return b.Amount - a.Amount;
       });
       console.log(report)
-  
+      const combined=[...take,...report]
       const convertToExcel = (jsonToExcel) => {
-        const worksheet = XLSX.utils.json_to_sheet(report);
+        const worksheet = XLSX.utils.json_to_sheet(combined);
         const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
         
         const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
         const excelData = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
-        FileSaver.saveAs(excelData, 'Event-Report.xlsx');
+        FileSaver.saveAs(excelData, `Bid-Report of Lot No: ${data?.vehicle?.vehicleIndexNo}.xlsx`);
       }
-      convertToExcel(report);
+      
+     
+      convertToExcel();
+     console.log(combined)
      }
 
     const columns = useMemo(
@@ -177,7 +190,7 @@ const BidDetailsPerVehicleComponent = () => {
     
     <div className=" flex flex-col w-full justify-center m-auto ">
     <div className="mb-2">
-  <div className="text-center font-extrabold my-5 text-lg min-w-full">  Bidders Details of Vehicle ID:<span className='text-red-500'> {data?.vehicle?.vehicleIndexNo}</span>  & Auction ID:<span className='text-red-500'>{data?.vehicle?.event?.eventNo}</span> </div>
+  <div className="text-center font-extrabold my-5 text-lg min-w-full">  Bidders Details of Lot No:<span className='text-red-500'> {data?.vehicle?.vehicleIndexNo}</span>  & Auction No:<span className='text-red-500'>{data?.vehicle?.event?.eventNo}</span> </div>
    <div className='flex justify-end space-y-2'>
     <SearchUser filter={globalFilter} className="  text-white " setFilter={setGlobalFilter}/>
     <div className='space-y-2'>
