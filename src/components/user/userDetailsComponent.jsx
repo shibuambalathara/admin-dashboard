@@ -3,12 +3,13 @@ import Select from 'react-select'
 import React from "react";
 import { useForm,Controller } from "react-hook-form";
 
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 import { useUserQuery,useSellersItemQuery,useEditUserMutation,useSelectorsQuery, useStatesQuery} from "../../utils/graphql";
 import { ShowPopup } from '../alerts/popUps';
 import AddUser from "./addUser";
 
 const UserDetailsComponent = () => {
+  const navigate=useNavigate()
   const { id } = useParams();
  const sellers = useSellersItemQuery();
  const allStates=useStatesQuery()
@@ -87,6 +88,7 @@ console.log(data,"data")
     const result= updatedDetails({variables: {data:user}})
     if(result){
      ShowPopup("Success!", `${dataOnSubmit?.first_Name} Updated successfully!`, "success", 5000, true);
+     navigate('/users')
  }
    }
    catch(err){
