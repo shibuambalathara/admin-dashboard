@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useUsersQuery, useDeleteUserMutation } from "../../utils/graphql";
 import { useTable,useSortBy, usePagination, useGlobalFilter } from "react-table";
 import SearchUser from "./searchUser";
+import format from 'date-fns/format'
 
 const ViewUsers = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -14,7 +15,7 @@ const ViewUsers = () => {
 
   const navigate = useNavigate();
 
-  const { data, loading, error } = useUsersQuery(({variables:{ skip: currentPage * pageSize,take:pageSize, orderBy: {idNo:"desc"}}}));
+  const { data, loading, error,refetch } = useUsersQuery(({variables:{ skip: currentPage * pageSize,take:pageSize, orderBy: {idNo:"desc"}}}));
   const [deleteUserMutation] = useDeleteUserMutation();
 
   console.log("this is the data from view users11", data);
@@ -37,6 +38,9 @@ const ViewUsers = () => {
   // const handleBids=(id)=>{
   //   navigate(`/bids-user/${id}`)
   // }
+   useEffect(()=>{
+refetch()
+  },[data])
 
   const columns = useMemo(
     () => [
@@ -47,7 +51,12 @@ const ViewUsers = () => {
       { Header: "Mobile", accessor: "mobile",  className: 'w-1/3',   },
       { Header: "State", accessor: "state",  className: 'w-1/3',   },
       { Header: "Status", accessor: "status",  className: 'w-1/3',   },
-      //  { Header: "Active Bids Count", accessor: "activeBidsCount",  className: 'w-1/3',   },
+      {
+        Header: "Created At",
+        accessor: ({ createdAt }) => new Date( createdAt),
+        sortType: "datetime",
+        Cell: ({ value }) => format(value, "dd/MM/yy, HH:mm"),
+      },
 
       {
         Header: "Active Bids ",

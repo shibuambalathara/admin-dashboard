@@ -17,10 +17,12 @@ const EventsTableComponent = () => {
   const [pageSize, setPageSize] = useState(10);
 
 
-    const {data,loading,error,fetchMore}=useEventTableQuery({variables:{ skip: currentPage * pageSize,take:pageSize, orderBy: {startDate:"desc"}}})
+    const {data,loading,error,refetch}=useEventTableQuery({variables:{ skip: currentPage * pageSize,take:pageSize, orderBy: {startDate:"desc"}}})
 console.log(data,"data")
 
-
+useEffect(()=>{
+  refetch()
+},[data])
 
     const navigate=useNavigate()
     
