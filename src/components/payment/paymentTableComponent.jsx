@@ -70,7 +70,7 @@ const PaymentTableComponent = () => {
             Cell: ({ row }) => (
               // <button className="btn btn-warning" onClick={() => handlePaymentPerUser(row.original.user.id)}>Payment Details</button>
           
-              <a className="btn btn-warning" href={`/payment/${row.original.user.id}`} target="_blank" rel="noopener noreferrer">Payment Details</a>
+              <a className="btn btn-warning" href={`/payment/${row.original?.user?.id}`} target="_blank" rel="noopener noreferrer">Payment Details</a>
               )
           },
          
