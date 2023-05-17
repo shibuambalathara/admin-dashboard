@@ -10,6 +10,7 @@
     "@graphql-codegen/typescript-react-apollo": "^3.3.7",
     "@headlessui/react": "^1.7.14",
     "@material-tailwind/react": "^1.4.2",
+    "@splidejs/react-splide": "^0.7.12",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
