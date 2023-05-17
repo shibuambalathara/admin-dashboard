@@ -43,8 +43,13 @@ import EventsPerSeller from "./pages/eventsPerSeller";
 import SellerEdit from "./pages/sellerEdit";
 import AddSeller from "./components/Sellers/add";
 import Header from "./components/header";
+
 import OpenAuctions from "./pages/openAuction";
 import OpenAuctionLive from "./pages/openAuctionLive";
+
+import ImageUpload from "./pages/image_upload";
+
+
 
 
 
@@ -99,8 +104,13 @@ function App() {
               <Route path="events-seller/:id" element={<EventsPerSeller />} />
               <Route path="edit-seller/:id" element={<SellerEdit />} />
               <Route path="add-seller" element={<AddSeller />} />
+
             <Route path='openauctions' element={<OpenAuctions/>}/>
             <Route path='openauctionsLive/:id' element={<OpenAuctionLive/>}/>
+
+              <Route path="image-upload" element={<ImageUpload />} />
+            
+
 
               
             </Route>

@@ -2,13 +2,16 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { useForm,} from "react-hook-form";
 import { useParams,useNavigate  } from "react-router-dom";
-import { useCreateExcelUploadMutation } from "../../utils/graphql";
+import { useCreateExcelUploadMutation, useEditEventMutation, useEventQuery } from "../../utils/graphql";
 import { ShowPopup } from "../alerts/popUps";
-const ExcelUploadsComponent = () => {
+const ExcelUploadsComponent =() => {
   // const [vehicles,setVehicles]=useState([])
   const { id } = useParams();
   const navigate=useNavigate()
   const [create, { data }] = useCreateExcelUploadMutation();
+   const {data:eventData}=useEventQuery({variables:{where:{id}}})
+    console.log(eventData?.event,"event data")
+  const [editEvent]=useEditEventMutation({variables:{where:{id}}})
 
   const {
     register,
@@ -25,15 +28,20 @@ const ExcelUploadsComponent = () => {
        name: dataOnSubmit?.uploadFileName,
        event: { connect: { id: id } },
      };
-     create({ variables: { data: excel } });
-     ShowPopup(
+     create({ variables: { data: excel } }).then(()=>{ ShowPopup(
       "Success!",
       `${dataOnSubmit?.uploadFileName} Excel File Added successfully!`,
       "success",
       5000,
-      true
-    );
-    navigate('/events')
+      true,
+      editEvent({variables:{data:{startDate:eventData?.event?.startDate}}}).then((resolve)=>{
+
+        console.log("result",resolve)
+        navigate('/events')
+      })
+    )})
+    
+    
    } catch (error) {
     console.log("error in excel uploads",error.message);
     ShowPopup(

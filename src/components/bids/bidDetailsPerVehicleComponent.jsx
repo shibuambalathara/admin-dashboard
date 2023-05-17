@@ -11,6 +11,10 @@ import Swal from "sweetalert2";
 
 import { ShowPopup } from '../alerts/popUps';
 
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
+
+
 
 const BidDetailsPerVehicleComponent = () => {
   // const [isModalOpen, setIsModalOpen] = useState(false);
@@ -63,6 +67,47 @@ const BidDetailsPerVehicleComponent = () => {
     const handleUserDetails=(id)=>{
       navigate(`/view-user/${id}`)
     }
+
+
+    const handleReport=(report)=>{
+      console.log(report,"report")
+    const arr=[]
+    arr.push(report)
+   const take =arr.map((element)=>({
+     Auction_No:element.event.eventNo,
+     Lot_no:element.vehicleIndexNo,
+     RegistrationNumber:element.registrationNumber,
+    }))
+  
+  console.log(take,"repor")
+  
+       report=report?.userVehicleBids.map((element)=>({
+        
+       Bidder_First_Name:element.user.firstName,
+        Last_Name:element.user.lastName,
+        Mobile:element.user.mobile,
+        Amount:element.amount,
+        Bid_Time:format(new Date (element.createdAt),`dd/MM/yy, HH:mm:ss`)
+       
+      }))
+      report.sort(function(a, b) {
+        return b.Amount - a.Amount;
+      });
+      console.log(report)
+      const combined=[...take,...report]
+      const convertToExcel = (jsonToExcel) => {
+        const worksheet = XLSX.utils.json_to_sheet(combined);
+        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        
+        const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+        const excelData = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+        FileSaver.saveAs(excelData, `Bid-Report of Lot No: ${data?.vehicle?.vehicleIndexNo}.xlsx`);
+      }
+      
+     
+      convertToExcel();
+     console.log(combined)
+     }
 
     const columns = useMemo(
         () => [
@@ -145,13 +190,14 @@ const BidDetailsPerVehicleComponent = () => {
     
     <div className=" flex flex-col w-full justify-center m-auto ">
     <div className="mb-2">
-  <div className="text-center font-extrabold my-5 text-lg min-w-full">  Bidders Details of Vehicle ID:<span className='text-red-500'> {data?.vehicle?.vehicleIndexNo}</span>  & Auction ID:<span className='text-red-500'>{data?.vehicle?.event?.eventNo}</span> </div>
-   <div className='flex justify-end'>
+  <div className="text-center font-extrabold my-5 text-lg min-w-full">  Bidders Details of Lot No:<span className='text-red-500'> {data?.vehicle?.vehicleIndexNo}</span>  & Auction No:<span className='text-red-500'>{data?.vehicle?.event?.eventNo}</span> </div>
+   <div className='flex justify-end space-y-2'>
     <SearchUser filter={globalFilter} className="  text-white " setFilter={setGlobalFilter}/>
-    <div>
+    <div className='space-y-2'>
 <h1>Vehicle Event Status :<span className='font-bold'> {data?.vehicle?.vehicleEventStatus}</span></h1>
 <h1>Bid Status :<span className='font-bold'> {data?.vehicle?.bidStatus}</span></h1>
 <a className='btn' target="_blank" rel="noopener noreferrer" href={`/edit-vehicle/${data?.vehicle?.id}`}> Change Status</a>
+<button className='btn btn-warning' onClick={(e)=> handleReport(data?.vehicle)} >Report</button>
     </div>
     </div>
   </div>
