@@ -1,0 +1,31 @@
+query LiveEvents($take: Int!, $skip: Int!, $where: EventWhereInput) {
+  liveEvents(take: $take, skip: $skip, where: $where) {
+    id
+    eventNo
+    seller {
+      name
+    }
+    eventType {
+      name
+    }
+    eventCategory
+    startDate
+    endDate
+    noOfBids
+    location {
+      name
+      country
+      state {
+        name
+      }
+      city
+    }
+    ExcelFile {
+      file {
+        url
+      }
+    }
+    termsAndConditions
+    vehiclesCount
+  }
+}

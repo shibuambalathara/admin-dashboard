@@ -1,0 +1,50 @@
+ query OpenAuctionVehicles($where: VehicleWhereInput!) {
+  vehicles(where: $where) {
+    vehicleEventStatus
+    registrationNumber
+    make
+    model
+    varient
+    categoty
+    fuel
+    type
+    rcStatus
+    yearOfManufacture
+    ownership
+    kmReading
+    insuranceStatus
+    frontImage
+    backImage
+    leftImage
+    rightImage
+    currentBidAmount
+    bidStartTime
+    bidTimeExpire
+    vehicleIndexNo
+    myBidRank
+    id
+    startPrice
+    event {
+      gapInBetweenVehicles
+      endDate
+      status
+    }
+  }
+}
+
+  query SudoBids($where: BidWhereInput) {
+  sudoBids(where: $where) {
+    userId
+    amount
+    name
+   
+  }
+}
+
+
+
+
+
+   query Query {
+  time
+}

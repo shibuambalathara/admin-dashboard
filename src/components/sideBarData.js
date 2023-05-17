@@ -41,10 +41,15 @@ const Sidebar_items=[
     name:"Sellers",
     path:"sellers"
   },
+ 
+  {
+    name:"open Auction",
+    path:"openAuction"
+  },
   {
     name:"Image Upload",
     path:"image-upload"
-  }
+  },
 
 
   
