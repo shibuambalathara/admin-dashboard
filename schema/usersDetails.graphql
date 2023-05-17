@@ -18,3 +18,12 @@ query Users($skip: Int!, $take: Int, $orderBy: [UserOrderByInput!]!) {
   }
  
 }
+
+query bidUser($where: UserWhereUniqueInput!) {
+  user(where: $where) {
+    firstName
+    lastName
+    activeBidsCount
+    username
+  }
+}

@@ -44,6 +44,8 @@ import SellerEdit from "./pages/sellerEdit";
 import AddSeller from "./components/Sellers/add";
 import Header from "./components/header";
 import ImageUpload from "./pages/image_upload";
+import OpenAuctionTable from "./pages/openAuctionTable";
+import ViewOpenAuction from "./pages/viewOpenAuction";
 
 
 
@@ -101,7 +103,8 @@ function App() {
               <Route path="add-seller" element={<AddSeller />} />
               <Route path="image-upload" element={<ImageUpload />} />
             
-
+              <Route path="openAuction" element={<OpenAuctionTable />} />
+              <Route path="openAuctionLive/:id" element={<ViewOpenAuction />} />
               
             </Route>
           </Routes>
