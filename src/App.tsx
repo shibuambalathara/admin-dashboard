@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes,useLocation } from "react-router-dom";
 import Sidebar from "./components/sidebar";
 import Users from "./pages/Users";
 import { LoginPage } from "./pages/login";
@@ -46,18 +46,28 @@ import Header from "./components/header";
 import ImageUpload from "./pages/image_upload";
 import OpenAuctionTable from "./pages/openAuctionTable";
 import ViewOpenAuction from "./pages/viewOpenAuction";
-
-
-
+import AddPaymentForUser from "./pages/addPayment";
+import OpenAuctionManage from "./pages/openAuctionManage";
+import ProjecterView from "./pages/projecterView";
 
 function App() {
   return (
-    <div>
-      <Router>
-        <Header />
-        <div className="flex w-screen  ">
-          <Sidebar />
-          <Routes>
+    <Router>
+      <AppContent />
+    </Router>
+  );
+}
+
+
+function AppContent() {
+  const location = useLocation();
+  const isProjectorView = location.pathname.startsWith ('/projecter-view/');
+  return (
+<div>
+      {isProjectorView ? null : <Header />}
+      <div className="flex w-screen">
+        {!isProjectorView && <Sidebar />}
+        <Routes>
             <Route path="login" element={<LoginPage />} />
             <Route element={<ProtectedRoutes />}>
               <Route path="/" element={<Home />} />
@@ -79,7 +89,7 @@ function App() {
               <Route path="addBid" element={<AddBidForm />} />
               <Route
                 path="create-payment/:id"
-                element={<AddPaymentDetails />}
+                element={<AddPaymentForUser />}
               />
               <Route
                 path="update-payment/:id"
@@ -105,11 +115,12 @@ function App() {
             
               <Route path="openAuction" element={<OpenAuctionTable />} />
               <Route path="openAuctionLive/:id" element={<ViewOpenAuction />} />
-              
+              <Route path="openAuctionUpdatedByAdmin/:id" element={<OpenAuctionManage />} />
+              <Route path="projecter-view/:id" element={<ProjecterView />} />
             </Route>
           </Routes>
         </div>
-      </Router>
+     
     </div>
   );
 }

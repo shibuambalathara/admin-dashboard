@@ -69,7 +69,7 @@ const vehicle={
   kmReading:+dataOnSubmit?.kmReading|| null,
   insuranceStatus:dataOnSubmit?.insuranceStatus,
   yardLocation:dataOnSubmit?.yardLocation,
-  startPrice:+dataOnSubmit?.startPrice|| null,
+  startBidAmount:+dataOnSubmit?.startPrice|| null,
   reservePrice:+dataOnSubmit?.reservePrice || null,
    repoDt:repo || null,
   veicleLocation:dataOnSubmit?.vehicleLocation,
@@ -302,7 +302,7 @@ catch(err){
                 <label className="t" htmlFor=" ">
                   Start Price{" "}
                 </label>
-                <Input defaultValue={data?.vehicle?.startPrice} type='number' {...register("startPrice",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input defaultValue={data?.vehicle?.startBidAmount} type='number' {...register("startPrice",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">

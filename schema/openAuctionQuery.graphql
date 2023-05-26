@@ -6,6 +6,7 @@
     model
     varient
     categoty
+    city
     fuel
     type
     rcStatus
@@ -19,12 +20,18 @@
     rightImage
     currentBidAmount
     bidStartTime
+    bidStatus
     bidTimeExpire
     vehicleIndexNo
     myBidRank
     id
-    startPrice
+     startPrice
+    startBidAmount
+    quoteIncreament
+    veicleLocation
+ vehicleCondition
     event {
+      id
       gapInBetweenVehicles
       endDate
       status

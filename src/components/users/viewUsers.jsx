@@ -94,6 +94,18 @@ refetch()
           <a className="btn btn-info" href={`/view-user/${row.original.id}`} target="_blank" rel="noopener noreferrer">View/Edit</a>
 
         ),
+      }, {
+        Header: "Create Payment",
+        Cell: ({ row }) => (
+          // <button
+          //   className="btn btn-warning"
+          //   onClick={() => paymentDetails(row.original.id)}
+          // >
+          //   Payment Details
+          // </button>
+          <a className="btn btn-success" href={`/create-payment/${row.original.id}`} target="_blank" rel="noopener noreferrer">Create Payment</a>
+
+        ),
       },
       {
         Header: "Payment details",
