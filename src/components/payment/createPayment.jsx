@@ -5,7 +5,9 @@ import{useUserQuery,useCreatePaymentMutation} from '../../utils/graphql'
 import { ShowPopup } from '../alerts/popUps';
 const CreatePayment = () => {
   const {id}=useParams()
+  console.log(id,"id")
   const { data, loading, error } = useUserQuery({variables: { where: { id: id } }});
+  console.log(data,"user")
   const [addAmount]=useCreatePaymentMutation()
 
   const {
@@ -16,7 +18,7 @@ const CreatePayment = () => {
   } = useForm();
   const onSubmit = async(dataOnSubmit) =>{ console.log(dataOnSubmit)
   const amount={
-    amount:10,
+    amount:+dataOnSubmit?.amount,
     paymentFor:dataOnSubmit?.paymentFor,
     description:dataOnSubmit?.description,
     status:dataOnSubmit.status,
@@ -30,7 +32,7 @@ const CreatePayment = () => {
   try {
     const result = addAmount({variables: {data:amount}})
     if(result){
-      console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ rsult",result);
+ 
 
       ShowPopup("Success!", `${dataOnSubmit?.paymentFor} created successfully!`, "success", 5000, true);
     }
@@ -90,7 +92,7 @@ const CreatePayment = () => {
           
           <div className="w-1/3">
             <label htmlFor="">Description</label>
-            <input defaultValue={data}  type="text" className="input input-bordered input-secondary w-full " {...register("description", { })}></input>
+            <input   type="text" className="input input-bordered input-secondary w-full " {...register("description", { })}></input>
             {/* <p className="text-red-500"> {errors.description && <span>Atleast 8 charators required</span>}</p> */}
           </div>
           <div className="min-w-[300px] w-1/3">

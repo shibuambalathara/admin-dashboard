@@ -18,6 +18,11 @@ query Users($skip: Int!, $take: Int, $orderBy: [UserOrderByInput!]!) {
   }
  
 }
+query UserbyIdNo($where: UserWhereUniqueInput!) {
+  user(where: $where) {
+    id
+  }
+}
 
 query bidUser($where: UserWhereUniqueInput!) {
   user(where: $where) {
