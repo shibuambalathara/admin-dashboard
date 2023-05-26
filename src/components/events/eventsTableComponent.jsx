@@ -66,7 +66,13 @@ useEffect(()=>{
           },
           { Header: "End Date ", accessor: ({endDate})=>{return format(new Date (endDate),`dd/MM/yy, HH:mm`)} },
           { Header: "Status ", accessor: "status" }, 
-          { Header: "Number Of Vehicles", accessor: "vehiclesCount" },
+      
+          {
+            Header: "Number Of Vehicles",
+            Cell: ({ row }) => (
+       row.original.endDate>new Date().toISOString() ?      <a className="btn btn-square " href={`/openAuctionUpdatedByAdmin/${row.original.id}`} target="_blank" rel="noopener noreferrer">{row.original.vehiclesCount}</a>:row.original.vehiclesCount
+            )
+          },
         
           {
             Header: "View Vehicles",
@@ -104,7 +110,9 @@ useEffect(()=>{
             Cell: ({ row }) => (
               <button className="btn btn-success" onClick={() => handleReport(row.original.Report)}>Report</button>
             )
-          }
+          },
+  
+        
           
         ],
         []

@@ -1,0 +1,11 @@
+mutation CreateBid($data: BidCreateInput!) {
+  createBid(data: $data) {
+    bidVehicle {
+    id  
+    }
+    user {
+    id  
+    }
+    amount
+  }
+}

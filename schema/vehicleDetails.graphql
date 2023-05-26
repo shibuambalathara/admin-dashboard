@@ -19,7 +19,8 @@ query VehicleDetails($where: VehicleWhereUniqueInput!) {
    kmReading
    insuranceStatus
    yardLocation
-   startPrice
+  #  startPrice
+  startBidAmount
    reservePrice
    repoDt
    veicleLocation

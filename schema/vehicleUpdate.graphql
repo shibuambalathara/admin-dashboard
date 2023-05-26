@@ -19,7 +19,8 @@ mutation UpdateVehicle($where: VehicleWhereUniqueInput!, $data: VehicleUpdateInp
    kmReading
    insuranceStatus
    yardLocation
-   startPrice
+  #  startPrice
+  startBidAmount
    reservePrice
    repoDt
    veicleLocation

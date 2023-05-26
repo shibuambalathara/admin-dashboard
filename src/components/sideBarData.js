@@ -46,6 +46,10 @@ const Sidebar_items=[
     name:"open Auction",
     path:"openAuction"
   },
+  // {
+  //   name:"Auction Manage",
+  //   path:"openAuctionUpdatedByAdmin"
+  // },
   {
     name:"Image Upload",
     path:"image-upload"
