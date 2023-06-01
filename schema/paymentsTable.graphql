@@ -6,10 +6,10 @@ query paymentTable($skip: Int!, $take: Int, $orderBy: [PaymentOrderByInput!]!) {
     amount
     paymentFor
     createdAt
-     createdBy {
-    firstName
-    lastName  
-    }
+    #  createdBy {
+    # firstName
+    # lastName  
+    # }
     updatedAt
     user {
       id
