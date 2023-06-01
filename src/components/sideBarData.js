@@ -15,15 +15,7 @@ const Sidebar_items=[
     name:"Payments",
     path:"payment"
   },
-  // {
-  //   name:"Emds",
-  //   path:"emd"
-  // },
 
-  // {
-  //   name:"Bids",
-  //   path:"bids"
-  // },
   {
     name:"Events types",
     path:"event-types"
@@ -42,14 +34,8 @@ const Sidebar_items=[
     path:"sellers"
   },
  
-  {
-    name:"open Auction",
-    path:"openAuction"
-  },
-  // {
-  //   name:"Auction Manage",
-  //   path:"openAuctionUpdatedByAdmin"
-  // },
+  
+
   {
     name:"Image Upload",
     path:"image-upload"

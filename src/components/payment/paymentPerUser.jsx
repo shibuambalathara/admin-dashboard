@@ -10,7 +10,7 @@ import format from 'date-fns/format'
 const PaymentPerUser = () => {
     const {id}=useParams()
     const {data,loading,error,refetch}=usePaymentOfUserQuery({variables:{where:{id:id}}})
-    console.log(data?.user?.firstName,"dataaaaaaa")
+    console.log(data,"dataaaaaaa")
     
     const navigate=useNavigate()
     const handleUserDetails=(userId)=>{
@@ -32,11 +32,17 @@ navigate(`/update-payment/${paymentId}`)
            { Header: "Status ", accessor: "status" },
            { Header: "Created At ", accessor: ({createdAt})=>{return format(new Date( createdAt),`dd/MM/yy, HH:mm`)} },
            { Header: "Updated At ",  accessor: ({updatedAt})=>{return format(new Date( updatedAt),`dd/MM/yy, HH:mm`)} },
-
+           { Header: "Created By ", accessor: "createdBy.firstName" },
             {
             Header: "Update Payment",
             Cell: ({ row }) => (
               <button className="btn btn-accent" onClick={() => handlePaymentStatus(row.original?.id)}>Update Payment</button>
+            )
+          },
+          {
+            Header: "Create EMD",
+            Cell: ({ row }) => (
+              <a className="btn btn-secondary" href={`/add-emd/${row.original.id}`} target="_blank" rel="noopener noreferrer">Create Emd</a>
             )
           },
     
