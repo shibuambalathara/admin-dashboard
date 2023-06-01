@@ -18,6 +18,8 @@
     backImage
     leftImage
     rightImage
+    image5
+ image6
     currentBidAmount
     bidStartTime
     bidStatus
@@ -30,6 +32,7 @@
     quoteIncreament
     veicleLocation
  vehicleCondition
+ yardLocation
     event {
       id
       gapInBetweenVehicles

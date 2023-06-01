@@ -4,7 +4,7 @@
 
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import ImageCarouselModal from "../imageCarsoul/ImageCarouselModal";
+
 import { Tab } from "@headlessui/react";
 import moment from "moment";
 import {
@@ -21,6 +21,7 @@ import {
 import ParticipantsList from "./participantList";
 import VehicleDetails from "./createBid";
 import Swal from "sweetalert2";
+import { Carousel } from "@material-tailwind/react";
 
 
 
@@ -80,38 +81,7 @@ const LivetimeOfVehicle = () => {
     }
   );
 
-  // console.log("openauctionwww", data);
-  // let duration=data?.vehicles[0]?.event?.gapInBetweenVehicles
 
-;
-
-//   const { data: bidHistory} = useSudoBidsQuery({
-//    variables: {
-//       where: {
-//         bidVehicle: {
-//           id: {
-//             equals:
-//               liveItem
-//               && liveItem.id && liveItem.id !== undefined
-//                 ? liveItem.id
-//                 : "",
-//           },
-//         },
-//       },
-//     },
-   
-// }, {
-//   cacheTime: 5,
-//   refetchInterval: 7500,
-//   enabled:
-//     liveItem != null && liveItem.id != null && liveItem.id != undefined,
-// });
-
-  // // console.log('live03',liveItem);
-  // console.log('bidhis',bidHistory);
-
-  // const bidUsername=bidHistory?.sudoBids?.name
-  // console.log("bidusername",bidUsername);
 
 
   useEffect(() => {
@@ -154,26 +124,7 @@ const handleEventActivate=async()=>{
   }
 }
 
-// useEffect(() => {
-//   const interval = setInterval(() => {
-  
-//     bidHistory?.refetch()
-    
-//   }, 2000); 
 
-//   return () => {
-//     clearInterval(interval);
-//   };
-// },[refetch])
-
-// useEffect(()=>{
-//   const interval01=setInterval(()=>{
-    
-//   },2000)
-//   return ()=>{
-//     clearInterval(interval01)
-//   }
-// },[timeData])
 
   function compare(a, b) {
     if (a.bidStartTime < b.bidStartTime) {
@@ -222,6 +173,7 @@ const handleEventActivate=async()=>{
     // expiry - server + tick
     try {
       if (liveItem) {
+   
         // console.log("this is liveitem from openauction", liveItem);
 
         const expiryTime = moment(liveItem.bidTimeExpire);
@@ -276,6 +228,7 @@ const handleEventActivate=async()=>{
   // console.log('return form upcomingSecondsLeft()',typeof(upcomingSecondsLeft()));
 
   function BindVehicleImage(vehicle) {
+    
     if (vehicle) {
       const tempImages = [];
       let count = 0;
@@ -314,6 +267,7 @@ const handleEventActivate=async()=>{
       // console.log(vehicle);
       // console.log(tempImages);
       setImages(tempImages);
+      console.log(tempImages,"temp")
     } else {
       setImages([]);
     }
@@ -336,12 +290,13 @@ const handleEventActivate=async()=>{
 
 
   return (
-    <div>
-  {liveItem?.event?.status!=='pause' ?  < div className="w-full ">
+    
+    <div className="w-full " >
+  {liveItem?.event?.status!=='pause' ?  < div className="w-full shadow-xl    ">
       {liveItem  ? (
-        <div className="py-10 mx-10 ">
+        <div className="py-2  bg-gray-100 ">
           {/* Page header */}
-          <div className="md:flex md:items-start md:justify-between md:space-x-5">
+          <div className="md:flex md:items-start md:justify-between md:space-x-5 p-2 shadow-xl">
             <div className="flex items-center space-x-5">
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">
@@ -356,7 +311,7 @@ const handleEventActivate=async()=>{
               </div>
               
             </div>
-            <div className="bg-white px-4 py-5  sm:rounded-lg sm:px-6 border  border-gray-200 space-y-2">
+            <div className="bg-white p-5   shadow-md sm:rounded-lg sm:px-6 rounded-xl  border-gray-200 space-y-2">
                 <div className="flex  justify-between">
                   <div className="flex space-x-2">
                     <h2 className="text-lg font-medium text-gray-900">
@@ -373,7 +328,7 @@ const handleEventActivate=async()=>{
                     <h2 className="text-lg font-medium text-gray-900">
                       Current Bid Amount :
                     </h2>
-                    <p className="text-2xl font-bold text-red-600">
+                    <p className="text-2xl font-bold text-red-600 will-change: contents">
                       {liveItem.currentBidAmount.toLocaleString()}/-
                     </p>
                   </div>
@@ -381,7 +336,7 @@ const handleEventActivate=async()=>{
             
                 
               </div>
-            <div className="flex flex-col items-center mt-4 sm:mt-0">
+            <div className="flex flex-col items-center  sm:mt-0">
               {CountdownTimer(SecondsLeft())}
             </div>
           </div>
@@ -389,246 +344,126 @@ const handleEventActivate=async()=>{
          
           
             {/* <section className="space-y-2 flex w-full "> */}
-            <div className="flex space-y-2 border-2 border-r-8  ">
            
               {/* <div className="text-lg font-semibold">Live Bidding</div> */}
 
               {/* Current Bid Amount */}
               
-              <div className="w-1/2 " >
-                <Tab.Group
-                  as="div"
-                  className=""
-                >
-                  <div className="w-full  mx-auto sm:block">
-                    <Tab.Panels className="w-full aspect-w-1 aspect-h-1">
-                      {liveItem?.frontImage && (
-                        <div
-                          className="flex-none min-w-full relative p-6 hover:cursor-pointer"
-                          onClick={() => {
-                            BindVehicleImage(liveItem);
-                            setShowImageCarouselModal(true);
-                          }}
-                        >
-                          <img
-                            src={liveItem.frontImage}
-                            alt="i1"
-                            className="w-full h-full object-center object-cover sm:rounded-lg"
-                            width={1000}
-                            height={600}
-                          />
-                        </div>
-                      )}
-                    </Tab.Panels>
-                  </div>
-                </Tab.Group>
+              {/* <div className="w-1/2 " > */}
+              
+            <div className="flex    ">
+<div className="carousel w-full   m-2 shadow-xl rounded-xl h-[35rem]">
+  <div id="slide1" className="carousel-item relative w-full ">
+    <img src={liveItem?.frontImage} className="w-full   object-cover"  alt="img1" />
+    <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+      <a href="#slide4" className="btn btn-circle">❮</a> 
+      <a href="#slide2" className="btn btn-circle">❯</a>
+    </div>
+  </div> 
+  <div id="slide2" className="carousel-item relative w-full">
+    <img src={liveItem?.backImage} className="w-full"   alt="img2" />
+    <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+      <a href="#slide1" className="btn btn-circle">❮</a> 
+      <a href="#slide3" className="btn btn-circle">❯</a>
+    </div>
+  </div> 
+  <div id="slide3" className="carousel-item relative w-full">
+    <img src={liveItem?.leftImage} className="w-full"  alt="img3"/>
+    <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+      <a href="#slide2" className="btn btn-circle">❮</a> 
+      <a href="#slide4" className="btn btn-circle">❯</a>
+    </div>
+  </div> 
+  <div id="slide4" className="carousel-item relative w-full">
+    <img src={liveItem?.rightImage} className="w-full"  alt="img4"/>
+    <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+      <a href="#slide3" className="btn btn-circle">❮</a> 
+      <a href="#slide1" className="btn btn-circle">❯</a>
+    </div>
+  </div>
+    <div id="slide4" className="carousel-item relative w-full">
+    <img src={liveItem?.image5} className="w-full"  alt="img5"/>
+    <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+      <a href="#slide3" className="btn btn-circle">❮</a> 
+      <a href="#slide1" className="btn btn-circle">❯</a>
+    </div>
+  </div>
+  <div id="slide4" className="carousel-item relative w-full">
+    <img src={liveItem?.image6} className="w-full"  alt="img6"/>
+    <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+      <a href="#slide3" className="btn btn-circle">❮</a> 
+      <a href="#slide1" className="btn btn-circle">❯</a>
+    </div>
+  </div>
+</div>
+               
+                {/* </Tab.Group> */}
              
-              </div>
-                  {/* Vehicle Description list*/}
-                  {/* <div className="  px-2 py-1 rounded sm:px-0">
-                <Tab.Group>
-                  <Tab.List className="flex space-x-1 rounded-xl p-1">
-                    {Object.keys(vehicleDetails).map((detail) => (
-                      <Tab
-                        key={detail}
-                        className={({ selected }) =>
-                          classNames(
-                            "w-full rounded-lg py-2.5 text-lg font-bold leading-5",
-                            "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
-                            selected
-                              ? "bg-gray-700 text-white shadow"
-                              : "text-gray-900 hover:bg-gray-200"
-                          )
-                        }
-                      >
-                        {detail}
-                      </Tab>
-                    ))}
-                  </Tab.List>
-                  <Tab.Panels className="mt-2 border border-gray-200 rounded">
-                    <Tab.Panel
-                      className={classNames(
-                        "rounded-xl bg-white p-3",
-                        "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
-                      )}
-                    >
-                      <div className="">
-                        <dl className="space-y-4">
-                          {liveItem.registrationNumber && (
-                            <div className="sm:col-span-1 flex space-x-2">
-                              <div>
-                                <dt className="text-sm font-medium text-gray-500">
-                                  Reg No.
-                                </dt>
-                                <dd className="mt-1 text-sm text-gray-900">
-                                  {liveItem.registrationNumber}
-                                </dd>
-                              </div>
-                            </div>
-                          )}
-
-                          {liveItem.make && (
-                            <div className="sm:col-span-1 flex space-x-2">
-                              <div>
-                                <dt className="text-sm font-medium text-gray-500">
-                                  Make
-                                </dt>
-                                <dd className="mt-1 text-sm text-gray-900">
-                                  {liveItem.make}
-                                </dd>
-                              </div>
-                            </div>
-                          )}
-
-                          <div className="sm:col-span-1 flex space-x-2">
-                            <div>
-                              <dt className="text-sm font-medium text-gray-500">
-                                Model
-                              </dt>
-                              <dd className="mt-1 text-sm text-gray-900">
-                                {liveItem.model}
-                              </dd>
-                            </div>
-                          </div>
-
-                          {liveItem.yearOfManufacture && (
-                            <div className="sm:col-span-1 flex space-x-2">
-                              <div>
-                                <dt className="text-sm font-medium text-gray-500">
-                                  Year of Manufactor
-                                </dt>
-                                <dd className="mt-1 text-sm text-gray-900">
-                                  {liveItem.yearOfManufacture}
-                                </dd>
-                              </div>
-                            </div>
-                          )}
-
-                          {liveItem.kmReading && (
-                            <div className="sm:col-span-1 flex space-x-2">
-                              <div>
-                                <dt className="text-sm font-medium text-gray-500">
-                                  Odometer (kms)
-                                </dt>
-                                <dd className="mt-1 text-sm text-gray-900">
-                                  {liveItem.kmReading}
-                                </dd>
-                              </div>
-                            </div>
-                          )}
-
-                          {liveItem.ownership && (
-                            <div className="sm:col-span-1 flex space-x-2">
-                              <div>
-                                <dt className="text-sm font-medium text-gray-500">
-                                  Ownership
-                                </dt>
-                                <dd className="mt-1 text-sm text-gray-900">
-                                  {liveItem.ownership}
-                                </dd>
-                              </div>
-                            </div>
-                          )}
-
-                          <div className="sm:col-span-1 flex space-x-2">
-                            <div>
-                              <dt className="text-sm font-medium text-gray-500">
-                                RC Book
-                              </dt>
-                              <dd className="mt-1 text-sm text-gray-900">
-                                {liveItem.rcStatus}
-                              </dd>
-                            </div>
-                          </div>
-
-                          {liveItem.fuel && (
-                            <div className="sm:col-span-1 flex space-x-2">
-                              <div>
-                                <dt className="text-sm font-medium text-gray-500">
-                                  Fuel Type
-                                </dt>
-                                <dd className="mt-1 text-sm text-gray-900">
-                                  {liveItem.fuel}
-                                </dd>
-                              </div>
-                            </div>
-                          )}
-                        </dl>
-                      </div>
-                    </Tab.Panel>
-
-                    <Tab.Panel
-                      className={classNames(
-                        "rounded-xl bg-white p-3",
-                        "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
-                      )}
-                    >
-                      Equipment Tab
-                    </Tab.Panel>
-                  </Tab.Panels>
-                </Tab.Group>
-              </div>  */}
-<div className=" w-1/2 border-2">
+              {/* </div> */}
+     
+  
+           
+<div className=" w-1/2  bg-white shadow-xl rounded-xl  m-2 py-5">
              {console.log(liveItem,"live")}
              <div>
-                <h1 className="text-center font-bold text-2xl underline">Vehicle Details Of {liveItem?.make} </h1>
+                <h1 className="text-center font-bold text-2xl underline">{liveItem?.make && liveItem.make.toUpperCase()} </h1>
                 </div>
          
-                    <div className="flex   justify-around mt-5  ">
+                    <div className="flex   justify-around mt-5  bg-white">
                       <div className=" w-1/2 flex space-y-5 flex-col text-center ">
-                        <div className="flex flex-col">
+                        <div className="flex flex-col shadow-lg">
                         <label>Registration Number</label>
                         <label  className="font-bold">{liveItem?.registrationNumber}</label>
                         </div>  
-                        <div className=" flex flex-col">
+                        <div className=" flex flex-col shadow-lg">
                         <label>Fuel</label>
                         <label  className="font-bold">{liveItem?.fuel}</label>
                         </div>
                         
-                        <div className=" flex flex-col">
+                        <div className=" flex flex-col shadow-lg">
                         <label>Year of Manufacture</label>
                         <label  className="font-bold">{liveItem?.yearOfManufacture}</label>
                         </div>
-                        <div className=" flex flex-col">
+                        <div className=" flex flex-col shadow-lg">
                         <label>RC Status</label>
                         <label  className="font-bold">{liveItem?.rcStatus}</label>
                         </div>
                         
-                        <div className=" flex flex-col">
+                        <div className=" flex flex-col shadow-lg">
                         <label>Insurance Status</label>
                         <label  className="font-bold">{liveItem?.insuranceStatus}</label>
                         </div>
                         
-                        <div className=" flex flex-col">
+                        <div className=" flex flex-col shadow-lg">
                         <label>Vehicle Condition</label>
                         <label  className="font-bold">{liveItem?.vehicleCondition}</label>
                         </div>
                         </div> 
 
                         <div className=" w-1/2 flex space-y-5 text-center flex-col">
-                        <div className="flex flex-col">
+                        <div className="flex flex-col shadow-lg">
                         <label>Model</label>
                         <label  className="font-bold">{liveItem?.model}</label>
                         </div>  
-                        <div className=" flex flex-col">
+                        <div className=" flex flex-col shadow-lg">
                         <label>Varient</label>
                         <label className="font-bold">{liveItem?.varient}</label>
                         </div>
-                        <div className=" flex flex-col">
+                        <div className=" flex flex-col shadow-lg">
                         <label>Ownership</label>
                         <label className="font-bold">{liveItem?.ownership}</label>
                         </div>
-                        <div className=" flex flex-col">
+                        <div className=" flex flex-col shadow-lg">
                         <label>KM Reading</label>
                         <label className="font-bold">{liveItem?.kmReading.toLocaleString()}</label>
                         </div>
-                        <div className=" flex flex-col">
+                        <div className=" flex flex-col shadow-lg">
                         <label>City</label>
                         <label className="font-bold">{liveItem?.city}</label>
                         </div>
-                        <div className=" flex flex-col">
-                        <label>Location</label>
-                        <label className="font-bold">{liveItem?.veicleLocation}</label>
+                        <div className=" flex flex-col shadow-lg">
+                        <label>Yard Location</label>
+                        <label className="font-bold">{liveItem?.yardLocation}</label>
                         </div>
                         </div> 
 
@@ -646,12 +481,7 @@ const handleEventActivate=async()=>{
         counterLeftUpcoming(upcomingSecondsLeft())
       )}
 
-      <ImageCarouselModal
-        color="blue"
-        open={showImageCarouselModal}
-        close={() => setShowImageCarouselModal(false)}
-        images={images}
-      />
+  
 
    
     </div>
@@ -769,24 +599,24 @@ function CountdownTimer(hhmmss) {
 
   return (
     <div className="w-72 text-indigo-500">
-      <div className="text-center text-3xl font-bold ">Vehicle Live Time</div>
-      <div className="text-2xl text-center flex w-full items-center justify-center">
+      <div className="text-center text-2xl font-bold ">Vehicle Live Time</div>
+      <div className=" text-center flex w-full items-center justify-center">
         <div className="w-24 mx-1 p-2">
-          <div className="font-bold text-7xl leading-none">{timeArray[0]}</div>
+          <div className="font-bold text-5xl leading-none">{timeArray[0]}</div>
           <div className="mt-2 font-semibold uppercase text-sm leading-none">
             Hours
           </div>
         </div>
         <div className="text-6xl pb-10">:</div>
         <div className="w-24 mx-1 p-2">
-          <div className="font-bold text-7xl leading-none">{timeArray[1]}</div>
+          <div className="font-bold text-5xl leading-none">{timeArray[1]}</div>
           <div className="mt-2 font-semibold uppercase text-sm leading-none">
             Minutes
           </div>
         </div>
         <div className="text-6xl pb-10">:</div>
         <div className="w-24 mx-1 p-2">
-          <div className="font-bold text-7xl leading-none">{timeArray[2]}</div>
+          <div className="font-bold text-5xl leading-none">{timeArray[2]}</div>
           <div className="mt-2 font-semibold uppercase text-sm leading-none">
             Seconds
           </div>

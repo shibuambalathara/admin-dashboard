@@ -70,7 +70,7 @@ useEffect(()=>{
           {
             Header: "Number Of Vehicles",
             Cell: ({ row }) => (
-       row.original.endDate>new Date().toISOString() ?      <a className="btn btn-square " href={`/openAuctionUpdatedByAdmin/${row.original.id}`} target="_blank" rel="noopener noreferrer">{row.original.vehiclesCount}</a>:row.original.vehiclesCount
+       row.original.endDate>new Date().toISOString() ?      <a className="btn bg-red-500 " href={`/openAuctionUpdatedByAdmin/${row.original.id}`} target="_blank" rel="noopener noreferrer">{row.original.vehiclesCount}</a>:row.original.vehiclesCount
             )
           },
         

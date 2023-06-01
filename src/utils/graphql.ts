@@ -3242,7 +3242,7 @@ export type OpenAuctionVehiclesQueryVariables = Exact<{
 }>;
 
 
-export type OpenAuctionVehiclesQuery = { __typename?: 'Query', vehicles?: Array<{ __typename?: 'Vehicle', vehicleEventStatus?: VehicleEventStatus | null, registrationNumber?: string | null, make?: string | null, model?: string | null, varient?: string | null, categoty?: string | null, city?: string | null, fuel?: string | null, type?: string | null, rcStatus?: string | null, yearOfManufacture?: number | null, ownership?: number | null, kmReading?: number | null, insuranceStatus?: string | null, frontImage?: string | null, backImage?: string | null, leftImage?: string | null, rightImage?: string | null, currentBidAmount?: number | null, bidStartTime?: any | null, bidStatus?: VehicleBidStatusType | null, bidTimeExpire?: any | null, vehicleIndexNo?: number | null, myBidRank?: number | null, id: string, startPrice?: number | null, startBidAmount?: number | null, quoteIncreament?: number | null, veicleLocation?: string | null, vehicleCondition?: string | null, event?: { __typename?: 'Event', id: string, gapInBetweenVehicles?: number | null, endDate?: any | null, status?: EventStatusType | null } | null }> | null };
+export type OpenAuctionVehiclesQuery = { __typename?: 'Query', vehicles?: Array<{ __typename?: 'Vehicle', vehicleEventStatus?: VehicleEventStatus | null, registrationNumber?: string | null, make?: string | null, model?: string | null, varient?: string | null, categoty?: string | null, city?: string | null, fuel?: string | null, type?: string | null, rcStatus?: string | null, yearOfManufacture?: number | null, ownership?: number | null, kmReading?: number | null, insuranceStatus?: string | null, frontImage?: string | null, backImage?: string | null, leftImage?: string | null, rightImage?: string | null, image5?: string | null, image6?: string | null, currentBidAmount?: number | null, bidStartTime?: any | null, bidStatus?: VehicleBidStatusType | null, bidTimeExpire?: any | null, vehicleIndexNo?: number | null, myBidRank?: number | null, id: string, startPrice?: number | null, startBidAmount?: number | null, quoteIncreament?: number | null, veicleLocation?: string | null, vehicleCondition?: string | null, yardLocation?: string | null, event?: { __typename?: 'Event', id: string, gapInBetweenVehicles?: number | null, endDate?: any | null, status?: EventStatusType | null } | null }> | null };
 
 export type SudoBidsQueryVariables = Exact<{
   where?: InputMaybe<BidWhereInput>;
@@ -3275,7 +3275,7 @@ export type PaymentOfUserQueryVariables = Exact<{
 }>;
 
 
-export type PaymentOfUserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, payments?: Array<{ __typename?: 'Payment', id: string, refNo?: number | null, amount?: number | null, status?: string | null, paymentFor?: string | null, createdAt?: any | null, updatedAt?: any | null, image?: { __typename?: 'ImageFieldOutput', url: string } | null }> | null } | null };
+export type PaymentOfUserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, payments?: Array<{ __typename?: 'Payment', id: string, refNo?: number | null, amount?: number | null, status?: string | null, paymentFor?: string | null, createdAt?: any | null, updatedAt?: any | null, createdBy?: { __typename?: 'User', firstName?: string | null } | null, image?: { __typename?: 'ImageFieldOutput', url: string } | null }> | null } | null };
 
 export type UpdatePaymentMutationVariables = Exact<{
   where: PaymentWhereUniqueInput;
@@ -3421,7 +3421,7 @@ export type VehicleDetailsQueryVariables = Exact<{
 }>;
 
 
-export type VehicleDetailsQuery = { __typename?: 'Query', vehicle?: { __typename?: 'Vehicle', id: string, registrationNumber?: string | null, bidStatus?: VehicleBidStatusType | null, loanAgreementNo?: string | null, registeredOwnerName?: string | null, quoteIncreament?: number | null, make?: string | null, model?: string | null, varient?: string | null, categoty?: string | null, fuel?: string | null, type?: string | null, rcStatus?: string | null, yearOfManufacture?: number | null, ownership?: number | null, mileage?: number | null, kmReading?: number | null, insuranceStatus?: string | null, yardLocation?: string | null, startBidAmount?: number | null, reservePrice?: number | null, repoDt?: any | null, veicleLocation?: string | null, vehicleRemarks?: string | null, auctionManager?: string | null, parkingCharges?: string | null, insurance?: string | null, insuranceValidTill?: any | null, tax?: string | null, taxValidityDate?: any | null, fitness?: string | null, permit?: string | null, fitnessPermit?: string | null, engineNo?: string | null, chassisNo?: string | null, frontImage?: string | null, backImage?: string | null, leftImage?: string | null, rightImage?: string | null, image5?: string | null, image6?: string | null, inspectionLink?: string | null, autobseContact?: string | null, autobse_contact_person?: string | null, vehicleCondition?: string | null, powerSteering?: string | null, shape?: string | null, color?: string | null, city?: string | null, area?: string | null, state?: string | null, paymentTerms?: string | null, dateOfRegistration?: any | null, hypothication?: string | null, climateControl?: string | null, doorCount?: number | null, gearBox?: string | null, buyerFees?: string | null, rtoFine?: string | null, parkingRate?: string | null, approxParkingCharges?: string | null, clientContactPerson?: string | null, clientContactNo?: string | null, additionalRemarks?: string | null } | null };
+export type VehicleDetailsQuery = { __typename?: 'Query', vehicle?: { __typename?: 'Vehicle', id: string, registrationNumber?: string | null, bidStatus?: VehicleBidStatusType | null, bidTimeExpire?: any | null, loanAgreementNo?: string | null, registeredOwnerName?: string | null, quoteIncreament?: number | null, make?: string | null, model?: string | null, varient?: string | null, categoty?: string | null, fuel?: string | null, type?: string | null, rcStatus?: string | null, yearOfManufacture?: number | null, ownership?: number | null, mileage?: number | null, kmReading?: number | null, insuranceStatus?: string | null, yardLocation?: string | null, startBidAmount?: number | null, currentBidAmount?: number | null, reservePrice?: number | null, repoDt?: any | null, veicleLocation?: string | null, vehicleRemarks?: string | null, auctionManager?: string | null, parkingCharges?: string | null, insurance?: string | null, insuranceValidTill?: any | null, tax?: string | null, taxValidityDate?: any | null, fitness?: string | null, permit?: string | null, fitnessPermit?: string | null, engineNo?: string | null, chassisNo?: string | null, frontImage?: string | null, backImage?: string | null, leftImage?: string | null, rightImage?: string | null, image5?: string | null, image6?: string | null, inspectionLink?: string | null, autobseContact?: string | null, autobse_contact_person?: string | null, vehicleCondition?: string | null, powerSteering?: string | null, shape?: string | null, color?: string | null, city?: string | null, area?: string | null, state?: string | null, paymentTerms?: string | null, dateOfRegistration?: any | null, hypothication?: string | null, climateControl?: string | null, doorCount?: number | null, gearBox?: string | null, buyerFees?: string | null, rtoFine?: string | null, parkingRate?: string | null, approxParkingCharges?: string | null, clientContactPerson?: string | null, clientContactNo?: string | null, additionalRemarks?: string | null, vehicleIndexNo?: number | null, event?: { __typename?: 'Event', seller?: { __typename?: 'Seller', name?: string | null } | null } | null, currentBidUser?: { __typename?: 'User', firstName?: string | null, lastName?: string | null, username?: string | null, mobile?: string | null, pancardNo?: string | null } | null } | null };
 
 export type VehicleDetailsPerEventQueryVariables = Exact<{
   where: EventWhereUniqueInput;
@@ -4839,6 +4839,8 @@ export const OpenAuctionVehiclesDocument = gql`
     backImage
     leftImage
     rightImage
+    image5
+    image6
     currentBidAmount
     bidStartTime
     bidStatus
@@ -4851,6 +4853,7 @@ export const OpenAuctionVehiclesDocument = gql`
     quoteIncreament
     veicleLocation
     vehicleCondition
+    yardLocation
     event {
       id
       gapInBetweenVehicles
@@ -5070,6 +5073,9 @@ export const PaymentOfUserDocument = gql`
       status
       paymentFor
       createdAt
+      createdBy {
+        firstName
+      }
       updatedAt
       image {
         url
@@ -6074,6 +6080,7 @@ export const VehicleDetailsDocument = gql`
     id
     registrationNumber
     bidStatus
+    bidTimeExpire
     loanAgreementNo
     registeredOwnerName
     quoteIncreament
@@ -6091,6 +6098,7 @@ export const VehicleDetailsDocument = gql`
     insuranceStatus
     yardLocation
     startBidAmount
+    currentBidAmount
     reservePrice
     repoDt
     veicleLocation
@@ -6136,6 +6144,19 @@ export const VehicleDetailsDocument = gql`
     clientContactPerson
     clientContactNo
     additionalRemarks
+    vehicleIndexNo
+    event {
+      seller {
+        name
+      }
+    }
+    currentBidUser {
+      firstName
+      lastName
+      username
+      mobile
+      pancardNo
+    }
   }
 }
     `;

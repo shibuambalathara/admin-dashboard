@@ -1,34 +1,21 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-
 import moment from "moment";
 import {
   useOpenAuctionVehiclesQuery,
- 
   useQueryQuery,
-
-
-  useEditEventMutation,
 } from "../../utils/graphql";
-import ParticipantsList from "./participantList";
-import VehicleDetails from "./createBid";
-import Swal from "sweetalert2";
 
-
-
-const AuctionUpdateByAdmin = () => {
+const TimerComponent = () => {
+    
   const { id } = useParams();
- 
- 
+
   const [liveItem, setLiveItem] = useState(null);
   const [upcoming, setUpcoming] = useState(null);
 
   const [tick, setTick] = useState(0);
   const [serverTime, setserverTime] = useState(null);
-
-
-  const [pauseEvent] = useEditEventMutation({ variables: { where: { id } } });
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -66,11 +53,8 @@ const AuctionUpdateByAdmin = () => {
     },
     {
       refetchInterval: 2000,
-      // enabled: id !== undefined && id != ""
     }
   );
-
-
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -91,25 +75,6 @@ const AuctionUpdateByAdmin = () => {
       clearInterval(interval);
     };
   }, [serverRefetch]);
-
-  const handleEventActivate = async () => {
-    const response = await Swal.fire({
-      title: "Are you sure?",
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonText: "Yes",
-      cancelButtonText: "Cancel",
-    });
-    if (response.isConfirmed) {
-      pauseEvent({ variables: { data: { status: "active" } } }).then(
-        (result) => {
-          console.log(result, "zzz");
-        }
-      );
-    }
-  };
-
-
 
   function compare(a, b) {
     if (a.bidStartTime < b.bidStartTime) {
@@ -168,9 +133,6 @@ const AuctionUpdateByAdmin = () => {
     }
   }
 
-
-
-
   function upcomingSecondsLeft() {
     let noUpcoming = "no upcoming left";
     try {
@@ -199,15 +161,12 @@ const AuctionUpdateByAdmin = () => {
     }
   }
 
- 
+  // console.log('return form upcomingSecondsLeft()',typeof(upcomingSecondsLeft()));
 
   return (
     <div>
-      {liveItem?.event?.status !== "pause" ? (
-        <div className="w-full ">
-          {liveItem ? (
-            <>
-              <div className="py-10 mx-10 ">
+      {liveItem ? (
+        <div className="py-10 mx-10 ">
           {/* Page header */}
           <div className="md:flex md:items-start md:justify-between md:space-x-5">
             <div className="flex items-center space-x-5">
@@ -252,29 +211,15 @@ const AuctionUpdateByAdmin = () => {
 
           {/* </section> */}
         </div>
-              <VehicleDetails liveVehicle={liveItem} timedata1={timeData} />
-              <ParticipantsList vehicleId={liveItem?.id} />
-            </>
-          ): counterLeftUpcoming(upcomingSecondsLeft())}
-        </div>
       ) : (
-        <div className="h-96  text-center   space-y-20 mt-10">
-          <h1 className="  align-middle text-red-500">
-            "This Event Is Not Active"
-          </h1>
-          <button
-            className="btn btn-info"
-            onClick={() => handleEventActivate()}
-          >
-            Activate Event
-          </button>
-        </div>
+        counterLeftUpcoming(upcomingSecondsLeft())
       )}
     </div>
   );
 };
 
-export default AuctionUpdateByAdmin;
+export default TimerComponent;
+
 function counterLeftUpcoming(hhmmss) {
   // console.log("**001", typeof hhmmss);
   if (hhmmss === "no upcoming left") {

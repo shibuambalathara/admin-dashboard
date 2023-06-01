@@ -3,6 +3,7 @@ query VehicleDetails($where: VehicleWhereUniqueInput!) {
   id  
   registrationNumber
    bidStatus
+   bidTimeExpire
    loanAgreementNo
    registeredOwnerName
    quoteIncreament
@@ -21,6 +22,7 @@ query VehicleDetails($where: VehicleWhereUniqueInput!) {
    yardLocation
   #  startPrice
   startBidAmount
+  currentBidAmount
    reservePrice
    repoDt
    veicleLocation
@@ -66,5 +68,18 @@ query VehicleDetails($where: VehicleWhereUniqueInput!) {
     clientContactPerson
     clientContactNo
     additionalRemarks
+vehicleIndexNo
+      event {
+    seller {
+      name
+    }
+  }
+   currentBidUser {
+    firstName
+    lastName
+  username
+  mobile
+  pancardNo
+  }
   }
 }
