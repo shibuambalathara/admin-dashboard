@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { useForm, } from "react-hook-form";
 import {
   useCreateBidMutation,
@@ -8,14 +8,51 @@ import {
 } from "../../utils/graphql";
 import Swal from "sweetalert2";
 
-const VehicleDetails = (props) => {
-  const [vehicleDetails, setVehicleDetails] = useState({});
 
-  // console.log(vehicleDetails?.liveVehicle?.quoteIncreament, "props");
-  console.log(vehicleDetails, "veh");
-  const [bidAmount, setBidAmount] = useState(
-    props?.liveVehicle?.startBidAmount
-  );
+const VehicleDetails = (props) => {
+
+
+// -------------------------------------------
+  const initialState = {
+    vehicleDetails: props,
+    bidAmount: props?.liveVehicle?.startBidAmount,
+    vehicleId: props?.liveVehicle?.id || null,
+  };
+  
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case 'SET_VEHICLE_DETAILS':
+        return { ...state, vehicleDetails: action.payload };
+      case 'SET_BID_AMOUNT':
+        return { ...state, bidAmount: action.payload };
+        case 'UPDATE_BID_AMOUNT':
+          return { ...state, bidAmount: state.bidAmount + action.payload };
+          case 'SET_VEHICLE_ID':
+      return { ...state, vehicleId: action.payload };
+      default:
+        return state;
+    }
+  };
+
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { vehicleDetails, bidAmount } = state;
+
+  useEffect(() => {
+    dispatch({ type: 'SET_VEHICLE_DETAILS', payload: props });
+  
+    if (state.vehicleId !== props?.liveVehicle?.id) {
+      dispatch({ type: 'SET_VEHICLE_ID', payload: props?.liveVehicle?.id });
+      dispatch({ type: 'SET_BID_AMOUNT', payload: props?.liveVehicle?.startBidAmount });
+    }
+    if (  bidAmount < props?.liveVehicle?.currentBidAmount) {
+      dispatch({ type: 'SET_BID_AMOUNT', payload: props?.liveVehicle?.currentBidAmount });
+    }
+  }, [props,bidAmount,state.vehicleId]);
+// ...........................................................
+ 
+  console.log(props, "veh");
+
 
   const [userIdNo, setUserId] = useState();
   const [startPrice, setStartPrice] = useState(
@@ -32,10 +69,7 @@ const VehicleDetails = (props) => {
     variables: { where: { id: vehicleDetails?.liveVehicle?.id } },
   });
 
-  // const { data: timeData, refetch: serverRefetch, loading } = useQueryQuery(
-  //   {},
-  //   { refetchInterval: 60000 }
-  // );
+
   const incrementAmounts = [
     {
       id: 1,
@@ -99,7 +133,7 @@ const VehicleDetails = (props) => {
       .then((result) => {
         // Additional actions after successful bid submission
 
-        // alert(`Amount ${result?.data?.createBid?.amount} successfully Added`)
+     
         Swal.fire({
           title: `Amount ${result?.data?.createBid?.amount} successfully Added`,
           icon: "success",
@@ -108,7 +142,7 @@ const VehicleDetails = (props) => {
       })
       .catch((error) => {
         console.error(error);
-        // alert(error)
+      
         Swal.fire({
           title: ` ${error}`,
           icon: "error",
@@ -120,20 +154,8 @@ const VehicleDetails = (props) => {
     }
   
   };
-  useEffect(() => {
-    console.log(bidAmount, "bid");
-    setVehicleDetails(props);
 
-    //  setBidAmount(props?.liveVehicle?.currentBidAmount
-    //    > bidAmount
-    //    ? console.log(props?.liveVehicle?.currentBidAmount,"current"):console.log("bidAmount",bidAmount))
-    //   ? props?.liveVehicle?.startBidAmount
-
-    //   : props?.liveVehicle?.currentBidAmount )
-    if (bidAmount < props?.liveVehicle?.currentBidAmount) {
-      setBidAmount(props?.liveVehicle?.currentBidAmount);
-    }
-  }, [props]);
+  
 
   const handleEvent = async () => {
     const response = await Swal.fire({
@@ -180,9 +202,8 @@ const VehicleDetails = (props) => {
     }
   };
   const handleBidAmount = (price) => {
-    
-    setBidAmount(bidAmount + price);
-    console.log(bidAmount, "price");
+    dispatch({ type: 'UPDATE_BID_AMOUNT', payload: price });
+    console.log(bidAmount + price, "price");
   };
   const handlePending=async()=>{
     const response = await Swal.fire({
@@ -340,8 +361,8 @@ const VehicleDetails = (props) => {
               </div>
               <div className="m-2 space-x-2">
   {Array.from({ length: 5 }).map((_, i) => (
-    <button  onClick={(e) => handleBidAmount(+e.target.value)} className="btn text-lg bg-red-500" key={i} value={((i) *vehicleDetails?.liveVehicle?.quoteIncreament )}>
-      {bidAmount +((i) * vehicleDetails?.liveVehicle?.quoteIncreament)}
+    <button  onClick={(e) => handleBidAmount(+e.target.value)} className="btn text-lg bg-red-500" key={i} value={((i+1) *vehicleDetails?.liveVehicle?.quoteIncreament )}>
+      {bidAmount +((i+1) * vehicleDetails?.liveVehicle?.quoteIncreament)}
     </button>
   ))}
 </div>
@@ -372,6 +393,14 @@ const VehicleDetails = (props) => {
           <button className="btn btn-info" onClick={() => handleEvent()}>
             Pause Event
           </button>
+          <a
+            className="btn btn-ghost"
+            href={`/projecter-view/${vehicleDetails?.liveVehicle?.event.id}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+              Projecter View
+          </a>
  
         </div>
       </div>
