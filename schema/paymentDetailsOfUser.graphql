@@ -10,9 +10,9 @@ query paymentOfUser($where: UserWhereUniqueInput!) {
     status 
     paymentFor
      createdAt
-    createdBy {
-    firstName  
-    }
+    # createdBy {
+    # firstName  
+    # }
     updatedAt
     image {
       url
