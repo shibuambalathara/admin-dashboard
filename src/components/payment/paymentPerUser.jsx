@@ -32,7 +32,7 @@ navigate(`/update-payment/${paymentId}`)
            { Header: "Status ", accessor: "status" },
            { Header: "Created At ", accessor: ({createdAt})=>{return format(new Date( createdAt),`dd/MM/yy, HH:mm`)} },
            { Header: "Updated At ",  accessor: ({updatedAt})=>{return format(new Date( updatedAt),`dd/MM/yy, HH:mm`)} },
-           { Header: "Created By ", accessor: "createdBy.firstName" },
+          //  { Header: "Created By ", accessor: "createdBy.firstName" },
             {
             Header: "Update Payment",
             Cell: ({ row }) => (
