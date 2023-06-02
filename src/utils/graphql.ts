@@ -1401,7 +1401,6 @@ export type Payment = {
   __typename?: 'Payment';
   amount?: Maybe<Scalars['Int']>;
   createdAt?: Maybe<Scalars['DateTime']>;
-  createdBy?: Maybe<User>;
   description?: Maybe<Scalars['String']>;
   emdUpdate?: Maybe<Array<EmdUpdate>>;
   emdUpdateCount?: Maybe<Scalars['Int']>;
@@ -1429,7 +1428,6 @@ export type PaymentEmdUpdateCountArgs = {
 
 export type PaymentCreateInput = {
   amount?: InputMaybe<Scalars['Int']>;
-  createdBy?: InputMaybe<UserRelateToOneForCreateInput>;
   description?: InputMaybe<Scalars['String']>;
   emdUpdate?: InputMaybe<EmdUpdateRelateToManyForCreateInput>;
   image?: InputMaybe<ImageFieldInput>;
@@ -1486,7 +1484,6 @@ export type PaymentUpdateArgs = {
 
 export type PaymentUpdateInput = {
   amount?: InputMaybe<Scalars['Int']>;
-  createdBy?: InputMaybe<UserRelateToOneForUpdateInput>;
   description?: InputMaybe<Scalars['String']>;
   emdUpdate?: InputMaybe<EmdUpdateRelateToManyForUpdateInput>;
   image?: InputMaybe<ImageFieldInput>;
@@ -1502,7 +1499,6 @@ export type PaymentWhereInput = {
   OR?: InputMaybe<Array<PaymentWhereInput>>;
   amount?: InputMaybe<IntNullableFilter>;
   createdAt?: InputMaybe<DateTimeNullableFilter>;
-  createdBy?: InputMaybe<UserWhereInput>;
   description?: InputMaybe<StringFilter>;
   emdUpdate?: InputMaybe<EmdUpdateManyRelationFilter>;
   id?: InputMaybe<IdFilter>;
@@ -2162,7 +2158,6 @@ export type User = {
   pancard?: Maybe<ImageFieldOutput>;
   pancardNo?: Maybe<Scalars['String']>;
   password?: Maybe<PasswordState>;
-  paymentByAdmin?: Maybe<Payment>;
   payments?: Maybe<Array<Payment>>;
   paymentsCount?: Maybe<Scalars['Int']>;
   phone?: Maybe<Scalars['String']>;
@@ -2338,7 +2333,6 @@ export type UserCreateInput = {
   pancard?: InputMaybe<ImageFieldInput>;
   pancardNo?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
-  paymentByAdmin?: InputMaybe<PaymentRelateToOneForCreateInput>;
   payments?: InputMaybe<PaymentRelateToManyForCreateInput>;
   phone?: InputMaybe<Scalars['String']>;
   quotedBids?: InputMaybe<BidRelateToManyForCreateInput>;
@@ -2481,7 +2475,6 @@ export type UserUpdateInput = {
   pancard?: InputMaybe<ImageFieldInput>;
   pancardNo?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
-  paymentByAdmin?: InputMaybe<PaymentRelateToOneForUpdateInput>;
   payments?: InputMaybe<PaymentRelateToManyForUpdateInput>;
   phone?: InputMaybe<Scalars['String']>;
   quotedBids?: InputMaybe<BidRelateToManyForUpdateInput>;
@@ -2522,7 +2515,6 @@ export type UserWhereInput = {
   mobile?: InputMaybe<StringFilter>;
   pancardNo?: InputMaybe<StringFilter>;
   password?: InputMaybe<PasswordFilter>;
-  paymentByAdmin?: InputMaybe<PaymentWhereInput>;
   payments?: InputMaybe<PaymentManyRelationFilter>;
   phone?: InputMaybe<StringFilter>;
   quotedBids?: InputMaybe<BidManyRelationFilter>;
@@ -2539,7 +2531,6 @@ export type UserWhereInput = {
 
 export type UserWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
-  idNo?: InputMaybe<Scalars['Int']>;
   mobile?: InputMaybe<Scalars['String']>;
   username?: InputMaybe<Scalars['String']>;
 };
@@ -3038,7 +3029,7 @@ export type ActiveBidsPerUserQueryVariables = Exact<{
 }>;
 
 
-export type ActiveBidsPerUserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, activeBidsCount?: number | null, states?: Array<{ __typename?: 'State', id: string, name?: string | null }> | null, activeBids?: Array<{ __typename?: 'Vehicle', bidAmountUpdate?: number | null, startBidAmount?: number | null, currentBidAmount?: number | null, id: string, registrationNumber?: string | null, bidStatus?: VehicleBidStatusType | null, bidTimeExpire?: any | null, totalBids?: number | null, userVehicleBidsCount?: number | null }> | null } | null };
+export type ActiveBidsPerUserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, activeBidsCount?: number | null, states?: Array<{ __typename?: 'State', id: string, name?: string | null }> | null, activeBids?: Array<{ __typename?: 'Vehicle', bidAmountUpdate?: number | null, startBidAmount?: number | null, currentBidAmount?: number | null, id: string, registrationNumber?: string | null, bidStatus?: VehicleBidStatusType | null, bidTimeExpire?: any | null, vehicleIndexNo?: number | null, totalBids?: number | null, userVehicleBidsCount?: number | null }> | null } | null };
 
 export type CreateEventMutationVariables = Exact<{
   data: EventCreateInput;
@@ -3463,6 +3454,7 @@ export const ActiveBidsPerUserDocument = gql`
       registrationNumber
       bidStatus
       bidTimeExpire
+      vehicleIndexNo
       totalBids
       userVehicleBidsCount
     }
