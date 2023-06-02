@@ -18,7 +18,8 @@ const BidsTablePerUser = () => {
   const[vehicleId,setVehicleId]=useState(null)
   const[statuschangeId,setStatusChangeId]=useState(null)
   const{data:vehicleDetails}=useVehicleDetailsQuery({variables:{where:{id:vehicleId}}})
-    const {data,loading,error}=useActiveBidsPerUserQuery({variables:{where:{id}}})
+  const {data,loading,error}=useActiveBidsPerUserQuery({variables:{where:{id}}})
+  console.log(data,"veh")
     const navigate=useNavigate()
     const [editVehicle] = useUpdateVehicleMutation({
       variables: { where: { id:statuschangeId } },
@@ -52,7 +53,7 @@ useEffect(()=>{
     useEffect(() => {
       if (vehicleId && vehicleDetails) {
         const {vehicle}=vehicleDetails
-        console.log(vehicleDetails,"v",vehicleId)
+        console.log(vehicleDetails?.vehicle?.event?.seller?.name,"v",vehicleId)
         const pdf = new jsPDF();
        const logoImg = '../AutoBSE_Logo.png';
        
@@ -111,6 +112,7 @@ useEffect(()=>{
     const columns = useMemo(
         () => [
           { Header: "Reg Number", accessor: "registrationNumber" },
+          { Header: "Lot Number", accessor: "vehicleIndexNo" },
            { Header: "Start Price", accessor: "startBidAmount" },
            { Header: "Current Bid Amount", accessor: "currentBidAmount" },
            
