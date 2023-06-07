@@ -45,7 +45,7 @@ const PaymentTableComponent = () => {
           {Header:"Mobile",accessor:"user.mobile"},
            {Header:"user First Name",accessor:"user.firstName"},
            {Header:"user Last Name",accessor:"user.lastName"},
-           {Header:"Created By",accessor:"createdBy.firstName"},
+           {Header:"Created By",accessor:data => data.createdBy ? data.createdBy.firstName : "self"},
 
            {
             Header: "Create Emd",

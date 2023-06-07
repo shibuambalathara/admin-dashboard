@@ -52,7 +52,8 @@ const UpdatePayment = () => {
     return <div>Loading............</div>;
   }
   return (
-    <div className="flex flex-col space-y-10 justify-center align-middle w-full bg-gray-50  my-10">
+    <div className="flex flex-col space-y-10 justify-center align-middle w-full   py-10">
+      <div className='text-center font-bold text-lg'>Update Payment Of {payment?.data?.payment?.user?.firstName} {payment?.data?.payment?.user?.lastName} </div>
       <form onSubmit={handleSubmit(onSubmit)} className=" w-full my-5 space-y-10">
          <div className="flex space-x-2 justify-around">
           

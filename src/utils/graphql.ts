@@ -1401,6 +1401,7 @@ export type Payment = {
   __typename?: 'Payment';
   amount?: Maybe<Scalars['Int']>;
   createdAt?: Maybe<Scalars['DateTime']>;
+  createdBy?: Maybe<User>;
   description?: Maybe<Scalars['String']>;
   emdUpdate?: Maybe<Array<EmdUpdate>>;
   emdUpdateCount?: Maybe<Scalars['Int']>;
@@ -1428,6 +1429,7 @@ export type PaymentEmdUpdateCountArgs = {
 
 export type PaymentCreateInput = {
   amount?: InputMaybe<Scalars['Int']>;
+  createdBy?: InputMaybe<UserRelateToOneForCreateInput>;
   description?: InputMaybe<Scalars['String']>;
   emdUpdate?: InputMaybe<EmdUpdateRelateToManyForCreateInput>;
   image?: InputMaybe<ImageFieldInput>;
@@ -1484,6 +1486,7 @@ export type PaymentUpdateArgs = {
 
 export type PaymentUpdateInput = {
   amount?: InputMaybe<Scalars['Int']>;
+  createdBy?: InputMaybe<UserRelateToOneForUpdateInput>;
   description?: InputMaybe<Scalars['String']>;
   emdUpdate?: InputMaybe<EmdUpdateRelateToManyForUpdateInput>;
   image?: InputMaybe<ImageFieldInput>;
@@ -1499,6 +1502,7 @@ export type PaymentWhereInput = {
   OR?: InputMaybe<Array<PaymentWhereInput>>;
   amount?: InputMaybe<IntNullableFilter>;
   createdAt?: InputMaybe<DateTimeNullableFilter>;
+  createdBy?: InputMaybe<UserWhereInput>;
   description?: InputMaybe<StringFilter>;
   emdUpdate?: InputMaybe<EmdUpdateManyRelationFilter>;
   id?: InputMaybe<IdFilter>;
@@ -2158,6 +2162,7 @@ export type User = {
   pancard?: Maybe<ImageFieldOutput>;
   pancardNo?: Maybe<Scalars['String']>;
   password?: Maybe<PasswordState>;
+  paymentByAdmin?: Maybe<Payment>;
   payments?: Maybe<Array<Payment>>;
   paymentsCount?: Maybe<Scalars['Int']>;
   phone?: Maybe<Scalars['String']>;
@@ -2333,6 +2338,7 @@ export type UserCreateInput = {
   pancard?: InputMaybe<ImageFieldInput>;
   pancardNo?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
+  paymentByAdmin?: InputMaybe<PaymentRelateToOneForCreateInput>;
   payments?: InputMaybe<PaymentRelateToManyForCreateInput>;
   phone?: InputMaybe<Scalars['String']>;
   quotedBids?: InputMaybe<BidRelateToManyForCreateInput>;
@@ -2475,6 +2481,7 @@ export type UserUpdateInput = {
   pancard?: InputMaybe<ImageFieldInput>;
   pancardNo?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
+  paymentByAdmin?: InputMaybe<PaymentRelateToOneForUpdateInput>;
   payments?: InputMaybe<PaymentRelateToManyForUpdateInput>;
   phone?: InputMaybe<Scalars['String']>;
   quotedBids?: InputMaybe<BidRelateToManyForUpdateInput>;
@@ -2515,6 +2522,7 @@ export type UserWhereInput = {
   mobile?: InputMaybe<StringFilter>;
   pancardNo?: InputMaybe<StringFilter>;
   password?: InputMaybe<PasswordFilter>;
+  paymentByAdmin?: InputMaybe<PaymentWhereInput>;
   payments?: InputMaybe<PaymentManyRelationFilter>;
   phone?: InputMaybe<StringFilter>;
   quotedBids?: InputMaybe<BidManyRelationFilter>;
@@ -2531,6 +2539,7 @@ export type UserWhereInput = {
 
 export type UserWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
+  idNo?: InputMaybe<Scalars['Int']>;
   mobile?: InputMaybe<Scalars['String']>;
   username?: InputMaybe<Scalars['String']>;
 };
@@ -3266,7 +3275,7 @@ export type PaymentOfUserQueryVariables = Exact<{
 }>;
 
 
-export type PaymentOfUserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, payments?: Array<{ __typename?: 'Payment', id: string, refNo?: number | null, amount?: number | null, status?: string | null, paymentFor?: string | null, createdAt?: any | null, updatedAt?: any | null, image?: { __typename?: 'ImageFieldOutput', url: string } | null }> | null } | null };
+export type PaymentOfUserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, payments?: Array<{ __typename?: 'Payment', id: string, refNo?: number | null, amount?: number | null, status?: string | null, paymentFor?: string | null, createdAt?: any | null, updatedAt?: any | null, createdBy?: { __typename?: 'User', firstName?: string | null } | null, image?: { __typename?: 'ImageFieldOutput', url: string } | null }> | null } | null };
 
 export type UpdatePaymentMutationVariables = Exact<{
   where: PaymentWhereUniqueInput;
@@ -3283,7 +3292,7 @@ export type PaymentTableQueryVariables = Exact<{
 }>;
 
 
-export type PaymentTableQuery = { __typename?: 'Query', payments?: Array<{ __typename?: 'Payment', id: string, refNo?: number | null, status?: string | null, amount?: number | null, paymentFor?: string | null, createdAt?: any | null, updatedAt?: any | null, user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, username?: string | null, mobile?: string | null } | null }> | null };
+export type PaymentTableQuery = { __typename?: 'Query', payments?: Array<{ __typename?: 'Payment', id: string, refNo?: number | null, status?: string | null, amount?: number | null, paymentFor?: string | null, createdAt?: any | null, updatedAt?: any | null, createdBy?: { __typename?: 'User', firstName?: string | null, lastName?: string | null } | null, user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, username?: string | null, mobile?: string | null } | null }> | null };
 
 export type SelectorsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5065,6 +5074,9 @@ export const PaymentOfUserDocument = gql`
       status
       paymentFor
       createdAt
+      createdBy {
+        firstName
+      }
       updatedAt
       image {
         url
@@ -5151,6 +5163,10 @@ export const PaymentTableDocument = gql`
     amount
     paymentFor
     createdAt
+    createdBy {
+      firstName
+      lastName
+    }
     updatedAt
     user {
       id

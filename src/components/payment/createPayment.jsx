@@ -1,10 +1,11 @@
 import React from 'react'
 import { useForm } from "react-hook-form";
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 import{useUserQuery,useCreatePaymentMutation} from '../../utils/graphql'
 import { ShowPopup } from '../alerts/popUps';
 const CreatePayment = () => {
   const {id}=useParams()
+  const navigate=useNavigate()
   console.log(id,"id")
   const { data, loading, error } = useUserQuery({variables: { where: { id: id } }});
   console.log(data,"user")
@@ -21,7 +22,7 @@ const CreatePayment = () => {
     amount:+dataOnSubmit?.amount,
     paymentFor:dataOnSubmit?.paymentFor,
     description:dataOnSubmit?.description,
-    status:dataOnSubmit.status,
+    status:dataOnSubmit.paymentStatus,
     user:{connect:{id:id}}
 
   }
@@ -35,6 +36,7 @@ const CreatePayment = () => {
  
 
       ShowPopup("Success!", `${dataOnSubmit?.paymentFor} created successfully!`, "success", 5000, true);
+      navigate('/payment')
     }
   } catch (error) {
     ShowPopup("Failed!", `${error.message}`, "failed", 5000, true);
@@ -46,7 +48,8 @@ const CreatePayment = () => {
 
   
   return (
-    <div className="flex flex-col space-y-10 justify-center align-middle w-full bg-gray-50  my-10">
+    <div className="flex flex-col space-y-10 justify-center align-middle w-full   py-10">
+      <div className='text-center font-bold text-lg'>Create Payment For {data?.user?.firstName} {data?.user?.lastName} </div>
       <form onSubmit={handleSubmit(onSubmit)} className=" w-full my-5 space-y-10">
          <div className="flex space-x-2 justify-around">
           
@@ -119,11 +122,11 @@ const CreatePayment = () => {
         <div className=" ">
              
 
-              <img
+              {/* <img
                 className="w-full h-36 border py-1"
-                // src={`https://api.autobse.com${data?.user?.idProofBack?.url}`}
-                alt="no id proof back side_image"
-              />
+                src={`https://api.autobse.com${payment?.data?.payment?.image?.url}`}
+                alt="No ID proof_Image"
+              /> */}
                <input type="file" className="p-1" {...register("imgForPaymentProof", { })}></input>
             </div>
 </div>

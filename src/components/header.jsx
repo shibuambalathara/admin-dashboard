@@ -29,7 +29,7 @@ const Header = () => {
   //  </div>
   // </nav>
   //   </div>
-  <div className="navbar bg-base-100 shadow-lg">
+  <div className="navbar  bg-base-100 shadow-lg">
   <div className="flex-1">
     {/* <a className="btn btn-ghost normal-case text-xl">AUTOBSE</a> */}
     <img src='AutoBSE_Logo.png' alt='AUTOBSE ' className='w-32'/>
