@@ -65,7 +65,7 @@ function AppContent() {
   return (
 <div>
       {isProjectorView ? null : <Header />}
-      <div className="flex w-full">
+      <div className="flex w-full ">
         {!isProjectorView && <Sidebar />}
         <Routes>
             <Route path="login" element={<LoginPage />} />

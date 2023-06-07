@@ -16,9 +16,9 @@ let token = localStorage.getItem("token");
 const client = new ApolloClient({
   
   link: createUploadLink({
-    // uri: 'https://api-dev.autobse.com/api/graphql', 
+ //    uri: 'https://api-dev.autobse.com/api/graphql', 
      uri: 'https://api.autobse.com/api/graphql', 
- //  uri:"http://localhost:3000/api/graphql",
+//   uri:"http://localhost:3000/api/graphql",
     headers: {
       authorization: token ? `Bearer ${JSON.parse(token as string)}` : "",   
     }, 
