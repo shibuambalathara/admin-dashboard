@@ -175,7 +175,7 @@ const AuctionUpdateByAdmin = () => {
     let noUpcoming = "no upcoming left";
     try {
       if (upcoming[0]) {
-        // console.log('upcoming[0]',upcoming[0]);
+         console.log('upcoming[0]',upcoming[0]);
         let count = upcoming[0].length;
         let string = count + "";
 
@@ -187,13 +187,22 @@ const AuctionUpdateByAdmin = () => {
         console.log("currentTime", currentTime);
         console.log("diff", diff);
         console.log("startTime", startTime);
-        console.log(moment.utc(diff * 1000).format("HH:mm:ss"));
-        if (diff > 0) return moment.utc(diff * 1000).format("HH:mm:ss");
+  if (diff > 0) {
+    const duration = moment.duration(diff * 1000);
+    const days = Math.floor(duration.asDays());
+    const hours = duration.hours();
+    const minutes = duration.minutes();
+    const seconds = duration.seconds();
+    
+    const formattedDuration = `${days}:${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    
+    return formattedDuration;
+  }
         else return "00:00:00";
       }
       return noUpcoming;
     } catch (error) {
-      // console.log(error.message);
+      console.log("message");
 
       return "00:00:00";
     }
@@ -276,7 +285,7 @@ const AuctionUpdateByAdmin = () => {
 
 export default AuctionUpdateByAdmin;
 function counterLeftUpcoming(hhmmss) {
-  // console.log("**001", typeof hhmmss);
+   console.log("**001", hhmmss);
   if (hhmmss === "no upcoming left") {
     return (
       <div
@@ -298,10 +307,19 @@ function counterLeftUpcoming(hhmmss) {
           <div className="text-center text-3xl text-black font-extrabold uppercase">
             Next vehicle will be in
           </div>
-          <div className="text-2xl text-center flex w-full items-center justify-center">
-            <div className="w-24 mx-2 p-2">
+          <div className=" text-2xl text-center flex w-full items-center justify-center">
+        {timeArray[0]>0 && <> <div className="w-24 mx-2 p-2">
               <div className="font-semibold text-7xl leading-none">
                 {timeArray[0]}
+              </div>
+              <div className="mt-2 font-mono uppercase text-sm leading-none">
+                Days
+              </div>
+              
+            </div><div className="text-8xl pb-10">:</div></>}
+            <div className="w-24 mx-2 p-2">
+              <div className="font-semibold text-7xl leading-none">
+                {timeArray[1]}
               </div>
               <div className="mt-2 font-mono uppercase text-sm leading-none">
                 Hours
@@ -310,7 +328,7 @@ function counterLeftUpcoming(hhmmss) {
             <div className="text-8xl pb-10">:</div>
             <div className="w-24 mx-2 p-2">
               <div className="font-mono text-7xl leading-none">
-                {timeArray[1]}
+                {timeArray[2]}
               </div>
               <div className="mt-2 font-mono uppercase text-sm leading-none">
                 Minutes
@@ -319,7 +337,7 @@ function counterLeftUpcoming(hhmmss) {
             <div className="text-8xl pb-10">:</div>
             <div className="w-24 mx-2 p-2">
               <div className="font-mono text-7xl leading-none">
-                {timeArray[2]}
+                {timeArray[3]}
               </div>
               <div className="mt-2 font-mono uppercase text-sm leading-none">
                 Seconds

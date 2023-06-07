@@ -79,9 +79,15 @@ useEffect(()=>{
           },
           { Header: "End Date ", accessor: ({endDate})=>{return format(new Date (endDate),`dd/MM/yy, HH:mm`)} },
           { Header: "Status ", accessor: "status" }, 
-        { Header: "Vehicle Count", accessor: "vehiclesCount" },
+        // { Header: "Vehicle Count", accessor: "vehiclesCount" },
          
-        
+        {
+          Header: "Vehicles Count",
+          Cell: ({ row }) => (
+<>  { row.original.vehiclesCount===0  ?   <a className="btn btn-accent" href={`/add-vehicle/${row.original.id}`} target="_blank" rel="noopener noreferrer">Add Vehicle</a>
+:`${row.original.vehiclesCount}`             }</> 
+            )
+        },
           {
             Header: "View Vehicles",
             Cell: ({ row }) => (
@@ -99,13 +105,7 @@ useEffect(()=>{
    
       )
           },
-          {
-            Header: "Add Vehicle",
-            Cell: ({ row }) => (
-              <a className="btn btn-accent" href={`/add-vehicle/${row.original.id}`} target="_blank" rel="noopener noreferrer">Add Vehicle</a>
-
-              )
-          },
+   
           {
             Header: "View/Edit Event",
             Cell: ({ row }) => (
