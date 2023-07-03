@@ -28,6 +28,7 @@ const ViewUsers = () => {
   return (
   
     <div>
+      
    {data?.users &&   <TabbleOfUsersOrUser users={data?.users}/>}
    <div className="flex justify-center">
             <div className="flex flex-col justify-between mt-4 ">
