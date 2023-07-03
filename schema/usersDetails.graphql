@@ -16,7 +16,7 @@ query Users($skip: Int!, $take: Int, $orderBy: [UserOrderByInput!]!) {
     vehicleBuyingLimit  
     }
 paymentsCount
-# coupenDetailCount
+ coupenDetailCount
   }
  
 }
