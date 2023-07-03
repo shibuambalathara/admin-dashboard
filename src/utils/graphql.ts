@@ -3382,7 +3382,7 @@ export type EmdUpdatesPerPaymentQueryVariables = Exact<{
 }>;
 
 
-export type EmdUpdatesPerPaymentQuery = { __typename?: 'Query', emdUpdates?: Array<{ __typename?: 'EmdUpdate', emdNo?: number | null, id: string, vehicleBuyingLimitIncrement?: number | null, payment?: { __typename?: 'Payment', id: string, amount?: number | null } | null, user?: { __typename?: 'User', mobile?: string | null, firstName?: string | null, lastName?: string | null } | null, createdBy?: { __typename?: 'User', firstName?: string | null } | null }> | null };
+export type EmdUpdatesPerPaymentQuery = { __typename?: 'Query', emdUpdates?: Array<{ __typename?: 'EmdUpdate', emdNo?: number | null, id: string, vehicleBuyingLimitIncrement?: number | null, payment?: { __typename?: 'Payment', id: string, amount?: number | null, coupenDetail?: Array<{ __typename?: 'Coupen', coupenNumber?: string | null, createdAt?: any | null }> | null } | null, user?: { __typename?: 'User', mobile?: string | null, firstName?: string | null, lastName?: string | null } | null, createdBy?: { __typename?: 'User', firstName?: string | null } | null }> | null };
 
 export type DeleteEmdUpdateMutationVariables = Exact<{
   where: EmdUpdateWhereUniqueInput;
@@ -3648,7 +3648,7 @@ export type UsersQueryVariables = Exact<{
 }>;
 
 
-export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', firstName?: string | null, lastName?: string | null, email?: string | null, mobile?: string | null, status?: UserStatusType | null, state?: string | null, role?: UserRoleType | null, idNo?: number | null, id: string, pancardNo?: string | null, activeBidsCount?: number | null, createdAt?: any | null, paymentsCount?: number | null, currentVehicleBuyingLimit?: { __typename?: 'vehicleBuyingLimits', vehicleBuyingLimit?: number | null } | null }> | null };
+export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', firstName?: string | null, lastName?: string | null, email?: string | null, mobile?: string | null, status?: UserStatusType | null, state?: string | null, role?: UserRoleType | null, idNo?: number | null, id: string, pancardNo?: string | null, activeBidsCount?: number | null, createdAt?: any | null, paymentsCount?: number | null, coupenDetailCount?: number | null, currentVehicleBuyingLimit?: { __typename?: 'vehicleBuyingLimits', vehicleBuyingLimit?: number | null } | null }> | null };
 
 export type UserbyIdNoQueryVariables = Exact<{
   where: UserWhereUniqueInput;
@@ -4567,6 +4567,10 @@ export const EmdUpdatesPerPaymentDocument = gql`
     payment {
       id
       amount
+      coupenDetail {
+        coupenNumber
+        createdAt
+      }
     }
     user {
       mobile
@@ -6357,6 +6361,7 @@ export const UsersDocument = gql`
       vehicleBuyingLimit
     }
     paymentsCount
+    coupenDetailCount
   }
 }
     `;
