@@ -14,11 +14,19 @@ const EmdDetails = () => {
   console.log(id,"id")
   const [currentPage, setCurrentPage] = useState(0);
   const [pageSize, setPageSize] = useState(10);
+  const navigate = useNavigate();
 
-const handleMessage=(coupen)=>{
-  console.log(coupen,"coupen")
-  const {user,payment,coupenDetail,vehicleBuyingLimitIncrement,}=coupen
-  const formatedDate=format(new Date(coupenDetail[0].createdAt),`dd/MM/yy, HH:mm`)
+  const { data, loading, error,refetch } =useEmdUpdatesPerPaymentQuery({variables:{ where: {payment:{id: {equals:id}}}}});
+ // const [changeStatus]=useMutationTokenDetailMutation()
+
+ console.log("this is the data from view users11", data);
+
+
+const handleMessage=(emdUpdates)=>{
+  console.log(emdUpdates,"coupen")
+  const {user,payment,vehicleBuyingLimitIncrement,}=emdUpdates
+  const formatedDate=format(new Date(payment.coupenDetail[0].createdAt),`dd/MM/yy, HH:mm`)
+  console.log(formatedDate,"ff")
   Swal.fire({
     html: `<div>
         <h1>Message From Team AutoBse</h1>
@@ -26,7 +34,7 @@ const handleMessage=(coupen)=>{
         <p>Dear: ${user.firstName} ${user.lastName},</p>
         <p>You have ${vehicleBuyingLimitIncrement} Buying Limit against the payment of Rs.${payment.amount}. Created at ${formatedDate}</p>
        
-        <p>Coupons are ${coupen.coupenDetail.map((coupen, index) => {
+        <p>Coupons are ${payment.coupenDetail.map((coupen, index) => {
             return `<p>${index + 1}. ${coupen.coupenNumber}</p>`;
         }).join('')}</p>
         <p>For more details, please contact Team AutoBse.</p>
@@ -36,12 +44,6 @@ const handleMessage=(coupen)=>{
 }
 
 
-   const navigate = useNavigate();
-
-   const { data, loading, error,refetch } =useEmdUpdatesPerPaymentQuery({variables:{ where: {payment:{id: {equals:id}}}}});
-  // const [changeStatus]=useMutationTokenDetailMutation()
-
-  console.log("this is the data from view users11", data);
 
   
 
