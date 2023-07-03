@@ -79,7 +79,7 @@ const TabbleOfUsersOrUser = ({users}) => {
         Header: "View Coupens",
         Cell: ({ row }) => (
      
-          row.original.coupenDetailCount!==0  &&   <a className="btn bg-red-500 w-16" href={`/coupenPerUser/${row.original.id}`} target="_blank" rel="noopener noreferrer">{row.original.coupenDetailCount}</a>
+          row.original.coupenDetailCount  &&   <a className="btn bg-red-500 w-16" href={`/coupenPerUser/${row.original.id}`} target="_blank" rel="noopener noreferrer">{row.original.coupenDetailCount}</a>
 
         ),
       },
@@ -225,28 +225,7 @@ const TabbleOfUsersOrUser = ({users}) => {
               })}
             </tbody>
           </table>
-          <div className="flex justify-center">
-            <div className="flex flex-col justify-between mt-4 ">
-            <div className="flex justify-center">
-          Page{' '}
-          <strong>
-            {currentPage + 1}
-             {/* of {tableInstance.pageOptions.length} */}
-         
-          </strong>{' '}
-        </div>
-              <div className="space-x-2">
-             
-                {currentPage>0 ?  <button className="btn" onClick={(e)=>setCurrentPage(0)}>{" "}{"<<"}</button> :<button disabled></button>}
-
-             {currentPage>0 ?  <button className="btn" onClick={(e)=>setCurrentPage(currentPage-1)}>{" "}{"<"}</button> :<button disabled></button>}
-                <button className="btn" onClick={(e)=>setCurrentPage(currentPage+1)}>{" "}{">"}</button> 
-         
-         
-              </div>
-         
-            </div>
-          </div>
+  
         </div>
       </div>
     </div>

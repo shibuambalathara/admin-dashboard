@@ -29,6 +29,28 @@ const ViewUsers = () => {
   
     <div>
    {data?.users &&   <TabbleOfUsersOrUser users={data?.users}/>}
+   <div className="flex justify-center">
+            <div className="flex flex-col justify-between mt-4 ">
+            <div className="flex justify-center">
+          Page{' '}
+          <strong>
+            {currentPage + 1}
+             {/* of {tableInstance.pageOptions.length} */}
+         
+          </strong>{' '}
+        </div>
+              <div className="space-x-2">
+             
+                {currentPage>0 ?  <button className="btn" onClick={(e)=>setCurrentPage(0)}>{" "}{"<<"}</button> :<button disabled></button>}
+
+             {currentPage>0 ?  <button className="btn" onClick={(e)=>setCurrentPage(currentPage-1)}>{" "}{"<"}</button> :<button disabled></button>}
+                <button className="btn" onClick={(e)=>setCurrentPage(currentPage+1)}>{" "}{">"}</button> 
+         
+         
+              </div>
+         
+            </div>
+          </div>
     </div>
   );
 };
