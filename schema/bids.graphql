@@ -39,6 +39,7 @@ query BidDetailsPerVehicle($where: VehicleWhereUniqueInput!) {
   
       user {
       id
+      idNo
       firstName
       lastName
       mobile  
@@ -48,12 +49,22 @@ query BidDetailsPerVehicle($where: VehicleWhereUniqueInput!) {
     currentBidAmount
     currentBidUser {
     id  
+    idNo 
     username
     firstName
     lastName
     }
 
   
+  }
+}
+mutation updateBid($where: BidWhereUniqueInput!, $data: BidUpdateInput!) {
+  updateBid(where: $where, data: $data) {
+    id
+    user {
+      idNo
+    }
+    
   }
 }
 

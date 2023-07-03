@@ -1,9 +1,9 @@
 import {useState} from 'react'
-import { Button } from '@material-tailwind/react'
+import { Button, input } from '@material-tailwind/react'
 import React, { useMemo } from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import { useTable,usePagination,useSortBy,useGlobalFilter } from "react-table"
-import {useBidDetailsPerVehicleQuery, useDeleteBidMutation,} from '../../utils/graphql'
+import {useBidDetailsPerVehicleQuery, useDeleteBidMutation, useUpdateBidMutation,} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
 import format from 'date-fns/format'
 
@@ -16,13 +16,16 @@ import * as FileSaver from 'file-saver';
 
 
 
+
 const ParticipantsList = (props) => {
   // const [isModalOpen, setIsModalOpen] = useState(false);
     const {id}=useParams()
     const {data,loading,error,refetch}=useBidDetailsPerVehicleQuery({variables:{where:{id:props?.vehicleId}}})
-    console.log(data,"bid")
+    const[changeToken]=useUpdateBidMutation()
+   
     const [deleteBid]=useDeleteBidMutation()
     const navigate=useNavigate()
+
 
    
 
@@ -40,7 +43,7 @@ const ParticipantsList = (props) => {
         const result=await  deleteBid({variables:{where:{id}}})
 
         if (result?.data) {
-          console.log(result)
+         
           await Swal.fire({
             title: `  deleted Successfully`,
             icon: 'success',
@@ -50,7 +53,7 @@ const ParticipantsList = (props) => {
       try{
 
         const result=await deleteBid({variables:{where:{id}}})
-        console.log(result,"result")
+        
         ShowPopup("Success!", `successfully Deleted!`,"success", 5000, true);
       }
       catch(err){
@@ -70,7 +73,7 @@ const ParticipantsList = (props) => {
 
 
     const handleReport=(report)=>{
-      console.log(report,"report")
+   
     const arr=[]
     arr.push(report)
    const take =arr.map((element)=>({
@@ -79,7 +82,7 @@ const ParticipantsList = (props) => {
      RegistrationNumber:element.registrationNumber,
     }))
   
-  console.log(take,"repor")
+
   
        report=report?.userVehicleBids.map((element)=>({
         
@@ -93,7 +96,7 @@ const ParticipantsList = (props) => {
       report.sort(function(a, b) {
         return b.Amount - a.Amount;
       });
-      console.log(report)
+     
       const combined=[...take,...report]
       const convertToExcel = (jsonToExcel) => {
         const worksheet = XLSX.utils.json_to_sheet(combined);
@@ -106,8 +109,62 @@ const ParticipantsList = (props) => {
       
      
       convertToExcel();
-     console.log(combined)
+   
      }
+     const handleEditBid=async(id)=>{
+      
+    const {value:text }=  await Swal.fire({
+        input: 'text',
+        inputLabel: 'Change  Token',
+        inputPlaceholder: 'Enter the Token',
+       
+      })
+      if(text  ){
+  
+   changeToken({variables:{data: {user:{connect:{idNo:+text}},bidVehicle:{connect:{id:props?.vehicleId}}},where:{id}}}).then((resolve)=>{
+Swal.fire({icon:'success',
+  title:'successfully Updated'})
+   })
+   .catch((err)=>{
+    console.log(err,"error")
+    Swal.fire({title:'Something went wrong'})
+   })
+  
+   
+      
+        
+      }
+
+      
+     }
+
+     const handleEditAmount=async(id)=>{
+      alert(id)
+      const {value:text }=  await Swal.fire({
+          input: 'text',
+          inputLabel: 'Change Amount',
+          inputPlaceholder: 'Enter the Amount',
+         
+        })
+        if(text  ){
+    
+     changeToken({variables:{data: {amount:+text,bidVehicle:{connect:{id:props?.vehicleId}}},where:{id}}}).then((resolve)=>{
+  Swal.fire({icon:'success',
+    title:'successfully Updated'})
+     })
+     .catch((err)=>{
+      console.log(err,"error",text)
+      Swal.fire({title:'Something went wrong'})
+     })
+    
+     
+        
+          
+        }
+  
+        
+       }
+
 
     const columns = useMemo(
         () => [
@@ -116,7 +173,20 @@ const ParticipantsList = (props) => {
                 { Header: "Mobile", accessor: "user.mobile" },
               { Header: "Bid Time ", accessor: ({createdAt})=>{return format(new Date( createdAt),`dd/MM/yy, HH:mm:ss`)} },
           { Header: "Amount", accessor: "amount" },
-       
+          // {
+          //   Header: "Amount",
+          //   Cell: ({ row }) => (
+          //     <button className="btn bg-green-400" onClick={()=>handleEditAmount(row.original.id) }>{row.original.amount}</button>
+
+          //   )
+          // },
+          {
+            Header: "Change token",
+            Cell: ({ row }) => (
+              <button className="btn btn-warning" onClick={()=>handleEditBid(row.original.id) }>{row.original.user.idNo}</button>
+
+            )
+          },
                 
           {
             Header: "View User",
@@ -124,6 +194,8 @@ const ParticipantsList = (props) => {
               <button className="btn btn-info" onClick={()=>handleUserDetails(row.original.user.id) }>View User</button>
             )
           },
+          
+
           {
             Header: "Delete Bid",
             Cell: ({ row }) => (

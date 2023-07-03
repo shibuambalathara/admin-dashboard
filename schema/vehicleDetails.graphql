@@ -83,3 +83,10 @@ vehicleIndexNo
   }
   }
 }
+query vehiclePerEvent($where: VehicleWhereInput!) {
+  vehicles(where: $where) {
+  id
+  registrationNumber  
+  
+  }
+}

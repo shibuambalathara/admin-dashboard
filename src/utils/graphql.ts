@@ -24,6 +24,8 @@ export type Bid = {
   __typename?: 'Bid';
   amount?: Maybe<Scalars['Int']>;
   bidVehicle?: Maybe<Vehicle>;
+  coupenDetail?: Maybe<Array<Coupen>>;
+  coupenDetailCount?: Maybe<Scalars['Int']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   id: Scalars['ID'];
   name?: Maybe<Scalars['String']>;
@@ -31,9 +33,23 @@ export type Bid = {
   user?: Maybe<User>;
 };
 
+
+export type BidCoupenDetailArgs = {
+  orderBy?: Array<CoupenOrderByInput>;
+  skip?: Scalars['Int'];
+  take?: InputMaybe<Scalars['Int']>;
+  where?: CoupenWhereInput;
+};
+
+
+export type BidCoupenDetailCountArgs = {
+  where?: CoupenWhereInput;
+};
+
 export type BidCreateInput = {
   amount?: InputMaybe<Scalars['Int']>;
   bidVehicle?: InputMaybe<VehicleRelateToOneForCreateInput>;
+  coupenDetail?: InputMaybe<CoupenRelateToManyForCreateInput>;
   name?: InputMaybe<Scalars['String']>;
   user?: InputMaybe<UserRelateToOneForCreateInput>;
 };
@@ -74,6 +90,17 @@ export type BidRelateToManyForUpdateInput = {
   set?: InputMaybe<Array<BidWhereUniqueInput>>;
 };
 
+export type BidRelateToOneForCreateInput = {
+  connect?: InputMaybe<BidWhereUniqueInput>;
+  create?: InputMaybe<BidCreateInput>;
+};
+
+export type BidRelateToOneForUpdateInput = {
+  connect?: InputMaybe<BidWhereUniqueInput>;
+  create?: InputMaybe<BidCreateInput>;
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+};
+
 export type BidUpdateArgs = {
   data: BidUpdateInput;
   where: BidWhereUniqueInput;
@@ -82,6 +109,7 @@ export type BidUpdateArgs = {
 export type BidUpdateInput = {
   amount?: InputMaybe<Scalars['Int']>;
   bidVehicle?: InputMaybe<VehicleRelateToOneForUpdateInput>;
+  coupenDetail?: InputMaybe<CoupenRelateToManyForUpdateInput>;
   name?: InputMaybe<Scalars['String']>;
   user?: InputMaybe<UserRelateToOneForUpdateInput>;
 };
@@ -92,6 +120,7 @@ export type BidWhereInput = {
   OR?: InputMaybe<Array<BidWhereInput>>;
   amount?: InputMaybe<IntNullableFilter>;
   bidVehicle?: InputMaybe<VehicleWhereInput>;
+  coupenDetail?: InputMaybe<CoupenManyRelationFilter>;
   createdAt?: InputMaybe<DateTimeNullableFilter>;
   id?: InputMaybe<IdFilter>;
   name?: InputMaybe<StringFilter>;
@@ -106,6 +135,99 @@ export type BidWhereUniqueInput = {
 export type BooleanFilter = {
   equals?: InputMaybe<Scalars['Boolean']>;
   not?: InputMaybe<BooleanFilter>;
+};
+
+export type Coupen = {
+  __typename?: 'Coupen';
+  bidDetail?: Maybe<Bid>;
+  coupenNumber?: Maybe<Scalars['String']>;
+  coupenStatus?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  id: Scalars['ID'];
+  paymentDetail?: Maybe<Payment>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  userDetail?: Maybe<User>;
+  vehicleDetail?: Maybe<Vehicle>;
+};
+
+export type CoupenCreateInput = {
+  bidDetail?: InputMaybe<BidRelateToOneForCreateInput>;
+  coupenNumber?: InputMaybe<Scalars['String']>;
+  coupenStatus?: InputMaybe<Scalars['String']>;
+  paymentDetail?: InputMaybe<PaymentRelateToOneForCreateInput>;
+  userDetail?: InputMaybe<UserRelateToOneForCreateInput>;
+  vehicleDetail?: InputMaybe<VehicleRelateToOneForCreateInput>;
+};
+
+export type CoupenManyRelationFilter = {
+  every?: InputMaybe<CoupenWhereInput>;
+  none?: InputMaybe<CoupenWhereInput>;
+  some?: InputMaybe<CoupenWhereInput>;
+};
+
+export type CoupenOrderByInput = {
+  coupenNumber?: InputMaybe<OrderDirection>;
+  coupenStatus?: InputMaybe<OrderDirection>;
+  createdAt?: InputMaybe<OrderDirection>;
+  id?: InputMaybe<OrderDirection>;
+  updatedAt?: InputMaybe<OrderDirection>;
+};
+
+export type CoupenRelateToManyForCreateInput = {
+  connect?: InputMaybe<Array<CoupenWhereUniqueInput>>;
+  create?: InputMaybe<Array<CoupenCreateInput>>;
+};
+
+export type CoupenRelateToManyForUpdateInput = {
+  connect?: InputMaybe<Array<CoupenWhereUniqueInput>>;
+  create?: InputMaybe<Array<CoupenCreateInput>>;
+  disconnect?: InputMaybe<Array<CoupenWhereUniqueInput>>;
+  set?: InputMaybe<Array<CoupenWhereUniqueInput>>;
+};
+
+export type CoupenRelateToOneForCreateInput = {
+  connect?: InputMaybe<CoupenWhereUniqueInput>;
+  create?: InputMaybe<CoupenCreateInput>;
+};
+
+export type CoupenRelateToOneForUpdateInput = {
+  connect?: InputMaybe<CoupenWhereUniqueInput>;
+  create?: InputMaybe<CoupenCreateInput>;
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type CoupenUpdateArgs = {
+  data: CoupenUpdateInput;
+  where: CoupenWhereUniqueInput;
+};
+
+export type CoupenUpdateInput = {
+  bidDetail?: InputMaybe<BidRelateToOneForUpdateInput>;
+  coupenNumber?: InputMaybe<Scalars['String']>;
+  coupenStatus?: InputMaybe<Scalars['String']>;
+  paymentDetail?: InputMaybe<PaymentRelateToOneForUpdateInput>;
+  userDetail?: InputMaybe<UserRelateToOneForUpdateInput>;
+  vehicleDetail?: InputMaybe<VehicleRelateToOneForUpdateInput>;
+};
+
+export type CoupenWhereInput = {
+  AND?: InputMaybe<Array<CoupenWhereInput>>;
+  NOT?: InputMaybe<Array<CoupenWhereInput>>;
+  OR?: InputMaybe<Array<CoupenWhereInput>>;
+  bidDetail?: InputMaybe<BidWhereInput>;
+  coupenNumber?: InputMaybe<StringFilter>;
+  coupenStatus?: InputMaybe<StringFilter>;
+  createdAt?: InputMaybe<DateTimeNullableFilter>;
+  id?: InputMaybe<IdFilter>;
+  paymentDetail?: InputMaybe<PaymentWhereInput>;
+  updatedAt?: InputMaybe<DateTimeNullableFilter>;
+  userDetail?: InputMaybe<UserWhereInput>;
+  vehicleDetail?: InputMaybe<VehicleWhereInput>;
+};
+
+export type CoupenWhereUniqueInput = {
+  coupenNumber?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
 };
 
 export type CreateInitialUserInput = {
@@ -922,6 +1044,8 @@ export type Mutation = {
   authenticateUserWithPassword?: Maybe<UserAuthenticationWithPasswordResult>;
   createBid?: Maybe<Bid>;
   createBids?: Maybe<Array<Maybe<Bid>>>;
+  createCoupen?: Maybe<Coupen>;
+  createCoupens?: Maybe<Array<Maybe<Coupen>>>;
   createEmdUpdate?: Maybe<EmdUpdate>;
   createEmdUpdates?: Maybe<Array<Maybe<EmdUpdate>>>;
   createEvent?: Maybe<Event>;
@@ -945,6 +1069,8 @@ export type Mutation = {
   createVehicles?: Maybe<Array<Maybe<Vehicle>>>;
   deleteBid?: Maybe<Bid>;
   deleteBids?: Maybe<Array<Maybe<Bid>>>;
+  deleteCoupen?: Maybe<Coupen>;
+  deleteCoupens?: Maybe<Array<Maybe<Coupen>>>;
   deleteEmdUpdate?: Maybe<EmdUpdate>;
   deleteEmdUpdates?: Maybe<Array<Maybe<EmdUpdate>>>;
   deleteEvent?: Maybe<Event>;
@@ -970,6 +1096,8 @@ export type Mutation = {
   sendUserMagicAuthLink: Scalars['Boolean'];
   updateBid?: Maybe<Bid>;
   updateBids?: Maybe<Array<Maybe<Bid>>>;
+  updateCoupen?: Maybe<Coupen>;
+  updateCoupens?: Maybe<Array<Maybe<Coupen>>>;
   updateEmdUpdate?: Maybe<EmdUpdate>;
   updateEmdUpdates?: Maybe<Array<Maybe<EmdUpdate>>>;
   updateEvent?: Maybe<Event>;
@@ -1006,6 +1134,16 @@ export type MutationCreateBidArgs = {
 
 export type MutationCreateBidsArgs = {
   data: Array<BidCreateInput>;
+};
+
+
+export type MutationCreateCoupenArgs = {
+  data: CoupenCreateInput;
+};
+
+
+export type MutationCreateCoupensArgs = {
+  data: Array<CoupenCreateInput>;
 };
 
 
@@ -1121,6 +1259,16 @@ export type MutationDeleteBidArgs = {
 
 export type MutationDeleteBidsArgs = {
   where: Array<BidWhereUniqueInput>;
+};
+
+
+export type MutationDeleteCoupenArgs = {
+  where: CoupenWhereUniqueInput;
+};
+
+
+export type MutationDeleteCoupensArgs = {
+  where: Array<CoupenWhereUniqueInput>;
 };
 
 
@@ -1243,6 +1391,17 @@ export type MutationUpdateBidArgs = {
 
 export type MutationUpdateBidsArgs = {
   data: Array<BidUpdateArgs>;
+};
+
+
+export type MutationUpdateCoupenArgs = {
+  data: CoupenUpdateInput;
+  where: CoupenWhereUniqueInput;
+};
+
+
+export type MutationUpdateCoupensArgs = {
+  data: Array<CoupenUpdateArgs>;
 };
 
 
@@ -1400,6 +1559,8 @@ export type PasswordState = {
 export type Payment = {
   __typename?: 'Payment';
   amount?: Maybe<Scalars['Int']>;
+  coupenDetail?: Maybe<Array<Coupen>>;
+  coupenDetailCount?: Maybe<Scalars['Int']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   createdBy?: Maybe<User>;
   description?: Maybe<Scalars['String']>;
@@ -1412,6 +1573,19 @@ export type Payment = {
   status?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   user?: Maybe<User>;
+};
+
+
+export type PaymentCoupenDetailArgs = {
+  orderBy?: Array<CoupenOrderByInput>;
+  skip?: Scalars['Int'];
+  take?: InputMaybe<Scalars['Int']>;
+  where?: CoupenWhereInput;
+};
+
+
+export type PaymentCoupenDetailCountArgs = {
+  where?: CoupenWhereInput;
 };
 
 
@@ -1429,6 +1603,7 @@ export type PaymentEmdUpdateCountArgs = {
 
 export type PaymentCreateInput = {
   amount?: InputMaybe<Scalars['Int']>;
+  coupenDetail?: InputMaybe<CoupenRelateToManyForCreateInput>;
   createdBy?: InputMaybe<UserRelateToOneForCreateInput>;
   description?: InputMaybe<Scalars['String']>;
   emdUpdate?: InputMaybe<EmdUpdateRelateToManyForCreateInput>;
@@ -1486,6 +1661,7 @@ export type PaymentUpdateArgs = {
 
 export type PaymentUpdateInput = {
   amount?: InputMaybe<Scalars['Int']>;
+  coupenDetail?: InputMaybe<CoupenRelateToManyForUpdateInput>;
   createdBy?: InputMaybe<UserRelateToOneForUpdateInput>;
   description?: InputMaybe<Scalars['String']>;
   emdUpdate?: InputMaybe<EmdUpdateRelateToManyForUpdateInput>;
@@ -1501,6 +1677,7 @@ export type PaymentWhereInput = {
   NOT?: InputMaybe<Array<PaymentWhereInput>>;
   OR?: InputMaybe<Array<PaymentWhereInput>>;
   amount?: InputMaybe<IntNullableFilter>;
+  coupenDetail?: InputMaybe<CoupenManyRelationFilter>;
   createdAt?: InputMaybe<DateTimeNullableFilter>;
   createdBy?: InputMaybe<UserWhereInput>;
   description?: InputMaybe<StringFilter>;
@@ -1525,6 +1702,9 @@ export type Query = {
   bidsCount?: Maybe<Scalars['Int']>;
   /** complied Events */
   compliedEvents?: Maybe<Array<Maybe<Event>>>;
+  coupen?: Maybe<Coupen>;
+  coupens?: Maybe<Array<Coupen>>;
+  coupensCount?: Maybe<Scalars['Int']>;
   emdUpdate?: Maybe<EmdUpdate>;
   emdUpdates?: Maybe<Array<EmdUpdate>>;
   emdUpdatesCount?: Maybe<Scalars['Int']>;
@@ -1592,6 +1772,24 @@ export type QueryCompliedEventsArgs = {
   skip?: Scalars['Int'];
   take?: Scalars['Int'];
   where?: InputMaybe<EventWhereInput>;
+};
+
+
+export type QueryCoupenArgs = {
+  where: CoupenWhereUniqueInput;
+};
+
+
+export type QueryCoupensArgs = {
+  orderBy?: Array<CoupenOrderByInput>;
+  skip?: Scalars['Int'];
+  take?: InputMaybe<Scalars['Int']>;
+  where?: CoupenWhereInput;
+};
+
+
+export type QueryCoupensCountArgs = {
+  where?: CoupenWhereInput;
 };
 
 
@@ -2137,6 +2335,8 @@ export type User = {
   categoryCount?: Maybe<Scalars['Int']>;
   city?: Maybe<Scalars['String']>;
   country?: Maybe<Scalars['String']>;
+  coupenDetail?: Maybe<Array<Coupen>>;
+  coupenDetailCount?: Maybe<Scalars['Int']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   currentVehicleBuyingLimit?: Maybe<VehicleBuyingLimits>;
   dealerId?: Maybe<Scalars['String']>;
@@ -2218,6 +2418,19 @@ export type UserCategoryArgs = {
 
 export type UserCategoryCountArgs = {
   where?: EventTypeWhereInput;
+};
+
+
+export type UserCoupenDetailArgs = {
+  orderBy?: Array<CoupenOrderByInput>;
+  skip?: Scalars['Int'];
+  take?: InputMaybe<Scalars['Int']>;
+  where?: CoupenWhereInput;
+};
+
+
+export type UserCoupenDetailCountArgs = {
+  where?: CoupenWhereInput;
 };
 
 
@@ -2318,6 +2531,7 @@ export type UserCreateInput = {
   category?: InputMaybe<EventTypeRelateToManyForCreateInput>;
   city?: InputMaybe<Scalars['String']>;
   country?: InputMaybe<Scalars['String']>;
+  coupenDetail?: InputMaybe<CoupenRelateToManyForCreateInput>;
   dealerId?: InputMaybe<Scalars['String']>;
   dealership?: InputMaybe<ImageFieldInput>;
   email?: InputMaybe<Scalars['String']>;
@@ -2461,6 +2675,7 @@ export type UserUpdateInput = {
   category?: InputMaybe<EventTypeRelateToManyForUpdateInput>;
   city?: InputMaybe<Scalars['String']>;
   country?: InputMaybe<Scalars['String']>;
+  coupenDetail?: InputMaybe<CoupenRelateToManyForUpdateInput>;
   dealerId?: InputMaybe<Scalars['String']>;
   dealership?: InputMaybe<ImageFieldInput>;
   email?: InputMaybe<Scalars['String']>;
@@ -2505,6 +2720,7 @@ export type UserWhereInput = {
   category?: InputMaybe<EventTypeManyRelationFilter>;
   city?: InputMaybe<StringFilter>;
   country?: InputMaybe<StringFilter>;
+  coupenDetail?: InputMaybe<CoupenManyRelationFilter>;
   createdAt?: InputMaybe<DateTimeNullableFilter>;
   dealerId?: InputMaybe<StringFilter>;
   email?: InputMaybe<StringFilter>;
@@ -2566,6 +2782,7 @@ export type Vehicle = {
   clientContactPerson?: Maybe<Scalars['String']>;
   climateControl?: Maybe<Scalars['String']>;
   color?: Maybe<Scalars['String']>;
+  coupenDetail?: Maybe<Coupen>;
   createdAt?: Maybe<Scalars['DateTime']>;
   currentBidAmount?: Maybe<Scalars['Int']>;
   currentBidUser?: Maybe<User>;
@@ -2691,6 +2908,7 @@ export type VehicleCreateInput = {
   clientContactPerson?: InputMaybe<Scalars['String']>;
   climateControl?: InputMaybe<Scalars['String']>;
   color?: InputMaybe<Scalars['String']>;
+  coupenDetail?: InputMaybe<CoupenRelateToOneForCreateInput>;
   currentBidAmount?: InputMaybe<Scalars['Int']>;
   currentBidUser?: InputMaybe<UserRelateToOneForCreateInput>;
   dateOfRegistration?: InputMaybe<Scalars['DateTime']>;
@@ -2877,6 +3095,7 @@ export type VehicleUpdateInput = {
   clientContactPerson?: InputMaybe<Scalars['String']>;
   climateControl?: InputMaybe<Scalars['String']>;
   color?: InputMaybe<Scalars['String']>;
+  coupenDetail?: InputMaybe<CoupenRelateToOneForUpdateInput>;
   currentBidAmount?: InputMaybe<Scalars['Int']>;
   currentBidUser?: InputMaybe<UserRelateToOneForUpdateInput>;
   dateOfRegistration?: InputMaybe<Scalars['DateTime']>;
@@ -2957,6 +3176,7 @@ export type VehicleWhereInput = {
   clientContactPerson?: InputMaybe<StringFilter>;
   climateControl?: InputMaybe<StringFilter>;
   color?: InputMaybe<StringFilter>;
+  coupenDetail?: InputMaybe<CoupenWhereInput>;
   createdAt?: InputMaybe<DateTimeNullableFilter>;
   currentBidAmount?: InputMaybe<IntNullableFilter>;
   currentBidUser?: InputMaybe<UserWhereInput>;
@@ -3079,7 +3299,15 @@ export type BidDetailsPerVehicleQueryVariables = Exact<{
 }>;
 
 
-export type BidDetailsPerVehicleQuery = { __typename?: 'Query', vehicle?: { __typename?: 'Vehicle', id: string, registrationNumber?: string | null, vehicleIndexNo?: number | null, userVehicleBidsCount?: number | null, vehicleEventStatus?: VehicleEventStatus | null, watchedByCount?: number | null, bidStatus?: VehicleBidStatusType | null, currentBidAmount?: number | null, event?: { __typename?: 'Event', eventNo?: number | null } | null, userVehicleBids?: Array<{ __typename?: 'Bid', amount?: number | null, id: string, createdAt?: any | null, user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, mobile?: string | null } | null }> | null, currentBidUser?: { __typename?: 'User', id: string, username?: string | null, firstName?: string | null, lastName?: string | null } | null } | null };
+export type BidDetailsPerVehicleQuery = { __typename?: 'Query', vehicle?: { __typename?: 'Vehicle', id: string, registrationNumber?: string | null, vehicleIndexNo?: number | null, userVehicleBidsCount?: number | null, vehicleEventStatus?: VehicleEventStatus | null, watchedByCount?: number | null, bidStatus?: VehicleBidStatusType | null, currentBidAmount?: number | null, event?: { __typename?: 'Event', eventNo?: number | null } | null, userVehicleBids?: Array<{ __typename?: 'Bid', amount?: number | null, id: string, createdAt?: any | null, user?: { __typename?: 'User', id: string, idNo?: number | null, firstName?: string | null, lastName?: string | null, mobile?: string | null } | null }> | null, currentBidUser?: { __typename?: 'User', id: string, idNo?: number | null, username?: string | null, firstName?: string | null, lastName?: string | null } | null } | null };
+
+export type UpdateBidMutationVariables = Exact<{
+  where: BidWhereUniqueInput;
+  data: BidUpdateInput;
+}>;
+
+
+export type UpdateBidMutation = { __typename?: 'Mutation', updateBid?: { __typename?: 'Bid', id: string, user?: { __typename?: 'User', idNo?: number | null } | null } | null };
 
 export type DeleteBidMutationVariables = Exact<{
   where: BidWhereUniqueInput;
@@ -3099,6 +3327,21 @@ export type CountQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type CountQuery = { __typename?: 'Query', usersCount?: number | null, paymentsCount?: number | null, emdUpdatesCount?: number | null, eventsCount?: number | null, vehiclesCount?: number | null, bidsCount?: number | null, eventTypesCount?: number | null, locationsCount?: number | null, statesCount?: number | null, excelUploadsCount?: number | null, sellersCount?: number | null };
+
+export type CoupensperUserQueryVariables = Exact<{
+  where: CoupenWhereInput;
+}>;
+
+
+export type CoupensperUserQuery = { __typename?: 'Query', coupens?: Array<{ __typename?: 'Coupen', id: string, coupenNumber?: string | null, coupenStatus?: string | null, vehicleDetail?: { __typename?: 'Vehicle', registrationNumber?: string | null, id: string } | null, userDetail?: { __typename?: 'User', firstName?: string | null, lastName?: string | null } | null }> | null };
+
+export type UpdateCoupenMutationVariables = Exact<{
+  where: CoupenWhereUniqueInput;
+  data: CoupenUpdateInput;
+}>;
+
+
+export type UpdateCoupenMutation = { __typename?: 'Mutation', updateCoupen?: { __typename?: 'Coupen', coupenStatus?: string | null } | null };
 
 export type DeleteUserMutationVariables = Exact<{
   where: UserWhereUniqueInput;
@@ -3120,19 +3363,12 @@ export type CreateEmdUpdateMutationVariables = Exact<{
 }>;
 
 
-export type CreateEmdUpdateMutation = { __typename?: 'Mutation', createEmdUpdate?: { __typename?: 'EmdUpdate', vehicleBuyingLimitIncrement?: number | null, payment?: { __typename?: 'Payment', id: string } | null } | null };
+export type CreateEmdUpdateMutation = { __typename?: 'Mutation', createEmdUpdate?: { __typename?: 'EmdUpdate', id: string, vehicleBuyingLimitIncrement?: number | null, payment?: { __typename?: 'Payment', id: string } | null } | null };
 
 export type EmdTableQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type EmdTableQuery = { __typename?: 'Query', emdUpdates?: Array<{ __typename?: 'EmdUpdate', id: string, emdNo?: number | null, specialVehicleBuyingLimitIncrement?: number | null, vehicleBuyingLimitIncrement?: number | null, createdAt?: any | null, updatedAt?: any | null, user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null } | null, createdBy?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null } | null }> | null };
-
-export type DeleteEmdUpdateMutationVariables = Exact<{
-  where: EmdUpdateWhereUniqueInput;
-}>;
-
-
-export type DeleteEmdUpdateMutation = { __typename?: 'Mutation', deleteEmdUpdate?: { __typename?: 'EmdUpdate', id: string, emdNo?: number | null } | null };
 
 export type EmdUpdateQueryVariables = Exact<{
   where: EmdUpdateWhereUniqueInput;
@@ -3140,6 +3376,20 @@ export type EmdUpdateQueryVariables = Exact<{
 
 
 export type EmdUpdateQuery = { __typename?: 'Query', emdUpdate?: { __typename?: 'EmdUpdate', id: string, emdNo?: number | null, vehicleBuyingLimitIncrement?: number | null, payment?: { __typename?: 'Payment', amount?: number | null, image?: { __typename?: 'ImageFieldOutput', url: string } | null } | null, user?: { __typename?: 'User', id: string, firstName?: string | null, username?: string | null } | null } | null };
+
+export type EmdUpdatesPerPaymentQueryVariables = Exact<{
+  where: EmdUpdateWhereInput;
+}>;
+
+
+export type EmdUpdatesPerPaymentQuery = { __typename?: 'Query', emdUpdates?: Array<{ __typename?: 'EmdUpdate', emdNo?: number | null, id: string, vehicleBuyingLimitIncrement?: number | null, payment?: { __typename?: 'Payment', id: string, amount?: number | null } | null, user?: { __typename?: 'User', mobile?: string | null, firstName?: string | null, lastName?: string | null } | null, createdBy?: { __typename?: 'User', firstName?: string | null } | null }> | null };
+
+export type DeleteEmdUpdateMutationVariables = Exact<{
+  where: EmdUpdateWhereUniqueInput;
+}>;
+
+
+export type DeleteEmdUpdateMutation = { __typename?: 'Mutation', deleteEmdUpdate?: { __typename?: 'EmdUpdate', id: string, emdNo?: number | null } | null };
 
 export type EventStartTimeQueryVariables = Exact<{
   where: EventWhereUniqueInput;
@@ -3175,6 +3425,11 @@ export type EventsReportQueryVariables = Exact<{
 
 
 export type EventsReportQuery = { __typename?: 'Query', events?: Array<{ __typename?: 'Event', vehiclesCount?: number | null, eventCategory?: string | null, startDate?: any | null, endDate?: any | null, noOfBids?: number | null, status?: EventStatusType | null, eventNo?: number | null, seller?: { __typename?: 'Seller', name?: string | null } | null, location?: { __typename?: 'Location', name?: string | null } | null }> | null };
+
+export type EventsIdNoQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type EventsIdNoQuery = { __typename?: 'Query', events?: Array<{ __typename?: 'Event', id: string, eventNo?: number | null }> | null };
 
 export type EventsPerSellerQueryVariables = Exact<{
   where: SellerWhereUniqueInput;
@@ -3270,12 +3525,19 @@ export type PaymentDetailsQueryVariables = Exact<{
 
 export type PaymentDetailsQuery = { __typename?: 'Query', payment?: { __typename?: 'Payment', id: string, amount?: number | null, status?: string | null, paymentFor?: string | null, description?: string | null, refNo?: number | null, image?: { __typename?: 'ImageFieldOutput', url: string } | null, user?: { __typename?: 'User', id: string, firstName?: string | null, username?: string | null } | null, emdUpdate?: Array<{ __typename?: 'EmdUpdate', emdNo?: number | null, vehicleBuyingLimitIncrement?: number | null, createdAt?: any | null, createdBy?: { __typename?: 'User', id: string, firstName?: string | null } | null }> | null } | null };
 
+export type CoupenPerPaymentQueryVariables = Exact<{
+  where: PaymentWhereUniqueInput;
+}>;
+
+
+export type CoupenPerPaymentQuery = { __typename?: 'Query', payment?: { __typename?: 'Payment', amount?: number | null, user?: { __typename?: 'User', firstName?: string | null, lastName?: string | null } | null, coupenDetail?: Array<{ __typename?: 'Coupen', coupenNumber?: string | null, coupenStatus?: string | null, vehicleDetail?: { __typename?: 'Vehicle', registrationNumber?: string | null } | null }> | null } | null };
+
 export type PaymentOfUserQueryVariables = Exact<{
   where: UserWhereUniqueInput;
 }>;
 
 
-export type PaymentOfUserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, payments?: Array<{ __typename?: 'Payment', id: string, refNo?: number | null, amount?: number | null, status?: string | null, paymentFor?: string | null, createdAt?: any | null, updatedAt?: any | null, createdBy?: { __typename?: 'User', firstName?: string | null } | null, image?: { __typename?: 'ImageFieldOutput', url: string } | null }> | null } | null };
+export type PaymentOfUserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, mobile?: string | null, payments?: Array<{ __typename?: 'Payment', id: string, refNo?: number | null, amount?: number | null, status?: string | null, paymentFor?: string | null, createdAt?: any | null, emdUpdateCount?: number | null, updatedAt?: any | null, createdBy?: { __typename?: 'User', firstName?: string | null } | null, image?: { __typename?: 'ImageFieldOutput', url: string } | null, emdUpdate?: Array<{ __typename?: 'EmdUpdate', vehicleBuyingLimitIncrement?: number | null }> | null }> | null } | null };
 
 export type UpdatePaymentMutationVariables = Exact<{
   where: PaymentWhereUniqueInput;
@@ -3386,7 +3648,7 @@ export type UsersQueryVariables = Exact<{
 }>;
 
 
-export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', firstName?: string | null, lastName?: string | null, email?: string | null, mobile?: string | null, status?: UserStatusType | null, state?: string | null, role?: UserRoleType | null, idNo?: number | null, id: string, pancardNo?: string | null, activeBidsCount?: number | null, createdAt?: any | null, currentVehicleBuyingLimit?: { __typename?: 'vehicleBuyingLimits', vehicleBuyingLimit?: number | null } | null }> | null };
+export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', firstName?: string | null, lastName?: string | null, email?: string | null, mobile?: string | null, status?: UserStatusType | null, state?: string | null, role?: UserRoleType | null, idNo?: number | null, id: string, pancardNo?: string | null, activeBidsCount?: number | null, createdAt?: any | null, paymentsCount?: number | null, coupenDetailCount?: number | null, currentVehicleBuyingLimit?: { __typename?: 'vehicleBuyingLimits', vehicleBuyingLimit?: number | null } | null }> | null };
 
 export type UserbyIdNoQueryVariables = Exact<{
   where: UserWhereUniqueInput;
@@ -3423,12 +3685,19 @@ export type VehicleDetailsQueryVariables = Exact<{
 
 export type VehicleDetailsQuery = { __typename?: 'Query', vehicle?: { __typename?: 'Vehicle', id: string, registrationNumber?: string | null, bidStatus?: VehicleBidStatusType | null, bidTimeExpire?: any | null, loanAgreementNo?: string | null, registeredOwnerName?: string | null, quoteIncreament?: number | null, make?: string | null, model?: string | null, varient?: string | null, categoty?: string | null, fuel?: string | null, type?: string | null, rcStatus?: string | null, yearOfManufacture?: number | null, ownership?: number | null, mileage?: number | null, kmReading?: number | null, insuranceStatus?: string | null, yardLocation?: string | null, startBidAmount?: number | null, currentBidAmount?: number | null, reservePrice?: number | null, repoDt?: any | null, veicleLocation?: string | null, vehicleRemarks?: string | null, auctionManager?: string | null, parkingCharges?: string | null, insurance?: string | null, insuranceValidTill?: any | null, tax?: string | null, taxValidityDate?: any | null, fitness?: string | null, permit?: string | null, fitnessPermit?: string | null, engineNo?: string | null, chassisNo?: string | null, frontImage?: string | null, backImage?: string | null, leftImage?: string | null, rightImage?: string | null, image5?: string | null, image6?: string | null, inspectionLink?: string | null, autobseContact?: string | null, autobse_contact_person?: string | null, vehicleCondition?: string | null, powerSteering?: string | null, shape?: string | null, color?: string | null, city?: string | null, area?: string | null, state?: string | null, paymentTerms?: string | null, dateOfRegistration?: any | null, hypothication?: string | null, climateControl?: string | null, doorCount?: number | null, gearBox?: string | null, buyerFees?: string | null, rtoFine?: string | null, parkingRate?: string | null, approxParkingCharges?: string | null, clientContactPerson?: string | null, clientContactNo?: string | null, additionalRemarks?: string | null, vehicleIndexNo?: number | null, event?: { __typename?: 'Event', seller?: { __typename?: 'Seller', name?: string | null } | null } | null, currentBidUser?: { __typename?: 'User', firstName?: string | null, lastName?: string | null, username?: string | null, mobile?: string | null, pancardNo?: string | null } | null } | null };
 
+export type VehiclePerEventQueryVariables = Exact<{
+  where: VehicleWhereInput;
+}>;
+
+
+export type VehiclePerEventQuery = { __typename?: 'Query', vehicles?: Array<{ __typename?: 'Vehicle', id: string, registrationNumber?: string | null }> | null };
+
 export type VehicleDetailsPerEventQueryVariables = Exact<{
   where: EventWhereUniqueInput;
 }>;
 
 
-export type VehicleDetailsPerEventQuery = { __typename?: 'Query', event?: { __typename?: 'Event', id: string, status?: EventStatusType | null, eventNo?: number | null, vehiclesCount?: number | null, vehicles?: Array<{ __typename?: 'Vehicle', bidStartTime?: any | null, bidTimeExpire?: any | null, id: string, vehicleIndexNo?: number | null, registrationNumber?: string | null, totalBids?: number | null, frontImage?: string | null, vehicleEventStatus?: VehicleEventStatus | null, bidStatus?: VehicleBidStatusType | null, state?: string | null, city?: string | null }> | null } | null };
+export type VehicleDetailsPerEventQuery = { __typename?: 'Query', event?: { __typename?: 'Event', id: string, status?: EventStatusType | null, eventNo?: number | null, vehiclesCount?: number | null, vehicles?: Array<{ __typename?: 'Vehicle', bidStartTime?: any | null, bidTimeExpire?: any | null, id: string, vehicleIndexNo?: number | null, registrationNumber?: string | null, totalBids?: number | null, frontImage?: string | null, vehicleEventStatus?: VehicleEventStatus | null, bidStatus?: VehicleBidStatusType | null, state?: string | null, city?: string | null, currentBidAmount?: number | null, currentBidUser?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, mobile?: string | null, currentVehicleBuyingLimit?: { __typename?: 'vehicleBuyingLimits', vehicleBuyingLimit?: number | null } | null } | null, coupenDetail?: { __typename?: 'Coupen', coupenNumber?: string | null } | null }> | null } | null };
 
 export type VehicleTableQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3775,6 +4044,7 @@ export const BidDetailsPerVehicleDocument = gql`
       createdAt
       user {
         id
+        idNo
         firstName
         lastName
         mobile
@@ -3783,6 +4053,7 @@ export const BidDetailsPerVehicleDocument = gql`
     currentBidAmount
     currentBidUser {
       id
+      idNo
       username
       firstName
       lastName
@@ -3818,6 +4089,43 @@ export function useBidDetailsPerVehicleLazyQuery(baseOptions?: Apollo.LazyQueryH
 export type BidDetailsPerVehicleQueryHookResult = ReturnType<typeof useBidDetailsPerVehicleQuery>;
 export type BidDetailsPerVehicleLazyQueryHookResult = ReturnType<typeof useBidDetailsPerVehicleLazyQuery>;
 export type BidDetailsPerVehicleQueryResult = Apollo.QueryResult<BidDetailsPerVehicleQuery, BidDetailsPerVehicleQueryVariables>;
+export const UpdateBidDocument = gql`
+    mutation updateBid($where: BidWhereUniqueInput!, $data: BidUpdateInput!) {
+  updateBid(where: $where, data: $data) {
+    id
+    user {
+      idNo
+    }
+  }
+}
+    `;
+export type UpdateBidMutationFn = Apollo.MutationFunction<UpdateBidMutation, UpdateBidMutationVariables>;
+
+/**
+ * __useUpdateBidMutation__
+ *
+ * To run a mutation, you first call `useUpdateBidMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateBidMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateBidMutation, { data, loading, error }] = useUpdateBidMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useUpdateBidMutation(baseOptions?: Apollo.MutationHookOptions<UpdateBidMutation, UpdateBidMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateBidMutation, UpdateBidMutationVariables>(UpdateBidDocument, options);
+      }
+export type UpdateBidMutationHookResult = ReturnType<typeof useUpdateBidMutation>;
+export type UpdateBidMutationResult = Apollo.MutationResult<UpdateBidMutation>;
+export type UpdateBidMutationOptions = Apollo.BaseMutationOptions<UpdateBidMutation, UpdateBidMutationVariables>;
 export const DeleteBidDocument = gql`
     mutation DeleteBid($where: BidWhereUniqueInput!) {
   deleteBid(where: $where) {
@@ -3944,6 +4252,85 @@ export function useCountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Coun
 export type CountQueryHookResult = ReturnType<typeof useCountQuery>;
 export type CountLazyQueryHookResult = ReturnType<typeof useCountLazyQuery>;
 export type CountQueryResult = Apollo.QueryResult<CountQuery, CountQueryVariables>;
+export const CoupensperUserDocument = gql`
+    query CoupensperUser($where: CoupenWhereInput!) {
+  coupens(where: $where) {
+    id
+    coupenNumber
+    coupenStatus
+    vehicleDetail {
+      registrationNumber
+      id
+    }
+    userDetail {
+      firstName
+      lastName
+    }
+  }
+}
+    `;
+
+/**
+ * __useCoupensperUserQuery__
+ *
+ * To run a query within a React component, call `useCoupensperUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCoupensperUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCoupensperUserQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useCoupensperUserQuery(baseOptions: Apollo.QueryHookOptions<CoupensperUserQuery, CoupensperUserQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CoupensperUserQuery, CoupensperUserQueryVariables>(CoupensperUserDocument, options);
+      }
+export function useCoupensperUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CoupensperUserQuery, CoupensperUserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CoupensperUserQuery, CoupensperUserQueryVariables>(CoupensperUserDocument, options);
+        }
+export type CoupensperUserQueryHookResult = ReturnType<typeof useCoupensperUserQuery>;
+export type CoupensperUserLazyQueryHookResult = ReturnType<typeof useCoupensperUserLazyQuery>;
+export type CoupensperUserQueryResult = Apollo.QueryResult<CoupensperUserQuery, CoupensperUserQueryVariables>;
+export const UpdateCoupenDocument = gql`
+    mutation UpdateCoupen($where: CoupenWhereUniqueInput!, $data: CoupenUpdateInput!) {
+  updateCoupen(where: $where, data: $data) {
+    coupenStatus
+  }
+}
+    `;
+export type UpdateCoupenMutationFn = Apollo.MutationFunction<UpdateCoupenMutation, UpdateCoupenMutationVariables>;
+
+/**
+ * __useUpdateCoupenMutation__
+ *
+ * To run a mutation, you first call `useUpdateCoupenMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateCoupenMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateCoupenMutation, { data, loading, error }] = useUpdateCoupenMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useUpdateCoupenMutation(baseOptions?: Apollo.MutationHookOptions<UpdateCoupenMutation, UpdateCoupenMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateCoupenMutation, UpdateCoupenMutationVariables>(UpdateCoupenDocument, options);
+      }
+export type UpdateCoupenMutationHookResult = ReturnType<typeof useUpdateCoupenMutation>;
+export type UpdateCoupenMutationResult = Apollo.MutationResult<UpdateCoupenMutation>;
+export type UpdateCoupenMutationOptions = Apollo.BaseMutationOptions<UpdateCoupenMutation, UpdateCoupenMutationVariables>;
 export const DeleteUserDocument = gql`
     mutation DeleteUser($where: UserWhereUniqueInput!) {
   deleteUser(where: $where) {
@@ -4041,6 +4428,7 @@ export type EditEventMutationOptions = Apollo.BaseMutationOptions<EditEventMutat
 export const CreateEmdUpdateDocument = gql`
     mutation CreateEmdUpdate($data: EmdUpdateCreateInput!) {
   createEmdUpdate(data: $data) {
+    id
     payment {
       id
     }
@@ -4123,40 +4511,6 @@ export function useEmdTableLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<E
 export type EmdTableQueryHookResult = ReturnType<typeof useEmdTableQuery>;
 export type EmdTableLazyQueryHookResult = ReturnType<typeof useEmdTableLazyQuery>;
 export type EmdTableQueryResult = Apollo.QueryResult<EmdTableQuery, EmdTableQueryVariables>;
-export const DeleteEmdUpdateDocument = gql`
-    mutation DeleteEmdUpdate($where: EmdUpdateWhereUniqueInput!) {
-  deleteEmdUpdate(where: $where) {
-    id
-    emdNo
-  }
-}
-    `;
-export type DeleteEmdUpdateMutationFn = Apollo.MutationFunction<DeleteEmdUpdateMutation, DeleteEmdUpdateMutationVariables>;
-
-/**
- * __useDeleteEmdUpdateMutation__
- *
- * To run a mutation, you first call `useDeleteEmdUpdateMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteEmdUpdateMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteEmdUpdateMutation, { data, loading, error }] = useDeleteEmdUpdateMutation({
- *   variables: {
- *      where: // value for 'where'
- *   },
- * });
- */
-export function useDeleteEmdUpdateMutation(baseOptions?: Apollo.MutationHookOptions<DeleteEmdUpdateMutation, DeleteEmdUpdateMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteEmdUpdateMutation, DeleteEmdUpdateMutationVariables>(DeleteEmdUpdateDocument, options);
-      }
-export type DeleteEmdUpdateMutationHookResult = ReturnType<typeof useDeleteEmdUpdateMutation>;
-export type DeleteEmdUpdateMutationResult = Apollo.MutationResult<DeleteEmdUpdateMutation>;
-export type DeleteEmdUpdateMutationOptions = Apollo.BaseMutationOptions<DeleteEmdUpdateMutation, DeleteEmdUpdateMutationVariables>;
 export const EmdUpdateDocument = gql`
     query EmdUpdate($where: EmdUpdateWhereUniqueInput!) {
   emdUpdate(where: $where) {
@@ -4205,6 +4559,89 @@ export function useEmdUpdateLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type EmdUpdateQueryHookResult = ReturnType<typeof useEmdUpdateQuery>;
 export type EmdUpdateLazyQueryHookResult = ReturnType<typeof useEmdUpdateLazyQuery>;
 export type EmdUpdateQueryResult = Apollo.QueryResult<EmdUpdateQuery, EmdUpdateQueryVariables>;
+export const EmdUpdatesPerPaymentDocument = gql`
+    query EmdUpdatesPerPayment($where: EmdUpdateWhereInput!) {
+  emdUpdates(where: $where) {
+    emdNo
+    id
+    payment {
+      id
+      amount
+    }
+    user {
+      mobile
+      firstName
+      lastName
+    }
+    vehicleBuyingLimitIncrement
+    createdBy {
+      firstName
+    }
+  }
+}
+    `;
+
+/**
+ * __useEmdUpdatesPerPaymentQuery__
+ *
+ * To run a query within a React component, call `useEmdUpdatesPerPaymentQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEmdUpdatesPerPaymentQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEmdUpdatesPerPaymentQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useEmdUpdatesPerPaymentQuery(baseOptions: Apollo.QueryHookOptions<EmdUpdatesPerPaymentQuery, EmdUpdatesPerPaymentQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EmdUpdatesPerPaymentQuery, EmdUpdatesPerPaymentQueryVariables>(EmdUpdatesPerPaymentDocument, options);
+      }
+export function useEmdUpdatesPerPaymentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EmdUpdatesPerPaymentQuery, EmdUpdatesPerPaymentQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EmdUpdatesPerPaymentQuery, EmdUpdatesPerPaymentQueryVariables>(EmdUpdatesPerPaymentDocument, options);
+        }
+export type EmdUpdatesPerPaymentQueryHookResult = ReturnType<typeof useEmdUpdatesPerPaymentQuery>;
+export type EmdUpdatesPerPaymentLazyQueryHookResult = ReturnType<typeof useEmdUpdatesPerPaymentLazyQuery>;
+export type EmdUpdatesPerPaymentQueryResult = Apollo.QueryResult<EmdUpdatesPerPaymentQuery, EmdUpdatesPerPaymentQueryVariables>;
+export const DeleteEmdUpdateDocument = gql`
+    mutation DeleteEmdUpdate($where: EmdUpdateWhereUniqueInput!) {
+  deleteEmdUpdate(where: $where) {
+    id
+    emdNo
+  }
+}
+    `;
+export type DeleteEmdUpdateMutationFn = Apollo.MutationFunction<DeleteEmdUpdateMutation, DeleteEmdUpdateMutationVariables>;
+
+/**
+ * __useDeleteEmdUpdateMutation__
+ *
+ * To run a mutation, you first call `useDeleteEmdUpdateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteEmdUpdateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteEmdUpdateMutation, { data, loading, error }] = useDeleteEmdUpdateMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useDeleteEmdUpdateMutation(baseOptions?: Apollo.MutationHookOptions<DeleteEmdUpdateMutation, DeleteEmdUpdateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteEmdUpdateMutation, DeleteEmdUpdateMutationVariables>(DeleteEmdUpdateDocument, options);
+      }
+export type DeleteEmdUpdateMutationHookResult = ReturnType<typeof useDeleteEmdUpdateMutation>;
+export type DeleteEmdUpdateMutationResult = Apollo.MutationResult<DeleteEmdUpdateMutation>;
+export type DeleteEmdUpdateMutationOptions = Apollo.BaseMutationOptions<DeleteEmdUpdateMutation, DeleteEmdUpdateMutationVariables>;
 export const EventStartTimeDocument = gql`
     query EventStartTime($where: EventWhereUniqueInput!) {
   event(where: $where) {
@@ -4416,6 +4853,41 @@ export function useEventsReportLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type EventsReportQueryHookResult = ReturnType<typeof useEventsReportQuery>;
 export type EventsReportLazyQueryHookResult = ReturnType<typeof useEventsReportLazyQuery>;
 export type EventsReportQueryResult = Apollo.QueryResult<EventsReportQuery, EventsReportQueryVariables>;
+export const EventsIdNoDocument = gql`
+    query EventsIdNo {
+  events {
+    id
+    eventNo
+  }
+}
+    `;
+
+/**
+ * __useEventsIdNoQuery__
+ *
+ * To run a query within a React component, call `useEventsIdNoQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEventsIdNoQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEventsIdNoQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useEventsIdNoQuery(baseOptions?: Apollo.QueryHookOptions<EventsIdNoQuery, EventsIdNoQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EventsIdNoQuery, EventsIdNoQueryVariables>(EventsIdNoDocument, options);
+      }
+export function useEventsIdNoLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EventsIdNoQuery, EventsIdNoQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EventsIdNoQuery, EventsIdNoQueryVariables>(EventsIdNoDocument, options);
+        }
+export type EventsIdNoQueryHookResult = ReturnType<typeof useEventsIdNoQuery>;
+export type EventsIdNoLazyQueryHookResult = ReturnType<typeof useEventsIdNoLazyQuery>;
+export type EventsIdNoQueryResult = Apollo.QueryResult<EventsIdNoQuery, EventsIdNoQueryVariables>;
 export const EventsPerSellerDocument = gql`
     query eventsPerSeller($where: SellerWhereUniqueInput!) {
   seller(where: $where) {
@@ -5061,12 +5533,59 @@ export function usePaymentDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type PaymentDetailsQueryHookResult = ReturnType<typeof usePaymentDetailsQuery>;
 export type PaymentDetailsLazyQueryHookResult = ReturnType<typeof usePaymentDetailsLazyQuery>;
 export type PaymentDetailsQueryResult = Apollo.QueryResult<PaymentDetailsQuery, PaymentDetailsQueryVariables>;
+export const CoupenPerPaymentDocument = gql`
+    query coupenPerPayment($where: PaymentWhereUniqueInput!) {
+  payment(where: $where) {
+    amount
+    user {
+      firstName
+      lastName
+    }
+    coupenDetail {
+      coupenNumber
+      coupenStatus
+      vehicleDetail {
+        registrationNumber
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useCoupenPerPaymentQuery__
+ *
+ * To run a query within a React component, call `useCoupenPerPaymentQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCoupenPerPaymentQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCoupenPerPaymentQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useCoupenPerPaymentQuery(baseOptions: Apollo.QueryHookOptions<CoupenPerPaymentQuery, CoupenPerPaymentQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CoupenPerPaymentQuery, CoupenPerPaymentQueryVariables>(CoupenPerPaymentDocument, options);
+      }
+export function useCoupenPerPaymentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CoupenPerPaymentQuery, CoupenPerPaymentQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CoupenPerPaymentQuery, CoupenPerPaymentQueryVariables>(CoupenPerPaymentDocument, options);
+        }
+export type CoupenPerPaymentQueryHookResult = ReturnType<typeof useCoupenPerPaymentQuery>;
+export type CoupenPerPaymentLazyQueryHookResult = ReturnType<typeof useCoupenPerPaymentLazyQuery>;
+export type CoupenPerPaymentQueryResult = Apollo.QueryResult<CoupenPerPaymentQuery, CoupenPerPaymentQueryVariables>;
 export const PaymentOfUserDocument = gql`
     query paymentOfUser($where: UserWhereUniqueInput!) {
   user(where: $where) {
     id
     firstName
     lastName
+    mobile
     payments {
       id
       refNo
@@ -5074,12 +5593,16 @@ export const PaymentOfUserDocument = gql`
       status
       paymentFor
       createdAt
+      emdUpdateCount
       createdBy {
         firstName
       }
       updatedAt
       image {
         url
+      }
+      emdUpdate {
+        vehicleBuyingLimitIncrement
       }
     }
   }
@@ -5833,6 +6356,8 @@ export const UsersDocument = gql`
     currentVehicleBuyingLimit {
       vehicleBuyingLimit
     }
+    paymentsCount
+    coupenDetailCount
   }
 }
     `;
@@ -6189,6 +6714,42 @@ export function useVehicleDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type VehicleDetailsQueryHookResult = ReturnType<typeof useVehicleDetailsQuery>;
 export type VehicleDetailsLazyQueryHookResult = ReturnType<typeof useVehicleDetailsLazyQuery>;
 export type VehicleDetailsQueryResult = Apollo.QueryResult<VehicleDetailsQuery, VehicleDetailsQueryVariables>;
+export const VehiclePerEventDocument = gql`
+    query vehiclePerEvent($where: VehicleWhereInput!) {
+  vehicles(where: $where) {
+    id
+    registrationNumber
+  }
+}
+    `;
+
+/**
+ * __useVehiclePerEventQuery__
+ *
+ * To run a query within a React component, call `useVehiclePerEventQuery` and pass it any options that fit your needs.
+ * When your component renders, `useVehiclePerEventQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useVehiclePerEventQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useVehiclePerEventQuery(baseOptions: Apollo.QueryHookOptions<VehiclePerEventQuery, VehiclePerEventQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<VehiclePerEventQuery, VehiclePerEventQueryVariables>(VehiclePerEventDocument, options);
+      }
+export function useVehiclePerEventLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<VehiclePerEventQuery, VehiclePerEventQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<VehiclePerEventQuery, VehiclePerEventQueryVariables>(VehiclePerEventDocument, options);
+        }
+export type VehiclePerEventQueryHookResult = ReturnType<typeof useVehiclePerEventQuery>;
+export type VehiclePerEventLazyQueryHookResult = ReturnType<typeof useVehiclePerEventLazyQuery>;
+export type VehiclePerEventQueryResult = Apollo.QueryResult<VehiclePerEventQuery, VehiclePerEventQueryVariables>;
 export const VehicleDetailsPerEventDocument = gql`
     query VehicleDetailsPerEvent($where: EventWhereUniqueInput!) {
   event(where: $where) {
@@ -6208,6 +6769,19 @@ export const VehicleDetailsPerEventDocument = gql`
       bidStatus
       state
       city
+      currentBidAmount
+      currentBidUser {
+        id
+        firstName
+        lastName
+        mobile
+        currentVehicleBuyingLimit {
+          vehicleBuyingLimit
+        }
+      }
+      coupenDetail {
+        coupenNumber
+      }
     }
   }
 }

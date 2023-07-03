@@ -3,6 +3,7 @@
 
 mutation CreateEmdUpdate($data: EmdUpdateCreateInput!) {
   createEmdUpdate(data: $data) {
+    id
   payment {
     id
   }
@@ -28,6 +29,45 @@ query emdTable {
     firstName
     lastName
   }
+  }
+}
+
+query EmdUpdate($where: EmdUpdateWhereUniqueInput!) {
+  emdUpdate(where: $where) {
+  id
+  emdNo
+  vehicleBuyingLimitIncrement
+  payment {
+    amount
+      image {
+      url
+    }
+  }
+  user {
+    id
+    firstName
+    username
+  }  
+  }
+}
+query EmdUpdatesPerPayment($where: EmdUpdateWhereInput!) {
+  emdUpdates(where: $where) {
+    emdNo
+    id
+    payment {
+      id
+      amount
+    }
+    user {
+      mobile
+      firstName
+      lastName
+    }
+   vehicleBuyingLimitIncrement
+    createdBy {
+      firstName
+    }
+
   }
 }
 
