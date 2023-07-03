@@ -19,17 +19,7 @@ const TabbleOfUsersOrUser = ({users}) => {
 
   console.log("this is the data from view ", users);
 
-  const handleViewMore = (id) => {
-    navigate(`/view-user/${id}`);
-  };
-  const paymentDetails = (id) => {
-    navigate(`/payment/${id}`);
-  };
- 
-  const handleBuyingLimit=(id)=>{
-    navigate(`/buying-limit/${id}`)
-  }
-  
+
 
 
 
@@ -59,12 +49,8 @@ const TabbleOfUsersOrUser = ({users}) => {
        {
         Header: "Current Buying Limit",
         Cell: ({ row }) => (
-          row.original.currentVehicleBuyingLimit.vehicleBuyingLimit!==0 &&     <button
-            className="btn btn-secondary"
-            onClick={() => handleBuyingLimit(row.original.id)}
-          >
-           {row.original.currentVehicleBuyingLimit.vehicleBuyingLimit}
-          </button>
+          row.original.currentVehicleBuyingLimit.vehicleBuyingLimit!==0 &&     
+           <a  className="btn btn-secondary" href={`/buying-limit/${row.original.id}`} target="_blank" rel="noopener noreferrer">{row.original.currentVehicleBuyingLimit.vehicleBuyingLimit}</a>
         ),
       },
       {
@@ -156,28 +142,18 @@ const TabbleOfUsersOrUser = ({users}) => {
 
   return (
     <div className="w-full   ">
-      <div className=" w-full ">
-        <Button
-          onClick={() => navigate("/add-user")}
-          className="m-5 justify-end w-fit bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-        >
-          Add User
-        </Button>
-      </div>
+    
 
       <div className=" max-w-7xl mx-auto h-fit">
         <div className=" flex flex-col justify-center m-auto w-full">
           <div className="mb-4">
-            <div className="text-center font-extrabold my-1  text-2xl w-full">
-              {" "}
-              User Data{" "}
-            </div>
+         
            
-            <SearchUser
+            {/* <SearchUser
               filter={globalFilter}
               className="  text-white "
               setFilter={setGlobalFilter}
-            />
+            /> */}
           </div>
           <table  
             className="w-full  bg-white border-collapse border  border-1 border-gray-300  divide-y   text-gray-900"
