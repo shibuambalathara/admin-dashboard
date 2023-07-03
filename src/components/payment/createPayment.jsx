@@ -101,7 +101,7 @@ const CreatePayment = () => {
           <div className="min-w-[300px] w-1/3">
             <label htmlFor="">Payment Status</label>
             <select   className="input input-bordered input-secondary w-full " {...register("paymentStatus", {})}>
-            <option value=""></option>
+            {/* <option value=""></option> */}
       <option value="pending">Pending</option>
       <option value="success">Success</option>
       <option value="failed">Failed</option>

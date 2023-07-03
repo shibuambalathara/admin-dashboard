@@ -16,6 +16,19 @@ query VehicleDetailsPerEvent($where: EventWhereUniqueInput!) {
     bidStatus
 state
 city
+currentBidAmount
+    currentBidUser {
+      id
+    firstName
+    lastName 
+    mobile
+currentVehicleBuyingLimit {
+  vehicleBuyingLimit
+}
+    }
+      coupenDetail {
+      coupenNumber
+    }
   } 
   }
 }

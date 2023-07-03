@@ -1,7 +1,7 @@
 import React from 'react'
 import BidFormComponent from '../components/bids/bidFormComponent'
 
-const AddBidForm = () => {
+const EditBidForm = () => {
   return (
     <div className='w-full'>
         <BidFormComponent />
@@ -9,4 +9,4 @@ const AddBidForm = () => {
   )
 }
 
-export default AddBidForm
+export default EditBidForm

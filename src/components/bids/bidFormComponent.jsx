@@ -5,7 +5,7 @@ const BidFormComponent = () => {
   return (
     <div className="max-w-7xl mx-auto h-fit  my-10 bg-slate-100 ">
     <div className="bg-slate-200 py-8 flex justify-center items-center">
-      <h1 className="font-bold ">ADD BID</h1>
+      <h1 className="font-bold ">EDIT BID</h1>
     </div>
 
     <div className="bg-gray-0 max-w-6xl ml-5 h-full mx-auto mt-5">

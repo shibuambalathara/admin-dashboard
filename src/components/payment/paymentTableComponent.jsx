@@ -48,10 +48,10 @@ const PaymentTableComponent = () => {
            {Header:"Created By",accessor:data => data.createdBy ? data.createdBy.firstName : "self"},
 
            {
-            Header: "Create Emd",
+            Header: "Update Buying Limit",
             Cell: ({ row }) => (
               // <button className="btn btn-secondary" onClick={() => handleCreateEmd(row.original.id)}>Create Emd</button>
-              <a className="btn btn-secondary" href={`/add-emd/${row.original.id}`} target="_blank" rel="noopener noreferrer">Create Emd</a>
+              <a className="btn btn-secondary" href={`/add-emd/${row.original.id}`} target="_blank" rel="noopener noreferrer">Update</a>
 
               )
           },

@@ -19,7 +19,7 @@ import ExcelUploads from "./pages/excelUploads";
 import Sellers from "./pages/sellers";
 import AddEventForm from "./pages/addEventForm";
 import AddVehicle from "./pages/addVehicle";
-import AddBidForm from "./pages/addBidForm";
+import EditBidForm from "./pages/addBidForm";
 import AddPaymentDetails from "./pages/addPaymentDetails";
 import PaymentUserDetails from "./pages/paymentUserDetails";
 import AddStateForm from "./pages/addStateForm";
@@ -49,6 +49,12 @@ import ViewOpenAuction from "./pages/viewOpenAuction";
 import AddPaymentForUser from "./pages/addPayment";
 import OpenAuctionManage from "./pages/openAuctionManage";
 import ProjecterView from "./pages/projecterView";
+
+import EmdDetailsPage from "./pages/emdDetailsPage";
+import CoupenPerUser from "./pages/coupenPerUser";
+import CoupensPerPayment from "./pages/coupensPerPayment";
+
+
 
 function App() {
   return (
@@ -86,7 +92,7 @@ function AppContent() {
               <Route path="addevent" element={<AddEventForm />} />
               <Route path="add-vehicle/:id" element={<AddVehicle />} />
               <Route path="edit-vehicle/:id" element={<EditVehicle />} />
-              <Route path="addBid" element={<AddBidForm />} />
+              <Route path="editBid/:id" element={<EditBidForm />} />
               <Route
                 path="create-payment/:id"
                 element={<AddPaymentForUser />}
@@ -117,6 +123,11 @@ function AppContent() {
               <Route path="openAuctionLive/:id" element={<ViewOpenAuction />} />
               <Route path="openAuctionUpdatedByAdmin/:id" element={<OpenAuctionManage />} />
               <Route path="projecter-view/:id" element={<ProjecterView />} />
+         
+              <Route path="emdDetails/:id" element={<EmdDetailsPage/>} />
+              <Route path="coupenPerUser/:id" element={<CoupenPerUser/>} />
+              <Route path="coupenPerPayment/:id" element={<CoupensPerPayment/>} />
+              
             </Route>
           </Routes>
         </div>
