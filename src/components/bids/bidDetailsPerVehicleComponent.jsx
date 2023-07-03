@@ -69,6 +69,7 @@ const BidDetailsPerVehicleComponent = () => {
     }
 
 
+
     const handleReport=(report)=>{
       console.log(report,"report")
     const arr=[]
@@ -124,6 +125,7 @@ const BidDetailsPerVehicleComponent = () => {
               <button className="btn btn-info" onClick={()=>handleUserDetails(row.original.user.id) }>View User</button>
             )
           },
+       
           {
             Header: "Delete Bid",
             Cell: ({ row }) => (

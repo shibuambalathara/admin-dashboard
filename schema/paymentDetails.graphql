@@ -25,3 +25,20 @@ query PaymentDetails($where: PaymentWhereUniqueInput!) {
   }  
   }
 }
+query coupenPerPayment($where: PaymentWhereUniqueInput!) {
+  payment(where: $where) {
+    amount
+    user {
+      firstName
+      lastName
+    }
+    coupenDetail {
+      coupenNumber
+      coupenStatus
+      vehicleDetail {
+        registrationNumber
+      }
+
+    }
+  }
+}

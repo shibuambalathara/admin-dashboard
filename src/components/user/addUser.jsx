@@ -5,7 +5,9 @@ import Select from 'react-select';
 import React, { useState } from "react";
 import { useCreateUserMutation, useSelectorsQuery } from "../../utils/graphql";
 import { ShowPopup } from '../alerts/popUps';
+import { useNavigate } from "react-router-dom";
 const AddUser = () => {
+  const navigate=useNavigate()
   const {
     register,
     handleSubmit,
@@ -13,7 +15,7 @@ const AddUser = () => {
     reset,
     formState: { errors },
   } = useForm();
-  const [createUser, { loading, error }] = useCreateUserMutation();
+  const [createUser, { error }] = useCreateUserMutation();
   const { data } = useSelectorsQuery();
   console.log("DATA ",data);
   const onSubmit = async (dataOnSubmit) => {
@@ -57,7 +59,8 @@ const AddUser = () => {
     try {
       const result = await createUser({ variables: { data } });
       ShowPopup("Success!", `${dataOnSubmit?.first_Name}Added successfully!`, "success", 5000, true);
-      reset()
+      navigate('/users')
+      
     } catch (err) {
       ShowPopup("Failed!", `${error?.message}`, "error", 5000, true);
       console.log(err, "error");
@@ -120,8 +123,9 @@ const AddUser = () => {
                 <label htmlFor=""> Password</label>
                 <input
                   type="text"
+                  defaultValue={"1234auto"}
                   className="p-3 input input-bordered input-secondary w-full"
-                  {...register("confirmPassword", {minLength:8})}
+                  {...register("confirmPassword", {minLength:8,required:true})}
                 ></input>
                 <p className="text-red-500">
                   {" "}

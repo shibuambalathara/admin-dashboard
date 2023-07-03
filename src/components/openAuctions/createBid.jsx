@@ -132,7 +132,7 @@ const VehicleDetails = (props) => {
   
       .then((result) => {
         // Additional actions after successful bid submission
-
+console.log(result,"result")
      
         Swal.fire({
           title: `Amount ${result?.data?.createBid?.amount} successfully Added`,
@@ -141,7 +141,7 @@ const VehicleDetails = (props) => {
         setUserId(0);
       })
       .catch((error) => {
-        console.error(error);
+        console.error(error,"error");
       
         Swal.fire({
           title: ` ${error}`,

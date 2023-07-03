@@ -2,10 +2,10 @@
 
 
 import { Button } from '@material-tailwind/react'
-import React, { useMemo,useState } from 'react'
+import React, { useEffect, useMemo,useState } from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import { useTable,useSortBy,usePagination,useGlobalFilter } from "react-table"
-import {useDeleteVehicleMutation, useVehicleDetailsPerEventQuery, useVehicleTableQuery} from '../../utils/graphql'
+import {useBidUserPerVehicleQuery, useCoupensperUserQuery, useDeleteVehicleMutation, useUpdateCoupenMutation, useVehicleDetailsPerEventQuery, useVehiclePerEventQuery, useVehicleTableQuery} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
 import format from 'date-fns/format'
 import Swal from "sweetalert2";
@@ -16,15 +16,29 @@ import Report from './report'
 const VehicleDetailsPerEventComponent = () => {
    
     const{id}=useParams()
+  
     const navigate=useNavigate()
+    const [userId,setUserId]=useState('0')
     const {data,loading,error,refetch}=useVehicleDetailsPerEventQuery({variables:{where:{id}}})
+    const [updateCoupen]=useUpdateCoupenMutation()
+    
+console.log(data,"dataaa")
+    
     const [DeleteVehicle]=useDeleteVehicleMutation();
-// console.log(data,"data")
+    const {data:coupens} =useCoupensperUserQuery({variables:{  where: {
+      userDetail: {
+        id: {
+          equals: userId
+        },
+      
+      },
+      coupenStatus:{equals:"unclaimed"}
+    }
+  }})
 
-//     const handleViewMore=(id)=>{
-//       console.log("id.........",id)
-// navigate(`/edit-vehicle/${id}`)
-//     }
+
+
+
     const handleDelete=async(deleteVehicleId)=>{
 console.log(deleteVehicleId)
 const result = await Swal.fire({
@@ -48,18 +62,81 @@ console.log(deleteResult,"delete result")
     refetch()
 }
     }
-    const handleReport=(id)=>{
-   
-       return <Report id={id} />;
+    const handleAboutBid=async(bidDetails)=>{
+      
+      const { currentBidUser, registrationNumber,currentBidAmount      } = bidDetails;
+     
+      console.log(coupens,"handle..",currentBidUser?.id,"handleuu",userId)
+      Swal.fire({
+        html: `<div>
+            <h1>Current Top Bidder </h1>
+            <p> Name: ${currentBidUser?.firstName} ${currentBidUser?.lastName} </p>
+            <p>Vehicle Number:${registrationNumber}</p>
+            <p>Bid Amount:${currentBidAmount
+            }</p>
+
+          </div>`
+
+      })
+    }
+    const handleCoupen=async(bidDetails)=>{
+      const { currentBidUser,id      } = bidDetails;
+      setUserId(currentBidUser?.id)
+      if(coupens && userId===currentBidUser?.id){
+        const { value: input } = await Swal.fire({
+          title: 'Select Coupen',
+          html:
+          '<select id="coupenId" class="swal2-select">'+
+          coupens?.coupens.map(coupen => `<option value="${coupen.id}">${coupen.coupenNumber}</option>`).join('') +
+          '</select>',
+           
+            
+       
+          focusConfirm: false,
+          preConfirm: () => {
+            return [
+            
+              document.getElementById('coupenId').value
+            ];
+          }
+        });
+        const CoupenId=input[0]
+       
+        updateCoupen({variables:{where: {"id":CoupenId},
+        data: {coupenStatus:"applied",vehicleDetail:{connect:{id}}}
+      }}).then(()=>{
+        refetch()
+      })
+      }
+    }
+  
+     
+    
+    const handleMessage=(vehicleDetails)=>{
+      const {currentBidUser,registrationNumber,currentBidAmount,coupenDetail}=vehicleDetails
+console.log("message",vehicleDetails)
+Swal.fire({
+  html: `<div>
+      <h1>Message From Team AutoBse </h1>
+      
+      <p>Dear: ${currentBidUser?.firstName} ${currentBidUser?.lastName},</p>
+      <p>You have successfully Applied coupen:'${coupenDetail.coupenNumber}' for the Vehicle No '${registrationNumber}'
+      (Bid Amount:${currentBidAmount}).Your current buying limit are ${currentBidUser.currentVehicleBuyingLimit.vehicleBuyingLimit} Vehicles. 
+      </p>
+      <p>For more Details Please contact Team AutoBse. </p>
+      <p>Thank you.</p>
+    </div>`
+
+})
     }
 
     const columns = useMemo(
         () => [
-          { Header: "Registration Number", accessor: "registrationNumber" },
+        
           { Header: "Vehicle ID", accessor: "vehicleIndexNo" },
           { Header: "State", accessor: "state" },
          { Header: "City", accessor: "city" },
-         { Header: "total bids count", accessor: "totalBids" },
+      
          { Header: "Vehicle Status", accessor: "vehicleEventStatus" },
          
           { Header: "Bid Status", accessor: "bidStatus" },
@@ -67,27 +144,34 @@ console.log(deleteResult,"delete result")
            { Header: "Bid Time Expire", accessor: ({bidTimeExpire})=>{return format(new Date (bidTimeExpire),`dd/MM/yy,  HH:mm:ss`)}  },
 
         {
-          Header: "Bid Detais",
+          Header: "Bid Details",
           Cell: ({ row }) => (
             // <button className="btn btn-accent" onClick={()=>handleBidDetails(row.original.id) }>Bid Details</button>
           
-            <a className="btn btn-accent" href={`/bid-details/${row.original.id}`} target="_blank" rel="noopener noreferrer">Bid Details</a>
+    row.original.totalBids !==0 ?        <a className="btn btn-accent" href={`/bid-details/${row.original.id}`} target="_blank" rel="noopener noreferrer"> {row.original.totalBids}</a>:'0'
+            )
+        },
+        {
+          Header: "About Bid",
+          Cell: ({ row }) => (
+            row.original.totalBids !==0 ? <button className="btn btn-info" onClick={() => handleAboutBid(row.original)}>About Bid</button>   :"No Bids"
             )
         },
          
+      
+          {
+            Header: "Apply Coupen",
+            Cell: ({ row }) => (
+              row.original.totalBids !==0 ? ( row.original.coupenDetail ? <button onClick={()=>handleMessage(row.original)} className='btn bg-yellow-500'>Message to { row.original.currentBidUser.mobile}</button>   : <button className="btn bg-red-500" onClick={() => handleCoupen(row.original)}>Apply Coupen</button>):"0"
+              )
+          },
           {
             Header: "Vehicle Details",
             Cell: ({ row }) => (
-              <a className="btn btn-info" href={`/edit-vehicle/${row.original.id}`} target="_blank" rel="noopener noreferrer">View Vehicle</a>
+              <a className="btn btn-secondary" href={`/edit-vehicle/${row.original.id}`} target="_blank" rel="noopener noreferrer">{row.original.registrationNumber}</a>
 
               )
           },
-          // {
-          //   Header: "Report",
-          //   Cell: ({ row }) => (
-          //   <button className="btn btn-success" onClick={() => handleReport(row.original.id)}>Report</button>
-          //     )
-          // },
           {
             Header: "Remove",
             Cell: ({ row }) => (
@@ -96,7 +180,7 @@ console.log(deleteResult,"delete result")
           }
           
         ],
-        []
+        [coupens,userId]
       );
 
       const tableData=useMemo(() => (data ? data.event?.vehicles : []), [data]);

@@ -35,14 +35,14 @@ const VehicleTable = () => {
           { Header: "Bid Time Expire", accessor: ({bidTimeExpire})=>{return format(new Date (bidTimeExpire),`dd/MM/yy,  HH:mm`)}  },
          
           {
-            Header: "Bid Detais",
+            Header: "Bid Details",
             Cell: ({ row }) => (
               <button className="btn btn-accent" onClick={()=>handleBidDetails(row.original.id) }>Bid Details</button>
             )
           },
          
           {
-            Header: "Vehicle Detais",
+            Header: "Vehicle Details",
             Cell: ({ row }) => (
               <button className="btn btn-info" onClick={()=>handleViewMore(row.original.id) }>View Vehicle</button>
             )

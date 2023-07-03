@@ -1,0 +1,52 @@
+# query CoupensPerEmd($where: CoupenWhereInput!) {
+#   coupens(where: $where) {
+#   coupenNumber
+#   id 
+# vehicleDetail {
+#   registrationNumber
+# }
+#   bidDetail {
+#     amount
+#   }
+#   emdDetail {
+#     emdNo
+#     vehicleBuyingLimitIncrement
+#   }
+#     userDetail {
+#     id
+#   }
+#     eventName {
+#     eventNo
+#   }
+#   }
+# }
+#  mutation UpdateCoupen($where: CoupenWhereUniqueInput!, $data: CoupenUpdateInput!) {
+#    updateCoupen(where: $where, data: $data) {
+# id
+#     coupenNumber
+   
+#    }
+#  }
+
+
+query CoupensperUser($where: CoupenWhereInput!) {
+  coupens(where: $where) {
+    id
+    coupenNumber
+    coupenStatus
+     vehicleDetail {
+      registrationNumber
+      id
+    }
+      userDetail {
+      firstName
+      lastName
+    }
+  }
+}
+
+mutation UpdateCoupen($where: CoupenWhereUniqueInput!, $data: CoupenUpdateInput!) {
+  updateCoupen(where: $where, data: $data) {
+    coupenStatus
+  }
+}

@@ -5,7 +5,7 @@ import { useTable,usePagination,useGlobalFilter } from "react-table"
 import {usePaymentOfUserQuery} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
 import format from 'date-fns/format'
-
+import Swal from "sweetalert2";
 
 const PaymentPerUser = () => {
     const {id}=useParams()
@@ -21,6 +21,24 @@ const PaymentPerUser = () => {
     const handlePaymentStatus=(paymentId)=>{
 console.log(paymentId,"payment id")
 navigate(`/update-payment/${paymentId}`)
+    }
+    const handleMessage=(payment)=>{
+      console.log(payment,"payment",data,"dddddd")
+      const {registrationNumber,currentBidAmount,amount,paymentFor,createdAt}=payment
+      const formatedDate=format(new Date( createdAt),`dd/MM/yy, HH:mm`)
+     const  {firstName,lastName}=data.user
+     
+      Swal.fire({
+        html: `<div>
+            <h1>Message From Team AutoBse </h1>
+            
+            <p>Dear: ${firstName} ${lastName},</p>
+           <p>Thank You for the payment of Rs.${amount}.Created at ${formatedDate}.  for ${paymentFor}. </p>
+            <p>For more details please contact our team . </p>
+            <p>Thank you.</p>
+          </div>`
+      
+      })
     }
 
 
@@ -40,15 +58,55 @@ navigate(`/update-payment/${paymentId}`)
             )
           },
           {
-            Header: "Create EMD",
+            Header: "Emd Details",
             Cell: ({ row }) => (
-              <a className="btn btn-secondary" href={`/add-emd/${row.original.id}`} target="_blank" rel="noopener noreferrer">Create Emd</a>
+     row.original.emdUpdateCount!==0 &&         <a className="btn btn-secondary" href={`/emdDetails/${row.original.id}`} target="_blank" rel="noopener noreferrer">Emd Details </a>
             )
+          },
+          {
+            Header: "Create Buying Limit",
+            Cell: ({ row }) => {
+              if (
+                row.original.emdUpdateCount === 0 &&
+                row.original.paymentFor === 'emd' &&
+                row.original.status === 'success'
+              ) {
+                return (
+                  <a
+                    className="btn btn-secondary"
+                    href={`/add-emd/${row.original.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Increase Buying Limit
+                  </a>
+                );
+              }
+               else {
+                return(
+                  <>
+                  Increment by:{ row.original.emdUpdate[0]?.vehicleBuyingLimitIncrement ??'0'},
+                  <br /> Status: {row.original.status}
+                  </>
+                  );
+              }
+            }
+          },
+          {
+            Header: "Payment Message",
+            Cell: ({ row }) => {
+              
+    if(row.original.status==='success' ){return(   <button className="btn bg-yellow-500" onClick={() => handleMessage(row.original)}>Message To:{data?.user?.mobile}</button>)}
+    else {
+      
+      return row.original.status;}
+        
+    }
           },
     
           
         ],
-        []
+        [data]
       );
 
       const tableData=useMemo(() => (data ? data.user.payments : []), [data]);

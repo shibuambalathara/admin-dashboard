@@ -1,13 +1,17 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import voucherCodes  from 'voucher-code-generator'
 import { useParams } from 'react-router-dom';
-import{useCreateEmdUpdateMutation, useEmdDetailsQuery, usePaymentDetailsQuery, useUpdatePaymentMutation} from '../../utils/graphql'
+import{ useCreateEmdUpdateMutation,  usePaymentDetailsQuery} from '../../utils/graphql'
 import { ShowPopup } from '../alerts/popUps';
+import Swal from "sweetalert2";
 const CreateEmdComponent = () => {
   const {id}=useParams()
   const { data, loading, error } =usePaymentDetailsQuery ({variables:{where:{id}}});
+  const userId=data?.payment?.user?.id
+  console.log(data?.payment?.user?.id,"dd")
 
-   console.log(data,"payment")
+
 
 
 if(data){
@@ -23,16 +27,42 @@ if(data){
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (dataOnSubmit) =>{  console.log(dataOnSubmit,"data")
+  const onSubmit =async (dataOnSubmit) =>{  console.log(dataOnSubmit,"data on submit")
 const buyingLmt={
 payment:{connect:{id}},
  vehicleBuyingLimitIncrement:+dataOnSubmit.buyingLimit
 }
 
 try {
-  const result = addEmd({variables: {data:buyingLmt}})
-  if(result){
-    ShowPopup("Success!", `EMD Added successfully!`, "success", 5000, true);
+  const {data} =await addEmd({variables: {data:buyingLmt}})
+  
+
+  if(data){
+    console.log(data?.createEmdUpdate?.id,"result")
+   
+
+
+    // const response =  Swal.fire({
+    //   icon: "question",
+    //   title:'Buying limit Updated Successfully',
+    //   text: "Do you want to genarate Coupen?",
+    //   showCancelButton: true,
+    //   confirmButtonText: "Yes",
+    //   cancelButtonText: "Cancel",
+    // });
+    // if ((await response).isConfirmed) {
+    //   alert("reached Here")
+    //   for(let i=0;i<parseInt(dataOnSubmit.buyingLimit);i++){
+    //     console.log(i,"iii")
+    //        const voucherCode=voucherCodes.generate({ prefix: "Auto-",
+    //        postfix: "-2023"})
+    //        console.log(voucherCode,"v")
+       
+    // const result=await    createToken({variables:{data: {coupenNumber:voucherCode[0] ,emdDetail:{connect:{id:data?.createEmdUpdate?.id}},userDetail:{connect:{id:userId}}}
+    //   }})
+    //   console.log(result,"res")
+    //   }
+    // }
   }
 } catch (error) {
   ShowPopup("Failed!", `${error.message}`, "error", 5000, true);

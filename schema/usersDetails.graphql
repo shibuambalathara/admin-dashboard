@@ -15,6 +15,8 @@ query Users($skip: Int!, $take: Int, $orderBy: [UserOrderByInput!]!) {
      currentVehicleBuyingLimit {
     vehicleBuyingLimit  
     }
+paymentsCount
+coupenDetailCount
   }
  
 }
