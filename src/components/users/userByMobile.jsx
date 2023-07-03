@@ -6,9 +6,10 @@ import TabbleOfUsersOrUser from './tabble';
 const UserByMobile = () => {
     const [mobile,setMobile]=useState('0')
     const [user,setUser]=useState([])
-    const{data}=useUserQuery({variables:{where:{mobile: mobile}}})
+    const{data,loading}=useUserQuery({variables:{where:{mobile: mobile}}})
+ if (data?.user)   console.log(data?.user,"data.user")
  
-   
+   console.log(mobile,"mobile")
     
     const {
         register,
@@ -21,28 +22,34 @@ const UserByMobile = () => {
         if(onSubmit){setMobile(dataOnSubmit.mobile)
              console.log(mobile, "onSubmit");
               console.log(data,"mobile")}
-        
-      
+
+  const userArray = [Object.fromEntries(Object.entries(data.user))];
+              console.log(userArray,"user array")
+              setUser(userArray)
 
     }
+    if(loading)return<div>Loading....</div>
   return (
     <div className=' m-5'>
         <div>
-            Enter mobile Number
+           
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className='flex space-x-2'>
-            <input
+                  <div>
+            <input placeholder=' Enter mobile Number'
                   type="number"
-                  className="p-3  input input-bordered input-secondary w-40"
+                  className="p-3  input input-bordered input-secondary w-64"
                   {...register("mobile", { required: true,minLength:10,maxLength:10 })}/>
                    <p className="text-red-500">
                   {" "}
-                  {errors.mobile && <span>10 digit number required</span>}
+                  {errors.mobile && <span>Please Enter 10 digits</span>}
                 </p>
+                </div>
             <button className='btn bg-red-500' type='onSubmit'>Submit</button>
             </div>
             </form>
-     {/* {data.user&&       <TabbleOfUsersOrUser users={user}/>} */}
+     {data?.user?.mobile===mobile &&     <TabbleOfUsersOrUser users={user}/>}
+     {mobile!=='0' && data?.user?.mobile!==mobile  && <p className='text-red-500'> Sorry there is no such User</p>}
         </div>
 
     </div>
