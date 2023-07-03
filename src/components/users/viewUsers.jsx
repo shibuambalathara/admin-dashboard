@@ -20,8 +20,9 @@ const ViewUsers = () => {
   const { data, loading, error,refetch } = useUsersQuery(({variables:{ skip: currentPage * pageSize,take:pageSize, orderBy: {idNo:"desc"}}}));
  
 
-   console.log("this is the data from view users11", data);
-
+  
+  if(loading) return <div>Loading....</div>
+  console.log("this is the data from view users.", data);
   
 
   return (
