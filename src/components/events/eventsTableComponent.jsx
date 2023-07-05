@@ -2,14 +2,14 @@ import { Button } from '@material-tailwind/react'
 import React, { useEffect, useMemo,useState } from 'react'
 import {useNavigate} from 'react-router-dom'
 import { useTable,useSortBy,usePagination,useGlobalFilter } from "react-table"
-import {useEventTableQuery} from '../../utils/graphql'
+import {useEventTableQuery, useUpdateEventMutation} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
 
 import format from 'date-fns/format'
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import Report from './report'
-
+import Swal from "sweetalert2";
 
 
 const EventsTableComponent = () => {
@@ -19,6 +19,7 @@ const EventsTableComponent = () => {
 
     const {data,loading,error,refetch}=useEventTableQuery({variables:{ skip: currentPage * pageSize,take:pageSize, orderBy: {startDate:"desc"}}})
 console.log(data,"data")
+const [addParticipants]=useUpdateEventMutation()
 
 useEffect(()=>{
   refetch()
@@ -50,6 +51,41 @@ useEffect(()=>{
     }
     convertToExcel(report);
    }
+   const handleDealer=async(eventId)=>{
+
+
+
+
+const { value: input } = await Swal.fire({
+  title: 'Enter Mobile Number',
+  html: '<input id="mobile" class="swal2-select"></input>',
+  focusConfirm: false,
+  preConfirm: () => {
+    return [
+      document.getElementById('mobile').value
+    ];
+  }
+});
+
+  const mobileNumber=input[0]
+ 
+  addParticipants({variables:{where: {id:eventId},
+ data:{participants:{connect:{mobile:mobileNumber}}}
+}}).then(()=>{
+  Swal.fire({
+    icon:'success',
+    title:"Dealer Added Successfully" 
+  })
+  refetch()
+}).catch((err)=>{
+  Swal.fire({
+    icon:'error',
+    title:"User Does not Exist"
+    
+  })
+  console.log(err,"error")})
+}
+   
 
     const columns = useMemo(
         () => [
@@ -79,23 +115,35 @@ useEffect(()=>{
           },
           { Header: "End Date ", accessor: ({endDate})=>{return format(new Date (endDate),`dd/MM/yy, HH:mm`)} },
           { Header: "Status ", accessor: "status" }, 
-        // { Header: "Vehicle Count", accessor: "vehiclesCount" },
-         
-        {
-          Header: "Vehicles Count",
-          Cell: ({ row }) => (
-<>  { row.original.vehiclesCount===0  ?   <a className="btn btn-accent" href={`/add-vehicle/${row.original.id}`} target="_blank" rel="noopener noreferrer">Add Vehicle</a>
-:`${row.original.vehiclesCount}`             }</> 
-            )
-        },
           {
-            Header: "View Vehicles",
+            Header: "Add Partcipant",
             Cell: ({ row }) => (
-              // <button className="btn btn-secondary" onClick={()=>handleViewVehicle(row.original.id) }>View vehicls</button>
-              <a className="btn btn-secondary" href={`/view-vehicls/${row.original.id}`} target="_blank" rel="noopener noreferrer">View vehicls</a>
+              row.original.endDate>new Date().toISOString() ?       <button className="btn bg-orange-500" onClick={() => handleDealer(row.original.id)}>Add</button>:"Event Completed"
+            )
+          },
+          {
+            Header: "View Participants",
+            Cell: ({ row }) => (
+              <a className="btn bg-violet-500" href={`/participants/${row.original.id}`} target="_blank" rel="noopener noreferrer">{row.original.participantsCount}</a>
 
               )
           },
+         
+        {
+          Header: "Vehicles ",
+          Cell: ({ row }) => (
+<>  { row.original.vehiclesCount===0  ?   <a className="btn btn-accent" href={`/add-vehicle/${row.original.id}`} target="_blank" rel="noopener noreferrer">Add Vehicle</a>
+:              <a className="btn btn-secondary" href={`/view-vehicls/${row.original.id}`} target="_blank" rel="noopener noreferrer">{row.original.vehiclesCount}</a>
+}</> 
+            )
+        },
+          // {
+          //   Header: "View Vehicles",
+          //   Cell: ({ row }) => (
+          //     // <button className="btn btn-secondary" onClick={()=>handleViewVehicle(row.original.id) }>View vehicls</button>
+
+          //     )
+          // },
          
           {
             Header: "Upload Excel File",

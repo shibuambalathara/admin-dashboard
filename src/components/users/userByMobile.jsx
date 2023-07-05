@@ -9,7 +9,7 @@ const UserByMobile = () => {
     const{data,loading}=useUserQuery({variables:{where:{mobile: mobile}}})
  if (data?.user)   console.log(data?.user,"data.user")
  
-   console.log(mobile,"mobile")
+   
     
     const {
         register,

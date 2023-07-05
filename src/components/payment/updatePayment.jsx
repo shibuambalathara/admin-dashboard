@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from "react-hook-form";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import{useUserQuery,useUpdatePaymentMutation,usePaymentDetailsQuery} from '../../utils/graphql'
 import { ShowPopup } from '../alerts/popUps';
 const UpdatePayment = () => {
@@ -10,7 +10,7 @@ const UpdatePayment = () => {
   const payment = usePaymentDetailsQuery({variables: { where: { id: id } }});
   // console.log(payment?.data,"payment" ,defaultData)
   const [addAmount]=useUpdatePaymentMutation({variables: { where: { id: id } }})
- 
+ const navigate=useNavigate()
 
   const {
     register,
@@ -37,6 +37,7 @@ const UpdatePayment = () => {
     const result =addAmount({variables: {data:amount,id:id}})
     if(result){
       ShowPopup("Success!", `${dataOnSubmit?.paymentFor} updated successfully!`, "success", 5000, true);
+   navigate(`/payment/${payment?.data?.payment?.user?.id}`)
 
     }
   } catch (error) {

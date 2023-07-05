@@ -14,5 +14,6 @@ query eventTable($take: Int, $skip: Int!, $orderBy: [EventOrderByInput!]!) {
     name
   }
   Report
+  participantsCount
   }
 }
