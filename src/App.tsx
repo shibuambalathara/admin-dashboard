@@ -53,6 +53,7 @@ import ProjecterView from "./pages/projecterView";
 import EmdDetailsPage from "./pages/emdDetailsPage";
 import CoupenPerUser from "./pages/coupenPerUser";
 import CoupensPerPayment from "./pages/coupensPerPayment";
+import ViewParticipants from "./pages/viewParticipants";
 
 
 
@@ -127,6 +128,7 @@ function AppContent() {
               <Route path="emdDetails/:id" element={<EmdDetailsPage/>} />
               <Route path="coupenPerUser/:id" element={<CoupenPerUser/>} />
               <Route path="coupenPerPayment/:id" element={<CoupensPerPayment/>} />
+              <Route path="participants/:id" element={<ViewParticipants/>} />
               
             </Route>
           </Routes>

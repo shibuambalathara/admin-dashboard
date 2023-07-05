@@ -19,7 +19,7 @@ if(data){
 }
         
   const [addEmd]=useCreateEmdUpdateMutation()
- 
+ ShowPopup()
 
   const {
     register,
