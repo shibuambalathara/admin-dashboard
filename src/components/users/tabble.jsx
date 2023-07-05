@@ -2,24 +2,43 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { Button } from "@material-tailwind/react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useUsersQuery, useDeleteUserMutation } from "../../utils/graphql";
 import { useTable,useSortBy, usePagination, useGlobalFilter } from "react-table";
 import SearchUser from "./searchUser";
 import format from 'date-fns/format'
-import UserByMobile from "./userByMobile";
+import Swal from "sweetalert2";
 
 const TabbleOfUsersOrUser = ({users}) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [pageSize, setPageSize] = useState(10);
 
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const currentPage1 = location.pathname
  
 
   console.log("this is the data from view ", users);
 
-
+const handleMessage=(coupen)=>{
+  const {coupenDetail,firstName,lastName,   currentVehicleBuyingLimit }=coupen
+  console.log(coupen,"coupen")
+  Swal.fire({
+    html: `<div>
+        <h1>Message From Team AutoBse</h1>
+        
+        <p>Dear: ${firstName} ${lastName},</p>
+        <p>Thank you for partipating the auction</p>
+        <p>You have ${currentVehicleBuyingLimit.vehicleBuyingLimit} Buying Limit </p>
+       
+        <p>Coupons are ${coupenDetail.map((coupen, index) => {
+            return `<p>${index + 1}. ${coupen.coupenNumber}</p>`;
+        }).join('')}</p>
+        <p>For more details, please contact Team AutoBse.</p>
+        <p>Thank you.</p>
+      </div>`
+});
+}
 
 
 
@@ -75,7 +94,7 @@ const TabbleOfUsersOrUser = ({users}) => {
         Header: "Create Payment",
         Cell: ({ row }) => (
      
-          <a className="btn btn-success" href={`/create-payment/${row.original.id}`} target="_blank" rel="noopener noreferrer">Create Payment</a>
+     <a className="btn btn-success" href={`/create-payment/${row.original.id}`} target="_blank" rel="noopener noreferrer">Create Payment</a>
 
         ),
       },
@@ -87,6 +106,17 @@ const TabbleOfUsersOrUser = ({users}) => {
 
         ),
       },
+      
+      ...(currentPage1 === '/users' ? [] : [  {
+  Header: "Message",
+  Cell: ({ row }) => (
+      <button className="btn bg-yellow-500" onClick={() => handleMessage(row.original)}>
+      Message To {row.original.mobile}
+    </button>
+  )
+     
+}
+])
     
     ],
     [users]
@@ -149,11 +179,11 @@ const TabbleOfUsersOrUser = ({users}) => {
           <div className="mb-4">
          
            
-            {/* <SearchUser
+       { users && users.length &&    <SearchUser
               filter={globalFilter}
               className="  text-white "
               setFilter={setGlobalFilter}
-            /> */}
+            />}
           </div>
           <table  
             className="w-full  bg-white border-collapse border  border-1 border-gray-300  divide-y   text-gray-900"
