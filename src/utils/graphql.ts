@@ -137,6 +137,90 @@ export type BooleanFilter = {
   not?: InputMaybe<BooleanFilter>;
 };
 
+export type ContactUs = {
+  __typename?: 'ContactUs';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  email?: Maybe<Scalars['String']>;
+  firstName?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  lastName?: Maybe<Scalars['String']>;
+  message?: Maybe<Scalars['String']>;
+  mobile?: Maybe<Scalars['String']>;
+  status?: Maybe<ContactUsStatusType>;
+  subject?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type ContactUsCreateInput = {
+  email?: InputMaybe<Scalars['String']>;
+  firstName?: InputMaybe<Scalars['String']>;
+  lastName?: InputMaybe<Scalars['String']>;
+  message?: InputMaybe<Scalars['String']>;
+  mobile?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<ContactUsStatusType>;
+  subject?: InputMaybe<Scalars['String']>;
+};
+
+export type ContactUsOrderByInput = {
+  createdAt?: InputMaybe<OrderDirection>;
+  email?: InputMaybe<OrderDirection>;
+  firstName?: InputMaybe<OrderDirection>;
+  id?: InputMaybe<OrderDirection>;
+  lastName?: InputMaybe<OrderDirection>;
+  message?: InputMaybe<OrderDirection>;
+  mobile?: InputMaybe<OrderDirection>;
+  status?: InputMaybe<OrderDirection>;
+  subject?: InputMaybe<OrderDirection>;
+  updatedAt?: InputMaybe<OrderDirection>;
+};
+
+export enum ContactUsStatusType {
+  Created = 'created',
+  Solved = 'solved'
+}
+
+export type ContactUsStatusTypeNullableFilter = {
+  equals?: InputMaybe<ContactUsStatusType>;
+  in?: InputMaybe<Array<ContactUsStatusType>>;
+  not?: InputMaybe<ContactUsStatusTypeNullableFilter>;
+  notIn?: InputMaybe<Array<ContactUsStatusType>>;
+};
+
+export type ContactUsUpdateArgs = {
+  data: ContactUsUpdateInput;
+  where: ContactUsWhereUniqueInput;
+};
+
+export type ContactUsUpdateInput = {
+  email?: InputMaybe<Scalars['String']>;
+  firstName?: InputMaybe<Scalars['String']>;
+  lastName?: InputMaybe<Scalars['String']>;
+  message?: InputMaybe<Scalars['String']>;
+  mobile?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<ContactUsStatusType>;
+  subject?: InputMaybe<Scalars['String']>;
+};
+
+export type ContactUsWhereInput = {
+  AND?: InputMaybe<Array<ContactUsWhereInput>>;
+  NOT?: InputMaybe<Array<ContactUsWhereInput>>;
+  OR?: InputMaybe<Array<ContactUsWhereInput>>;
+  createdAt?: InputMaybe<DateTimeNullableFilter>;
+  email?: InputMaybe<StringFilter>;
+  firstName?: InputMaybe<StringFilter>;
+  id?: InputMaybe<IdFilter>;
+  lastName?: InputMaybe<StringFilter>;
+  message?: InputMaybe<StringFilter>;
+  mobile?: InputMaybe<StringFilter>;
+  status?: InputMaybe<ContactUsStatusTypeNullableFilter>;
+  subject?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeNullableFilter>;
+};
+
+export type ContactUsWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
 export type Coupen = {
   __typename?: 'Coupen';
   bidDetail?: Maybe<Bid>;
@@ -1074,6 +1158,8 @@ export type Mutation = {
   authenticateUserWithPassword?: Maybe<UserAuthenticationWithPasswordResult>;
   createBid?: Maybe<Bid>;
   createBids?: Maybe<Array<Maybe<Bid>>>;
+  createContactUs?: Maybe<ContactUs>;
+  createContactuses?: Maybe<Array<Maybe<ContactUs>>>;
   createCoupen?: Maybe<Coupen>;
   createCoupens?: Maybe<Array<Maybe<Coupen>>>;
   createEmdUpdate?: Maybe<EmdUpdate>;
@@ -1099,6 +1185,8 @@ export type Mutation = {
   createVehicles?: Maybe<Array<Maybe<Vehicle>>>;
   deleteBid?: Maybe<Bid>;
   deleteBids?: Maybe<Array<Maybe<Bid>>>;
+  deleteContactUs?: Maybe<ContactUs>;
+  deleteContactuses?: Maybe<Array<Maybe<ContactUs>>>;
   deleteCoupen?: Maybe<Coupen>;
   deleteCoupens?: Maybe<Array<Maybe<Coupen>>>;
   deleteEmdUpdate?: Maybe<EmdUpdate>;
@@ -1126,6 +1214,8 @@ export type Mutation = {
   sendUserMagicAuthLink: Scalars['Boolean'];
   updateBid?: Maybe<Bid>;
   updateBids?: Maybe<Array<Maybe<Bid>>>;
+  updateContactUs?: Maybe<ContactUs>;
+  updateContactuses?: Maybe<Array<Maybe<ContactUs>>>;
   updateCoupen?: Maybe<Coupen>;
   updateCoupens?: Maybe<Array<Maybe<Coupen>>>;
   updateEmdUpdate?: Maybe<EmdUpdate>;
@@ -1164,6 +1254,16 @@ export type MutationCreateBidArgs = {
 
 export type MutationCreateBidsArgs = {
   data: Array<BidCreateInput>;
+};
+
+
+export type MutationCreateContactUsArgs = {
+  data: ContactUsCreateInput;
+};
+
+
+export type MutationCreateContactusesArgs = {
+  data: Array<ContactUsCreateInput>;
 };
 
 
@@ -1289,6 +1389,16 @@ export type MutationDeleteBidArgs = {
 
 export type MutationDeleteBidsArgs = {
   where: Array<BidWhereUniqueInput>;
+};
+
+
+export type MutationDeleteContactUsArgs = {
+  where: ContactUsWhereUniqueInput;
+};
+
+
+export type MutationDeleteContactusesArgs = {
+  where: Array<ContactUsWhereUniqueInput>;
 };
 
 
@@ -1421,6 +1531,17 @@ export type MutationUpdateBidArgs = {
 
 export type MutationUpdateBidsArgs = {
   data: Array<BidUpdateArgs>;
+};
+
+
+export type MutationUpdateContactUsArgs = {
+  data: ContactUsUpdateInput;
+  where: ContactUsWhereUniqueInput;
+};
+
+
+export type MutationUpdateContactusesArgs = {
+  data: Array<ContactUsUpdateArgs>;
 };
 
 
@@ -1732,6 +1853,9 @@ export type Query = {
   bidsCount?: Maybe<Scalars['Int']>;
   /** complied Events */
   compliedEvents?: Maybe<Array<Maybe<Event>>>;
+  contactUs?: Maybe<ContactUs>;
+  contactuses?: Maybe<Array<ContactUs>>;
+  contactusesCount?: Maybe<Scalars['Int']>;
   coupen?: Maybe<Coupen>;
   coupens?: Maybe<Array<Coupen>>;
   coupensCount?: Maybe<Scalars['Int']>;
@@ -1802,6 +1926,24 @@ export type QueryCompliedEventsArgs = {
   skip?: Scalars['Int'];
   take?: Scalars['Int'];
   where?: InputMaybe<EventWhereInput>;
+};
+
+
+export type QueryContactUsArgs = {
+  where: ContactUsWhereUniqueInput;
+};
+
+
+export type QueryContactusesArgs = {
+  orderBy?: Array<ContactUsOrderByInput>;
+  skip?: Scalars['Int'];
+  take?: InputMaybe<Scalars['Int']>;
+  where?: ContactUsWhereInput;
+};
+
+
+export type QueryContactusesCountArgs = {
+  where?: ContactUsWhereInput;
 };
 
 
@@ -3371,6 +3513,19 @@ export type BuyingLimitQueryVariables = Exact<{
 
 export type BuyingLimitQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, emdUpdates?: Array<{ __typename?: 'EmdUpdate', id: string, emdNo?: number | null, vehicleBuyingLimitIncrement?: number | null, createdAt?: any | null, payment?: { __typename?: 'Payment', amount?: number | null, id: string } | null, createdBy?: { __typename?: 'User', id: string, firstName?: string | null } | null }> | null } | null };
 
+export type ContactUsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ContactUsQuery = { __typename?: 'Query', contactuses?: Array<{ __typename?: 'ContactUs', id: string, firstName?: string | null, lastName?: string | null, message?: string | null, status?: ContactUsStatusType | null, mobile?: string | null, subject?: string | null, email?: string | null, createdAt?: any | null, updatedAt?: any | null }> | null };
+
+export type UpdateContactUsMutationVariables = Exact<{
+  where: ContactUsWhereUniqueInput;
+  data: ContactUsUpdateInput;
+}>;
+
+
+export type UpdateContactUsMutation = { __typename?: 'Mutation', updateContactUs?: { __typename?: 'ContactUs', id: string, status?: ContactUsStatusType | null } | null };
+
 export type CountQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -4276,6 +4431,84 @@ export function useBuyingLimitLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type BuyingLimitQueryHookResult = ReturnType<typeof useBuyingLimitQuery>;
 export type BuyingLimitLazyQueryHookResult = ReturnType<typeof useBuyingLimitLazyQuery>;
 export type BuyingLimitQueryResult = Apollo.QueryResult<BuyingLimitQuery, BuyingLimitQueryVariables>;
+export const ContactUsDocument = gql`
+    query ContactUs {
+  contactuses {
+    id
+    firstName
+    lastName
+    message
+    status
+    mobile
+    subject
+    email
+    createdAt
+    updatedAt
+  }
+}
+    `;
+
+/**
+ * __useContactUsQuery__
+ *
+ * To run a query within a React component, call `useContactUsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useContactUsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useContactUsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useContactUsQuery(baseOptions?: Apollo.QueryHookOptions<ContactUsQuery, ContactUsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ContactUsQuery, ContactUsQueryVariables>(ContactUsDocument, options);
+      }
+export function useContactUsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ContactUsQuery, ContactUsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ContactUsQuery, ContactUsQueryVariables>(ContactUsDocument, options);
+        }
+export type ContactUsQueryHookResult = ReturnType<typeof useContactUsQuery>;
+export type ContactUsLazyQueryHookResult = ReturnType<typeof useContactUsLazyQuery>;
+export type ContactUsQueryResult = Apollo.QueryResult<ContactUsQuery, ContactUsQueryVariables>;
+export const UpdateContactUsDocument = gql`
+    mutation UpdateContactUs($where: ContactUsWhereUniqueInput!, $data: ContactUsUpdateInput!) {
+  updateContactUs(where: $where, data: $data) {
+    id
+    status
+  }
+}
+    `;
+export type UpdateContactUsMutationFn = Apollo.MutationFunction<UpdateContactUsMutation, UpdateContactUsMutationVariables>;
+
+/**
+ * __useUpdateContactUsMutation__
+ *
+ * To run a mutation, you first call `useUpdateContactUsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateContactUsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateContactUsMutation, { data, loading, error }] = useUpdateContactUsMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useUpdateContactUsMutation(baseOptions?: Apollo.MutationHookOptions<UpdateContactUsMutation, UpdateContactUsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateContactUsMutation, UpdateContactUsMutationVariables>(UpdateContactUsDocument, options);
+      }
+export type UpdateContactUsMutationHookResult = ReturnType<typeof useUpdateContactUsMutation>;
+export type UpdateContactUsMutationResult = Apollo.MutationResult<UpdateContactUsMutation>;
+export type UpdateContactUsMutationOptions = Apollo.BaseMutationOptions<UpdateContactUsMutation, UpdateContactUsMutationVariables>;
 export const CountDocument = gql`
     query Count {
   usersCount
