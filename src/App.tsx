@@ -54,6 +54,7 @@ import EmdDetailsPage from "./pages/emdDetailsPage";
 import CoupenPerUser from "./pages/coupenPerUser";
 import CoupensPerPayment from "./pages/coupensPerPayment";
 import ViewParticipants from "./pages/viewParticipants";
+import Enquiry from "./pages/enquiry";
 
 
 
@@ -129,6 +130,7 @@ function AppContent() {
               <Route path="coupenPerUser/:id" element={<CoupenPerUser/>} />
               <Route path="coupenPerPayment/:id" element={<CoupensPerPayment/>} />
               <Route path="participants/:id" element={<ViewParticipants/>} />
+              <Route path="enquiry" element={<Enquiry/>}/>
               
             </Route>
           </Routes>

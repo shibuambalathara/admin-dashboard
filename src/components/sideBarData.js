@@ -40,6 +40,10 @@ const Sidebar_items=[
     name:"Image Upload",
     path:"image-upload"
   },
+  {
+    name:"Enquiries",
+    path:"enquiry"
+  }
 
 
   

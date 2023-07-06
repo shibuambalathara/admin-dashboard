@@ -1,0 +1,21 @@
+query ContactUs {
+  contactuses {
+    id
+     firstName
+    lastName
+    message
+    status
+    mobile
+    subject
+    email
+    createdAt
+    updatedAt
+    
+  }
+}
+mutation UpdateContactUs($where: ContactUsWhereUniqueInput!, $data: ContactUsUpdateInput!) {
+  updateContactUs(where: $where, data: $data) {
+  id
+  status  
+  }
+}
