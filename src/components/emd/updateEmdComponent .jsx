@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from 'react-router-dom';
 import{useCreateEmdUpdateMutation, useEmdDetailsQuery, useEmdUpdateQuery, usePaymentDetailsQuery, useUpdatePaymentMutation} from '../../utils/graphql'
-import Swal from 'sweetalert2';
 
 const UpdateEmdComponent = () => {
   const {id}=useParams()
@@ -30,9 +29,7 @@ payment:{connect:{id}},
  vehicleBuyingLimitIncrement:+dataOnSubmit.buyingLimit
 }
 
-   addEmd({variables: {data:buyingLmt}}).then(()=>{
-    Swal.fire({icon:'success',title:'Buying Limit Incremented Successfully'})
-   }).catch((err)=>{Swal.fire({icon:'error',text:err})})
+   addEmd({variables: {data:buyingLmt}})
   
   };
 

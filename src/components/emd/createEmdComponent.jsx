@@ -19,7 +19,7 @@ if(data){
 }
         
   const [addEmd]=useCreateEmdUpdateMutation()
- ShowPopup()
+
 
   const {
     register,
@@ -42,27 +42,12 @@ try {
    
 
 
-    // const response =  Swal.fire({
-    //   icon: "question",
-    //   title:'Buying limit Updated Successfully',
-    //   text: "Do you want to genarate Coupen?",
-    //   showCancelButton: true,
-    //   confirmButtonText: "Yes",
-    //   cancelButtonText: "Cancel",
-    // });
-    // if ((await response).isConfirmed) {
-    //   alert("reached Here")
-    //   for(let i=0;i<parseInt(dataOnSubmit.buyingLimit);i++){
-    //     console.log(i,"iii")
-    //        const voucherCode=voucherCodes.generate({ prefix: "Auto-",
-    //        postfix: "-2023"})
-    //        console.log(voucherCode,"v")
-       
-    // const result=await    createToken({variables:{data: {coupenNumber:voucherCode[0] ,emdDetail:{connect:{id:data?.createEmdUpdate?.id}},userDetail:{connect:{id:userId}}}
-    //   }})
-    //   console.log(result,"res")
-    //   }
-    // }
+     Swal.fire({
+       icon: "success",
+      title:'Buying limit Updated Successfully',
+ 
+    });
+
   }
 } catch (error) {
   ShowPopup("Failed!", `${error.message}`, "error", 5000, true);
