@@ -3718,7 +3718,7 @@ export type OpenAuctionVehiclesQueryVariables = Exact<{
 }>;
 
 
-export type OpenAuctionVehiclesQuery = { __typename?: 'Query', vehicles?: Array<{ __typename?: 'Vehicle', vehicleEventStatus?: VehicleEventStatus | null, registrationNumber?: string | null, make?: string | null, model?: string | null, varient?: string | null, categoty?: string | null, city?: string | null, fuel?: string | null, type?: string | null, rcStatus?: string | null, yearOfManufacture?: number | null, ownership?: number | null, kmReading?: number | null, insuranceStatus?: string | null, frontImage?: string | null, backImage?: string | null, leftImage?: string | null, rightImage?: string | null, image5?: string | null, image6?: string | null, currentBidAmount?: number | null, bidStartTime?: any | null, bidStatus?: VehicleBidStatusType | null, bidTimeExpire?: any | null, vehicleIndexNo?: number | null, myBidRank?: number | null, id: string, startPrice?: number | null, startBidAmount?: number | null, quoteIncreament?: number | null, veicleLocation?: string | null, vehicleCondition?: string | null, yardLocation?: string | null, event?: { __typename?: 'Event', id: string, gapInBetweenVehicles?: number | null, endDate?: any | null, status?: EventStatusType | null } | null }> | null };
+export type OpenAuctionVehiclesQuery = { __typename?: 'Query', vehicles?: Array<{ __typename?: 'Vehicle', vehicleEventStatus?: VehicleEventStatus | null, registrationNumber?: string | null, make?: string | null, model?: string | null, varient?: string | null, categoty?: string | null, city?: string | null, fuel?: string | null, type?: string | null, rcStatus?: string | null, yearOfManufacture?: number | null, ownership?: number | null, kmReading?: number | null, insuranceStatus?: string | null, frontImage?: string | null, backImage?: string | null, leftImage?: string | null, rightImage?: string | null, image5?: string | null, image6?: string | null, currentBidAmount?: number | null, bidStartTime?: any | null, bidStatus?: VehicleBidStatusType | null, bidTimeExpire?: any | null, vehicleIndexNo?: number | null, myBidRank?: number | null, id: string, startPrice?: number | null, startBidAmount?: number | null, quoteIncreament?: number | null, veicleLocation?: string | null, vehicleCondition?: string | null, yardLocation?: string | null, repoDt?: any | null, event?: { __typename?: 'Event', id: string, gapInBetweenVehicles?: number | null, endDate?: any | null, status?: EventStatusType | null } | null }> | null };
 
 export type SudoBidsQueryVariables = Exact<{
   where?: InputMaybe<BidWhereInput>;
@@ -5735,6 +5735,7 @@ export const OpenAuctionVehiclesDocument = gql`
     veicleLocation
     vehicleCondition
     yardLocation
+    repoDt
     event {
       id
       gapInBetweenVehicles
