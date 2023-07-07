@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import { useCreateUserMutation, useSelectorsQuery } from "../../utils/graphql";
 import { ShowPopup } from '../alerts/popUps';
 import { useNavigate } from "react-router-dom";
+import voucherCodes  from 'voucher-code-generator'
 const AddUser = () => {
   const navigate=useNavigate()
   const {
@@ -20,7 +21,8 @@ const AddUser = () => {
   console.log("DATA ",data);
   const onSubmit = async (dataOnSubmit) => {
     console.log(dataOnSubmit, "onSubmit");
-
+    const voucherCode=voucherCodes.generate()
+    console.log(voucherCode,"vv")
     const data = {
       firstName: dataOnSubmit?.first_Name,
       lastName: dataOnSubmit?.last_Name || "",
@@ -32,7 +34,8 @@ const AddUser = () => {
       role: dataOnSubmit?.role,
       //  category:{create:dataOnSubmit?.category},
 
-      password: dataOnSubmit?.confirmPassword,
+    //  password: dataOnSubmit?.confirmPassword,
+    password:voucherCode[0],
       idProofType: dataOnSubmit?.idType,
       idProofNo: dataOnSubmit?.IdNumber,
       country: dataOnSubmit?.country,
@@ -119,10 +122,10 @@ const AddUser = () => {
                   {errors.email && <span> email required</span>}
                 </p>
               </div>
-              <div className="flex flex-col  w-1/3">
+              {/* <div className="flex flex-col  w-1/3">
                 <label htmlFor=""> Password</label>
                 <input
-                  type="text"
+                  type="password"
                   defaultValue={"1234auto"}
                   className="p-3 input input-bordered input-secondary w-full"
                   {...register("confirmPassword", {minLength:8,required:true})}
@@ -133,7 +136,7 @@ const AddUser = () => {
                     <span>Confirm password required & minimum 8 charators required</span>
                   )}
                 </p>
-              </div>
+              </div> */}
               {/* <div className="flex flex-col  w-1/3 ">
                 <label htmlFor="">User Name</label>
                 <input
