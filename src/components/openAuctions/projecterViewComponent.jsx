@@ -18,29 +18,30 @@ import {
   useBidUserQuery,
   useEditEventMutation
 } from "../../utils/graphql";
-import ParticipantsList from "./participantList";
-import VehicleDetails from "./createBid";
+
 import Swal from "sweetalert2";
-import { Carousel } from "@material-tailwind/react";
 
 
 
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+
+// function classNames(...classes) {
+//   return classes.filter(Boolean).join(" ");
+// }
 
 const LivetimeOfVehicle = () => {
    const { id } = useParams();
-  const [accessToken, setAccessToken] = useState("");
+
   const [rInterval, setRInterval] = useState(2000);
   const [liveItem, setLiveItem] = useState(null);
   const [upcoming, setUpcoming] = useState(null);
-  const [bidAmount, setBidAmount] = useState("");
+  const[formatedDate,setFormatedDate]=useState('')
+  console.log(formatedDate,"fd")
+ 
   const [tick, setTick] = useState(0);
   const [serverTime, setserverTime] = useState(null);
-  const [showImageCarouselModal, setShowImageCarouselModal] = useState(false);
-  const [images, setImages] = useState([]);
+  // const [showImageCarouselModal, setShowImageCarouselModal] = useState(false);
+  // const [images, setImages] = useState([]);
   const [pauseEvent]=useEditEventMutation({variables:{where:{id}}})
 
   useEffect(() => {
@@ -139,16 +140,18 @@ const handleEventActivate=async()=>{
   useEffect(() => {
     if (data && data.vehicles.length > 0) {
       const live = data.vehicles.find(
-        (element) => element.vehicleEventStatus == "live"
+        (element) => element.vehicleEventStatus === "live"
       );
       const upcomingVehicles = data.vehicles.filter(
-        (element) => element.vehicleEventStatus == "upcoming"
+        (element) => element.vehicleEventStatus === "upcoming"
       );
       const sortedUpcoming = upcomingVehicles.sort(compare);
       setUpcoming(sortedUpcoming);
       //   bidStartTime;
       if (live) {
         setLiveItem(live);
+      
+  
       } else {
         setLiveItem(null);
       }
@@ -227,65 +230,65 @@ const handleEventActivate=async()=>{
 
   // console.log('return form upcomingSecondsLeft()',typeof(upcomingSecondsLeft()));
 
-  function BindVehicleImage(vehicle) {
+  // function BindVehicleImage(vehicle) {
     
-    if (vehicle) {
-      const tempImages = [];
-      let count = 0;
-      if (vehicle.frontImage !== "") {
-        tempImages.push({
-          id: 1,
-          name: "Front Image",
-          src: vehicle.frontImage,
-          alt: "Front Image.",
-        });
-      }
-      if (vehicle.backImage !== "") {
-        tempImages.push({
-          id: 2,
-          name: "Back Image",
-          src: vehicle.backImage,
-          alt: "Back Image.",
-        });
-      }
-      if (vehicle.leftImage !== "") {
-        tempImages.push({
-          id: 3,
-          name: "Left Image",
-          src: vehicle.leftImage,
-          alt: "Left Image.",
-        });
-      }
-      if (vehicle.rightImage !== "") {
-        tempImages.push({
-          id: 4,
-          name: "Right Image",
-          src: vehicle.rightImage,
-          alt: "Right Image.",
-        });
-      }
-      // console.log(vehicle);
-      // console.log(tempImages);
-      setImages(tempImages);
-      console.log(tempImages,"temp")
-    } else {
-      setImages([]);
-    }
-  }
+  //   if (vehicle) {
+  //     const tempImages = [];
+  //     let count = 0;
+  //     if (vehicle.frontImage !== "") {
+  //       tempImages.push({
+  //         id: 1,
+  //         name: "Front Image",
+  //         src: vehicle.frontImage,
+  //         alt: "Front Image.",
+  //       });
+  //     }
+  //     if (vehicle.backImage !== "") {
+  //       tempImages.push({
+  //         id: 2,
+  //         name: "Back Image",
+  //         src: vehicle.backImage,
+  //         alt: "Back Image.",
+  //       });
+  //     }
+  //     if (vehicle.leftImage !== "") {
+  //       tempImages.push({
+  //         id: 3,
+  //         name: "Left Image",
+  //         src: vehicle.leftImage,
+  //         alt: "Left Image.",
+  //       });
+  //     }
+  //     if (vehicle.rightImage !== "") {
+  //       tempImages.push({
+  //         id: 4,
+  //         name: "Right Image",
+  //         src: vehicle.rightImage,
+  //         alt: "Right Image.",
+  //       });
+  //     }
+  //     // console.log(vehicle);
+  //     // console.log(tempImages);
+  //     setImages(tempImages);
+  //     console.log(tempImages,"temp")
+  //   } else {
+  //     setImages([]);
+  //   }
+  // }
 
-  let [vehicleDetails] = useState({
-    Specification: [],
-    Equipment: [],
-  });
+  // let [vehicleDetails] = useState({
+  //   Specification: [],
+  //   Equipment: [],
+  // });
 
-  const options = {
-    type: "loop",
-    gap: "1rem",
-    autoplay: true,
-    pauseOnHover: false,
-    resetProgress: false,
-    pagination: false,
-  };
+  // const options = {
+  //   type: "loop",
+  //   gap: "1rem",
+  //   autoplay: true,
+  //   pauseOnHover: false,
+  //   resetProgress: false,
+  //   pagination: false,
+  // };
 
 
 
@@ -466,9 +469,14 @@ const handleEventActivate=async()=>{
                         <label className="font-bold">{liveItem?.yardLocation}</label>
                         </div>
                         </div> 
-
+                       
                      
                 </div>
+                {/* <div className=" flex flex-col shadow-lg">
+                        <label>Repo Date</label>
+                      
+                        <label className="font-bold">{formatedDate}</label>
+                        </div> */}
              </div>
             </div>
             

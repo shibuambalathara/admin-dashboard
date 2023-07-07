@@ -33,6 +33,7 @@
     veicleLocation
  vehicleCondition
  yardLocation
+ repoDt
     event {
       id
       gapInBetweenVehicles

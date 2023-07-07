@@ -44,14 +44,22 @@ const VehicleDetails = (props) => {
     if (state.vehicleId !== props?.liveVehicle?.id) {
       dispatch({ type: 'SET_VEHICLE_ID', payload: props?.liveVehicle?.id });
       dispatch({ type: 'SET_BID_AMOUNT', payload: props?.liveVehicle?.startBidAmount });
+      
     }
     if (  bidAmount < props?.liveVehicle?.currentBidAmount) {
+     
       dispatch({ type: 'SET_BID_AMOUNT', payload: props?.liveVehicle?.currentBidAmount });
+      setValue("amount",bidAmount)
     }
   }, [props,bidAmount,state.vehicleId]);
+
+
+  useEffect(()=>{
+    setValue("amount",bidAmount)
+  },[bidAmount])
 // ...........................................................
  
-  console.log(props, "veh");
+  console.log(props, "veh",bidAmount,"bid Amount");
 
 
   const [userIdNo, setUserId] = useState();
@@ -103,7 +111,8 @@ const VehicleDetails = (props) => {
   const {
     register,
     handleSubmit,
-
+    setValue,
+    getValues,
     formState: { errors },
   } = useForm();
 
@@ -114,21 +123,31 @@ const VehicleDetails = (props) => {
  
 
     const { token, amount } = onSubmitData;
-    console.log(amount,"amount")
+    
     setUserId(token);
 
      if (data?.user?.id) 
 {
-    bidVehicle({
-      variables: {
-        data: {
-          bidVehicle: { connect: { id: vehicleDetails?.liveVehicle?.id } },
-          user: { connect: { id: data?.user?.id } },
+    
+  // const result=({
+  //     variables: {
+  //       data: {
+  //         bidVehicle: { connect: { id: vehicleDetails?.liveVehicle?.id } },
+  //         user: { connect: { id: data?.user?.id } },
 
-          amount: +bidAmount,
+  //         amount: +amount,
+  //       },
+  //     },
+  //   })
+  const result=bidVehicle({variables: {
+          data: {
+            bidVehicle: { connect: { id: vehicleDetails?.liveVehicle?.id } },
+            user: { connect: { id: data?.user?.id } },
+  
+            amount: +amount,
+          },
         },
-      },
-    })
+  })
   
       .then((result) => {
         // Additional actions after successful bid submission
@@ -150,6 +169,9 @@ console.log(result,"result")
         // Handle any errors that occur during bid submission
         setUserId(0);
       })
+ if(!result){
+  alert("Please check token number")
+ }
    
     }
   
@@ -304,7 +326,7 @@ console.log(result,"result")
   }
 
   return (
-    <div className="flex  justify-around border-2 p-2">
+    <div className="flex  justify-around  border-2 p-2">
       <div className="border-2 flex justify-center align-middle p-5">
         <form onSubmit={handleSubmit(onSubmit)}>
           
@@ -325,8 +347,6 @@ console.log(result,"result")
                 
                   <input
                   type="number"
-                    value={bidAmount}
-                   
                     className="bg-gray-50 border  border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500   p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-72"
                     {...register("amount", { required: true})}
                   />
@@ -353,7 +373,7 @@ console.log(result,"result")
                 {incrementAmounts?.map((amount) => (
                   <button
                     className="btn btn-outline w-fit text-lg"
-                    onClick={(e) => handleBidAmount(amount?.value)}
+                    onClick={(e) => setValue("amount",Number(getValues("amount")) + Number(amount?.value))}
                   >
                     +{amount?.value}
                   </button>
@@ -361,8 +381,8 @@ console.log(result,"result")
               </div>
               <div className="m-2 space-x-2">
   {Array.from({ length: 5 }).map((_, i) => (
-    <button  onClick={(e) => handleBidAmount(+e.target.value)} className="btn text-lg bg-red-500" key={i} value={((i+1) *vehicleDetails?.liveVehicle?.quoteIncreament )}>
-      {bidAmount +((i+1) * vehicleDetails?.liveVehicle?.quoteIncreament)}
+    <button  onClick={(e) =>setValue("amount",Number(getValues("amount"))+Number(((i+1) * vehicleDetails?.liveVehicle?.quoteIncreament)))} className="btn text-lg bg-red-500" key={i} value={((i+1) *vehicleDetails?.liveVehicle?.quoteIncreament )}>
+      {Number(getValues("amount")) + Number(((i+1) * vehicleDetails?.liveVehicle?.quoteIncreament))}
     </button>
   ))}
 </div>
@@ -394,7 +414,7 @@ console.log(result,"result")
             Pause Event
           </button>
           <a
-            className="btn btn-ghost"
+            className="btn bg-cyan-700"
             href={`/projecter-view/${vehicleDetails?.liveVehicle?.event.id}`}
             target="_blank"
             rel="noopener noreferrer"
