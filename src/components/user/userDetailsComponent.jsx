@@ -352,6 +352,23 @@ console.log(data,"data")
             </div>
             </div>
         
+            <div className="flex space-x-2 justify-around">
+            <div className="w-1/3">
+              <label htmlFor="">Pancard</label>
+              <input  defaultValue={data?.user?.pancardNo} type="text" className="input input-bordered input-secondary w-full " {...register("pancardNumber", { })}/>
+              <p className="text-red-500"> {errors.IdNumber && <span>Atleast 8 charators required</span>}</p>
+            </div>
+            <div className="w-1/3">
+              <label htmlFor="">Pancard Image</label>
+              <Input type="file" className="p-1" {...register("pancardImage", { })}></Input>
+
+              <img
+                className="w-full h-36 border"
+                src={`https://api.autobse.com${data?.user?.pancard?.url}`}
+                alt="no pancard_Image"
+              />
+            </div>
+          </div>
 
           <div className="flex space-x-2 justify-around">
             <div className=" flex  flex-col w-1/3">
