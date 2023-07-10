@@ -7,6 +7,8 @@ import TabbleOfUsersOrUser from './tabble';
 
 
 const UsersByState = () => {
+  const [currentPage, setCurrentPage] = useState(0);
+  const [pageSize, setPageSize] = useState(10);
     const [state,setState]=useState('0')
     const [user,setUser]=useState([])
     const {data:states}=useStatesQuery()
@@ -73,6 +75,7 @@ const UsersByState = () => {
             </div>
             </form>
      {data?.users[0]?.id &&     <TabbleOfUsersOrUser users={data?.users}/>}
+    
    
         </div>
 
