@@ -164,7 +164,7 @@ const { value: input } = await Swal.fire({
           {
             Header: "Report (excel)",
             Cell: ({ row }) => (
-              <button className="btn btn-success" onClick={() => handleReport(row.original.Report)}>Report</button>
+              <button className="btn btn-success" onClick={() => handleReport(row.original.Report)}>Download</button>
             )
           },
   

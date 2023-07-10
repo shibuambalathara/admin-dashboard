@@ -2,6 +2,7 @@ import React from 'react'
 import ViewUsers from '../components/users/viewUsers'
 import UserByMobile from '../components/users/userByMobile'
 import { useNavigate } from 'react-router-dom';
+import UsersByState from '../components/users/usersByState';
 
 const Users = () => {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ const Users = () => {
             </div>
       </div>
       <UserByMobile/>
+      <UsersByState/>
     <ViewUsers/>
     </div>
   )
