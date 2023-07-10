@@ -34,3 +34,24 @@ query bidUser($where: UserWhereUniqueInput!) {
     username
   }
 }
+query UsersSearch($where: UserWhereInput!) {
+  users(where: $where) {
+        firstName
+    lastName
+    email
+    mobile
+    status
+    state
+    role
+    idNo
+    id
+     pancardNo
+     activeBidsCount
+     createdAt
+     currentVehicleBuyingLimit {
+    vehicleBuyingLimit  
+    }
+paymentsCount
+ coupenDetailCount
+  }
+}

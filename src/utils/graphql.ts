@@ -3885,6 +3885,13 @@ export type BidUserQueryVariables = Exact<{
 
 export type BidUserQuery = { __typename?: 'Query', user?: { __typename?: 'User', firstName?: string | null, lastName?: string | null, activeBidsCount?: number | null, username?: string | null } | null };
 
+export type UsersSearchQueryVariables = Exact<{
+  where: UserWhereInput;
+}>;
+
+
+export type UsersSearchQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', firstName?: string | null, lastName?: string | null, email?: string | null, mobile?: string | null, status?: UserStatusType | null, state?: string | null, role?: UserRoleType | null, idNo?: number | null, id: string, pancardNo?: string | null, activeBidsCount?: number | null, createdAt?: any | null, paymentsCount?: number | null, coupenDetailCount?: number | null, currentVehicleBuyingLimit?: { __typename?: 'vehicleBuyingLimits', vehicleBuyingLimit?: number | null } | null }> | null };
+
 export type CreateVehicleMutationVariables = Exact<{
   data: VehicleCreateInput;
 }>;
@@ -6875,6 +6882,57 @@ export function useBidUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Bi
 export type BidUserQueryHookResult = ReturnType<typeof useBidUserQuery>;
 export type BidUserLazyQueryHookResult = ReturnType<typeof useBidUserLazyQuery>;
 export type BidUserQueryResult = Apollo.QueryResult<BidUserQuery, BidUserQueryVariables>;
+export const UsersSearchDocument = gql`
+    query UsersSearch($where: UserWhereInput!) {
+  users(where: $where) {
+    firstName
+    lastName
+    email
+    mobile
+    status
+    state
+    role
+    idNo
+    id
+    pancardNo
+    activeBidsCount
+    createdAt
+    currentVehicleBuyingLimit {
+      vehicleBuyingLimit
+    }
+    paymentsCount
+    coupenDetailCount
+  }
+}
+    `;
+
+/**
+ * __useUsersSearchQuery__
+ *
+ * To run a query within a React component, call `useUsersSearchQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUsersSearchQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUsersSearchQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useUsersSearchQuery(baseOptions: Apollo.QueryHookOptions<UsersSearchQuery, UsersSearchQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UsersSearchQuery, UsersSearchQueryVariables>(UsersSearchDocument, options);
+      }
+export function useUsersSearchLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UsersSearchQuery, UsersSearchQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UsersSearchQuery, UsersSearchQueryVariables>(UsersSearchDocument, options);
+        }
+export type UsersSearchQueryHookResult = ReturnType<typeof useUsersSearchQuery>;
+export type UsersSearchLazyQueryHookResult = ReturnType<typeof useUsersSearchLazyQuery>;
+export type UsersSearchQueryResult = Apollo.QueryResult<UsersSearchQuery, UsersSearchQueryVariables>;
 export const CreateVehicleDocument = gql`
     mutation CreateVehicle($data: VehicleCreateInput!) {
   createVehicle(data: $data) {

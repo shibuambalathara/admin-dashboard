@@ -179,7 +179,7 @@ const handleMessage=(coupen)=>{
           <div className="mb-4">
          
            
-       { users && users.length &&    <SearchUser
+       { users && users.length>1 &&    <SearchUser
               filter={globalFilter}
               className="  text-white "
               setFilter={setGlobalFilter}
