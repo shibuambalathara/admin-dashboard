@@ -3,7 +3,7 @@ import { Button } from "@material-tailwind/react";
 import React, { useMemo, useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTable, usePagination, useGlobalFilter } from "react-table";
-import { useDeleteStateMutation, useEventTableQuery ,useStatesQuery} from "../../utils/graphql";
+import { useDeleteStateMutation,useStatesQuery, useUpdateStateMutation} from "../../utils/graphql";
 import SearchUser from "../users/searchUser";
 
 import Swal from "sweetalert2";
@@ -13,6 +13,8 @@ const ViewStates = () => {
  
   const navigate = useNavigate();
   const { data, loading, error,refetch } = useStatesQuery();
+  const [updateState]=useUpdateStateMutation()
+  console.log(data,"state")
   const [deleteState]=useDeleteStateMutation()
  
   const handleRemoveState=async(stateId)=>{
@@ -41,6 +43,36 @@ const ViewStates = () => {
     }
   
   }
+  const handleEditState = async (state, id) => {
+    const { value: input } = await Swal.fire({
+      title: 'Enter State Name',
+      html: '<input id="state" class="swal2-select"></input>',
+      focusConfirm: false,
+      preConfirm: () => {
+        return [document.getElementById('state').value];
+      },
+    });
+  
+    const newState = input[0];
+  
+    updateState({
+      variables: { where: { id }, data: { name: newState } },
+    })
+      .then(() => {
+        Swal.fire({
+          icon: 'success',
+          title: 'State Name Updated Successfully',
+        });
+        refetch();
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'State name Not Updated',
+        });
+      });
+  };
+  
  
 
   
@@ -51,11 +83,17 @@ const ViewStates = () => {
       { Header: "Users", accessor:  (user) => user.users.map(user =><span className=" "> { user.firstName},</span>) },
       { Header: "Locations", accessor:(location) => location.locations.map(location => location.name).join(', ') },
       {
-        Header: "Remove State",
+        Header: "Edit State",
         Cell: ({ row }) => (
-          <button className="btn btn-error" onClick={() => handleRemoveState(row.original?.id)}>Remove</button>
+          <button className="btn bg-red-500" onClick={() => handleEditState(row.original?.name,row.original?.id)}>Edit State</button>
         )
       },
+      // {
+      //   Header: "Remove State",
+      //   Cell: ({ row }) => (
+      //     <button className="btn btn-error" onClick={() => handleRemoveState(row.original?.id)}>Remove</button>
+      //   )
+      // },
     ],
     []
   );
@@ -142,7 +180,7 @@ const ViewStates = () => {
                   {row.cells.map((cell) => {
                     return (
                       <td
-                        className="py-3 pl-4 text-center border  border-1 text-center border-gray-200"
+                        className="py-3 pl-4  border  border-1 text-center border-gray-200"
                         {...cell.getCellProps()}
                       >
                         {cell.render("Cell")}
