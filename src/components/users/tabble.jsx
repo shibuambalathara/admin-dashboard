@@ -176,15 +176,17 @@ const handleMessage=(coupen)=>{
 
       <div className=" max-w-7xl mx-auto h-fit">
         <div className=" flex flex-col justify-center m-auto w-full">
-          <div className="mb-4">
+          <div className="flex">
          
-           
+       
        { users && users.length>1 &&    <SearchUser
               filter={globalFilter}
               className="  text-white "
               setFilter={setGlobalFilter}
             />}
-          </div>
+        <div></div>
+  
+          </div> 
           <table  
             className="w-full  bg-white border-collapse border  border-1 border-gray-300  divide-y   text-gray-900"
             {...getTableProps()}
@@ -231,7 +233,46 @@ const handleMessage=(coupen)=>{
               })}
             </tbody>
           </table>
-  
+          {       users && users.length>10 &&      <div className="flex justify-center">
+            <div className="flex flex-col justify-between mt-4 ">
+            <div className="flex justify-center">
+          Page{' '}
+          <strong>
+            {tablePageIndex + 1} of {tableInstance.pageOptions.length}
+         
+          </strong>{' '}
+        </div>
+              <div className="space-x-2">
+                <button
+                  onClick={() => gotoPage(0)}
+                  disabled={!canPreviousPage}
+                  className="btn "
+                >
+                  {"<<"}
+                </button>
+               
+                <button
+                  onClick={() => previousPage()}
+                  disabled={!canPreviousPage}
+                  className="btn"
+                >
+                  {"<"}
+                </button>
+                <button
+                  onClick={() => nextPage()}
+                  disabled={!canNextPage}
+                  className="btn"
+                >
+                  {" "}
+                  {">"}
+                </button>
+                <button className="btn" onClick={() => gotoPage(pageCount - 1)}  disabled={!canNextPage}>
+          {'>>'}
+        </button>{' '}
+              </div>
+         
+            </div>
+          </div>}
         </div>
       </div>
     </div>

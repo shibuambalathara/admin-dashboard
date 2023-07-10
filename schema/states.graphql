@@ -24,3 +24,8 @@ mutation CreateState($data: StateCreateInput!) {
   name
   }
 }
+mutation UpdateState($where: StateWhereUniqueInput!, $data: StateUpdateInput!) {
+  updateState(where: $where, data: $data) {
+  id  
+  }
+}

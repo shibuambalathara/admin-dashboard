@@ -3842,6 +3842,14 @@ export type DeleteStateMutationVariables = Exact<{
 
 export type DeleteStateMutation = { __typename?: 'Mutation', deleteState?: { __typename?: 'State', id: string, name?: string | null } | null };
 
+export type UpdateStateMutationVariables = Exact<{
+  where: StateWhereUniqueInput;
+  data: StateUpdateInput;
+}>;
+
+
+export type UpdateStateMutation = { __typename?: 'Mutation', updateState?: { __typename?: 'State', id: string } | null };
+
 export type UserauthenticationQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -6540,6 +6548,40 @@ export function useDeleteStateMutation(baseOptions?: Apollo.MutationHookOptions<
 export type DeleteStateMutationHookResult = ReturnType<typeof useDeleteStateMutation>;
 export type DeleteStateMutationResult = Apollo.MutationResult<DeleteStateMutation>;
 export type DeleteStateMutationOptions = Apollo.BaseMutationOptions<DeleteStateMutation, DeleteStateMutationVariables>;
+export const UpdateStateDocument = gql`
+    mutation UpdateState($where: StateWhereUniqueInput!, $data: StateUpdateInput!) {
+  updateState(where: $where, data: $data) {
+    id
+  }
+}
+    `;
+export type UpdateStateMutationFn = Apollo.MutationFunction<UpdateStateMutation, UpdateStateMutationVariables>;
+
+/**
+ * __useUpdateStateMutation__
+ *
+ * To run a mutation, you first call `useUpdateStateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateStateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateStateMutation, { data, loading, error }] = useUpdateStateMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useUpdateStateMutation(baseOptions?: Apollo.MutationHookOptions<UpdateStateMutation, UpdateStateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateStateMutation, UpdateStateMutationVariables>(UpdateStateDocument, options);
+      }
+export type UpdateStateMutationHookResult = ReturnType<typeof useUpdateStateMutation>;
+export type UpdateStateMutationResult = Apollo.MutationResult<UpdateStateMutation>;
+export type UpdateStateMutationOptions = Apollo.BaseMutationOptions<UpdateStateMutation, UpdateStateMutationVariables>;
 export const UserauthenticationDocument = gql`
     query Userauthentication {
   authenticatedItem {
