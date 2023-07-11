@@ -1,22 +1,25 @@
 
 
+
+
+
 import React, { useState } from 'react'
 import { useForm } from "react-hook-form";
 import { useStatesQuery, useUserQuery, useUsersSearchQuery } from '../../utils/graphql';
 import TabbleOfUsersOrUser from './tabble';
 
 
-const UsersByState = () => {
+const UsersByDate = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [pageSize, setPageSize] = useState(10);
-    const [state,setState]=useState('0')
+    const [startDate,setDate]=useState('0')
     const [user,setUser]=useState([])
     const {data:states}=useStatesQuery()
-    const{data,loading}=useUsersSearchQuery({variables:{where:{state:{contains:state}}}})
+    const{data,loading}=useUsersSearchQuery({variables:{where:{createdAt:{gte:startDate}}}})
  if (data?.users)   console.log(data?.users,"data.users")
  
    
-    console.log(state,"state")
+    console.log(startDate,"state")
     const {
         register,
         handleSubmit,
@@ -25,35 +28,37 @@ const UsersByState = () => {
         setValue,
         formState: { errors },
       } = useForm();
-    
+    const onSubmit = async (dataOnSubmit) => {
+
+
+    }
     if(loading)return<div>Loading....</div>
   return (
     <div className='m-5'>
         <div>
            
-          
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <div className='flex justify-between'>
                   <div>
-          
-                     <select
-                {...register("state", { required: true })}
-                placeholder="select"
-                className="input input-bordered input-secondary  w-64 "
+                  <input type='date'
+                placeholder=" Enter mobile Number"
+              
+                className="p-3  input input-bordered input-secondary w-64"
+                {...register("startDate", {
+                  required: true,
+                 
+                })}
                 onChange={(e) => {
-                  const value = e.target.value;
-                  setValue("state",value);
-                  setState(value)
+                    const value = e.target.value
+                    const date=new Date(value)
+                    const isoDate=date.toISOString()
+                    
+                  setValue("startDate",(value));
+               setDate(isoDate)
+                 
                
                 }}
-              >
-                <option value="">Select State </option>
-                {states?.states?.map((item) => (
-                  <option key={item.name} value={item.name}>
-                    {item.name}
-                  </option>
-                ))}
-             
-              </select>
+              />
                    <p className="text-red-500">
                   {" "}
                   {errors.mobile && <span>Please Enter 10 digits</span>}
@@ -62,9 +67,8 @@ const UsersByState = () => {
                 <div>
           {data?.users[0]?.id &&      <p className='text-red-500 font-bold'>  Number OF Users: {data?.users.length}</p> }
                 </div>
-       
             </div>
-          
+            </form>
      {data?.users[0]?.id &&     <TabbleOfUsersOrUser users={data?.users}/>}
     
    
@@ -74,4 +78,4 @@ const UsersByState = () => {
   )
 }
 
-export default UsersByState
+export default UsersByDate

@@ -1,7 +1,7 @@
 import { Button } from '@material-tailwind/react'
 import React, { useEffect, useMemo } from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
-import { useTable,usePagination,useGlobalFilter } from "react-table"
+import { useTable,useSortBy, usePagination, useGlobalFilter } from "react-table";
 import {usePaymentOfUserQuery} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
 import format from 'date-fns/format'
@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 const PaymentPerUser = () => {
     const {id}=useParams()
     const {data,loading,error,refetch}=usePaymentOfUserQuery({variables:{where:{id:id}}})
-    console.log(data,"dataaaaaaa")
+    
     
     const navigate=useNavigate()
     const handleUserDetails=(userId)=>{
@@ -113,7 +113,17 @@ navigate(`/update-payment/${paymentId}`)
       const tableInstance=useTable({
         columns ,
         data: tableData,
-      },useGlobalFilter,usePagination);
+        initialState: {
+          sortBy: [
+            {
+              id: "createdAt",
+              desc: true,
+            },
+          ],
+        },
+      },  useGlobalFilter,
+      useSortBy,
+      usePagination,);
      
         const {
           getTableProps,
@@ -149,42 +159,52 @@ navigate(`/update-payment/${paymentId}`)
   <div className="text-center font-extrabold my-5 text-lg min-w-full">  Payment Data Table of {data?.user?.firstName} {data?.user?.lastName} </div>
     <SearchUser filter={globalFilter} className="  text-white " setFilter={setGlobalFilter}/>
   </div>
-      <table
-        className="w-full divide-y divide-gray-200"
-        {...getTableProps()}
-      >
-        <thead className="bg-gray-50">
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th
-                  scope="col"
-                  className="py-3 pl-4"
-                  {...column.getHeaderProps()}
-                >
-                  {column.render("Header")}
-                </th>
+  <table  
+            className="w-full  bg-white border-collapse border  border-1 border-gray-300  divide-y   text-gray-900"
+            {...getTableProps()}
+
+          >
+            <thead className="bg-gray-50 relative ">
+              {headerGroups.map((headerGroup) => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map((column) => (
+                    <th
+                      scope="col"
+                      className="py-2 px-2  border  border-10 "
+                      {...column.getHeaderProps(column.getSortByToggleProps())}
+                    >
+                      {column.render("Header")}
+                      <span>
+                      {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                      </span>
+                    </th>
+                  ))}
+                </tr>
               ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody className="divide-y divide-gray-200" {...getTableBodyProps()}>
-          {page.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td className="py-3 pl-4 text-center" {...cell.getCellProps()}>
-                      {cell.render("Cell")}
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+            </thead>
+            <tbody
+              className="divide-y divide-gray-200"
+              {...getTableBodyProps()}
+            >
+              {page.map((row) => {
+                prepareRow(row);
+                return (
+                  <tr {...row.getRowProps()}>
+                    {row.cells.map((cell) => {
+                      return (
+                        <td
+                          className="px-2 py-2 text-md  border  border-1 text-center border-gray-200"
+                          {...cell.getCellProps()}
+                        >
+                          {cell.render("Cell")}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
 <div className="flex justify-center">
       <div className="flex justify-between mt-4">
       <div>
