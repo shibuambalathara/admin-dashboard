@@ -6,6 +6,7 @@ import {usePaymentOfUserQuery} from '../../utils/graphql'
 import SearchUser from '../users/searchUser'
 import format from 'date-fns/format'
 import Swal from "sweetalert2";
+import jsPDF from 'jspdf';
 
 const PaymentPerUser = () => {
     const {id}=useParams()
@@ -13,13 +14,13 @@ const PaymentPerUser = () => {
     
     
     const navigate=useNavigate()
-    const handleUserDetails=(userId)=>{
+    // const handleUserDetails=(userId)=>{
     
-      navigate(`/view-user/${userId}`)
-    }
+    //   navigate(`/view-user/${userId}`)
+    // }
 
+    console.log(data,"data")
     const handlePaymentStatus=(paymentId)=>{
-console.log(paymentId,"payment id")
 navigate(`/update-payment/${paymentId}`)
     }
     const handleMessage=(payment)=>{
@@ -39,6 +40,9 @@ navigate(`/update-payment/${paymentId}`)
           </div>`
       
       })
+    }
+    const handleDownload=(paymentData)=>{
+      convertToPDF(paymentData,data.user)
     }
 
 
@@ -97,6 +101,17 @@ navigate(`/update-payment/${paymentId}`)
             Cell: ({ row }) => {
               
     if(row.original.status==='success' ){return(   <button className="btn bg-yellow-500" onClick={() => handleMessage(row.original)}>Message To:{data?.user?.mobile}</button>)}
+    else {
+      
+      return row.original.status;}
+        
+    }
+          },
+          {
+            Header: "Download",
+            Cell: ({ row }) => {
+              
+    if(row.original.status==='success' ){return(   <button className="btn bg-sky-500" onClick={() => handleDownload(row.original)}>Download</button>)}
     else {
       
       return row.original.status;}
@@ -237,3 +252,42 @@ navigate(`/update-payment/${paymentId}`)
 }
 
 export default PaymentPerUser
+
+function convertToPDF(paymentDetails,user){
+
+  console.log(paymentDetails,"pm",user)
+  const pdf = new jsPDF();
+  const logoImg = '../AutoBSE_Logo.png';
+  
+  const datePrinted=`Printed Date : ${new Date().toLocaleDateString()}`
+  const options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+
+const createdPayment=new Date(paymentDetails.createdAt).toLocaleDateString(undefined,options)
+const UpdatedPayment=new Date(paymentDetails.createdAt).toLocaleDateString(undefined,options)
+const createdBy=paymentDetails?.createdBy ? paymentDetails?.createdBy.firstName : user.firstName
+
+  pdf.addImage(logoImg, 'PNG', 10, 10, 30, 30);
+  pdf.setFontSize(12);
+  pdf.setFont('helvetica', 'bold'); 
+  pdf.text(datePrinted, 150, 50,);
+ pdf.text('Sub : Payment status active letter',10, 60)
+        pdf.setFont('helvetica', 'normal'); 
+       
+    
+        pdf.setFontSize(12);
+        pdf.text(`Amount              : ${paymentDetails.amount}`, 10, 80);
+        pdf.text(`Created At          : ${createdPayment}`, 10, 90);
+        pdf.text(`Updated At          : ${UpdatedPayment}`, 10, 100);
+        pdf.text(`payment For         : ${paymentDetails.paymentFor}`, 10, 110);
+        pdf.text(`Payment Created By  : ${createdBy}`, 10, 120);
+      
+        pdf.setFontSize(10);
+  pdf.text('User registration details on AUTOBSe are as follows:',10,138)
+  pdf.setFontSize(12);
+
+  pdf.text(`First Name  : ${user.firstName}`, 10, 148) 
+  pdf.text(`Last Name   : ${user.lastName}`, 10, 158)
+
+  pdf.text(`Mobile      : ${user.mobile}`, 10, 168)
+  pdf.save(`payment of ${user.firstName}`.pdf)
+}
