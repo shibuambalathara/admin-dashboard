@@ -16,7 +16,7 @@ const EditVehicleComponent = () => {
   
    const[editVehicle]=useUpdateVehicleMutation({variables:{where:{id}}})
   const{data,loading,error}=useVehicleDetailsQuery({variables:{where:{id:id}}})
-  
+  console.log(data,"vv")
  
  
   useEffect(() => {
@@ -87,6 +87,7 @@ const vehicle={
   engineNo:dataOnSubmit?.engineNumber,
   chassisNo:dataOnSubmit?.chassisNo,
   frontImage:dataOnSubmit?.frontImage,
+  backImage:dataOnSubmit?.backImage,
   leftImage:dataOnSubmit?.leftImage,
   rightImage:dataOnSubmit?.rightImage,
   image5:dataOnSubmit?.image5,
