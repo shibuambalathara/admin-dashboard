@@ -165,8 +165,9 @@ Swal.fire({
               row.original.totalBids !==0 ? ( row.original.coupenDetail ? <button onClick={()=>handleMessage(row.original)} className='btn bg-yellow-500'>Message to { row.original.currentBidUser.mobile}</button>   : <button className="btn bg-red-500" onClick={() => handleCoupen(row.original)}>Apply Coupen</button>):"0"
               )
           },
+         
           {
-            Header: "Vehicle Details",
+            Header: "Vehicle Details",accessor: "registrationNumber",
             Cell: ({ row }) => (
               <a className="btn btn-secondary" href={`/edit-vehicle/${row.original.id}`} target="_blank" rel="noopener noreferrer">{row.original.registrationNumber}</a>
 
