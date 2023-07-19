@@ -5,7 +5,7 @@ import { Button } from "@material-tailwind/react";
 import { useNavigate, useParams } from "react-router-dom";
 import {  useBannedUsersQuery } from "../../utils/graphql";
 import { useTable,useSortBy, usePagination, useGlobalFilter } from "react-table";
-import SearchUser from "../../components/users/searchUser";
+import SearchUser from "../utils/searchUser";
 
 const BannedUsersComponent = () => {
  const {id}=useParams()

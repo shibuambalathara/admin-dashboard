@@ -1,24 +1,29 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
-import { useUsersQuery, useDeleteUserMutation } from "../../utils/graphql";
+import { useUsersQuery, useDeleteUserMutation, useUserauthenticationQuery } from "../../utils/graphql";
 import { useTable,useSortBy, usePagination, useGlobalFilter } from "react-table";
-import SearchUser from "./searchUser";
+import SearchUser from "../utils/searchUser";
 import format from 'date-fns/format'
 import UserByMobile from "./userByMobile";
-import TabbleOfUsersOrUser from "./tabble";
+import TabbleOfUsersOrUser from "./tabbleData";
+import LimitedDataPaginationComponents from "../utils/limitedDataPagination";
 
 const ViewUsers = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [pageSize, setPageSize] = useState(10);
 
-
+  
 
 
   const navigate = useNavigate();
 
   const { data, loading, error,refetch } = useUsersQuery(({variables:{ skip: currentPage * pageSize,take:pageSize, orderBy: {idNo:"desc"}}}));
- 
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
+
+  
 
   
   if(loading) return <div>Loading....</div>
@@ -30,28 +35,12 @@ const ViewUsers = () => {
     <div>
       
    {data?.users &&   <TabbleOfUsersOrUser users={data?.users}/>}
-   <div className="flex justify-center">
-            <div className="flex flex-col justify-between mt-4 ">
-            <div className="flex justify-center">
-          Page{' '}
-          <strong>
-            {currentPage + 1}
-             {/* of {tableInstance.pageOptions.length} */}
-         
-          </strong>{' '}
-        </div>
-              <div className="space-x-2">
-             
-                {currentPage>0 ?  <button className="btn" onClick={(e)=>setCurrentPage(0)}>{" "}{"<<"}</button> :<button disabled></button>}
 
-             {currentPage>0 ?  <button className="btn" onClick={(e)=>setCurrentPage(currentPage-1)}>{" "}{"<"}</button> :<button disabled></button>}
-                <button className="btn" onClick={(e)=>setCurrentPage(currentPage+1)}>{" "}{">"}</button> 
-         
-         
-              </div>
-         
-            </div>
-          </div>
+   <LimitedDataPaginationComponents   
+
+          currentPage={currentPage}
+      
+        onPageChange={handlePageChange}/>
     </div>
   );
 };

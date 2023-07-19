@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { useForm } from "react-hook-form";
 import { useStatesQuery, useUserQuery, useUsersSearchQuery } from '../../utils/graphql';
-import TabbleOfUsersOrUser from './tabble';
+import TabbleOfUsersOrUser from './tabbleData';
 
 
 const UsersByState = () => {

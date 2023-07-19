@@ -6,7 +6,7 @@ import React, { useMemo, useState,useEffect } from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import {  useTable,usePagination,useSortBy,useGlobalFilter  } from "react-table"
 import {useActiveBidsPerUserQuery, useBidsTableQuery, useUpdateVehicleMutation, useVehicleDetailsQuery} from '../../utils/graphql'
-import SearchUser from '../users/searchUser'
+import SearchUser from '../utils/searchUser'
 import format from "date-fns/format";
 import jsPDF from 'jspdf';
 import { ShowPopup } from '../alerts/popUps'

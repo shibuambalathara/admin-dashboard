@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useParticipantsQuery } from '../../utils/graphql'
-import TabbleOfUsersOrUser from './tabble'
+import TabbleOfUsersOrUser from './tabbleData'
 
 
 const UsersPerEvent = () => {

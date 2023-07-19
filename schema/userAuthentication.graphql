@@ -3,6 +3,7 @@ query Userauthentication {
     ... on User {
       username
       role
+      state
     }
   }
 }
