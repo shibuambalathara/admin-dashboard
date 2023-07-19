@@ -3,22 +3,34 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Button } from "@material-tailwind/react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useUsersQuery, useDeleteUserMutation } from "../../utils/graphql";
+import { useUsersQuery, useDeleteUserMutation, useUserauthenticationQuery } from "../../utils/graphql";
 import { useTable,useSortBy, usePagination, useGlobalFilter } from "react-table";
-import SearchUser from "./searchUser";
+import SearchUser from "../utils/searchUser";
 import format from 'date-fns/format'
 import Swal from "sweetalert2";
+import TableComponent from "../utils/table";
+import PaginationComponent from "../utils/pagination";
 
 const TabbleOfUsersOrUser = ({users}) => {
-  const [currentPage, setCurrentPage] = useState(0);
-  const [pageSize, setPageSize] = useState(10);
-
-  const navigate = useNavigate();
-  const location = useLocation();
-  const currentPage1 = location.pathname
  
+console.log(users.length,"uss")
+ 
+  const location = useLocation();
+  const currentPageStartWith = location.pathname
+  const {data:signIn}=useUserauthenticationQuery()
+  const filteredUsers = useMemo(() => {
+    if (signIn?.authenticatedItem.role === 'staff') {
+      
+      return users.filter((user) =>  user.state === signIn?.authenticatedItem.state);
+   
+    } else {
+      
+      return users;
+    }
+  }, [users]);
 
-  console.log("this is the data from view ", users);
+
+  console.log("this is the data from view ", filteredUsers);
 
 const handleMessage=(coupen)=>{
   const {coupenDetail,firstName,lastName,   currentVehicleBuyingLimit }=coupen
@@ -107,7 +119,7 @@ const handleMessage=(coupen)=>{
         ),
       },
       
-      ...(currentPage1 === '/users' ? [] : [  {
+      ...(currentPageStartWith === '/users' ? [] : [  {
   Header: "Message",
   Cell: ({ row }) => (
       <button className="btn bg-yellow-500" onClick={() => handleMessage(row.original)}>
@@ -121,7 +133,7 @@ const handleMessage=(coupen)=>{
     ],
     [users]
   );
-  const tableData = useMemo(() => (users? users : []), [users])
+  const tableData = useMemo(() => (users? filteredUsers : []), [users])
 
 
   const tableInstance = useTable(
@@ -184,98 +196,15 @@ const handleMessage=(coupen)=>{
               className="  text-white "
               setFilter={setGlobalFilter}
             />}
-        <div></div>
+      
   
           </div> 
-          <table  
-            className="w-full  bg-white border-collapse border  border-1 border-gray-300  divide-y   text-gray-900"
-            {...getTableProps()}
-
-          >
-            <thead className="bg-gray-50 relative ">
-              {headerGroups.map((headerGroup) => (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column) => (
-                    <th
-                      scope="col"
-                      className="py-2 px-2  border  border-10 "
-                      {...column.getHeaderProps(column.getSortByToggleProps())}
-                    >
-                      {column.render("Header")}
-                      <span>
-                      {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
-                      </span>
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody
-              className="divide-y divide-gray-200"
-              {...getTableBodyProps()}
-            >
-              {page.map((row) => {
-                prepareRow(row);
-                return (
-                  <tr {...row.getRowProps()}>
-                    {row.cells.map((cell) => {
-                      return (
-                        <td
-                          className="px-2 py-2 text-md  border  border-1 text-center border-gray-200"
-                          {...cell.getCellProps()}
-                        >
-                          {cell.render("Cell")}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-          {       users && users.length>10 &&      <div className="flex justify-center">
-            <div className="flex flex-col justify-between mt-4 ">
-            <div className="flex justify-center">
-          Page{' '}
-          <strong>
-            {tablePageIndex + 1} of {tableInstance.pageOptions.length}
-         
-          </strong>{' '}
-        </div>
-              <div className="space-x-2">
-                <button
-                  onClick={() => gotoPage(0)}
-                  disabled={!canPreviousPage}
-                  className="btn "
-                >
-                  {"<<"}
-                </button>
-               
-                <button
-                  onClick={() => previousPage()}
-                  disabled={!canPreviousPage}
-                  className="btn"
-                >
-                  {"<"}
-                </button>
-                <button
-                  onClick={() => nextPage()}
-                  disabled={!canNextPage}
-                  className="btn"
-                >
-                  {" "}
-                  {">"}
-                </button>
-                <button className="btn" onClick={() => gotoPage(pageCount - 1)}  disabled={!canNextPage}>
-          {'>>'}
-        </button>{' '}
-              </div>
-         
-            </div>
-          </div>}
+          <TableComponent tableData={tableInstance} />
+          { users && users.length>10 && <PaginationComponent tableData={tableInstance}/>}
         </div>
       </div>
     </div>
+  
   
   );
 };

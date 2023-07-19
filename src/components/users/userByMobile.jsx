@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useUserQuery } from "../../utils/graphql";
-import TabbleOfUsersOrUser from "./tabble";
+import TabbleOfUsersOrUser from "./tabbleData";
 
 const UserByMobile = () => {
   const [mobile, setMobile] = useState();

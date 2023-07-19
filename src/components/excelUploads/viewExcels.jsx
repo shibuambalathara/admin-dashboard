@@ -5,7 +5,7 @@ import React, { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTable, usePagination, useGlobalFilter } from "react-table";
 import { useEventTableQuery } from "../../utils/graphql";
-import SearchUser from "../users/searchUser";
+import SearchUser from "../utils/searchUser";
 import { useExcelUploadsQuery } from "../../utils/graphql";
 const ViewExcels = () => {
     const [userData, setUserData] = useState([]);

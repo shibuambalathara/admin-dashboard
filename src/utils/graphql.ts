@@ -3853,7 +3853,7 @@ export type UpdateStateMutation = { __typename?: 'Mutation', updateState?: { __t
 export type UserauthenticationQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UserauthenticationQuery = { __typename?: 'Query', authenticatedItem?: { __typename?: 'User', username?: string | null, role?: UserRoleType | null } | null };
+export type UserauthenticationQuery = { __typename?: 'Query', authenticatedItem?: { __typename?: 'User', username?: string | null, role?: UserRoleType | null, state?: string | null } | null };
 
 export type UserQueryVariables = Exact<{
   where: UserWhereUniqueInput;
@@ -6588,6 +6588,7 @@ export const UserauthenticationDocument = gql`
     ... on User {
       username
       role
+      state
     }
   }
 }

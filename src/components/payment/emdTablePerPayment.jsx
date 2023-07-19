@@ -6,7 +6,7 @@ import React, { useMemo } from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import { useTable,usePagination,useGlobalFilter } from "react-table"
 import {useEmdTableQuery, usePaymentDetailsQuery} from '../../utils/graphql'
-import SearchUser from '../users/searchUser'
+import SearchUser from '../utils/searchUser'
 import format from 'date-fns/format'
 
 

@@ -8,10 +8,11 @@ const Header = () => {
   const {data,refetch}=useUserauthenticationQuery()
   console.log(data,"authentication")
   const navigate=useNavigate()
-  const onClickHandler=async()=>{
+
+  const logOUtHandler=async()=>{
     localStorage.removeItem("token")
     window.location.reload();
-  
+ 
     navigate('/login')
   }
   const loginHandler=()=>{
@@ -48,7 +49,8 @@ const Header = () => {
        {data ?<>
         <li>{data.authenticatedItem?.username} </li>
         <li>Role: {data?.authenticatedItem?.role}</li>
-        <li><button className='text-white  px-2 py-1  bg-red-500  rounded border'onClick={onClickHandler}>Logout</button></li>
+       {data.authenticatedItem.role==='staff' && <li>State: {data?.authenticatedItem?.state}</li>}
+        <li><button className='text-white  px-2 py-1  bg-red-500  rounded border'onClick={logOUtHandler}>Logout</button></li>
         </>
  :        <li><button className='text-white  px-2 py-1  bg-red-500  rounded border'onClick={loginHandler}>Login</button></li>
 }
