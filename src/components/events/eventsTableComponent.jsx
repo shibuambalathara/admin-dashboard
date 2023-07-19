@@ -1,15 +1,18 @@
-import { Button } from '@material-tailwind/react'
+import { Button, Tab } from '@material-tailwind/react'
 import React, { useEffect, useMemo,useState } from 'react'
 import {useNavigate} from 'react-router-dom'
 import { useTable,useSortBy,usePagination,useGlobalFilter } from "react-table"
 import {useEventTableQuery, useUpdateEventMutation} from '../../utils/graphql'
-import SearchUser from '../users/searchUser'
+import SearchUser from '../utils/searchUser'
 
 import format from 'date-fns/format'
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import Report from './report'
 import Swal from "sweetalert2";
+import TableComponent from '../utils/table'
+
+import LimitedDataPaginationComponents from '../utils/limitedDataPagination'
 
 
 const EventsTableComponent = () => {
@@ -27,12 +30,7 @@ useEffect(()=>{
 
     const navigate=useNavigate()
     
-    // const handleCurrentPage=(action)=>{
-    //   console.log(action,"action")
-    //   if(action==='dec'&& currentPage>0){
-    //     setCurrentPage(currentPage-1)
-    //   }
-    // }
+
 
 
 
@@ -213,6 +211,12 @@ const { value: input } = await Swal.fire({
     
         const {globalFilter}=state
     
+        const handlePageChange = (newPage) => {
+          setCurrentPage(newPage);
+        };
+
+        
+        const totalPages = (data?.events?.length );
 
       if (loading) return <p>Loading...</p>;
       
@@ -240,74 +244,18 @@ const { value: input } = await Swal.fire({
     <SearchUser filter={globalFilter} className="  text-white bg-red-200" setFilter={setGlobalFilter}/>
  
  
-   
-    {/* <input type='datetime-local' onChange={(e)=>setStartDate1(new Date( e.target.value).toISOString())}/>
-    <input type='datetime-local' onChange={(e)=>setendDate1(new Date( e.target.value).toISOString())}/> */}
+  
+   </div>
+     
+       <TableComponent tableData={tableInstance}/>
+  
+          <LimitedDataPaginationComponents   
+          currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}/>
+  </div> 
   </div>
-      <table
-        className="w-full divide-y divide-gray-200"
-        {...getTableProps()}
-      >
-        <thead className="bg-gray-50">
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th
-                  scope="col"
-                  className="py-3 pl-4"
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                >
-                  {column.render("Header")}
-                  <span>
-                  {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
-                      </span>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody className="divide-y divide-gray-200" {...getTableBodyProps()}>
-          {page.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td className="py-3 pl-4 text-center" {...cell.getCellProps()}>
-                      {cell.render("Cell")}
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      
-      <div className="flex justify-center">
-            <div className="flex flex-col justify-between mt-4 ">
-            <div className="flex justify-center">
-          Page{' '}
-          <strong>
-            {currentPage + 1}
-             {/* of {tableInstance.pageOptions.length} */}
-         
-          </strong>{' '}
-        </div>
-              <div className="space-x-2">
-             
-                {currentPage>0 ?  <button className="btn" onClick={(e)=>setCurrentPage(0)}>{" "}{"<<"}</button> :<button disabled></button>}
-
-             {currentPage>0 ?  <button className="btn" onClick={(e)=>setCurrentPage(currentPage-1)}>{" "}{"<"}</button> :<button disabled></button>}
-                <button className="btn" onClick={(e)=>setCurrentPage(currentPage+1)}>{" "}{">"}</button> 
-         
-         
-              </div>
-         
-            </div>
-          </div>
-  </div>
-  </div>
+  
   )
 }
 

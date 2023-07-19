@@ -40,6 +40,16 @@ const ExcelUploadsComponent =() => {
         navigate('/events')
       })
     )})
+    .catch((err)=>{
+      ShowPopup(
+        "Failed!",
+        `${err.message} `,
+        "error",
+        5000,
+        true
+      );
+    })
+
     
     
    } catch (error) {

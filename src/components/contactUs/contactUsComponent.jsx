@@ -4,7 +4,7 @@ import React, { useMemo, useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTable, usePagination, useGlobalFilter } from "react-table";
 import { useContactUsQuery, useUpdateContactUsMutation} from "../../utils/graphql";
-import SearchUser from "../users/searchUser";
+import SearchUser from "../utils/searchUser";
 
 import Swal from "sweetalert2";
 import format from 'date-fns/format'

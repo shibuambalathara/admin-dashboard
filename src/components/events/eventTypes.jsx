@@ -6,7 +6,7 @@ import React, { useMemo } from 'react'
 import {useNavigate} from 'react-router-dom'
 import { useTable,usePagination,useGlobalFilter } from "react-table"
 import {useDeleteEventTypeMutation, useEventTypesQuery} from '../../utils/graphql'
-import SearchUser from '../users/searchUser'
+import SearchUser from '../utils/searchUser'
 import AddEventType from './eventTypeAdd'
 
 
