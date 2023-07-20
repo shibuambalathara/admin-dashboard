@@ -51,9 +51,15 @@ navigate(`/update-payment/${paymentId}`)
            { Header: "Ref No", accessor: "refNo" },
             { Header: "Amount", accessor: "amount" },
             {Header:"Payment For",accessor:"paymentFor"},
-           { Header: "Status ", accessor: "status" },
-           { Header: "Created At ", accessor: ({createdAt})=>{return format(new Date( createdAt),`dd/MM/yy, HH:mm`)} },
-           { Header: "Updated At ",  accessor: ({updatedAt})=>{return format(new Date( updatedAt),`dd/MM/yy, HH:mm`)} },
+           { Header: "Status", accessor: "status" },
+           { Header: "Created At", accessor: ({createdAt})=>{return format(new Date( createdAt),`dd/MM/yy, HH:mm`)} },
+           { Header: "Updated At",  accessor: ({updatedAt})=>{return format(new Date( updatedAt),`dd/MM/yy, HH:mm`)} },
+           {
+            Header: "Registration Expire",
+               accessor: ({ RegistrationExpire }) =>RegistrationExpire && new Date( RegistrationExpire),
+        
+   Cell: ({ value }) =>value ? format(value, "dd/MM/yy, HH:mm"):'-',
+           },
             { Header: "Created By ",  accessor: data => data.createdBy ? data.createdBy.firstName : "self" },
             {
             Header: "Update Payment",
