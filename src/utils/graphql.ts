@@ -1709,6 +1709,7 @@ export type PasswordState = {
 
 export type Payment = {
   __typename?: 'Payment';
+  RegistrationExpire?: Maybe<Scalars['DateTime']>;
   amount?: Maybe<Scalars['Int']>;
   coupenDetail?: Maybe<Array<Coupen>>;
   coupenDetailCount?: Maybe<Scalars['Int']>;
@@ -1753,6 +1754,7 @@ export type PaymentEmdUpdateCountArgs = {
 };
 
 export type PaymentCreateInput = {
+  RegistrationExpire?: InputMaybe<Scalars['DateTime']>;
   amount?: InputMaybe<Scalars['Int']>;
   coupenDetail?: InputMaybe<CoupenRelateToManyForCreateInput>;
   createdBy?: InputMaybe<UserRelateToOneForCreateInput>;
@@ -1772,6 +1774,7 @@ export type PaymentManyRelationFilter = {
 };
 
 export type PaymentOrderByInput = {
+  RegistrationExpire?: InputMaybe<OrderDirection>;
   amount?: InputMaybe<OrderDirection>;
   createdAt?: InputMaybe<OrderDirection>;
   description?: InputMaybe<OrderDirection>;
@@ -1811,6 +1814,7 @@ export type PaymentUpdateArgs = {
 };
 
 export type PaymentUpdateInput = {
+  RegistrationExpire?: InputMaybe<Scalars['DateTime']>;
   amount?: InputMaybe<Scalars['Int']>;
   coupenDetail?: InputMaybe<CoupenRelateToManyForUpdateInput>;
   createdBy?: InputMaybe<UserRelateToOneForUpdateInput>;
@@ -1827,6 +1831,7 @@ export type PaymentWhereInput = {
   AND?: InputMaybe<Array<PaymentWhereInput>>;
   NOT?: InputMaybe<Array<PaymentWhereInput>>;
   OR?: InputMaybe<Array<PaymentWhereInput>>;
+  RegistrationExpire?: InputMaybe<DateTimeNullableFilter>;
   amount?: InputMaybe<IntNullableFilter>;
   coupenDetail?: InputMaybe<CoupenManyRelationFilter>;
   createdAt?: InputMaybe<DateTimeNullableFilter>;
@@ -3732,13 +3737,6 @@ export type QueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type QueryQuery = { __typename?: 'Query', time?: string | null };
 
-export type CreatePaymentMutationVariables = Exact<{
-  data: PaymentCreateInput;
-}>;
-
-
-export type CreatePaymentMutation = { __typename?: 'Mutation', createPayment?: { __typename?: 'Payment', amount?: number | null, paymentFor?: string | null, description?: string | null, status?: string | null, id: string, image?: { __typename?: 'ImageFieldOutput', url: string } | null, user?: { __typename?: 'User', id: string } | null } | null };
-
 export type PaymentDetailsQueryVariables = Exact<{
   where: PaymentWhereUniqueInput;
 }>;
@@ -3753,12 +3751,28 @@ export type CoupenPerPaymentQueryVariables = Exact<{
 
 export type CoupenPerPaymentQuery = { __typename?: 'Query', payment?: { __typename?: 'Payment', amount?: number | null, user?: { __typename?: 'User', firstName?: string | null, lastName?: string | null } | null, coupenDetail?: Array<{ __typename?: 'Coupen', coupenNumber?: string | null, coupenStatus?: CoupenCoupenStatusType | null, vehicleDetail?: { __typename?: 'Vehicle', registrationNumber?: string | null } | null }> | null } | null };
 
+export type CreatePaymentMutationVariables = Exact<{
+  data: PaymentCreateInput;
+}>;
+
+
+export type CreatePaymentMutation = { __typename?: 'Mutation', createPayment?: { __typename?: 'Payment', amount?: number | null, paymentFor?: string | null, description?: string | null, status?: string | null, id: string, image?: { __typename?: 'ImageFieldOutput', url: string } | null, user?: { __typename?: 'User', id: string } | null } | null };
+
 export type PaymentOfUserQueryVariables = Exact<{
   where: UserWhereUniqueInput;
 }>;
 
 
-export type PaymentOfUserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, mobile?: string | null, payments?: Array<{ __typename?: 'Payment', id: string, refNo?: number | null, amount?: number | null, status?: string | null, paymentFor?: string | null, createdAt?: any | null, emdUpdateCount?: number | null, updatedAt?: any | null, createdBy?: { __typename?: 'User', firstName?: string | null } | null, image?: { __typename?: 'ImageFieldOutput', url: string } | null, emdUpdate?: Array<{ __typename?: 'EmdUpdate', vehicleBuyingLimitIncrement?: number | null }> | null }> | null } | null };
+export type PaymentOfUserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, mobile?: string | null, payments?: Array<{ __typename?: 'Payment', id: string, refNo?: number | null, amount?: number | null, status?: string | null, paymentFor?: string | null, createdAt?: any | null, emdUpdateCount?: number | null, updatedAt?: any | null, RegistrationExpire?: any | null, createdBy?: { __typename?: 'User', firstName?: string | null } | null, image?: { __typename?: 'ImageFieldOutput', url: string } | null, emdUpdate?: Array<{ __typename?: 'EmdUpdate', vehicleBuyingLimitIncrement?: number | null }> | null }> | null } | null };
+
+export type PaymentTableQueryVariables = Exact<{
+  skip: Scalars['Int'];
+  take?: InputMaybe<Scalars['Int']>;
+  orderBy: Array<PaymentOrderByInput> | PaymentOrderByInput;
+}>;
+
+
+export type PaymentTableQuery = { __typename?: 'Query', payments?: Array<{ __typename?: 'Payment', id: string, refNo?: number | null, status?: string | null, amount?: number | null, paymentFor?: string | null, createdAt?: any | null, updatedAt?: any | null, RegistrationExpire?: any | null, createdBy?: { __typename?: 'User', firstName?: string | null, lastName?: string | null } | null, user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, username?: string | null, mobile?: string | null } | null }> | null };
 
 export type UpdatePaymentMutationVariables = Exact<{
   where: PaymentWhereUniqueInput;
@@ -3768,14 +3782,12 @@ export type UpdatePaymentMutationVariables = Exact<{
 
 export type UpdatePaymentMutation = { __typename?: 'Mutation', updatePayment?: { __typename?: 'Payment', id: string, amount?: number | null, paymentFor?: string | null, description?: string | null, status?: string | null, image?: { __typename?: 'ImageFieldOutput', url: string } | null } | null };
 
-export type PaymentTableQueryVariables = Exact<{
-  skip: Scalars['Int'];
-  take?: InputMaybe<Scalars['Int']>;
-  orderBy: Array<PaymentOrderByInput> | PaymentOrderByInput;
+export type DeletePaymentMutationVariables = Exact<{
+  where: PaymentWhereUniqueInput;
 }>;
 
 
-export type PaymentTableQuery = { __typename?: 'Query', payments?: Array<{ __typename?: 'Payment', id: string, refNo?: number | null, status?: string | null, amount?: number | null, paymentFor?: string | null, createdAt?: any | null, updatedAt?: any | null, createdBy?: { __typename?: 'User', firstName?: string | null, lastName?: string | null } | null, user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, username?: string | null, mobile?: string | null } | null }> | null };
+export type DeletePaymentMutation = { __typename?: 'Mutation', deletePayment?: { __typename?: 'Payment', id: string } | null };
 
 export type SelectorsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5857,49 +5869,6 @@ export function useQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Quer
 export type QueryQueryHookResult = ReturnType<typeof useQueryQuery>;
 export type QueryLazyQueryHookResult = ReturnType<typeof useQueryLazyQuery>;
 export type QueryQueryResult = Apollo.QueryResult<QueryQuery, QueryQueryVariables>;
-export const CreatePaymentDocument = gql`
-    mutation CreatePayment($data: PaymentCreateInput!) {
-  createPayment(data: $data) {
-    amount
-    paymentFor
-    description
-    status
-    image {
-      url
-    }
-    id
-    user {
-      id
-    }
-  }
-}
-    `;
-export type CreatePaymentMutationFn = Apollo.MutationFunction<CreatePaymentMutation, CreatePaymentMutationVariables>;
-
-/**
- * __useCreatePaymentMutation__
- *
- * To run a mutation, you first call `useCreatePaymentMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreatePaymentMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createPaymentMutation, { data, loading, error }] = useCreatePaymentMutation({
- *   variables: {
- *      data: // value for 'data'
- *   },
- * });
- */
-export function useCreatePaymentMutation(baseOptions?: Apollo.MutationHookOptions<CreatePaymentMutation, CreatePaymentMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreatePaymentMutation, CreatePaymentMutationVariables>(CreatePaymentDocument, options);
-      }
-export type CreatePaymentMutationHookResult = ReturnType<typeof useCreatePaymentMutation>;
-export type CreatePaymentMutationResult = Apollo.MutationResult<CreatePaymentMutation>;
-export type CreatePaymentMutationOptions = Apollo.BaseMutationOptions<CreatePaymentMutation, CreatePaymentMutationVariables>;
 export const PaymentDetailsDocument = gql`
     query PaymentDetails($where: PaymentWhereUniqueInput!) {
   payment(where: $where) {
@@ -6003,6 +5972,49 @@ export function useCoupenPerPaymentLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type CoupenPerPaymentQueryHookResult = ReturnType<typeof useCoupenPerPaymentQuery>;
 export type CoupenPerPaymentLazyQueryHookResult = ReturnType<typeof useCoupenPerPaymentLazyQuery>;
 export type CoupenPerPaymentQueryResult = Apollo.QueryResult<CoupenPerPaymentQuery, CoupenPerPaymentQueryVariables>;
+export const CreatePaymentDocument = gql`
+    mutation CreatePayment($data: PaymentCreateInput!) {
+  createPayment(data: $data) {
+    amount
+    paymentFor
+    description
+    status
+    image {
+      url
+    }
+    id
+    user {
+      id
+    }
+  }
+}
+    `;
+export type CreatePaymentMutationFn = Apollo.MutationFunction<CreatePaymentMutation, CreatePaymentMutationVariables>;
+
+/**
+ * __useCreatePaymentMutation__
+ *
+ * To run a mutation, you first call `useCreatePaymentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePaymentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPaymentMutation, { data, loading, error }] = useCreatePaymentMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreatePaymentMutation(baseOptions?: Apollo.MutationHookOptions<CreatePaymentMutation, CreatePaymentMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreatePaymentMutation, CreatePaymentMutationVariables>(CreatePaymentDocument, options);
+      }
+export type CreatePaymentMutationHookResult = ReturnType<typeof useCreatePaymentMutation>;
+export type CreatePaymentMutationResult = Apollo.MutationResult<CreatePaymentMutation>;
+export type CreatePaymentMutationOptions = Apollo.BaseMutationOptions<CreatePaymentMutation, CreatePaymentMutationVariables>;
 export const PaymentOfUserDocument = gql`
     query paymentOfUser($where: UserWhereUniqueInput!) {
   user(where: $where) {
@@ -6028,6 +6040,7 @@ export const PaymentOfUserDocument = gql`
       emdUpdate {
         vehicleBuyingLimitIncrement
       }
+      RegistrationExpire
     }
   }
 }
@@ -6060,6 +6073,61 @@ export function usePaymentOfUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type PaymentOfUserQueryHookResult = ReturnType<typeof usePaymentOfUserQuery>;
 export type PaymentOfUserLazyQueryHookResult = ReturnType<typeof usePaymentOfUserLazyQuery>;
 export type PaymentOfUserQueryResult = Apollo.QueryResult<PaymentOfUserQuery, PaymentOfUserQueryVariables>;
+export const PaymentTableDocument = gql`
+    query paymentTable($skip: Int!, $take: Int, $orderBy: [PaymentOrderByInput!]!) {
+  payments(skip: $skip, take: $take, orderBy: $orderBy) {
+    id
+    refNo
+    status
+    amount
+    paymentFor
+    createdAt
+    createdBy {
+      firstName
+      lastName
+    }
+    updatedAt
+    RegistrationExpire
+    user {
+      id
+      firstName
+      lastName
+      username
+      mobile
+    }
+  }
+}
+    `;
+
+/**
+ * __usePaymentTableQuery__
+ *
+ * To run a query within a React component, call `usePaymentTableQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePaymentTableQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePaymentTableQuery({
+ *   variables: {
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *      orderBy: // value for 'orderBy'
+ *   },
+ * });
+ */
+export function usePaymentTableQuery(baseOptions: Apollo.QueryHookOptions<PaymentTableQuery, PaymentTableQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PaymentTableQuery, PaymentTableQueryVariables>(PaymentTableDocument, options);
+      }
+export function usePaymentTableLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PaymentTableQuery, PaymentTableQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PaymentTableQuery, PaymentTableQueryVariables>(PaymentTableDocument, options);
+        }
+export type PaymentTableQueryHookResult = ReturnType<typeof usePaymentTableQuery>;
+export type PaymentTableLazyQueryHookResult = ReturnType<typeof usePaymentTableLazyQuery>;
+export type PaymentTableQueryResult = Apollo.QueryResult<PaymentTableQuery, PaymentTableQueryVariables>;
 export const UpdatePaymentDocument = gql`
     mutation UpdatePayment($where: PaymentWhereUniqueInput!, $data: PaymentUpdateInput!) {
   updatePayment(where: $where, data: $data) {
@@ -6101,60 +6169,39 @@ export function useUpdatePaymentMutation(baseOptions?: Apollo.MutationHookOption
 export type UpdatePaymentMutationHookResult = ReturnType<typeof useUpdatePaymentMutation>;
 export type UpdatePaymentMutationResult = Apollo.MutationResult<UpdatePaymentMutation>;
 export type UpdatePaymentMutationOptions = Apollo.BaseMutationOptions<UpdatePaymentMutation, UpdatePaymentMutationVariables>;
-export const PaymentTableDocument = gql`
-    query paymentTable($skip: Int!, $take: Int, $orderBy: [PaymentOrderByInput!]!) {
-  payments(skip: $skip, take: $take, orderBy: $orderBy) {
+export const DeletePaymentDocument = gql`
+    mutation DeletePayment($where: PaymentWhereUniqueInput!) {
+  deletePayment(where: $where) {
     id
-    refNo
-    status
-    amount
-    paymentFor
-    createdAt
-    createdBy {
-      firstName
-      lastName
-    }
-    updatedAt
-    user {
-      id
-      firstName
-      lastName
-      username
-      mobile
-    }
   }
 }
     `;
+export type DeletePaymentMutationFn = Apollo.MutationFunction<DeletePaymentMutation, DeletePaymentMutationVariables>;
 
 /**
- * __usePaymentTableQuery__
+ * __useDeletePaymentMutation__
  *
- * To run a query within a React component, call `usePaymentTableQuery` and pass it any options that fit your needs.
- * When your component renders, `usePaymentTableQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
+ * To run a mutation, you first call `useDeletePaymentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeletePaymentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
  *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const { data, loading, error } = usePaymentTableQuery({
+ * const [deletePaymentMutation, { data, loading, error }] = useDeletePaymentMutation({
  *   variables: {
- *      skip: // value for 'skip'
- *      take: // value for 'take'
- *      orderBy: // value for 'orderBy'
+ *      where: // value for 'where'
  *   },
  * });
  */
-export function usePaymentTableQuery(baseOptions: Apollo.QueryHookOptions<PaymentTableQuery, PaymentTableQueryVariables>) {
+export function useDeletePaymentMutation(baseOptions?: Apollo.MutationHookOptions<DeletePaymentMutation, DeletePaymentMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<PaymentTableQuery, PaymentTableQueryVariables>(PaymentTableDocument, options);
+        return Apollo.useMutation<DeletePaymentMutation, DeletePaymentMutationVariables>(DeletePaymentDocument, options);
       }
-export function usePaymentTableLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PaymentTableQuery, PaymentTableQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<PaymentTableQuery, PaymentTableQueryVariables>(PaymentTableDocument, options);
-        }
-export type PaymentTableQueryHookResult = ReturnType<typeof usePaymentTableQuery>;
-export type PaymentTableLazyQueryHookResult = ReturnType<typeof usePaymentTableLazyQuery>;
-export type PaymentTableQueryResult = Apollo.QueryResult<PaymentTableQuery, PaymentTableQueryVariables>;
+export type DeletePaymentMutationHookResult = ReturnType<typeof useDeletePaymentMutation>;
+export type DeletePaymentMutationResult = Apollo.MutationResult<DeletePaymentMutation>;
+export type DeletePaymentMutationOptions = Apollo.BaseMutationOptions<DeletePaymentMutation, DeletePaymentMutationVariables>;
 export const SelectorsDocument = gql`
     query selectors {
   states {
