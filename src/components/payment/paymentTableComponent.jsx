@@ -2,7 +2,7 @@ import { Button } from '@material-tailwind/react'
 import React, { useMemo, useState } from 'react'
 import {useNavigate} from 'react-router-dom'
 import { useTable,useSortBy,usePagination,useGlobalFilter } from "react-table"
-import {usePaymentTableQuery} from '../../utils/graphql'
+import {useDeletePaymentMutation, usePaymentTableQuery} from '../../utils/graphql'
 import SearchUser from '../utils/searchUser'
 import format from 'date-fns/format'
 import TableComponent from '../utils/table'
@@ -12,8 +12,8 @@ import LimitedDataPaginationComponents from '../utils/limitedDataPagination'
 const PaymentTableComponent = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [pageSize, setPageSize] = useState(10);
-    const {data,loading,error}=usePaymentTableQuery({variables:{ skip: currentPage * pageSize,take:pageSize, orderBy: { createdAt:"desc"}}})
-  
+    const {data,loading,error,refetch}=usePaymentTableQuery({variables:{ skip: currentPage * pageSize,take:pageSize, orderBy: { createdAt:"desc"}}})
+  const [deletePayment]=useDeletePaymentMutation()
     const navigate=useNavigate()
     
     console.log(data,"payment ")
@@ -24,6 +24,10 @@ const PaymentTableComponent = () => {
     
       navigate(`/payment/${userId}`)
     }
+    // const deleteHandler=(id)=>{
+    //   deletePayment({variables:{where:{id}}})
+    //   refetch()
+    // }
 
 
     const columns = useMemo(
@@ -41,6 +45,13 @@ const PaymentTableComponent = () => {
             accessor: ({ updatedAt }) => new Date( updatedAt),
             sortType: "datetime",
             Cell: ({ value }) => format(value, "dd/MM/yy, HH:mm"),
+          },
+          {
+            Header: "Registration Expire",
+               accessor: ({ RegistrationExpire }) =>RegistrationExpire && new Date( RegistrationExpire),
+        
+   Cell: ({ value }) =>value ? format(value, "dd/MM/yy, HH:mm"):'-',
+          
           },
           { Header: "Payment For ", accessor: "paymentFor" },
           { Header: "Status ", accessor: "status" },
@@ -80,6 +91,12 @@ const PaymentTableComponent = () => {
 
             )
           },
+          // {
+          //   Header:"Delete Payment",
+          //   Cell:({row})=>(
+          //     <button onClick={()=>deleteHandler(row.original.id)}>Delete</button>
+          //   )
+          // }
          
           
         ],

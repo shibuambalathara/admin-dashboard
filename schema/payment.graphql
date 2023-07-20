@@ -1,0 +1,136 @@
+query PaymentDetails($where: PaymentWhereUniqueInput!) {
+  payment(where: $where) {
+    id
+    amount
+    status
+    paymentFor
+    description
+    refNo
+    image {
+      url
+    }
+    user {
+      id
+      firstName
+      username
+    }
+     emdUpdate {
+    emdNo
+    vehicleBuyingLimitIncrement
+     createdAt
+      createdBy {
+        id
+        firstName
+      }
+  }  
+  }
+}
+query coupenPerPayment($where: PaymentWhereUniqueInput!) {
+  payment(where: $where) {
+    amount
+    user {
+      firstName
+      lastName
+    }
+    coupenDetail {
+      coupenNumber
+      coupenStatus
+      vehicleDetail {
+        registrationNumber
+      }
+
+    }
+  }
+}
+
+
+
+mutation CreatePayment($data: PaymentCreateInput!) {
+  createPayment(data: $data) {
+  amount
+  paymentFor
+  description
+    status
+    image {
+      url
+    }
+    id
+    user {
+      id
+    }
+  }
+}
+
+query paymentOfUser($where: UserWhereUniqueInput!) {
+  user(where: $where) {
+    id
+    firstName
+    lastName
+    mobile
+    payments {
+    id 
+    refNo
+    amount
+    status 
+    paymentFor
+     createdAt
+      emdUpdateCount
+    createdBy {
+    firstName  
+    }
+    updatedAt
+    image {
+      url
+    }
+     emdUpdate {
+      vehicleBuyingLimitIncrement
+    }
+    RegistrationExpire  
+   
+    }
+  }
+}
+
+query paymentTable($skip: Int!, $take: Int, $orderBy: [PaymentOrderByInput!]!) {
+  payments(skip: $skip, take: $take, orderBy: $orderBy) {
+    id
+    refNo
+    status
+    amount
+    paymentFor
+    createdAt
+     createdBy {
+    firstName
+    lastName  
+    }
+    updatedAt
+    RegistrationExpire  
+    user {
+      id
+      firstName
+      lastName
+      username
+       mobile
+    }
+  }
+}
+
+mutation UpdatePayment($where: PaymentWhereUniqueInput!, $data: PaymentUpdateInput!) {
+  updatePayment(where: $where, data: $data) {
+    id
+  amount
+  image {
+    url
+  } 
+  paymentFor
+  description
+  status 
+  }
+}
+
+
+mutation DeletePayment($where: PaymentWhereUniqueInput!) {
+  deletePayment(where: $where) {
+  id  
+  }
+}
