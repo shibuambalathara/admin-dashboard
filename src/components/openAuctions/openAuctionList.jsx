@@ -5,7 +5,7 @@ import Datatable from "../ui/Datatable";
 // import AlertModal from "../ui/AlertModal";
 import moment from "moment";
 import { useTable,useSortBy, usePagination, useGlobalFilter } from "react-table";
-import SearchUser from "../utils/searchUser";
+import SearchUser from "../utils/search";
 // import {
 //   CalendarIcon,
 //   DocumentDownloadIcon,

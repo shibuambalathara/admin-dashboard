@@ -46,11 +46,13 @@ const UserByMobile = () => {
   };
   if (loading) return <div>Loading....</div>;
   return (
-    <div className=" m-5">
+    <div className=" bg-gray-100">
       <div>
         {/* <form onSubmit={handleSubmit(onSubmit)}> */}
           <div className="flex space-x-2">
-            <div>
+            <div className="">
+            <div className="space-x-6 flex  align-middle">
+         <p className="my-auto">   Search By Mobile</p>
               <input
                 placeholder=" Enter mobile Number"
                 type="number"
@@ -74,7 +76,7 @@ const UserByMobile = () => {
                 {errors.mobile && <span>Please Enter 10 digits</span>}
               </p>
             </div>
-         
+            </div>
           </div>
         {/* </form> */}
         {data?.user  && <TabbleOfUsersOrUser users={user} />}

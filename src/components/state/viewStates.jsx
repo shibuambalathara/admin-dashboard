@@ -4,7 +4,7 @@ import React, { useMemo, useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTable, usePagination, useGlobalFilter } from "react-table";
 import { useDeleteStateMutation,useStatesQuery, useUpdateStateMutation} from "../../utils/graphql";
-import SearchUser from "../utils/searchUser";
+import SearchUser from "../utils/search";
 
 import Swal from "sweetalert2";
 

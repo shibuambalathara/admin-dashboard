@@ -1,6 +1,6 @@
 import React from "react";
 import { useTable, useSortBy, usePagination, useGlobalFilter } from "react-table";
-import SearchUser from "../utils/searchUser";
+import SearchUser from "../utils/search";
 
 const TableComponent = ({ columns, data }) => {
   const tableInstance = useTable(

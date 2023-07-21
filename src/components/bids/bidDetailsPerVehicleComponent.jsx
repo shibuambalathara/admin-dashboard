@@ -4,7 +4,7 @@ import React, { useMemo } from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import { useTable,usePagination,useSortBy,useGlobalFilter } from "react-table"
 import {useBidDetailsPerVehicleQuery, useDeleteBidMutation,} from '../../utils/graphql'
-import SearchUser from '../utils/searchUser'
+import SearchUser from '../utils/search'
 import format from 'date-fns/format'
 
 import Swal from "sweetalert2";
