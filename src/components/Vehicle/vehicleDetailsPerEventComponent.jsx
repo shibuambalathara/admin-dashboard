@@ -6,7 +6,7 @@ import React, { useEffect, useMemo,useState } from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import { useTable,useSortBy,usePagination,useGlobalFilter } from "react-table"
 import {useBidUserPerVehicleQuery, useCoupensperUserQuery, useDeleteVehicleMutation, useUpdateCoupenMutation, useVehicleDetailsPerEventQuery, useVehiclePerEventQuery, useVehicleTableQuery} from '../../utils/graphql'
-import SearchUser from '../utils/searchUser'
+import SearchUser from '../utils/search'
 import format from 'date-fns/format'
 import Swal from "sweetalert2";
 import Report from './report'

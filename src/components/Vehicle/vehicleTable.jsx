@@ -8,7 +8,7 @@ import {
   useGlobalFilter,
 } from "react-table";
 import { useVehicleTableQuery } from "../../utils/graphql";
-import SearchUser from "../utils/searchUser";
+import SearchUser from "../utils/search";
 import format from "date-fns/format";
 import Swal from "sweetalert2";
 

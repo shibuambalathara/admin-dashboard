@@ -28,12 +28,13 @@ const UsersByState = () => {
     
     if(loading)return<div>Loading....</div>
   return (
-    <div className='m-5'>
+    <div className='bg-gray-100'>
         <div>
            
           
                 <div className='flex justify-between'>
-                  <div>
+                <div className="space-x-10 flex  align-middle">
+         <p className="my-auto">   Search By State</p>
           
                      <select
                 {...register("state", { required: true })}

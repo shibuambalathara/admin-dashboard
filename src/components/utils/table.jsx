@@ -1,4 +1,4 @@
-import SearchUser from "./searchUser";
+import SearchUser from "./search";
 
 
 const TableComponent = (tableInstance1,UsersLength) => {
@@ -29,11 +29,11 @@ console.log(UsersLength,"ull")
     const { globalFilter } = state;
 
   return (
-    <div className="w-full   ">
+    <div className="   ">
     
 
-    <div className=" max-w-7xl mx-auto h-fit">
-      <div className=" flex flex-col justify-center m-auto w-full">
+    <div className="   h-fit">
+      <div className=" flex flex-col justify-center ">
       {/* <div className="flex">
          
        
@@ -56,7 +56,7 @@ console.log(UsersLength,"ull")
                 {headerGroup.headers.map((column) => (
                   <th
                     scope="col"
-                    className="py-2 px-2  border  border-10 "
+                    className="py-2 px-2 font-sans border  border-10 "
                     {...column.getHeaderProps(column.getSortByToggleProps())}
                   >
                     {column.render("Header")}
