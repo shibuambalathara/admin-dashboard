@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTable, usePagination, useGlobalFilter } from "react-table";
 import { useDeleteSellerMutation, useEventTableQuery } from "../../utils/graphql";
-import SearchUser from "../utils/searchUser";
+import SearchUser from "../utils/search";
 import { useSellersItemQuery } from "../../utils/graphql";
 
 import Swal from "sweetalert2";

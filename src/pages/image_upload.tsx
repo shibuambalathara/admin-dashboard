@@ -1,5 +1,5 @@
 import React from 'react'
-import ImageUpload from '../components/imageUpload'
+import ImageUpload from '../components/imageUpload/imageUpload'
 
 const Image_upload = () => {
   return (

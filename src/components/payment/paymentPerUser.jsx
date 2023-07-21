@@ -3,7 +3,7 @@ import React, { useEffect, useMemo } from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import { useTable,useSortBy, usePagination, useGlobalFilter } from "react-table";
 import {usePaymentOfUserQuery} from '../../utils/graphql'
-import SearchUser from '../utils/searchUser'
+import SearchUser from '../utils/search'
 import format from 'date-fns/format'
 import Swal from "sweetalert2";
 import jsPDF from 'jspdf';

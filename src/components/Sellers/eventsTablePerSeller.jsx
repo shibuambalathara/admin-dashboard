@@ -3,7 +3,7 @@ import React, { useMemo } from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import { useTable,useSortBy,usePagination,useGlobalFilter } from "react-table"
 import {useEventTableQuery, useEventsPerSellerQuery} from '../../utils/graphql'
-import SearchUser from '../utils/searchUser'
+import SearchUser from '../utils/search'
 import format from 'date-fns/format'
 
 const EventsTablePerSeller = () => {

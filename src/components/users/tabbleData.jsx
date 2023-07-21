@@ -5,7 +5,7 @@ import { Button } from "@material-tailwind/react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useUsersQuery, useDeleteUserMutation, useUserauthenticationQuery } from "../../utils/graphql";
 import { useTable,useSortBy, usePagination, useGlobalFilter } from "react-table";
-import SearchUser from "../utils/searchUser";
+import SearchUser from "../utils/search";
 import format from 'date-fns/format'
 import Swal from "sweetalert2";
 import TableComponent from "../utils/table";
@@ -13,7 +13,7 @@ import PaginationComponent from "../utils/pagination";
 
 const TabbleOfUsersOrUser = ({users}) => {
  
-console.log(users.length,"uss")
+
  
   const location = useLocation();
   const currentPageStartWith = location.pathname
@@ -116,6 +116,11 @@ const handleMessage=(coupen)=>{
       
           <a className="btn btn-info" href={`/view-user/${row.original.id}`} target="_blank" rel="noopener noreferrer">View/Edit</a>
 
+
+
+
+
+
         ),
       },
       
@@ -183,7 +188,7 @@ const handleMessage=(coupen)=>{
   
 
   return (
-    <div className="w-full   ">
+    <div className="w-full    ">
     
 
       <div className=" max-w-7xl mx-auto h-fit">

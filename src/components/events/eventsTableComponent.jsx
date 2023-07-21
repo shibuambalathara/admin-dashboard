@@ -3,7 +3,7 @@ import React, { useEffect, useMemo,useState } from 'react'
 import {useNavigate} from 'react-router-dom'
 import { useTable,useSortBy,usePagination,useGlobalFilter } from "react-table"
 import {useEventTableQuery, useUpdateEventMutation} from '../../utils/graphql'
-import SearchUser from '../utils/searchUser'
+import SearchUser from '../utils/search'
 
 import format from 'date-fns/format'
 import * as XLSX from 'xlsx';

@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import format from 'date-fns/format'
 import { useNavigate,useParams } from "react-router-dom";
 import { useTable,useSortBy, usePagination, useGlobalFilter } from "react-table";
- import SearchUser from "../utils/searchUser";
+ import SearchUser from "../utils/search";
 
 import Swal from "sweetalert2";
 import {   useEmdUpdatesPerPaymentQuery } from "../../utils/graphql";

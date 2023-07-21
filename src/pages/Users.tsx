@@ -25,10 +25,12 @@ const Users = () => {
               Users Data Table{" "}
             </div>
       </div>
+      <div className='space-y-2'>
       <UserByMobile/>
       <UsersByState/>
       <UsersByDate/>
     <ViewUsers/>
+    </div>
     </div>
   )
 }

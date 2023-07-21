@@ -1,5 +1,5 @@
 import { useState } from "react";
- import storage from "./firebaseConfig";
+ import storage from "../firebaseConfig";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import {v4} from 'uuid'
 function ImageUpload() {
