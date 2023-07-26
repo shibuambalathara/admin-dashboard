@@ -82,12 +82,12 @@ console.log(reportData,"reportdata..")
       
       <div className="flex flex-col ">
         <label>Enter event from date</label>
-        <input className="btn" type="datetime-local" {...register("eventfromdate", { required: true })} />
+        <input className="btn bg-white text-black" type="datetime-local" {...register("eventfromdate", { required: true })} />
         {errors.eventfromdate && <span className="text-red-500">This field is required</span>}
       </div>
       <div className="flex flex-col">
         <label>Enter event to date</label>
-        <input className="btn" type="datetime-local" {...register("eventTodate", { required: true })}/>
+        <input className="btn bg-white text-black" type="datetime-local" {...register("eventTodate", { required: true })}/>
         {errors.eventTodate && <span className="text-red-500">This field is required</span>}
       </div>
    {!data  && <input className="btn btn-primary mt-6" type="submit" />}

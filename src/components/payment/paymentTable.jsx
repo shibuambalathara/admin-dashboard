@@ -63,23 +63,53 @@ const PaymentTable = ({data}) => {
           data.createdBy ? data.createdBy.firstName : "self",
       },
 
+      // {
+      //   Header: "Update Buying Limit",
+      //   Cell: ({ row }) => (
+      //     <a
+      //       className="btn btn-secondary"
+      //       href={`/add-emd/${row.original.id}`}
+      //       target="_blank"
+      //       rel="noopener noreferrer"
+      //     >
+      //       Update
+      //     </a>
+      //   ),
+      // },
       {
-        Header: "Update Buying Limit",
-        Cell: ({ row }) => (
-          <a
-            className="btn btn-secondary"
-            href={`/add-emd/${row.original.id}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Update
-          </a>
-        ),
+        Header: "Create Buying Limit",
+        Cell: ({ row }) => {
+          if (
+            row.original.emdUpdateCount === 0
+            &&
+            row.original.paymentFor === 'emd' &&
+            row.original.status === 'success'
+          ) {
+            return (
+              <a
+                className="btn bg-green-500"
+                href={`/add-emd/${row.original.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Increase Buying Limit
+              </a>
+            );
+          }
+           else {
+            return(
+              <>
+              Increment by:{ row.original?.emdUpdate[0]?.vehicleBuyingLimitIncrement ??'0'},
+              <br /> Status: {row.original.status}
+              </>
+              );
+          }
+        }
       },
       {
         Header: "View Emds",
         Cell: ({ row }) => (
-          <a
+      row.original.emdUpdateCount!==0 &&     <a
             className="btn btn-accent"
             href={`/emd-payment/${row.original.id}`}
             target="_blank"
@@ -94,7 +124,7 @@ const PaymentTable = ({data}) => {
         Header: "Payment details",
         Cell: ({ row }) => (
           <a
-            className="btn btn-warning"
+            className="btn bg-rose-500"
             href={`/payment/${row.original?.user?.id}`}
             target="_blank"
             rel="noopener noreferrer"

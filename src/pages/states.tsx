@@ -4,7 +4,10 @@ import ViewStates from '../components/state/viewStates'
 const States = () => {
   return (
     <div className='w-full'>
+      <div className='flex justify-end'>
+
        <AddState />
+      </div>
       <ViewStates/>
     </div>
   )

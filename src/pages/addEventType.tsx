@@ -1,5 +1,5 @@
 import React from 'react'
-import AddEventTypeComponent from '../components/events/addEventTypeComponent'
+import AddEventTypeComponent from '../components/eventType/addEventTypeComponent'
 
 const AddEventType = () => {
   return (

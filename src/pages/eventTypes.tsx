@@ -1,11 +1,12 @@
 import React from 'react'
-import EventTypesTable from '../components/events/eventTypes'
-import AddEventType from '../components/events/eventTypeAdd'
+import EventTypesTable from '../components/eventType/eventTypes'
+
 
 const EventTypes = () => {
   return (
-    <div className='w-full'>
-      <AddEventType/>
+    <div className='flex flex-col w-full'>
+     
+     
       <EventTypesTable/>
     </div>
   )
