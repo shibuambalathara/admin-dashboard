@@ -1,11 +1,11 @@
 import SearchUser from "./search";
 
 
-const TableComponent = (tableInstance1,UsersLength) => {
-console.log(UsersLength,"ull")
+const TableComponent = ({tableData,UsersLength}) => {
+console.log(tableData,"ull")
  
 
-    const tableInstance = tableInstance1.tableData
+    const tableInstance = tableData
     const {
       getTableProps,
       getTableBodyProps,
@@ -29,34 +29,24 @@ console.log(UsersLength,"ull")
     const { globalFilter } = state;
 
   return (
-    <div className="   ">
+    <div className=" mx-1 shadow-xl  ">
     
 
     <div className="   h-fit">
       <div className=" flex flex-col justify-center ">
-      {/* <div className="flex">
-         
-       
-         { UsersLength && UsersLength.UsersLength>1 &&    <SearchUser
-                filter={globalFilter}
-                className="  text-white "
-                setFilter={setGlobalFilter}
-              />}
-        
-    
-            </div>  */}
+   
         <table  
           className="w-full  bg-white border-collapse border  border-1 border-gray-300  divide-y   text-gray-900"
           {...getTableProps()}
 
         >
-          <thead className="bg-gray-50 relative ">
+          <thead className="bg-yellow-500 relative text-black text-xs ">
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th
                     scope="col"
-                    className="py-2 px-2 font-sans border  border-10 "
+                    className=" font-serif border  border-10 "
                     {...column.getHeaderProps(column.getSortByToggleProps())}
                   >
                     {column.render("Header")}
@@ -79,7 +69,7 @@ console.log(UsersLength,"ull")
                   {row.cells.map((cell) => {
                     return (
                       <td
-                        className="px-2 py-2 text-md  border  border-1 text-center border-gray-200"
+                        className="  font-normal px-1  border  border-1 text-center border-gray-200"
                         {...cell.getCellProps()}
                       >
                         {cell.render("Cell")}
@@ -98,6 +88,7 @@ console.log(UsersLength,"ull")
       </div>
     </div>
   </div>
+ 
   )
 }
 

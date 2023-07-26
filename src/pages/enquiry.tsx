@@ -1,5 +1,5 @@
 import React from 'react'
-import ViewQueries from '../components/contactUs/contactUsComponent'
+import ViewQueries from '../components/enquiries/enquiresComponent'
 
 const Enquiry = () => {
   return (

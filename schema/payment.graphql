@@ -6,6 +6,7 @@ query PaymentDetails($where: PaymentWhereUniqueInput!) {
     paymentFor
     description
     refNo
+    emdUpdateCount
     image {
       url
     }
@@ -105,6 +106,7 @@ query paymentTable($skip: Int!, $take: Int, $orderBy: [PaymentOrderByInput!]!) {
     }
     updatedAt
     RegistrationExpire  
+     emdUpdateCount
     user {
       id
       firstName
@@ -112,6 +114,10 @@ query paymentTable($skip: Int!, $take: Int, $orderBy: [PaymentOrderByInput!]!) {
       username
        mobile
     }
+      emdUpdate {
+      vehicleBuyingLimitIncrement
+    }
+  
   }
 }
 
@@ -139,6 +145,7 @@ query PaymentsSearch($where: PaymentWhereInput!) {
   RegistrationExpire
   paymentFor
   status
+  emdUpdateCount
   user {
     id
     mobile
@@ -147,9 +154,7 @@ query PaymentsSearch($where: PaymentWhereInput!) {
   createdBy {
     firstName
   }
-emdUpdate {
-  vehicleBuyingLimitIncrement
-}
+
      emdUpdate {
     emdNo
     vehicleBuyingLimitIncrement

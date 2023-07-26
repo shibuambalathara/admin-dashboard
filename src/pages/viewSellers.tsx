@@ -1,9 +1,9 @@
 import React from 'react'
-import Table from '../components/Sellers/sellersTable'
+import TableSeller from '../components/Sellers/sellersTable'
 
 const ViewSellers = () => {
   return (
-    <div className='w-full'><Table/></div>
+    <div className='w-full'><TableSeller/></div>
   )
 }
 

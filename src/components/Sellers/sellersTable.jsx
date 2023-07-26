@@ -1,7 +1,7 @@
 import { Button } from "@material-tailwind/react";
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useTable, usePagination, useGlobalFilter } from "react-table";
+import { useTable, usePagination, useGlobalFilter,useSortBy } from "react-table";
 import { useDeleteSellerMutation, useEventTableQuery } from "../../utils/graphql";
 import SearchUser from "../utils/search";
 import { useSellersItemQuery } from "../../utils/graphql";
@@ -9,6 +9,8 @@ import { useSellersItemQuery } from "../../utils/graphql";
 import Swal from "sweetalert2";
 import EditSeller from "./editSeller1";
 import AddSeller from "./addSeller";
+import TableComponent from "../utils/table";
+import PaginationComponents from "../utils/pagination";
 
 
 const Table = () => {
@@ -98,32 +100,50 @@ console.log(data,"sellers")
   const tableData=useMemo(() => (data ? data?.sellers : []), [data]);
  
 
-  const tableInstance=useTable({
-    columns ,
-    data: tableData,
-  },useGlobalFilter,usePagination);
- 
-    const {
-      getTableProps,
-      getTableBodyProps,
-      headerGroups,
-     
-      page,
-      prepareRow,
-      nextPage,
-      previousPage,
-      canNextPage,
-      canPreviousPage,
-      pageOptions,
-      pageCount,
-      gotoPage,
-      setPageSize: setTablePageSize,
-      state: { pageIndex: tablePageIndex, pageSize: tablePageSize },
-      state,
-      setGlobalFilter
-    } = tableInstance;
 
-    const {globalFilter}=state
+ 
+  const tableInstance = useTable(
+    {
+      columns,
+      data: tableData,
+      initialState: {
+        sortBy: [
+          {
+            id: "eventsCount",
+            desc: true,
+          },
+        ],
+      },
+    },
+   
+    useGlobalFilter,
+    useSortBy,
+    usePagination,
+    
+    
+  );
+ 
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+
+    page,
+    prepareRow,
+    nextPage,
+    previousPage,
+    canNextPage,
+    canPreviousPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    setPageSize: setTablePageSize,
+    state: { pageIndex: tablePageIndex, pageSize: tablePageSize },
+    state,
+    setGlobalFilter,
+  } = tableInstance;
+
+  const { globalFilter } = state;
 
   if (loading) return <p>Loading...</p>;
 
@@ -131,7 +151,7 @@ console.log(data,"sellers")
 
   return (
     <div className=" w-ful flex flex-col ">
-      <div>
+      <div className="flex justify-end mr-2 mt-2">
                  <button
       onClick={() => navigate("/add-seller")}
       className="btn btn-outline"
@@ -152,88 +172,10 @@ console.log(data,"sellers")
             />
           </div>
 
-          <table
-            className="w-full  mt-5 bg-white border-collapse border border-gray-300  table-auto divide-y  text-gray-900"
-            {...getTableProps()}
-          >
-            <thead className="bg-gray-50">
-              {headerGroups.map((headerGroup) => (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column) => (
-                    <th
-                      scope="col"
-                      className="py-3 pl-4"
-                      {...column.getHeaderProps()}
-                    >
-                      {column.render("Header")}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody
-              className="divide-y divide-gray-200"
-              {...getTableBodyProps()}
-            >
-              {page.map((row) => {
-                prepareRow(row);
-                return (
-                  <tr {...row.getRowProps()}>
-                    {row.cells.map((cell) => {
-                      return (
-                        <td
-                          className="py-3 pl-4 text-center border  border-1 text-center border-gray-200"
-                          {...cell.getCellProps()}
-                        >
-                          {cell.render("Cell")}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-          <div className="flex justify-center">
-            <div className="flex flex-col justify-between mt-4 ">
-            <div className="flex justify-center">
-          Page{' '}
-          <strong>
-            {tablePageIndex + 1} of {tableInstance.pageOptions.length}
-         
-          </strong>{' '}
-        </div>
-              <div className="space-x-2">
-                <button
-                  onClick={() => gotoPage(0)}
-                  disabled={!canPreviousPage}
-                  className="btn "
-                >
-                  {"<<"}
-                </button>
-               
-                <button
-                  onClick={() => previousPage()}
-                  disabled={!canPreviousPage}
-                  className="btn"
-                >
-                  {"<"}
-                </button>
-                <button
-                  onClick={() => nextPage()}
-                  disabled={!canNextPage}
-                  className="btn"
-                >
-                  {" "}
-                  {">"}
-                </button>
-                <button className="btn" onClick={() => gotoPage(pageCount - 1)}  disabled={!canNextPage}>
-          {'>>'}
-        </button>{' '}
-              </div>
-         
-            </div>
-          </div>
+       
+          <TableComponent  tableData={tableInstance}/>
+       
+          <PaginationComponents tableData={tableInstance}/>
         </div>
       </div>
     </div>
