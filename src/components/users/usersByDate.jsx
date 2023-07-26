@@ -10,11 +10,11 @@ import TabbleOfUsersOrUser from './tabbleData';
 
 
 const UsersByDate = () => {
-  const [currentPage, setCurrentPage] = useState(0);
-  const [pageSize, setPageSize] = useState(10);
+  // const [currentPage, setCurrentPage] = useState(0);
+  // const [pageSize, setPageSize] = useState(10);
     const [startDate,setDate]=useState('0')
     const [user,setUser]=useState([])
-    const {data:states}=useStatesQuery()
+    // const {data:states}=useStatesQuery()
     const{data,loading}=useUsersSearchQuery({variables:{where:{createdAt:{gte:startDate}}}})
  if (data?.users)   console.log(data?.users,"data.users")
  

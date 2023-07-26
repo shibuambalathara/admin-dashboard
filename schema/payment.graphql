@@ -129,6 +129,40 @@ mutation UpdatePayment($where: PaymentWhereUniqueInput!, $data: PaymentUpdateInp
 }
 
 
+query PaymentsSearch($where: PaymentWhereInput!) {
+  payments(where: $where) {
+    id
+  refNo
+  amount
+  createdAt
+  updatedAt
+  RegistrationExpire
+  paymentFor
+  status
+  user {
+    id
+    mobile
+    firstName
+  }
+  createdBy {
+    firstName
+  }
+emdUpdate {
+  vehicleBuyingLimitIncrement
+}
+     emdUpdate {
+    emdNo
+    vehicleBuyingLimitIncrement
+     createdAt
+      createdBy {
+        id
+        firstName
+      }
+  }  
+  }
+}
+
+
 mutation DeletePayment($where: PaymentWhereUniqueInput!) {
   deletePayment(where: $where) {
   id  
