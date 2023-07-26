@@ -15,7 +15,7 @@ const UserByMobile = () => {
       enabled:false
     }
   );
-
+console.log(data,"bymobile")
  
   useEffect(() => {
     if (data && data.user) {

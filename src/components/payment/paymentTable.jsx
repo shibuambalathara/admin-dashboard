@@ -1,3 +1,4 @@
+
 import { Button } from "@material-tailwind/react";
 import React, { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -7,29 +8,17 @@ import {
   usePagination,
   useGlobalFilter,
 } from "react-table";
-import {
-  useDeletePaymentMutation,
-  usePaymentTableQuery,
-} from "../../utils/graphql";
+
 import SearchUser from "../utils/search";
 import format from "date-fns/format";
 import TableComponent from "../utils/table";
-import LimitedDataPaginationComponents from "../utils/limitedDataPagination";
+import PaginationComponent from '../utils/pagination'
+const PaymentTable = ({data}) => {
 
-const PaymentTableComponent = () => {
-  const [currentPage, setCurrentPage] = useState(0);
-  const [pageSize, setPageSize] = useState(10);
-  const { data, loading, error, refetch } = usePaymentTableQuery({
-    variables: {
-      skip: currentPage * pageSize,
-      take: pageSize,
-      orderBy: { createdAt: "desc" },
-    },
-  });
-  const [deletePayment] = useDeletePaymentMutation();
+
   const navigate = useNavigate();
 
-  console.log(data, "payment ");
+  console.log(data, "payment.. ",data?.payments.length);
 
   const handlePaymentPerUser = (userId) => {
     navigate(`/payment/${userId}`);
@@ -162,34 +151,23 @@ const PaymentTableComponent = () => {
 
   const { globalFilter } = state;
 
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-  };
 
-  if (loading) return <p>Loading...</p>;
+
+
 
   return (
-    <div className="flex  flex-col  max-w-full">
-      <div className="text-center font-extrabold my-5 text-lg">
-        {" "}
-        Payment Data Table{" "}
-      </div>
-      <div>
-      <SearchUser
-        filter={globalFilter}
-        className="  text-white "
-        setFilter={setGlobalFilter}
-      />
+    <div>
+    <SearchUser
+      filter={globalFilter}
+      className="  text-white "
+      setFilter={setGlobalFilter}
+    />
 
-      <TableComponent tableData={tableInstance} />
+    <TableComponent tableData={tableInstance} />
+{data?.payments?.length>10 && <PaginationComponent tableData={tableInstance}/>}
 
-      <LimitedDataPaginationComponents
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-      />
-    </div>
-    </div>
-  );
-};
+  </div>
+  )
+}
 
-export default PaymentTableComponent;
+export default PaymentTable
