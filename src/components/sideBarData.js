@@ -15,10 +15,9 @@ const Sidebar_items=[
     name:"Payments",
     path:"payment"
   },
-
   {
-    name:"Events types",
-    path:"event-types"
+    name:"Sellers",
+    path:"sellers"
   },
   {
     name:"Locations",
@@ -30,20 +29,18 @@ const Sidebar_items=[
   },
  
   {
-    name:"Sellers",
-    path:"sellers"
-  },
- 
-  
-
-  {
     name:"Image Upload",
     path:"image-upload"
   },
   {
     name:"Enquiries",
     path:"enquiry"
-  }
+  },
+  
+  {
+    name:"Events types",
+    path:"event-types"
+  },
 
 
   

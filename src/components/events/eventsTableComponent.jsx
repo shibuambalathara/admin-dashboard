@@ -131,7 +131,7 @@ const { value: input } = await Swal.fire({
           Header: "Vehicles ",
           Cell: ({ row }) => (
 <>  { row.original.vehiclesCount===0  ?   <a className="btn btn-accent" href={`/add-vehicle/${row.original.id}`} target="_blank" rel="noopener noreferrer">Add Vehicle</a>
-:              <a className="btn btn-secondary" href={`/view-vehicls/${row.original.id}`} target="_blank" rel="noopener noreferrer">{row.original.vehiclesCount}</a>
+:              <a className="btn bg-lime-500" href={`/view-vehicls/${row.original.id}`} target="_blank" rel="noopener noreferrer">{row.original.vehiclesCount}</a>
 }</> 
             )
         },
@@ -147,7 +147,7 @@ const { value: input } = await Swal.fire({
             Header: "Upload Excel File",
             Cell: ({ row }) => (
       //        <button className="btn btn-info" onClick={()=>handleUploadExcelFile(row.original.id) }>Upload</button>
-      <a className="btn btn-info" href={`/excel-upload/${row.original.id}`} target="_blank" rel="noopener noreferrer">Upload</a>
+      <a className="btn bg-emerald-500" href={`/excel-upload/${row.original.id}`} target="_blank" rel="noopener noreferrer">Upload</a>
    
       )
           },
@@ -155,14 +155,14 @@ const { value: input } = await Swal.fire({
           {
             Header: "View/Edit Event",
             Cell: ({ row }) => (
-              <a className="btn btn-warning" href={`/edit-event/${row.original.id}`} target="_blank" rel="noopener noreferrer">View/Edit</a>
+              <a className="btn bg-cyan-500" href={`/edit-event/${row.original.id}`} target="_blank" rel="noopener noreferrer">View/Edit</a>
 
               )
           },
           {
             Header: "Report (excel)",
             Cell: ({ row }) => (
-              <button className="btn btn-success" onClick={() => handleReport(row.original.Report)}>Download</button>
+              <button className="btn bg-pink-500" onClick={() => handleReport(row.original.Report)}>Download</button>
             )
           },
   

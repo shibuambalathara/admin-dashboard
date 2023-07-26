@@ -3742,7 +3742,7 @@ export type PaymentDetailsQueryVariables = Exact<{
 }>;
 
 
-export type PaymentDetailsQuery = { __typename?: 'Query', payment?: { __typename?: 'Payment', id: string, amount?: number | null, status?: string | null, paymentFor?: string | null, description?: string | null, refNo?: number | null, image?: { __typename?: 'ImageFieldOutput', url: string } | null, user?: { __typename?: 'User', id: string, firstName?: string | null, username?: string | null } | null, emdUpdate?: Array<{ __typename?: 'EmdUpdate', emdNo?: number | null, vehicleBuyingLimitIncrement?: number | null, createdAt?: any | null, createdBy?: { __typename?: 'User', id: string, firstName?: string | null } | null }> | null } | null };
+export type PaymentDetailsQuery = { __typename?: 'Query', payment?: { __typename?: 'Payment', id: string, amount?: number | null, status?: string | null, paymentFor?: string | null, description?: string | null, refNo?: number | null, emdUpdateCount?: number | null, image?: { __typename?: 'ImageFieldOutput', url: string } | null, user?: { __typename?: 'User', id: string, firstName?: string | null, username?: string | null } | null, emdUpdate?: Array<{ __typename?: 'EmdUpdate', emdNo?: number | null, vehicleBuyingLimitIncrement?: number | null, createdAt?: any | null, createdBy?: { __typename?: 'User', id: string, firstName?: string | null } | null }> | null } | null };
 
 export type CoupenPerPaymentQueryVariables = Exact<{
   where: PaymentWhereUniqueInput;
@@ -3772,7 +3772,7 @@ export type PaymentTableQueryVariables = Exact<{
 }>;
 
 
-export type PaymentTableQuery = { __typename?: 'Query', payments?: Array<{ __typename?: 'Payment', id: string, refNo?: number | null, status?: string | null, amount?: number | null, paymentFor?: string | null, createdAt?: any | null, updatedAt?: any | null, RegistrationExpire?: any | null, createdBy?: { __typename?: 'User', firstName?: string | null, lastName?: string | null } | null, user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, username?: string | null, mobile?: string | null } | null }> | null };
+export type PaymentTableQuery = { __typename?: 'Query', payments?: Array<{ __typename?: 'Payment', id: string, refNo?: number | null, status?: string | null, amount?: number | null, paymentFor?: string | null, createdAt?: any | null, updatedAt?: any | null, RegistrationExpire?: any | null, emdUpdateCount?: number | null, createdBy?: { __typename?: 'User', firstName?: string | null, lastName?: string | null } | null, user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, username?: string | null, mobile?: string | null } | null, emdUpdate?: Array<{ __typename?: 'EmdUpdate', vehicleBuyingLimitIncrement?: number | null }> | null }> | null };
 
 export type UpdatePaymentMutationVariables = Exact<{
   where: PaymentWhereUniqueInput;
@@ -3787,7 +3787,7 @@ export type PaymentsSearchQueryVariables = Exact<{
 }>;
 
 
-export type PaymentsSearchQuery = { __typename?: 'Query', payments?: Array<{ __typename?: 'Payment', id: string, refNo?: number | null, amount?: number | null, createdAt?: any | null, updatedAt?: any | null, RegistrationExpire?: any | null, paymentFor?: string | null, status?: string | null, user?: { __typename?: 'User', id: string, mobile?: string | null, firstName?: string | null } | null, createdBy?: { __typename?: 'User', firstName?: string | null } | null, emdUpdate?: Array<{ __typename?: 'EmdUpdate', vehicleBuyingLimitIncrement?: number | null, emdNo?: number | null, createdAt?: any | null, createdBy?: { __typename?: 'User', id: string, firstName?: string | null } | null }> | null }> | null };
+export type PaymentsSearchQuery = { __typename?: 'Query', payments?: Array<{ __typename?: 'Payment', id: string, refNo?: number | null, amount?: number | null, createdAt?: any | null, updatedAt?: any | null, RegistrationExpire?: any | null, paymentFor?: string | null, status?: string | null, emdUpdateCount?: number | null, user?: { __typename?: 'User', id: string, mobile?: string | null, firstName?: string | null } | null, createdBy?: { __typename?: 'User', firstName?: string | null } | null, emdUpdate?: Array<{ __typename?: 'EmdUpdate', emdNo?: number | null, vehicleBuyingLimitIncrement?: number | null, createdAt?: any | null, createdBy?: { __typename?: 'User', id: string, firstName?: string | null } | null }> | null }> | null };
 
 export type DeletePaymentMutationVariables = Exact<{
   where: PaymentWhereUniqueInput;
@@ -5885,6 +5885,7 @@ export const PaymentDetailsDocument = gql`
     paymentFor
     description
     refNo
+    emdUpdateCount
     image {
       url
     }
@@ -6095,12 +6096,16 @@ export const PaymentTableDocument = gql`
     }
     updatedAt
     RegistrationExpire
+    emdUpdateCount
     user {
       id
       firstName
       lastName
       username
       mobile
+    }
+    emdUpdate {
+      vehicleBuyingLimitIncrement
     }
   }
 }
@@ -6187,6 +6192,7 @@ export const PaymentsSearchDocument = gql`
     RegistrationExpire
     paymentFor
     status
+    emdUpdateCount
     user {
       id
       mobile
@@ -6194,9 +6200,6 @@ export const PaymentsSearchDocument = gql`
     }
     createdBy {
       firstName
-    }
-    emdUpdate {
-      vehicleBuyingLimitIncrement
     }
     emdUpdate {
       emdNo

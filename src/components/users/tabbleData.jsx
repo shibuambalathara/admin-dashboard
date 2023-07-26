@@ -88,7 +88,7 @@ const handleMessage=(coupen)=>{
         Header: "Payment details",
         Cell: ({ row }) => (
      
-  row.original.paymentsCount!==0 &&        <a className="btn btn-warning w-16" href={`/payment/${row.original.id}`} target="_blank" rel="noopener noreferrer"> {row.original.paymentsCount}</a>
+  row.original.paymentsCount!==0 &&        <a className="btn  bg-rose-500 w-10" href={`/payment/${row.original.id}`} target="_blank" rel="noopener noreferrer"> {row.original.paymentsCount}</a>
 
         ),
       },
