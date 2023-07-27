@@ -28,10 +28,7 @@ const Sidebar_items=[
     path:"states"
   },
  
-  {
-    name:"Image Upload",
-    path:"image-upload"
-  },
+
   {
     name:"Enquiries",
     path:"enquiry"
@@ -41,7 +38,10 @@ const Sidebar_items=[
     name:"Events types",
     path:"event-types"
   },
-
+  {
+    name:"Image Upload",
+    path:"image-upload"
+  },
 
   
   ]

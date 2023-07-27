@@ -5,6 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useBuyingLimitQuery } from "../../utils/graphql";
 import { useTable,useSortBy, usePagination, useGlobalFilter } from "react-table";
 import SearchUser from "../utils/search";
+import TableComponent from "../utils/table";
+import format from 'date-fns/format'
 
 const VehicleBuyingLimitComponent = () => {
   const{userId}=useParams()
@@ -12,21 +14,11 @@ console.log(userId,"userId")
   const navigate = useNavigate();
 
   const { data, loading, error } = useBuyingLimitQuery({variables:{where:{id:userId}}});
-  // const [deleteUserMutation] = useDeleteUserMutation();
+ 
 
   console.log("this is the data from view users11", data);
 
-  // const handleViewMore = (id) => {
-  //   navigate(`/view-user/${id}`);
-  // };
-  // const paymentDetails = (id) => {
-  //   navigate(`/payment/${id}`);
-  // };
-  // const handleDelete = (id) => {
-  //   console.log(id, "delete");
-  //   deleteUserMutation({ variables: { where: { id: id } } });
-  //   navigate("/users");
-  // };
+
   const handleBuyingLimit=(id)=>{
     console.log("payment id",id)
     navigate(`/update-payment/${id}`)
@@ -37,11 +29,15 @@ console.log(userId,"userId")
          { Header: "Emd Number", accessor: "emdNo" ,  className: 'w-1/3',  },
        { Header: "vehicle Buying Limit", accessor: "vehicleBuyingLimitIncrement" ,  className: 'w-1/3', },
        { Header: "Amount", accessor: "payment.amount" ,  className: 'w-1/3', },
-       { Header: "Created At", accessor: "createdAt",  className: 'w-1/3', },
+       {
+        Header: "Created At",
+        accessor: ({ createdAt }) => new Date( createdAt),
+        sortType: "datetime",
+        Cell: ({ value }) => format(value, "dd/MM/yy, HH:mm"),
+      },
+
        { Header: "Created By", accessor: "createdBy.firstName",  className: 'w-1/3',   },
-      // { Header: "Status", accessor: "status",  className: 'w-1/3',   },
-      // { Header: "Pancard Number", accessor: "pancardNo",  className: 'w-1/3',   },
-      //  { Header: "Total Vehicle Buying Limit", accessor: "currentVehicleBuyingLimit.vehicleBuyingLimit" ,   },
+    
 
        {
         Header: "Edit Payment",
@@ -55,39 +51,7 @@ console.log(userId,"userId")
         ),
       },
 
-      // {
-      //   Header: "View more",
-      //   Cell: ({ row }) => (
-      //     <button
-      //       className="btn btn-primary"
-      //       onClick={() => handleViewMore(row.original.id)}
-      //     >
-      //       View More
-      //     </button>
-      //   ),
-      // },
-      // {
-      //   Header: "Payment details",
-      //   Cell: ({ row }) => (
-      //     <button
-      //       className="btn btn-warning"
-      //       onClick={() => paymentDetails(row.original.id)}
-      //     >
-      //       Payment Details
-      //     </button>
-      //   ),
-      // },
-      // {
-      //   Header: "Delete",
-      //   Cell: ({ row }) => (
-      //     <button
-      //       className="btn btn-block"
-      //       onClick={() => handleDelete(row.original.id)}
-      //     >
-      //       Delete
-      //     </button>
-      //   ),
-      // },
+   
     ],
     []
   );
@@ -98,6 +62,14 @@ console.log(userId,"userId")
     {
       columns,
       data: tableData,
+      initialState: {
+        sortBy: [
+          {
+            id: "createdAt",
+            desc: true,
+          },
+        ],
+      },
     },
    
     useGlobalFilter,
@@ -134,14 +106,7 @@ console.log(userId,"userId")
 
   return (
     <div className="w-full  h-fit  ">
-      {/* <div className=" w-full ">
-        <Button
-          onClick={() => navigate("/add-user")}
-          className="m-5 justify-end w-fit bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-        >
-          Add User
-        </Button>
-      </div> */}
+
 
       <div className=" max-w-7xl mx-auto h-fit">
         <div className=" flex flex-col justify-center m-auto w-full">
@@ -156,7 +121,7 @@ console.log(userId,"userId")
               setFilter={setGlobalFilter}
             />
           </div>
-          <table  
+          {/* <table  
             className="w-full  bg-white border-collapse border  border-1 border-gray-300  divide-y   text-gray-900"
             {...getTableProps()}
 
@@ -201,7 +166,8 @@ console.log(userId,"userId")
                 );
               })}
             </tbody>
-          </table>
+          </table> */}
+          <TableComponent tableData={tableInstance}/>
           <div className="flex justify-center">
             <div className="flex justify-between mt-4">
               <div>
