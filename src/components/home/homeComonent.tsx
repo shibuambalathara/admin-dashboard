@@ -16,15 +16,12 @@ const HomeComonent = () => {
 
   const { data, loading, error } = useCountQuery();
 
-  let pulseClasses = `flex flex-col btn btn-accent w-60 rounded bg-slate-300 p-5 mt-px ml-5   h-20  `;
+  let pulseClasses = `flex flex-col text-black  border-2 w-60 shadow-xl rounded bg-white p-5  ml-5     `;
 
-  let hoverClass = ` w-50 space-x-4 hover:transform  hover:scale-125 ${
-    isHovering ? "stop-animation" : "animate-pulse duration-500"
-  }`;
 
   return (
-    <div className="flex flex-wrap m-5 space-x-12 space-y-20 justify-center items-center bg">
-      <div className={hoverClass} style={{ marginTop: "80px" }}>
+    <div className="flex flex-wrap m-5 space-x-12 h-96 space-y-20 justify-center items-center bg">
+      <div  style={{ marginTop: "80px" }}>
         <div
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
@@ -32,13 +29,13 @@ const HomeComonent = () => {
           onClick={() => navigate("users")}
         >
           <div className="text-center font-extrabold">Users Count</div>
-          <div className="text-center mt-2 lowercase ">
+          <div className="text-center m-2 lowercase ">
             {data?.usersCount} <span className="uppercase">I</span>tems
           </div>
         </div>
       </div>
 
-      <div className={hoverClass}>
+      <div>
         <div
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
@@ -51,21 +48,8 @@ const HomeComonent = () => {
           </div>
         </div>
       </div>
-      {/* <div className={hoverClass}>
-        <div
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          className={pulseClasses}
-          onClick={() => navigate("emd")}
-        >
-          <div className="text-center font-extrabold">Emd Count</div>
-          <div className="text-center mt-2 lowercase ">
-            {data?.emdUpdatesCount}
-            <span className="uppercase">I</span>tems
-          </div>
-        </div>
-      </div> */}
-      <div className={hoverClass}>
+ 
+      <div>
         <div
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
@@ -79,7 +63,7 @@ const HomeComonent = () => {
         </div>
       </div>
 
-      <div className={hoverClass}>
+      <div >
         <div
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
@@ -92,7 +76,7 @@ const HomeComonent = () => {
           </div>
         </div>
       </div>
-      <div className={hoverClass}>
+      <div >
         <div
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
@@ -105,7 +89,7 @@ const HomeComonent = () => {
           </div>
         </div>
       </div>
-      <div className={hoverClass}>
+      <div >
         <div
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
@@ -118,14 +102,8 @@ const HomeComonent = () => {
           </div>
         </div>
       </div>
-      {/* <div className={hoverClass}>
-    <div onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave} className={pulseClasses}  onClick={()=>navigate('excel-uploads')}>
-    <div className='text-center font-extrabold'>Execel Uploads </div>
-    <div className='text-center mt-2 lowercase '>{data?.excelUploadsCount} <span  className='uppercase'>I</span>tems</div>
-    </div>
-    </div> */}
-      <div className={hoverClass}>
+ 
+      <div >
         <div
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
