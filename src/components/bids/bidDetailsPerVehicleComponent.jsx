@@ -13,6 +13,8 @@ import { ShowPopup } from '../alerts/popUps';
 
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import TableComponent from '../utils/table'
+import PaginationComponents from '../utils/pagination'
 
 
 
@@ -183,91 +185,24 @@ const BidDetailsPerVehicleComponent = () => {
    
   return (
     <div className="flex  flex-col w-full justify-around ">
-    {/* <Button
-      onClick={() => navigate("/addvehicle")}
-      className="m-5 justify-end w-fit bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-    >
-     Add Vechile
-    </Button> */}
+
     
     <div className=" flex flex-col w-full justify-center m-auto ">
     <div className="mb-2">
   <div className="text-center font-extrabold my-5 text-lg min-w-full">  Bidders Details of Lot No:<span className='text-red-500'> {data?.vehicle?.vehicleIndexNo}</span>  & Auction No:<span className='text-red-500'>{data?.vehicle?.event?.eventNo}</span> </div>
    <div className='flex justify-end space-y-2'>
-    <SearchUser filter={globalFilter} className="  text-white " setFilter={setGlobalFilter}/>
+   
     <div className='space-y-2'>
 <h1>Vehicle Event Status :<span className='font-bold'> {data?.vehicle?.vehicleEventStatus}</span></h1>
 <h1>Bid Status :<span className='font-bold'> {data?.vehicle?.bidStatus}</span></h1>
-<a className='btn' target="_blank" rel="noopener noreferrer" href={`/edit-vehicle/${data?.vehicle?.id}`}> Change Status</a>
-<button className='btn btn-warning' onClick={(e)=> handleReport(data?.vehicle)} >Report</button>
+<a className='btn bg-sky-600' target="_blank" rel="noopener noreferrer" href={`/edit-vehicle/${data?.vehicle?.id}`}> Change Status</a>
+<button className='btn bg-pink-500' onClick={(e)=> handleReport(data?.vehicle)} >Report</button>
     </div>
     </div>
   </div>
-      <table
-        className="w-full divide-y divide-gray-200"
-        {...getTableProps()}
-      >
-        <thead className="bg-gray-50">
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th
-                  scope="col"
-                  className="py-3 pl-4"
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                >
-                  {column.render("Header")}
-                  <span>
-                      {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
-                      </span>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody className="divide-y divide-gray-200" {...getTableBodyProps()}>
-          {page.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td className="py-3 pl-4 text-center" {...cell.getCellProps()}>
-                      {cell.render("Cell")}
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-<div className="flex justify-center">
-      <div className="flex justify-between mt-4">
-      <div>
-        <button
-          onClick={() => gotoPage(0)}
-          disabled={!canPreviousPage}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
-        >
-          {'<<'}
-        </button>
-        <button
-          onClick={() => previousPage()}
-          disabled={!canPreviousPage}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
-        >
-          {'<'}
-        </button>
-        <button
-          onClick={() => nextPage()}
-          disabled={!canNextPage}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
-          >  {'>'}</button>
-          </div>
-          </div>
-      
-    </div>
+  <SearchUser filter={globalFilter} className="  text-white " setFilter={setGlobalFilter}/>
+      <TableComponent tableData={tableInstance}/>
+<PaginationComponents tableData={tableInstance}/>
   </div>
   </div>
   )

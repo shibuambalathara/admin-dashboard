@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ViewUsers from '../components/users/viewUsers'
 import UserByMobile from '../components/users/userByMobile'
 import { useNavigate } from 'react-router-dom';
@@ -7,6 +7,13 @@ import UsersByDate from '../components/users/usersByDate';
 
 const Users = () => {
   const navigate = useNavigate();
+
+  const [paymentDataExists, setPaymentDataExists] = useState(false);
+
+  const handlePaymentData = (hasData:any) => {
+    setPaymentDataExists(hasData);
+  };
+
   return (
     <div className=' w-full '>
         <div className=" w-full ">
@@ -26,10 +33,10 @@ const Users = () => {
             </div>
       </div>
       <div className='space-y-2'>
-      <UserByMobile/>
-      <UsersByState/>
-      <UsersByDate/>
-    <ViewUsers/>
+      <UserByMobile onDataCheck={handlePaymentData}/>
+      <UsersByState onDataCheck={handlePaymentData}/>
+      <UsersByDate onDataCheck={handlePaymentData}/>
+   { !paymentDataExists && <ViewUsers/>}
     </div>
     </div>
   )

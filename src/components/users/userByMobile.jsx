@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useUserQuery } from "../../utils/graphql";
 import TabbleOfUsersOrUser from "./tabbleData";
 
-const UserByMobile = () => {
+const UserByMobile = ({onDataCheck}) => {
   const [mobile, setMobile] = useState();
   const [callEnabled, setCallEnabled] = useState(false);
   const [user, setUser] = useState([]);
@@ -25,7 +25,7 @@ console.log(data,"bymobile")
     }
   }, [data]);
 
-  if (data?.user) console.log(data?.user, "data.user");
+  if (data?.user) {onDataCheck(true)};
 
   const {
     register,
