@@ -10,6 +10,8 @@ import SearchUser from '../utils/search'
 import format from "date-fns/format";
 import jsPDF from 'jspdf';
 import { ShowPopup } from '../alerts/popUps'
+import TableComponent from '../utils/table'
+import PaginationComponents from '../utils/pagination'
 
 
 
@@ -196,75 +198,14 @@ useEffect(()=>{
 
     
     <div className=" flex flex-col w-full justify-center m-auto ">
-    <div className="mb-2">
+   
   <div className="text-center font-extrabold my-5 text-lg min-w-full">  Bids Data Table Of {data?.user?.firstName} {data?.user?.lastName} </div>
     <SearchUser filter={globalFilter} className="  text-white " setFilter={setGlobalFilter}/>
-  </div>
-      <table
-        className="w-full divide-y divide-gray-200"
-        {...getTableProps()}
-      >
-        <thead className="bg-gray-50">
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th
-                  scope="col"
-                  className="py-3 pl-4"
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                >
-                  {column.render("Header")}
-                  <span>
-                      {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
-                      </span>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody className="divide-y divide-gray-200" {...getTableBodyProps()}>
-          {page.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td className="py-3 pl-4 text-center" {...cell.getCellProps()}>
-                      {cell.render("Cell")}
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-<div className="flex justify-center">
-      <div className="flex justify-between mt-4">
-      <div>
-        <button
-          onClick={() => gotoPage(0)}
-          disabled={!canPreviousPage}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
-        >
-          {'<<'}
-        </button>
-        <button
-          onClick={() => previousPage()}
-          disabled={!canPreviousPage}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
-        >
-          {'<'}
-        </button>
-        <button
-          onClick={() => nextPage()}
-          disabled={!canNextPage}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
-          >  {'>'}</button>
-          </div>
-          </div>
-      
-    </div>
+
+    
+      <TableComponent tableData={tableInstance}/>
+
+    <PaginationComponents tableData={tableInstance}/>
   </div>
   </div>
   )

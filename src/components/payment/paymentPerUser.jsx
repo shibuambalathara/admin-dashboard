@@ -7,6 +7,8 @@ import SearchUser from '../utils/search'
 import format from 'date-fns/format'
 import Swal from "sweetalert2";
 import jsPDF from 'jspdf';
+import TableComponent from '../utils/table';
+import PaginationComponents from '../utils/pagination';
 
 const PaymentPerUser = () => {
     const {id}=useParams()
@@ -64,13 +66,13 @@ navigate(`/update-payment/${paymentId}`)
             {
             Header: "Update Payment",
             Cell: ({ row }) => (
-              <button className="btn btn-accent" onClick={() => handlePaymentStatus(row.original?.id)}>Update Payment</button>
+              <button className="btn bg-rose-500" onClick={() => handlePaymentStatus(row.original?.id)}>Update Payment</button>
             )
           },
           {
             Header: "Emd Details",
             Cell: ({ row }) => (
-     row.original.emdUpdateCount!==0 &&         <a className="btn btn-secondary" href={`/emdDetails/${row.original.id}`} target="_blank" rel="noopener noreferrer">Emd Details </a>
+     row.original.emdUpdateCount!==0 &&         <a className="btn bg-zinc-500" href={`/emdDetails/${row.original.id}`} target="_blank" rel="noopener noreferrer">Emd Details </a>
             )
           },
           {
@@ -106,7 +108,7 @@ navigate(`/update-payment/${paymentId}`)
             Header: "Payment Message",
             Cell: ({ row }) => {
               
-    if(row.original.status==='success' ){return(   <button className="btn bg-yellow-500" onClick={() => handleMessage(row.original)}>Message To:{data?.user?.mobile}</button>)}
+    if(row.original.status==='success' ){return(   <button className="btn bg-teal-500" onClick={() => handleMessage(row.original)}>Message To:{data?.user?.mobile}</button>)}
     else {
       
       return row.original.status;}
@@ -117,7 +119,7 @@ navigate(`/update-payment/${paymentId}`)
             Header: "Download",
             Cell: ({ row }) => {
               
-    if(row.original.status==='success' ){return(   <button className="btn bg-sky-500" onClick={() => handleDownload(row.original)}>Download</button>)}
+    if(row.original.status==='success' ){return(   <button className="btn bg-pink-500" onClick={() => handleDownload(row.original)}>Download</button>)}
     else {
       
       return row.original.status;}
@@ -180,53 +182,9 @@ navigate(`/update-payment/${paymentId}`)
   <div className="text-center font-extrabold my-5 text-lg min-w-full">  Payment Data Table of {data?.user?.firstName} {data?.user?.lastName} </div>
     <SearchUser filter={globalFilter} className="  text-white " setFilter={setGlobalFilter}/>
   </div>
-  <table  
-            className="w-full  bg-white border-collapse border  border-1 border-gray-300  divide-y   text-gray-900"
-            {...getTableProps()}
-
-          >
-            <thead className="bg-gray-50 relative ">
-              {headerGroups.map((headerGroup) => (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column) => (
-                    <th
-                      scope="col"
-                      className="py-2 px-2  border  border-10 "
-                      {...column.getHeaderProps(column.getSortByToggleProps())}
-                    >
-                      {column.render("Header")}
-                      <span>
-                      {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
-                      </span>
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody
-              className="divide-y divide-gray-200"
-              {...getTableBodyProps()}
-            >
-              {page.map((row) => {
-                prepareRow(row);
-                return (
-                  <tr {...row.getRowProps()}>
-                    {row.cells.map((cell) => {
-                      return (
-                        <td
-                          className="px-2 py-2 text-md  border  border-1 text-center border-gray-200"
-                          {...cell.getCellProps()}
-                        >
-                          {cell.render("Cell")}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-<div className="flex justify-center">
+  
+          <TableComponent tableData={tableInstance}/>
+{/* <div className="flex justify-center">
       <div className="flex justify-between mt-4">
       <div>
         <button
@@ -251,7 +209,8 @@ navigate(`/update-payment/${paymentId}`)
           </div>
           </div>
       
-    </div>
+    </div> */}
+    <PaginationComponents tableData={tableInstance}/>
   </div>
   </div>
   )

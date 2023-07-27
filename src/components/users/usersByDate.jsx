@@ -9,14 +9,14 @@ import { useStatesQuery, useUserQuery, useUsersSearchQuery } from '../../utils/g
 import TabbleOfUsersOrUser from './tabbleData';
 
 
-const UsersByDate = () => {
+const UsersByDate = ({onDataCheck}) => {
   // const [currentPage, setCurrentPage] = useState(0);
   // const [pageSize, setPageSize] = useState(10);
     const [startDate,setDate]=useState('0')
     const [user,setUser]=useState([])
     // const {data:states}=useStatesQuery()
     const{data,loading}=useUsersSearchQuery({variables:{where:{createdAt:{gte:startDate}}}})
- if (data?.users)   console.log(data?.users,"data.users")
+ if (data?.users) {onDataCheck(true)};
  
    
     console.log(startDate,"state")

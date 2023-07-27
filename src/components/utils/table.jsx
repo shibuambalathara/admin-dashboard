@@ -46,7 +46,7 @@ console.log(tableData,"ull")
                 {headerGroup.headers.map((column) => (
                   <th
                     scope="col"
-                    className=" font-serif border  border-10 "
+                    className="h-8 font-serif border  border-10 "
                     {...column.getHeaderProps(column.getSortByToggleProps())}
                   >
                     {column.render("Header")}

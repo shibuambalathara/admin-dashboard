@@ -10,6 +10,8 @@ import SearchUser from '../utils/search'
 import format from 'date-fns/format'
 import Swal from "sweetalert2";
 import Report from './report'
+import TableComponent from '../utils/table'
+import PaginationComponents from '../utils/pagination'
 
 
 
@@ -148,13 +150,13 @@ Swal.fire({
           Cell: ({ row }) => (
             // <button className="btn btn-accent" onClick={()=>handleBidDetails(row.original.id) }>Bid Details</button>
           
-    row.original.totalBids !==0 ?        <a className="btn btn-accent" href={`/bid-details/${row.original.id}`} target="_blank" rel="noopener noreferrer"> {row.original.totalBids}</a>:'0'
+    row.original.totalBids !==0 ?        <a className="btn btn-primary" href={`/bid-details/${row.original.id}`} target="_blank" rel="noopener noreferrer"> {row.original.totalBids}</a>:'0'
             )
         },
         {
           Header: "About Bid",
           Cell: ({ row }) => (
-            row.original.totalBids !==0 ? <button className="btn btn-info" onClick={() => handleAboutBid(row.original)}>About Bid</button>   :"No Bids"
+            row.original.totalBids !==0 ? <button className="btn bg-teal-500" onClick={() => handleAboutBid(row.original)}>About Bid</button>   :"No Bids"
             )
         },
          
@@ -169,7 +171,7 @@ Swal.fire({
           {
             Header: "Vehicle Details",accessor: "registrationNumber",
             Cell: ({ row }) => (
-              <a className="btn btn-secondary" href={`/edit-vehicle/${row.original.id}`} target="_blank" rel="noopener noreferrer">{row.original.registrationNumber}</a>
+              <a className="btn bg-sky-500 w-24" href={`/edit-vehicle/${row.original.id}`} target="_blank" rel="noopener noreferrer">{row.original.registrationNumber}</a>
 
               )
           },
@@ -185,32 +187,48 @@ Swal.fire({
       );
 
       const tableData=useMemo(() => (data ? data.event?.vehicles : []), [data]);
-      const tableInstance=useTable({
-        columns ,
-        data: tableData,
-      },useGlobalFilter,useSortBy,usePagination);
+      const tableInstance = useTable(
+        {
+          columns,
+          data: tableData,
+          initialState: {
+            sortBy: [
+              {
+                id: "Bid Time Expire",
+                desc: false,
+              },
+            ],
+          },
+        },
+       
+        useGlobalFilter,
+        useSortBy,
+        usePagination,
+        
+        
+      );
      
-        const {
-          getTableProps,
-          getTableBodyProps,
-          headerGroups,
-         
-          page,
-          prepareRow,
-          nextPage,
-          previousPage,
-          canNextPage,
-          canPreviousPage,
-          pageOptions,
-          pageCount,
-          gotoPage,
-          setPageSize: setTablePageSize,
-          state: { pageIndex: tablePageIndex, pageSize: tablePageSize },
-          state,
-          setGlobalFilter
-        } = tableInstance;
+      const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
     
-        const {globalFilter}=state
+        page,
+        prepareRow,
+        nextPage,
+        previousPage,
+        canNextPage,
+        canPreviousPage,
+        pageOptions,
+        pageCount,
+        gotoPage,
+        setPageSize: setTablePageSize,
+        state: { pageIndex: tablePageIndex, pageSize: tablePageSize },
+        state,
+        setGlobalFilter,
+      } = tableInstance;
+    
+      const { globalFilter } = state;
     
       if (loading) return <p>Loading...</p>;
 
@@ -234,72 +252,10 @@ Swal.fire({
         </div>
     </div>
 
-  
-      <table
-        className="w-full divide-y divide-gray-200 "
-        {...getTableProps()}
-      >
-        <thead className="bg-gray-50">
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th
-                  scope="col"
-                  className="py-3 pl-4"
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                >
-                  {column.render("Header")}
-                  <span>
-                      {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
-                      </span>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody className="divide-y divide-gray-200" {...getTableBodyProps()}>
-          {page.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td className="py-3 pl-4 text-center" {...cell.getCellProps()}>
-                      {cell.render("Cell")}
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-<div className="flex justify-center">
-      <div className="flex justify-between mt-4">
-      <div>
-        <button
-          onClick={() => gotoPage(0)}
-          disabled={!canPreviousPage}
-          className="btn"
-        >
-          {'<<'}
-        </button>
-        <button
-          onClick={() => previousPage()}
-          disabled={!canPreviousPage}
-          className="btn "
-        >
-          {'<'}
-        </button>
-        <button
-          onClick={() => nextPage()}
-          disabled={!canNextPage}
-          className="btn"
-          >  {'>'}</button>
-          </div>
-          </div>
-      
-    </div>
+
+      <TableComponent tableData={tableInstance}/>
+
+    <PaginationComponents tableData={tableInstance}/>
   </div>
   </div>
   )

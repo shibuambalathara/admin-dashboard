@@ -7,6 +7,8 @@ import { useTable,useSortBy, usePagination, useGlobalFilter } from "react-table"
 
 import Swal from "sweetalert2";
 import {   useEmdUpdatesPerPaymentQuery } from "../../utils/graphql";
+import TableComponent from "../utils/table";
+import PaginationComponents from "../utils/pagination";
 
 
 const EmdDetails = () => {
@@ -63,7 +65,7 @@ const handleMessage=(emdUpdates)=>{
         Cell: ({ row }) => (
            
              
-               <button className="btn bg-yellow-500" onClick={()=>handleMessage(row.original) }>Message to:{row.original.user.mobile}</button>
+               <button className="btn bg-teal-500" onClick={()=>handleMessage(row.original) }>Message to:{row.original.user.mobile}</button>
     
     
   
@@ -134,14 +136,7 @@ const handleMessage=(emdUpdates)=>{
   return (
 
     <div className="w-full   ">
-      {/* <div className=" w-full ">
-        <Button
-          onClick={() => navigate("/add-user")}
-          className="m-5 justify-end w-fit bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-        >
-          Add User
-        </Button>
-      </div> */}
+    
 
       <div className=" max-w-7xl mx-auto h-fit">
         <div className=" flex flex-col justify-center m-auto w-full">
@@ -156,92 +151,9 @@ const handleMessage=(emdUpdates)=>{
               setFilter={setGlobalFilter}
             />
           </div>
-          <table  
-            className="w-full  bg-white border-collapse border  border-1 border-gray-300  divide-y   text-gray-900"
-            {...getTableProps()}
-
-          >
-            <thead className="bg-gray-50 relative ">
-              {headerGroups.map((headerGroup) => (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column) => (
-                    <th
-                      scope="col"
-                      className="py-2 px-2  border  border-10 "
-                      {...column.getHeaderProps(column.getSortByToggleProps())}
-                    >
-                      {column.render("Header")}
-                      <span>
-                      {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
-                      </span>
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody
-              className="divide-y divide-gray-200"
-              {...getTableBodyProps()}
-            >
-              {page.map((row) => {
-                prepareRow(row);
-                return (
-                  <tr {...row.getRowProps()}>
-                    {row.cells.map((cell) => {
-                      return (
-                        <td
-                          className="px-2 py-2 text-md  border  border-1 text-center border-gray-200"
-                          {...cell.getCellProps()}
-                        >
-                          {cell.render("Cell")}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-          <div className="flex justify-center">
-            <div className="flex flex-col justify-between mt-4 ">
-            <div className="flex justify-center">
-          Page{' '}
-          <strong>
-            {tablePageIndex + 1} of {tableInstance.pageOptions.length}
-         
-          </strong>{' '}
-        </div>
-              <div className="space-x-2">
-                <button
-                  onClick={() => gotoPage(0)}
-                  disabled={!canPreviousPage}
-                  className="btn "
-                >
-                  {"<<"}
-                </button>
-               
-                <button
-                  onClick={() => previousPage()}
-                  disabled={!canPreviousPage}
-                  className="btn"
-                >
-                  {"<"}
-                </button>
-                <button
-                  onClick={() => nextPage()}
-                  disabled={!canNextPage}
-                  className="btn"
-                >
-                  {" "}
-                  {">"}
-                </button>
-                <button className="btn" onClick={() => gotoPage(pageCount - 1)}  disabled={!canNextPage}>
-          {'>>'}
-        </button>{' '}
-              </div>
-         
-            </div>
-          </div>
+          
+          <TableComponent tableData={tableInstance}/>
+         <PaginationComponents tableData={tableInstance}/>
         </div>
       </div>
     </div>
