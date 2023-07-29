@@ -50,13 +50,13 @@ refetch()
       { Header: "Mobile", accessor: "mobile" },
       { Header: "Created At ", accessor: ({createdAt})=>{return format(new Date( createdAt),`dd/MM/yy, HH:mm`)} },
       { Header: "Updated At ",  accessor: ({updatedAt})=>{return format(new Date( updatedAt),`dd/MM/yy, HH:mm`)} },
-      {Header:"Subject",accessor:"subject"},
+      {Header:"State",accessor:"email"},
       {Header:"Message",accessor:"message"},
      
       {
         Header: "Status",
         Cell: ({ row }) => (
-    row.original.status==='created' ?     <button className="btn bg-red-500" onClick={() => handleChangeStatus(row.original?.id)}>{row.original.status}</button>:<p className="text-green-500 font-bold">Solved</p> 
+    row.original.status==='created' ?     <button className="btn bg-red-500" onClick={() => handleChangeStatus(row.original?.id)}>Unsolved</button>:<p className="text-green-500 font-bold">Solved</p> 
         )
       },
       
