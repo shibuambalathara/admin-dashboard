@@ -128,20 +128,20 @@ const { value: input } = await Swal.fire({
           },
          
         {
-          Header: "Vehicles ",
+          Header: "Add Vehicles ",
           Cell: ({ row }) => (
-<>  { row.original.vehiclesCount===0  ?   <a className="btn btn-accent" href={`/add-vehicle/${row.original.id}`} target="_blank" rel="noopener noreferrer">Add Vehicle</a>
-:              <a className="btn bg-lime-500" href={`/view-vehicls/${row.original.id}`} target="_blank" rel="noopener noreferrer">{row.original.vehiclesCount}</a>
-}</> 
+<p className='flex'>       
+
+{ (row.original.endDate >new Date().toISOString()) && (row.original.vehiclesCount===0 || row.original.eventCategory==='online')  &&      <a className="btn btn-accent" href={`/add-vehicle/${row.original.id}`} target="_blank" rel="noopener noreferrer">Add</a>}
+</p>
             )
         },
-          // {
-          //   Header: "View Vehicles",
-          //   Cell: ({ row }) => (
-          //     // <button className="btn btn-secondary" onClick={()=>handleViewVehicle(row.original.id) }>View vehicls</button>
-
-          //     )
-          // },
+          {
+            Header: "View Vehicles",
+            Cell: ({ row }) => (
+                <a className="btn bg-lime-500" href={`/view-vehicls/${row.original.id}`} target="_blank" rel="noopener noreferrer">{row.original.vehiclesCount}</a>
+              )
+          },
          
           {
             Header: "Upload Excel File",

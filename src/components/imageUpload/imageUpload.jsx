@@ -39,19 +39,20 @@ function ImageUpload() {
   return (
     <div className="w-full flex justify-center flex-col space-y-5 m-10">
  
-    <h1 className="font-bold text-lg flex  text-center m-10 " >Upload Image</h1>
-      <input type="file" className="btn btn-outline w-fit" onChange={handleChange} accept="/image/*" />
+   <h1 className="font-bold text-lg flex text-center  ">Choose  Image</h1>
+      <input type="file"  className="w-fit py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50" onChange={handleChange} accept="/image/*" />
       {file && 
        <>
-       <button className="btn w-fit" onClick={handleUpload}>Upload to Firebase</button>
+       <button className="btn w-fit bg-red-500" onClick={handleUpload}>Upload to Firebase</button>
      
     <p>{percent} "% done"</p>
     </>}
     {firbaseUrl && 
     <>
-    <img className="w-2/5" src={firbaseUrl} alt="firbaase url"/>
+   
     <p>URL   :</p>
-    <textarea className="w-2/4 h-36"  value={firbaseUrl}></textarea>
+    <textarea className="w-full border-2 border-solid border-black h-36 p-1"  value={firbaseUrl}></textarea>
+    <img className="w-2/5" src={firbaseUrl} alt="firbaase url"/>
     </>
     }
 
