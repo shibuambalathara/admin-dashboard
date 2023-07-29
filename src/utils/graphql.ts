@@ -1183,6 +1183,8 @@ export type Mutation = {
   createUsers?: Maybe<Array<Maybe<User>>>;
   createVehicle?: Maybe<Vehicle>;
   createVehicles?: Maybe<Array<Maybe<Vehicle>>>;
+  createWorkSheet?: Maybe<WorkSheet>;
+  createWorkSheets?: Maybe<Array<Maybe<WorkSheet>>>;
   deleteBid?: Maybe<Bid>;
   deleteBids?: Maybe<Array<Maybe<Bid>>>;
   deleteContactUs?: Maybe<ContactUs>;
@@ -1209,6 +1211,8 @@ export type Mutation = {
   deleteUsers?: Maybe<Array<Maybe<User>>>;
   deleteVehicle?: Maybe<Vehicle>;
   deleteVehicles?: Maybe<Array<Maybe<Vehicle>>>;
+  deleteWorkSheet?: Maybe<WorkSheet>;
+  deleteWorkSheets?: Maybe<Array<Maybe<WorkSheet>>>;
   endSession: Scalars['Boolean'];
   redeemUserMagicAuthToken: RedeemUserMagicAuthTokenResult;
   sendUserMagicAuthLink: Scalars['Boolean'];
@@ -1238,6 +1242,8 @@ export type Mutation = {
   updateUsers?: Maybe<Array<Maybe<User>>>;
   updateVehicle?: Maybe<Vehicle>;
   updateVehicles?: Maybe<Array<Maybe<Vehicle>>>;
+  updateWorkSheet?: Maybe<WorkSheet>;
+  updateWorkSheets?: Maybe<Array<Maybe<WorkSheet>>>;
 };
 
 
@@ -1382,6 +1388,16 @@ export type MutationCreateVehiclesArgs = {
 };
 
 
+export type MutationCreateWorkSheetArgs = {
+  data: WorkSheetCreateInput;
+};
+
+
+export type MutationCreateWorkSheetsArgs = {
+  data: Array<WorkSheetCreateInput>;
+};
+
+
 export type MutationDeleteBidArgs = {
   where: BidWhereUniqueInput;
 };
@@ -1509,6 +1525,16 @@ export type MutationDeleteVehicleArgs = {
 
 export type MutationDeleteVehiclesArgs = {
   where: Array<VehicleWhereUniqueInput>;
+};
+
+
+export type MutationDeleteWorkSheetArgs = {
+  where: WorkSheetWhereUniqueInput;
+};
+
+
+export type MutationDeleteWorkSheetsArgs = {
+  where: Array<WorkSheetWhereUniqueInput>;
 };
 
 
@@ -1663,6 +1689,17 @@ export type MutationUpdateVehicleArgs = {
 
 export type MutationUpdateVehiclesArgs = {
   data: Array<VehicleUpdateArgs>;
+};
+
+
+export type MutationUpdateWorkSheetArgs = {
+  data: WorkSheetUpdateInput;
+  where: WorkSheetWhereUniqueInput;
+};
+
+
+export type MutationUpdateWorkSheetsArgs = {
+  data: Array<WorkSheetUpdateArgs>;
 };
 
 export type NestedStringFilter = {
@@ -1905,6 +1942,9 @@ export type Query = {
   vehicle?: Maybe<Vehicle>;
   vehicles?: Maybe<Array<Vehicle>>;
   vehiclesCount?: Maybe<Scalars['Int']>;
+  workSheet?: Maybe<WorkSheet>;
+  workSheets?: Maybe<Array<WorkSheet>>;
+  workSheetsCount?: Maybe<Scalars['Int']>;
 };
 
 
@@ -2176,6 +2216,24 @@ export type QueryVehiclesArgs = {
 
 export type QueryVehiclesCountArgs = {
   where?: VehicleWhereInput;
+};
+
+
+export type QueryWorkSheetArgs = {
+  where: WorkSheetWhereUniqueInput;
+};
+
+
+export type QueryWorkSheetsArgs = {
+  orderBy?: Array<WorkSheetOrderByInput>;
+  skip?: Scalars['Int'];
+  take?: InputMaybe<Scalars['Int']>;
+  where?: WorkSheetWhereInput;
+};
+
+
+export type QueryWorkSheetsCountArgs = {
+  where?: WorkSheetWhereInput;
 };
 
 export enum QueryMode {
@@ -3432,6 +3490,108 @@ export type VehicleWhereInput = {
 };
 
 export type VehicleWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+export type WorkSheet = {
+  __typename?: 'WorkSheet';
+  chassis?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  engineNo?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  image1?: Maybe<Scalars['String']>;
+  image2?: Maybe<Scalars['String']>;
+  image3?: Maybe<Scalars['String']>;
+  image4?: Maybe<Scalars['String']>;
+  image5?: Maybe<Scalars['String']>;
+  make?: Maybe<Scalars['String']>;
+  model?: Maybe<Scalars['String']>;
+  registrationNumber?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  vehicleCondition?: Maybe<Scalars['String']>;
+  videoUrl?: Maybe<Scalars['String']>;
+  voiceRecordUrl?: Maybe<Scalars['String']>;
+};
+
+export type WorkSheetCreateInput = {
+  chassis?: InputMaybe<Scalars['String']>;
+  engineNo?: InputMaybe<Scalars['String']>;
+  image1?: InputMaybe<Scalars['String']>;
+  image2?: InputMaybe<Scalars['String']>;
+  image3?: InputMaybe<Scalars['String']>;
+  image4?: InputMaybe<Scalars['String']>;
+  image5?: InputMaybe<Scalars['String']>;
+  make?: InputMaybe<Scalars['String']>;
+  model?: InputMaybe<Scalars['String']>;
+  registrationNumber?: InputMaybe<Scalars['String']>;
+  vehicleCondition?: InputMaybe<Scalars['String']>;
+  videoUrl?: InputMaybe<Scalars['String']>;
+  voiceRecordUrl?: InputMaybe<Scalars['String']>;
+};
+
+export type WorkSheetOrderByInput = {
+  chassis?: InputMaybe<OrderDirection>;
+  createdAt?: InputMaybe<OrderDirection>;
+  engineNo?: InputMaybe<OrderDirection>;
+  id?: InputMaybe<OrderDirection>;
+  image1?: InputMaybe<OrderDirection>;
+  image2?: InputMaybe<OrderDirection>;
+  image3?: InputMaybe<OrderDirection>;
+  image4?: InputMaybe<OrderDirection>;
+  image5?: InputMaybe<OrderDirection>;
+  make?: InputMaybe<OrderDirection>;
+  model?: InputMaybe<OrderDirection>;
+  registrationNumber?: InputMaybe<OrderDirection>;
+  updatedAt?: InputMaybe<OrderDirection>;
+  vehicleCondition?: InputMaybe<OrderDirection>;
+  videoUrl?: InputMaybe<OrderDirection>;
+  voiceRecordUrl?: InputMaybe<OrderDirection>;
+};
+
+export type WorkSheetUpdateArgs = {
+  data: WorkSheetUpdateInput;
+  where: WorkSheetWhereUniqueInput;
+};
+
+export type WorkSheetUpdateInput = {
+  chassis?: InputMaybe<Scalars['String']>;
+  engineNo?: InputMaybe<Scalars['String']>;
+  image1?: InputMaybe<Scalars['String']>;
+  image2?: InputMaybe<Scalars['String']>;
+  image3?: InputMaybe<Scalars['String']>;
+  image4?: InputMaybe<Scalars['String']>;
+  image5?: InputMaybe<Scalars['String']>;
+  make?: InputMaybe<Scalars['String']>;
+  model?: InputMaybe<Scalars['String']>;
+  registrationNumber?: InputMaybe<Scalars['String']>;
+  vehicleCondition?: InputMaybe<Scalars['String']>;
+  videoUrl?: InputMaybe<Scalars['String']>;
+  voiceRecordUrl?: InputMaybe<Scalars['String']>;
+};
+
+export type WorkSheetWhereInput = {
+  AND?: InputMaybe<Array<WorkSheetWhereInput>>;
+  NOT?: InputMaybe<Array<WorkSheetWhereInput>>;
+  OR?: InputMaybe<Array<WorkSheetWhereInput>>;
+  chassis?: InputMaybe<StringFilter>;
+  createdAt?: InputMaybe<DateTimeNullableFilter>;
+  engineNo?: InputMaybe<StringFilter>;
+  id?: InputMaybe<IdFilter>;
+  image1?: InputMaybe<StringFilter>;
+  image2?: InputMaybe<StringFilter>;
+  image3?: InputMaybe<StringFilter>;
+  image4?: InputMaybe<StringFilter>;
+  image5?: InputMaybe<StringFilter>;
+  make?: InputMaybe<StringFilter>;
+  model?: InputMaybe<StringFilter>;
+  registrationNumber?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeNullableFilter>;
+  vehicleCondition?: InputMaybe<StringFilter>;
+  videoUrl?: InputMaybe<StringFilter>;
+  voiceRecordUrl?: InputMaybe<StringFilter>;
+};
+
+export type WorkSheetWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
 };
 

@@ -3,7 +3,7 @@ import storage from "../firebaseConfig";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { v4 } from 'uuid'
 
-function ImageUpload() {
+function ImageUploadDrag() {
   const [file, setFile] = useState("");
   const [percent, setPercent] = useState(0);
   const [firbaseUrl, setFirbaseUrl] = useState();
@@ -46,10 +46,10 @@ function ImageUpload() {
   };
 
   return (
-    <div className="w-full flex justify-center flex-col space-y-5 m-10">
-      <h1 className="font-bold text-lg flex text-center m-10 ">Upload Image</h1>
+    <div className="w-full flex justify-center flex-col space-y-5 mt-10">
+      <h1 className="font-bold text-lg flex text-center  ">Drag Image</h1>
       <div
-        className="w-full h-48 border-4 border-dashed border-gray-400 rounded-lg flex items-center justify-center cursor-pointer"
+        className="h-44  border-4 border-dashed border-gray-400 rounded-lg flex items-center justify-center cursor-pointer"
         onDrop={handleDrop}
         onDragOver={handleDragOver}
       >
@@ -65,19 +65,19 @@ function ImageUpload() {
       </div>
       {file && (
         <>
-          <button className="btn w-fit" onClick={handleUpload}>Upload to Firebase</button>
+          <button className="btn w-fit bg-red-500" onClick={handleUpload}>Upload to Firebase</button>
           <p>{percent} % done</p>
         </>
       )}
       {firbaseUrl && (
         <>
-          <img className="w-2/5" src={firbaseUrl} alt="firebase url" />
+          {/* <img className="w-2/5" src={firbaseUrl} alt="firebase url" /> */}
           <p>URL :</p>
-          <textarea className="w-2/4 h-36" value={firbaseUrl}></textarea>
+          <textarea className="w-full border-2 border-solid border-black h-36 p-1" value={firbaseUrl}></textarea>
         </>
       )}
     </div>
   );
 }
 
-export default ImageUpload;
+export default ImageUploadDrag;
