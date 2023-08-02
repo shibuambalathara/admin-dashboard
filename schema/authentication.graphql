@@ -14,3 +14,12 @@ mutation Login($mobile: String!, $password: String!) {
     }
   }
 }
+query Userauthentication {
+  authenticatedItem {
+    ... on User {
+      username
+      role
+      state
+    }
+  }
+}

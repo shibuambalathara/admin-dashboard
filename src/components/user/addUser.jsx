@@ -72,9 +72,10 @@ const AddUser = () => {
 
 
   return (
-    <div className=" w-full mx-auto h-fit">
-      <div className=" max-w-md mx-auto h-fit flex justify-center py-1 mt-5 items-center  ">
-        <h1 className="font-bold text-xl ">ADD USER</h1>
+    <div className=" shadow-xl  bg-slate-300  m-10 w-full ">
+       <div className="py-4 bg-gray-200 rounded px-4 flex items-center shadow-xl justify-center ">
+       <h1 className="text-xl py-3 leading-3 font-bold text-gray-900">
+          ADD USER</h1>
       </div>
 
       <div className="flex justify-between align-middle w-full  mt-4">

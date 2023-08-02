@@ -89,9 +89,9 @@ const handleOnClick=()=>{
 }
 
   return (
-    <div className="max-w-7xl mx-auto h-fit  my-10 bg-slate-100 ">
+    <div className="shadow-xl  bg-slate-300  m-10 ">
       <div className="space-y-1 "> 
-        <div className="py-4 bg-gray-200 rounded px-4 flex items-center justify-center ">
+        <div className="py-4 bg-gray-200 rounded px-4 flex items-center shadow-xl justify-center ">
           <h2 className="text-xl py-3 leading-3 font-bold text-gray-900">
             ADD EVENT
           </h2>
@@ -99,7 +99,7 @@ const handleOnClick=()=>{
         <div className="flex flex-col  w-full px-10 py-10 ">
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className=" space-y-6 ">
-              <div className="flex flex-col space-y-2 relative ">
+              <div className="flex flex-col space-y-2 relative "> 
                 <label className="text-base" htmlFor="">
                   Event Category
                 </label>
@@ -121,6 +121,7 @@ const handleOnClick=()=>{
                 <p className="text-red-500"> {errors.eventCategory&& <span>Event type required</span>}</p> 
 
               </div>
+              <div className="flex">
               <div className=" flex flex-col space-y-2 space-x-px ">
                 <label htmlFor="">Start Date and Time</label>
                 <div className="flex space-x-6 ">
@@ -149,7 +150,7 @@ const handleOnClick=()=>{
                    <p className="text-red-500"> {errors.endDate&& <span>End date and time required</span>}</p> 
                 </div>
               </div>
-
+              </div>
               <div className="flex flex-col space-y-2 relative ">
                 <label className="text-base" htmlFor="">
                   Seller
@@ -293,11 +294,11 @@ const handleOnClick=()=>{
                   <option value="unlocked">unlocked</option>
                 </select>
               </div>}
-              <div className="flex space-x-6">
+              {/* <div className="flex space-x-6">
                 <input type="checkbox"   {...register("special",{})}
                  className="checkbox checkbox-success hover:bg-white" />
                 <label htmlFor="">Is this a special event ?</label>
-              </div>
+              </div> */}
               <div className="w-full max-w-xl">
                 <label htmlFor="">Extra Time Trigger in Minutes</label>
                 <Input
