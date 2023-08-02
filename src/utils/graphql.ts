@@ -1183,8 +1183,6 @@ export type Mutation = {
   createUsers?: Maybe<Array<Maybe<User>>>;
   createVehicle?: Maybe<Vehicle>;
   createVehicles?: Maybe<Array<Maybe<Vehicle>>>;
-  createWorkSheet?: Maybe<WorkSheet>;
-  createWorkSheets?: Maybe<Array<Maybe<WorkSheet>>>;
   deleteBid?: Maybe<Bid>;
   deleteBids?: Maybe<Array<Maybe<Bid>>>;
   deleteContactUs?: Maybe<ContactUs>;
@@ -1211,8 +1209,6 @@ export type Mutation = {
   deleteUsers?: Maybe<Array<Maybe<User>>>;
   deleteVehicle?: Maybe<Vehicle>;
   deleteVehicles?: Maybe<Array<Maybe<Vehicle>>>;
-  deleteWorkSheet?: Maybe<WorkSheet>;
-  deleteWorkSheets?: Maybe<Array<Maybe<WorkSheet>>>;
   endSession: Scalars['Boolean'];
   redeemUserMagicAuthToken: RedeemUserMagicAuthTokenResult;
   sendUserMagicAuthLink: Scalars['Boolean'];
@@ -1242,8 +1238,6 @@ export type Mutation = {
   updateUsers?: Maybe<Array<Maybe<User>>>;
   updateVehicle?: Maybe<Vehicle>;
   updateVehicles?: Maybe<Array<Maybe<Vehicle>>>;
-  updateWorkSheet?: Maybe<WorkSheet>;
-  updateWorkSheets?: Maybe<Array<Maybe<WorkSheet>>>;
 };
 
 
@@ -1388,16 +1382,6 @@ export type MutationCreateVehiclesArgs = {
 };
 
 
-export type MutationCreateWorkSheetArgs = {
-  data: WorkSheetCreateInput;
-};
-
-
-export type MutationCreateWorkSheetsArgs = {
-  data: Array<WorkSheetCreateInput>;
-};
-
-
 export type MutationDeleteBidArgs = {
   where: BidWhereUniqueInput;
 };
@@ -1525,16 +1509,6 @@ export type MutationDeleteVehicleArgs = {
 
 export type MutationDeleteVehiclesArgs = {
   where: Array<VehicleWhereUniqueInput>;
-};
-
-
-export type MutationDeleteWorkSheetArgs = {
-  where: WorkSheetWhereUniqueInput;
-};
-
-
-export type MutationDeleteWorkSheetsArgs = {
-  where: Array<WorkSheetWhereUniqueInput>;
 };
 
 
@@ -1689,17 +1663,6 @@ export type MutationUpdateVehicleArgs = {
 
 export type MutationUpdateVehiclesArgs = {
   data: Array<VehicleUpdateArgs>;
-};
-
-
-export type MutationUpdateWorkSheetArgs = {
-  data: WorkSheetUpdateInput;
-  where: WorkSheetWhereUniqueInput;
-};
-
-
-export type MutationUpdateWorkSheetsArgs = {
-  data: Array<WorkSheetUpdateArgs>;
 };
 
 export type NestedStringFilter = {
@@ -1942,9 +1905,6 @@ export type Query = {
   vehicle?: Maybe<Vehicle>;
   vehicles?: Maybe<Array<Vehicle>>;
   vehiclesCount?: Maybe<Scalars['Int']>;
-  workSheet?: Maybe<WorkSheet>;
-  workSheets?: Maybe<Array<WorkSheet>>;
-  workSheetsCount?: Maybe<Scalars['Int']>;
 };
 
 
@@ -2216,24 +2176,6 @@ export type QueryVehiclesArgs = {
 
 export type QueryVehiclesCountArgs = {
   where?: VehicleWhereInput;
-};
-
-
-export type QueryWorkSheetArgs = {
-  where: WorkSheetWhereUniqueInput;
-};
-
-
-export type QueryWorkSheetsArgs = {
-  orderBy?: Array<WorkSheetOrderByInput>;
-  skip?: Scalars['Int'];
-  take?: InputMaybe<Scalars['Int']>;
-  where?: WorkSheetWhereInput;
-};
-
-
-export type QueryWorkSheetsCountArgs = {
-  where?: WorkSheetWhereInput;
 };
 
 export enum QueryMode {
@@ -3493,108 +3435,6 @@ export type VehicleWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
 };
 
-export type WorkSheet = {
-  __typename?: 'WorkSheet';
-  chassis?: Maybe<Scalars['String']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  engineNo?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  image1?: Maybe<Scalars['String']>;
-  image2?: Maybe<Scalars['String']>;
-  image3?: Maybe<Scalars['String']>;
-  image4?: Maybe<Scalars['String']>;
-  image5?: Maybe<Scalars['String']>;
-  make?: Maybe<Scalars['String']>;
-  model?: Maybe<Scalars['String']>;
-  registrationNumber?: Maybe<Scalars['String']>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  vehicleCondition?: Maybe<Scalars['String']>;
-  videoUrl?: Maybe<Scalars['String']>;
-  voiceRecordUrl?: Maybe<Scalars['String']>;
-};
-
-export type WorkSheetCreateInput = {
-  chassis?: InputMaybe<Scalars['String']>;
-  engineNo?: InputMaybe<Scalars['String']>;
-  image1?: InputMaybe<Scalars['String']>;
-  image2?: InputMaybe<Scalars['String']>;
-  image3?: InputMaybe<Scalars['String']>;
-  image4?: InputMaybe<Scalars['String']>;
-  image5?: InputMaybe<Scalars['String']>;
-  make?: InputMaybe<Scalars['String']>;
-  model?: InputMaybe<Scalars['String']>;
-  registrationNumber?: InputMaybe<Scalars['String']>;
-  vehicleCondition?: InputMaybe<Scalars['String']>;
-  videoUrl?: InputMaybe<Scalars['String']>;
-  voiceRecordUrl?: InputMaybe<Scalars['String']>;
-};
-
-export type WorkSheetOrderByInput = {
-  chassis?: InputMaybe<OrderDirection>;
-  createdAt?: InputMaybe<OrderDirection>;
-  engineNo?: InputMaybe<OrderDirection>;
-  id?: InputMaybe<OrderDirection>;
-  image1?: InputMaybe<OrderDirection>;
-  image2?: InputMaybe<OrderDirection>;
-  image3?: InputMaybe<OrderDirection>;
-  image4?: InputMaybe<OrderDirection>;
-  image5?: InputMaybe<OrderDirection>;
-  make?: InputMaybe<OrderDirection>;
-  model?: InputMaybe<OrderDirection>;
-  registrationNumber?: InputMaybe<OrderDirection>;
-  updatedAt?: InputMaybe<OrderDirection>;
-  vehicleCondition?: InputMaybe<OrderDirection>;
-  videoUrl?: InputMaybe<OrderDirection>;
-  voiceRecordUrl?: InputMaybe<OrderDirection>;
-};
-
-export type WorkSheetUpdateArgs = {
-  data: WorkSheetUpdateInput;
-  where: WorkSheetWhereUniqueInput;
-};
-
-export type WorkSheetUpdateInput = {
-  chassis?: InputMaybe<Scalars['String']>;
-  engineNo?: InputMaybe<Scalars['String']>;
-  image1?: InputMaybe<Scalars['String']>;
-  image2?: InputMaybe<Scalars['String']>;
-  image3?: InputMaybe<Scalars['String']>;
-  image4?: InputMaybe<Scalars['String']>;
-  image5?: InputMaybe<Scalars['String']>;
-  make?: InputMaybe<Scalars['String']>;
-  model?: InputMaybe<Scalars['String']>;
-  registrationNumber?: InputMaybe<Scalars['String']>;
-  vehicleCondition?: InputMaybe<Scalars['String']>;
-  videoUrl?: InputMaybe<Scalars['String']>;
-  voiceRecordUrl?: InputMaybe<Scalars['String']>;
-};
-
-export type WorkSheetWhereInput = {
-  AND?: InputMaybe<Array<WorkSheetWhereInput>>;
-  NOT?: InputMaybe<Array<WorkSheetWhereInput>>;
-  OR?: InputMaybe<Array<WorkSheetWhereInput>>;
-  chassis?: InputMaybe<StringFilter>;
-  createdAt?: InputMaybe<DateTimeNullableFilter>;
-  engineNo?: InputMaybe<StringFilter>;
-  id?: InputMaybe<IdFilter>;
-  image1?: InputMaybe<StringFilter>;
-  image2?: InputMaybe<StringFilter>;
-  image3?: InputMaybe<StringFilter>;
-  image4?: InputMaybe<StringFilter>;
-  image5?: InputMaybe<StringFilter>;
-  make?: InputMaybe<StringFilter>;
-  model?: InputMaybe<StringFilter>;
-  registrationNumber?: InputMaybe<StringFilter>;
-  updatedAt?: InputMaybe<DateTimeNullableFilter>;
-  vehicleCondition?: InputMaybe<StringFilter>;
-  videoUrl?: InputMaybe<StringFilter>;
-  voiceRecordUrl?: InputMaybe<StringFilter>;
-};
-
-export type WorkSheetWhereUniqueInput = {
-  id?: InputMaybe<Scalars['ID']>;
-};
-
 export type VehicleBuyingLimits = {
   __typename?: 'vehicleBuyingLimits';
   specialVehicleBuyingLimit?: Maybe<Scalars['Int']>;
@@ -3637,6 +3477,11 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = { __typename?: 'Mutation', authenticateUserWithPassword?: { __typename?: 'UserAuthenticationWithPasswordFailure', message: string } | { __typename?: 'UserAuthenticationWithPasswordSuccess', sessionToken: string, item: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, role?: UserRoleType | null } } | null };
 
+export type AuthenticationQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AuthenticationQuery = { __typename?: 'Query', authenticatedItem?: { __typename?: 'User', role?: UserRoleType | null } | null };
+
 export type CreateBidMutationVariables = Exact<{
   data: BidCreateInput;
 }>;
@@ -3677,19 +3522,6 @@ export type BuyingLimitQueryVariables = Exact<{
 
 
 export type BuyingLimitQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, emdUpdates?: Array<{ __typename?: 'EmdUpdate', id: string, emdNo?: number | null, vehicleBuyingLimitIncrement?: number | null, createdAt?: any | null, payment?: { __typename?: 'Payment', amount?: number | null, id: string } | null, createdBy?: { __typename?: 'User', id: string, firstName?: string | null } | null }> | null } | null };
-
-export type ContactUsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ContactUsQuery = { __typename?: 'Query', contactuses?: Array<{ __typename?: 'ContactUs', id: string, firstName?: string | null, lastName?: string | null, message?: string | null, status?: ContactUsStatusType | null, mobile?: string | null, subject?: string | null, email?: string | null, createdAt?: any | null, updatedAt?: any | null }> | null };
-
-export type UpdateContactUsMutationVariables = Exact<{
-  where: ContactUsWhereUniqueInput;
-  data: ContactUsUpdateInput;
-}>;
-
-
-export type UpdateContactUsMutation = { __typename?: 'Mutation', updateContactUs?: { __typename?: 'ContactUs', id: string, status?: ContactUsStatusType | null } | null };
 
 export type CountQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3758,6 +3590,26 @@ export type DeleteEmdUpdateMutationVariables = Exact<{
 
 
 export type DeleteEmdUpdateMutation = { __typename?: 'Mutation', deleteEmdUpdate?: { __typename?: 'EmdUpdate', id: string, emdNo?: number | null } | null };
+
+export type ContactUsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ContactUsQuery = { __typename?: 'Query', contactuses?: Array<{ __typename?: 'ContactUs', id: string, firstName?: string | null, lastName?: string | null, message?: string | null, status?: ContactUsStatusType | null, mobile?: string | null, subject?: string | null, email?: string | null, createdAt?: any | null, updatedAt?: any | null }> | null };
+
+export type UpdateContactUsMutationVariables = Exact<{
+  where: ContactUsWhereUniqueInput;
+  data: ContactUsUpdateInput;
+}>;
+
+
+export type UpdateContactUsMutation = { __typename?: 'Mutation', updateContactUs?: { __typename?: 'ContactUs', id: string, status?: ContactUsStatusType | null } | null };
+
+export type DeleteContactUsMutationVariables = Exact<{
+  where: ContactUsWhereUniqueInput;
+}>;
+
+
+export type DeleteContactUsMutation = { __typename?: 'Mutation', deleteContactUs?: { __typename?: 'ContactUs', id: string } | null };
 
 export type EventStartTimeQueryVariables = Exact<{
   where: EventWhereUniqueInput;
@@ -4354,6 +4206,42 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const AuthenticationDocument = gql`
+    query authentication {
+  authenticatedItem {
+    ... on User {
+      role
+    }
+  }
+}
+    `;
+
+/**
+ * __useAuthenticationQuery__
+ *
+ * To run a query within a React component, call `useAuthenticationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAuthenticationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAuthenticationQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAuthenticationQuery(baseOptions?: Apollo.QueryHookOptions<AuthenticationQuery, AuthenticationQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AuthenticationQuery, AuthenticationQueryVariables>(AuthenticationDocument, options);
+      }
+export function useAuthenticationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AuthenticationQuery, AuthenticationQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AuthenticationQuery, AuthenticationQueryVariables>(AuthenticationDocument, options);
+        }
+export type AuthenticationQueryHookResult = ReturnType<typeof useAuthenticationQuery>;
+export type AuthenticationLazyQueryHookResult = ReturnType<typeof useAuthenticationLazyQuery>;
+export type AuthenticationQueryResult = Apollo.QueryResult<AuthenticationQuery, AuthenticationQueryVariables>;
 export const CreateBidDocument = gql`
     mutation CreateBid($data: BidCreateInput!) {
   createBid(data: $data) {
@@ -4625,84 +4513,6 @@ export function useBuyingLimitLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type BuyingLimitQueryHookResult = ReturnType<typeof useBuyingLimitQuery>;
 export type BuyingLimitLazyQueryHookResult = ReturnType<typeof useBuyingLimitLazyQuery>;
 export type BuyingLimitQueryResult = Apollo.QueryResult<BuyingLimitQuery, BuyingLimitQueryVariables>;
-export const ContactUsDocument = gql`
-    query ContactUs {
-  contactuses {
-    id
-    firstName
-    lastName
-    message
-    status
-    mobile
-    subject
-    email
-    createdAt
-    updatedAt
-  }
-}
-    `;
-
-/**
- * __useContactUsQuery__
- *
- * To run a query within a React component, call `useContactUsQuery` and pass it any options that fit your needs.
- * When your component renders, `useContactUsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useContactUsQuery({
- *   variables: {
- *   },
- * });
- */
-export function useContactUsQuery(baseOptions?: Apollo.QueryHookOptions<ContactUsQuery, ContactUsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ContactUsQuery, ContactUsQueryVariables>(ContactUsDocument, options);
-      }
-export function useContactUsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ContactUsQuery, ContactUsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ContactUsQuery, ContactUsQueryVariables>(ContactUsDocument, options);
-        }
-export type ContactUsQueryHookResult = ReturnType<typeof useContactUsQuery>;
-export type ContactUsLazyQueryHookResult = ReturnType<typeof useContactUsLazyQuery>;
-export type ContactUsQueryResult = Apollo.QueryResult<ContactUsQuery, ContactUsQueryVariables>;
-export const UpdateContactUsDocument = gql`
-    mutation UpdateContactUs($where: ContactUsWhereUniqueInput!, $data: ContactUsUpdateInput!) {
-  updateContactUs(where: $where, data: $data) {
-    id
-    status
-  }
-}
-    `;
-export type UpdateContactUsMutationFn = Apollo.MutationFunction<UpdateContactUsMutation, UpdateContactUsMutationVariables>;
-
-/**
- * __useUpdateContactUsMutation__
- *
- * To run a mutation, you first call `useUpdateContactUsMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateContactUsMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateContactUsMutation, { data, loading, error }] = useUpdateContactUsMutation({
- *   variables: {
- *      where: // value for 'where'
- *      data: // value for 'data'
- *   },
- * });
- */
-export function useUpdateContactUsMutation(baseOptions?: Apollo.MutationHookOptions<UpdateContactUsMutation, UpdateContactUsMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateContactUsMutation, UpdateContactUsMutationVariables>(UpdateContactUsDocument, options);
-      }
-export type UpdateContactUsMutationHookResult = ReturnType<typeof useUpdateContactUsMutation>;
-export type UpdateContactUsMutationResult = Apollo.MutationResult<UpdateContactUsMutation>;
-export type UpdateContactUsMutationOptions = Apollo.BaseMutationOptions<UpdateContactUsMutation, UpdateContactUsMutationVariables>;
 export const CountDocument = gql`
     query Count {
   usersCount
@@ -5139,6 +4949,117 @@ export function useDeleteEmdUpdateMutation(baseOptions?: Apollo.MutationHookOpti
 export type DeleteEmdUpdateMutationHookResult = ReturnType<typeof useDeleteEmdUpdateMutation>;
 export type DeleteEmdUpdateMutationResult = Apollo.MutationResult<DeleteEmdUpdateMutation>;
 export type DeleteEmdUpdateMutationOptions = Apollo.BaseMutationOptions<DeleteEmdUpdateMutation, DeleteEmdUpdateMutationVariables>;
+export const ContactUsDocument = gql`
+    query ContactUs {
+  contactuses {
+    id
+    firstName
+    lastName
+    message
+    status
+    mobile
+    subject
+    email
+    createdAt
+    updatedAt
+  }
+}
+    `;
+
+/**
+ * __useContactUsQuery__
+ *
+ * To run a query within a React component, call `useContactUsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useContactUsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useContactUsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useContactUsQuery(baseOptions?: Apollo.QueryHookOptions<ContactUsQuery, ContactUsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ContactUsQuery, ContactUsQueryVariables>(ContactUsDocument, options);
+      }
+export function useContactUsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ContactUsQuery, ContactUsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ContactUsQuery, ContactUsQueryVariables>(ContactUsDocument, options);
+        }
+export type ContactUsQueryHookResult = ReturnType<typeof useContactUsQuery>;
+export type ContactUsLazyQueryHookResult = ReturnType<typeof useContactUsLazyQuery>;
+export type ContactUsQueryResult = Apollo.QueryResult<ContactUsQuery, ContactUsQueryVariables>;
+export const UpdateContactUsDocument = gql`
+    mutation UpdateContactUs($where: ContactUsWhereUniqueInput!, $data: ContactUsUpdateInput!) {
+  updateContactUs(where: $where, data: $data) {
+    id
+    status
+  }
+}
+    `;
+export type UpdateContactUsMutationFn = Apollo.MutationFunction<UpdateContactUsMutation, UpdateContactUsMutationVariables>;
+
+/**
+ * __useUpdateContactUsMutation__
+ *
+ * To run a mutation, you first call `useUpdateContactUsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateContactUsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateContactUsMutation, { data, loading, error }] = useUpdateContactUsMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useUpdateContactUsMutation(baseOptions?: Apollo.MutationHookOptions<UpdateContactUsMutation, UpdateContactUsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateContactUsMutation, UpdateContactUsMutationVariables>(UpdateContactUsDocument, options);
+      }
+export type UpdateContactUsMutationHookResult = ReturnType<typeof useUpdateContactUsMutation>;
+export type UpdateContactUsMutationResult = Apollo.MutationResult<UpdateContactUsMutation>;
+export type UpdateContactUsMutationOptions = Apollo.BaseMutationOptions<UpdateContactUsMutation, UpdateContactUsMutationVariables>;
+export const DeleteContactUsDocument = gql`
+    mutation deleteContactUs($where: ContactUsWhereUniqueInput!) {
+  deleteContactUs(where: $where) {
+    id
+  }
+}
+    `;
+export type DeleteContactUsMutationFn = Apollo.MutationFunction<DeleteContactUsMutation, DeleteContactUsMutationVariables>;
+
+/**
+ * __useDeleteContactUsMutation__
+ *
+ * To run a mutation, you first call `useDeleteContactUsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteContactUsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteContactUsMutation, { data, loading, error }] = useDeleteContactUsMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useDeleteContactUsMutation(baseOptions?: Apollo.MutationHookOptions<DeleteContactUsMutation, DeleteContactUsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteContactUsMutation, DeleteContactUsMutationVariables>(DeleteContactUsDocument, options);
+      }
+export type DeleteContactUsMutationHookResult = ReturnType<typeof useDeleteContactUsMutation>;
+export type DeleteContactUsMutationResult = Apollo.MutationResult<DeleteContactUsMutation>;
+export type DeleteContactUsMutationOptions = Apollo.BaseMutationOptions<DeleteContactUsMutation, DeleteContactUsMutationVariables>;
 export const EventStartTimeDocument = gql`
     query EventStartTime($where: EventWhereUniqueInput!) {
   event(where: $where) {

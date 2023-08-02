@@ -1,28 +1,35 @@
 import { Input } from "@material-tailwind/react";
-import Select from 'react-select'
+import Select from "react-select";
 import React from "react";
-import { useForm,Controller } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 
-import { useParams,useNavigate } from "react-router-dom";
-import { useUserQuery,useSellersItemQuery,useEditUserMutation,useSelectorsQuery, useStatesQuery} from "../../utils/graphql";
-import { ShowPopup } from '../alerts/popUps';
+import { useParams, useNavigate } from "react-router-dom";
+import {
+  useUserQuery,
+  useSellersItemQuery,
+  useEditUserMutation,
+  useSelectorsQuery,
+  useStatesQuery,
+} from "../../utils/graphql";
+import { ShowPopup } from "../alerts/popUps";
 import AddUser from "./addUser";
 
 const UserDetailsComponent = () => {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const { id } = useParams();
- const sellers = useSellersItemQuery();
- const allStates=useStatesQuery()
+  const sellers = useSellersItemQuery();
+  const allStates = useStatesQuery();
 
- const selectors=useSelectorsQuery()
- const [updatedDetails,response]=useEditUserMutation({variables:{where:{id:id}}})
+  const selectors = useSelectorsQuery();
+  const [updatedDetails, response] = useEditUserMutation({
+    variables: { where: { id: id } },
+  });
 
   const { data, loading, error } = useUserQuery({
     variables: { where: { id: id } },
-    
   });
- 
-console.log(data,"data")
+
+  console.log(data, "data");
   const {
     register,
     control,
@@ -30,85 +37,84 @@ console.log(data,"data")
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (dataOnSubmit) =>{ console.log(dataOnSubmit);
+  const onSubmit = (dataOnSubmit) => {
+    console.log(dataOnSubmit);
 
-  const user = {
-    firstName:dataOnSubmit?.first_Name,
-     lastName:dataOnSubmit?.last_Name,
-    email:dataOnSubmit?.email,
-    username:dataOnSubmit?.user_Name,
-     mobile:dataOnSubmit?.mobile,
-   businessName:dataOnSubmit?.bussiness ,
-   pancardNo:dataOnSubmit?.pancardNumber,
-    role:dataOnSubmit?.role, 
-   // vehicleBuyingLimit:+dataOnSubmit?.buyingLimitCount,
-     
-    
-  //    password:dataOnSubmit?.confirmPassword,
-      idProofType:dataOnSubmit?.idType,
-      idProofNo:dataOnSubmit?.IdNumber,
-    country:dataOnSubmit?.country,
-     state:dataOnSubmit?.state,
-     city:dataOnSubmit?.city,
-     status:dataOnSubmit?.status,
-  
-     bannedSellers: {
-      set: dataOnSubmit.bannedSellers.map((seller) => ({id: seller.value}))
-    },
-    states: {
-      set: dataOnSubmit.states.map((state) => ({id: state.value}))
-    },
+    const user = {
+      firstName: dataOnSubmit?.first_Name,
+      lastName: dataOnSubmit?.last_Name,
+      email: dataOnSubmit?.email,
+      username: dataOnSubmit?.user_Name,
+      mobile: dataOnSubmit?.mobile,
+      businessName: dataOnSubmit?.bussiness,
+      pancardNo: dataOnSubmit?.pancardNumber,
+      role: dataOnSubmit?.role,
+      // vehicleBuyingLimit:+dataOnSubmit?.buyingLimitCount,
 
-     
-    
-  
+      //    password:dataOnSubmit?.confirmPassword,
+      idProofType: dataOnSubmit?.idType,
+      idProofNo: dataOnSubmit?.IdNumber,
+      country: dataOnSubmit?.country,
+      state: dataOnSubmit?.state,
+      city: dataOnSubmit?.city,
+      status: dataOnSubmit?.status,
+
+      bannedSellers: {
+        set: dataOnSubmit.bannedSellers.map((seller) => ({ id: seller.value })),
+      },
+      states: {
+        set: dataOnSubmit.states.map((state) => ({ id: state.value })),
+      },
+    };
+
+    if (dataOnSubmit.user_image && dataOnSubmit.user_image.length) {
+      user["image"] = { upload: dataOnSubmit.user_image[0] };
+    }
+    if (dataOnSubmit.pancardImage && dataOnSubmit.pancardImage.length) {
+      user["pancard"] = { upload: dataOnSubmit.pancardImage[0] };
+    }
+    if (dataOnSubmit.idProof && dataOnSubmit.idProof.length) {
+      user["idProof"] = { upload: dataOnSubmit.idProof[0] };
+    }
+    if (dataOnSubmit.idBack && dataOnSubmit.idBack.length) {
+      user["idProofBack"] = { upload: dataOnSubmit.idBack[0] };
+    }
+    if (dataOnSubmit.dealership && dataOnSubmit.dealership.length) {
+      user["dealership"] = { upload: dataOnSubmit.dealership[0] };
+    }
+
+    updatedDetails({ variables: { data: user } })
+      .then((res) => {
+        ShowPopup(
+          "Success!",
+          `${dataOnSubmit?.first_Name} Updated successfully!`,
+          "success",
+          5000,
+          true
+        );
+        navigate("/users");
+      })
+      .catch((err) => {
+        ShowPopup(
+          "user updation Failed!",
+          `${err.message}`,
+          "error",
+          5000,
+          true
+        );
+      });
   };
-
-
- 
-  if(dataOnSubmit.user_image && dataOnSubmit.user_image.length){
-    user["image"] = { upload: dataOnSubmit.user_image[0] }
-  }
-  if(dataOnSubmit.pancardImage && dataOnSubmit.pancardImage.length){
-    user["pancard"] = { upload: dataOnSubmit.pancardImage[0] }
-  }
-  if(dataOnSubmit.idProof && dataOnSubmit.idProof.length){
-    user["idProof"] = { upload: dataOnSubmit.idProof[0] }
-  }
-   if(dataOnSubmit.idBack && dataOnSubmit.idBack.length){
-     user["idProofBack"] = { upload: dataOnSubmit.idBack[0] }
-   }
-  if(dataOnSubmit.dealership && dataOnSubmit.dealership.length){
-   user["dealership"] = { upload: dataOnSubmit.dealership[0] }
-  }
-  
-  
-  try{
-
-    const result= updatedDetails({variables: {data:user}})
-    if(result){
-     ShowPopup("Success!", `${dataOnSubmit?.first_Name} Updated successfully!`, "success", 5000, true);
-     navigate('/users')
- }
-   }
-   catch(err){
-     ShowPopup("user updation Failed!", `${err.message}`, "error", 5000, true);
- 
- console.log(err,"error")
-   }
-}
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
-  
 
   return (
-    <div className="flex flex-col justify-center align-middle w-full bg-gray-50  mt-10">
-      <div className="h1 underline text-center p-5  ">
-        {data.user.firstName} {data.user.lastName}
+    <div className="flex flex-col justify-center align-middle shadow-xl  bg-slate-300  m-10">
+     <div className="py-4 bg-gray-200 rounded px-4 flex items-center shadow-xl justify-center ">
+     <h2 className="text-xl py-3 leading-3 font-bold text-gray-900">  {data.user.firstName} {data.user.lastName}</h2>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)} className=" w-full my-5">
-        <div className="flex flex-col  w-full space-y-5 ">
+      <form onSubmit={handleSubmit(onSubmit)} className=" w-full my-5  p-2 ">
+        <div className="flex flex-col  w-full space-y-5">
           <div className="flex  justify-around">
             <div className="flex flex-col  w-1/3">
               <label className=" text-left" htmlFor="">
@@ -116,15 +122,13 @@ console.log(data,"data")
               </label>
               <input
                 type="text "
-               defaultValue={data.user.firstName}
+                defaultValue={data.user.firstName}
                 className="input input-bordered input-secondary w-full "
                 {...register("first_Name", { required: true })}
               ></input>
               <p className="text-red-500">
                 {" "}
-                {errors.first_Name && (
-                  <span>first Name is required</span>
-                )}
+                {errors.first_Name && <span>first Name is required</span>}
               </p>
             </div>
             <div className="  flex flex-col  w-1/3">
@@ -151,7 +155,7 @@ console.log(data,"data")
                 type="email"
                 defaultValue={data.user.email}
                 className="input input-bordered input-secondary w-full "
-                {...register("email", { })}
+                {...register("email", {})}
               ></input>
               <p className="text-red-500">
                 {" "}
@@ -164,8 +168,8 @@ console.log(data,"data")
               </label>
               <input
                 type="text"
-              defaultValue={data.user.username}
-              className="input input-bordered input-secondary w-full "
+                defaultValue={data.user.username}
+                className="input input-bordered input-secondary w-full "
                 {...register("user_Name", { required: true })}
               ></input>
               <p className="text-red-500">
@@ -200,7 +204,7 @@ console.log(data,"data")
                 type="text"
                 defaultValue={data?.user?.businessName}
                 className="input input-bordered input-secondary w-full "
-                {...register("bussiness", {  })}
+                {...register("bussiness", {})}
               ></input>
               <p className="text-red-500">
                 {" "}
@@ -209,17 +213,18 @@ console.log(data,"data")
             </div>
           </div>
 
-        
           <div className="flex  justify-around  ">
-          <div className="flex flex-col w-1/3 ">
+            <div className="flex flex-col w-1/3 ">
               <label htmlFor="">Current Buying Limit </label>
               <input
-                type="number" disabled
-                defaultValue={data?.user?.currentVehicleBuyingLimit?.vehicleBuyingLimit}
+                type="number"
+                disabled
+                defaultValue={
+                  data?.user?.currentVehicleBuyingLimit?.vehicleBuyingLimit
+                }
                 className="input input-bordered input-secondary w-full "
                 // {...register("buyingLimitCount", {
-                 
-                
+
                 // })}
               ></input>
               <p className="text-red-500">
@@ -229,138 +234,161 @@ console.log(data,"data")
                 )}
               </p>
             </div>
-          
-              <div className="flex flex-col  w-1/3">
-                <label htmlFor="">Bannned Sellers</label>
-              
 
-                <Controller
-  name="bannedSellers"
-  control={control}
-  defaultValue={data?.user?.bannedSellers.map((event) => ({
-    label: event.name,
-    value: event.id
-  }))}
-  render={({ field }) => (
-    <Select
-      className="w-full text-black max-w-[560px] mt-2"
-      option=""
-      options={sellers?.data?.sellers.map((seller) => ({
-        label: seller.name,
-        value: seller.id
-      }))}
-      {...field}
-      isMulti
-      getOptionValue={(option) => option.value}
-    />
-  )}
-/>
+            <div className="flex flex-col  w-1/3">
+              <label htmlFor="">Bannned Sellers</label>
 
-                
-              </div>
-
-
-            
-
-
-            </div>
-         
-
-          <div className="flex  justify-around  ">
-          <div className="min-w-[300px] w-1/3">
-              <label htmlFor="">Role</label>
-              <select  className="input input-bordered input-secondary w-full " {...register("role", {required:true})}>
-              <option value={data.user.role}>{data.user.role}</option>
-        <option value="admin">Admin</option>
-        <option value="staff">Staff</option>
-        <option value="seller">Seller</option>
-        <option value="dealer">Dealer</option>
-      
-      </select>
-      <p className="text-red-500"> {errors.role && <span>Please select Role</span>}</p>
-
-            </div>
-            
-              <div className="flex flex-col w-1/3 ">
-                <label htmlFor="">Status</label>
-                <select
-                  defaultValue={data.user.status}
-                  className="input input-bordered input-secondary w-full "
-                  {...register("status", { })}
-                >
-                  <option value=""></option>
-                  <option value="pending">Pending</option>
-                  <option value="blocked">Blocked</option>
-                  <option value="active">Active</option>
-                  <option value="inactive">Inactive</option>
-                </select>
-                <p className="text-red-500">
-                  {" "}
-                  {errors.status && <span>Please select status</span>}
-                </p>
-              </div>
-            </div>
-         
-
-          <div className="flex space-x-2 justify-around">
-          <div className="min-w-[300px] w-1/3">
-              <label htmlFor="">ID Proof Type</label>
-              <select  defaultValue={data?.user?.idProofType} className="input input-bordered input-secondary w-full " {...register("idType", {required:true})}>
-              <option value={data?.user?.idProofType}>{data?.user?.idProofType}</option>
-        <option value="aadhar">Aadhar</option>
-        <option value="drivingLicense">Driving Licence</option>
-        <option value="passport">Passport</option>
-        
-      
-      </select>
-      <p className="text-red-500"> {errors.idType && <span>Please select Id proof type</span>}</p>
-
-            </div>
-            <div className="w-1/3">
-              <label htmlFor="">ID proof Number</label>
-              <input  defaultValue={data?.user?.idProofNo} type="text" className="input input-bordered input-secondary w-full " {...register("IdNumber", {minLength:8 })}/>
-              <p className="text-red-500"> {errors.IdNumber && <span>Atleast 8 charators required</span>}</p>
+              <Controller
+                name="bannedSellers"
+                control={control}
+                defaultValue={data?.user?.bannedSellers.map((event) => ({
+                  label: event.name,
+                  value: event.id,
+                }))}
+                render={({ field }) => (
+                  <Select
+                    className="w-full text-black max-w-[560px] mt-2"
+                    option=""
+                    options={sellers?.data?.sellers.map((seller) => ({
+                      label: seller.name,
+                      value: seller.id,
+                    }))}
+                    {...field}
+                    isMulti
+                    getOptionValue={(option) => option.value}
+                  />
+                )}
+              />
             </div>
           </div>
 
-           
-         
+          <div className="flex  justify-around  ">
+            <div className="min-w-[300px] w-1/3">
+              <label htmlFor="">Role</label>
+              <select
+                className="input input-bordered input-secondary w-full "
+                {...register("role", { required: true })}
+              >
+                <option value={data.user.role}>{data.user.role}</option>
+                <option value="admin">Admin</option>
+                <option value="staff">Staff</option>
+                <option value="seller">Seller</option>
+                <option value="dealer">Dealer</option>
+              </select>
+              <p className="text-red-500">
+                {" "}
+                {errors.role && <span>Please select Role</span>}
+              </p>
+            </div>
 
-            <div className="flex space-x-2 justify-around">
-         
-           <div className="w-1/3">
-             <label htmlFor="">State</label>
-        
-        <select className="input input-bordered input-secondary w-full " {...register("state", {})}>
- <option value={data?.user?.state}>{data?.user?.state}</option>
- {selectors?.data?.states.map((state) => (
-   <option  value={state.name} key={state.name}>{state.name}</option>
- ))}
-</select>
-   
-      
-           </div>
-     
-           
-           
+            <div className="flex flex-col w-1/3 ">
+              <label htmlFor="">Status</label>
+              <select
+                defaultValue={data.user.status}
+                className="input input-bordered input-secondary w-full "
+                {...register("status", {})}
+              >
+                <option value=""></option>
+                <option value="pending">Pending</option>
+                <option value="blocked">Blocked</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+              </select>
+              <p className="text-red-500">
+                {" "}
+                {errors.status && <span>Please select status</span>}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex space-x-2 justify-around">
+            <div className="min-w-[300px] w-1/3">
+              <label htmlFor="">ID Proof Type</label>
+              <select
+                defaultValue={data?.user?.idProofType}
+                className="input input-bordered input-secondary w-full "
+                {...register("idType", { required: true })}
+              >
+                <option value={data?.user?.idProofType}>
+                  {data?.user?.idProofType}
+                </option>
+                <option value="aadhar">Aadhar</option>
+                <option value="drivingLicense">Driving Licence</option>
+                <option value="passport">Passport</option>
+              </select>
+              <p className="text-red-500">
+                {" "}
+                {errors.idType && <span>Please select Id proof type</span>}
+              </p>
+            </div>
+            <div className="w-1/3">
+              <label htmlFor="">ID proof Number</label>
+              <input
+                defaultValue={data?.user?.idProofNo}
+                type="text"
+                className="input input-bordered input-secondary w-full "
+                {...register("IdNumber", { minLength: 8 })}
+              />
+              <p className="text-red-500">
+                {" "}
+                {errors.IdNumber && <span>Atleast 8 charators required</span>}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex space-x-2 justify-around">
+            <div className="w-1/3">
+              <label htmlFor="">State</label>
+
+              <select
+                className="input input-bordered input-secondary w-full "
+                {...register("state", {})}
+              >
+                <option value={data?.user?.state}>{data?.user?.state}</option>
+                {selectors?.data?.states.map((state) => (
+                  <option value={state.name} key={state.name}>
+                    {state.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
             <div className="w-1/3">
               <label htmlFor="">City</label>
-         
 
-<input  defaultValue={data?.user?.city} className="input input-bordered input-secondary w-full " {...register("city", {})}/>
-      <p className="text-red-500"> {errors.city && <span>Please select city</span>}</p>
+              <input
+                defaultValue={data?.user?.city}
+                className="input input-bordered input-secondary w-full "
+                {...register("city", {})}
+              />
+              <p className="text-red-500">
+                {" "}
+                {errors.city && <span>Please select city</span>}
+              </p>
             </div>
-            </div>
-        
-            <div className="flex space-x-2 justify-around">
+          </div>
+
+          <div className="flex space-x-2 justify-around">
             <div className="w-1/3">
               <label htmlFor="">Pancard</label>
-              <input  defaultValue={data?.user?.pancardNo} type="text" className="input input-bordered input-secondary w-full " {...register("pancardNumber", { })}/>
-              <p className="text-red-500"> {errors.IdNumber && <span>Atleast 8 charators required</span>}</p>
+              <input
+                defaultValue={data?.user?.pancardNo}
+                type="text"
+                className="input input-bordered input-secondary w-full "
+                {...register("pancardNumber", {})}
+              />
+              <p className="text-red-500">
+                {" "}
+                {errors.IdNumber && <span>Atleast 8 charators required</span>}
+              </p>
             </div>
             <div className="w-1/3">
               <label htmlFor="">Pancard Image</label>
-              <Input type="file" className="p-1" {...register("pancardImage", { })}></Input>
+              <Input
+                type="file"
+                className="p-1"
+                {...register("pancardImage", {})}
+              ></Input>
 
               <img
                 className="w-full h-36 border"
@@ -373,9 +401,11 @@ console.log(data,"data")
           <div className="flex space-x-2 justify-around">
             <div className=" flex  flex-col w-1/3">
               <label htmlFor="">ID proof(front page)</label>
-              <Input className="input   " type="file" {...register("idProof", { })}/>
-
-              
+              <Input
+                className="input   "
+                type="file"
+                {...register("idProof", {})}
+              />
 
               <img
                 className="w-full h-36 border"
@@ -385,7 +415,11 @@ console.log(data,"data")
             </div>
             <div className="w-1/3">
               <label htmlFor="">ID proof(Back page)</label>
-              <Input type="file" className="p-1" {...register("idBack", { })}></Input>
+              <Input
+                type="file"
+                className="p-1"
+                {...register("idBack", {})}
+              ></Input>
 
               <img
                 className="w-full h-36 border"
@@ -398,7 +432,7 @@ console.log(data,"data")
           <div className="flex space-x-2 justify-around">
             <div className="flex w-1/3 flex-col">
               <label htmlFor="">Dealership Image</label>
-              <Input className="" type="file" {...register("dealership", {})}/>
+              <Input className="" type="file" {...register("dealership", {})} />
               <img
                 className="w-full h-36 border"
                 src={`https://api.autobse.com${data?.user?.dealership?.url}`}
@@ -407,7 +441,11 @@ console.log(data,"data")
             </div>
             <div className="flex  flex-col w-1/3">
               <label htmlFor="">Country</label>
-              <input defaultValue={data?.user?.country} className="input input-bordered input-secondary w-full " {...register("country", { })}/>
+              <input
+                defaultValue={data?.user?.country}
+                className="input input-bordered input-secondary w-full "
+                {...register("country", {})}
+              />
               <p className="text-red-500">
                 {" "}
                 {errors.country && <span>country Required</span>}
@@ -415,41 +453,36 @@ console.log(data,"data")
 
               <div className="flex flex-col  w-full">
                 <label htmlFor="">Auction Allowed states</label>
-              
 
                 <Controller
-  name="states"
-  control={control}
-  defaultValue={data?.user?.states.map((state) => ({
-    label: state.name,
-    value: state.id
-  }))}
-  render={({ field }) => (
-    <Select
-      className="w-full text-black max-w-[560px] mt-2"
-      option=""
-      options={allStates?.data?.states?.map((state) => ({
-        label: state.name,
-        value: state.id
-      }))}
-      {...field}
-      isMulti
-      getOptionValue={(option) => option.value}
-    />
-  )}
-/>
-
-                
+                  name="states"
+                  control={control}
+                  defaultValue={data?.user?.states.map((state) => ({
+                    label: state.name,
+                    value: state.id,
+                  }))}
+                  render={({ field }) => (
+                    <Select
+                      className="w-full text-black max-w-[560px] mt-2"
+                      option=""
+                      options={allStates?.data?.states?.map((state) => ({
+                        label: state.name,
+                        value: state.id,
+                      }))}
+                      {...field}
+                      isMulti
+                      getOptionValue={(option) => option.value}
+                    />
+                  )}
+                />
               </div>
-
             </div>
           </div>
         </div>
         <div className=" flex justify-center my-5">
-          <button
-            type="submit" 
-            className="btn btn-outline btn-primary"
-          >Save Changes</button>
+          <button type="submit" className="btn btn-outline btn-primary">
+            Save Changes
+          </button>
         </div>
       </form>
     </div>
