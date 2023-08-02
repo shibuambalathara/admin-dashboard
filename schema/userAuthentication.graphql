@@ -1,9 +1,0 @@
-query Userauthentication {
-  authenticatedItem {
-    ... on User {
-      username
-      role
-      state
-    }
-  }
-}

@@ -48,8 +48,11 @@ const CreatePayment = () => {
 
   
   return (
-    <div className="flex flex-col space-y-10 justify-center align-middle w-full   py-10">
-      <div className='text-center font-bold text-lg'>Create Payment For {data?.user?.firstName} {data?.user?.lastName} </div>
+    <div className="shadow-xl  bg-slate-300  m-10 ">
+       <div className="py-4 bg-gray-200 rounded px-4 flex items-center shadow-xl justify-center ">
+          <h2 className="text-xl py-3 leading-3 font-bold text-gray-900">
+          Create Payment For {data?.user?.firstName} {data?.user?.lastName}</h2>
+          </div>
       <form onSubmit={handleSubmit(onSubmit)} className=" w-full my-5 space-y-10">
          <div className="flex space-x-2 justify-around">
           

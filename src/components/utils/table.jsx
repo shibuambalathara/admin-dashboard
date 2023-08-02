@@ -69,7 +69,7 @@ console.log(tableData,"ull")
                   {row.cells.map((cell) => {
                     return (
                       <td
-                        className="  font-normal px-1  border  border-1 text-center border-gray-200"
+                        className="  font-normal p-1  border  border-1 text-center border-gray-200"
                         {...cell.getCellProps()}
                       >
                         {cell.render("Cell")}

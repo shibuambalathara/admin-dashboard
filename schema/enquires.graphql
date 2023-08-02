@@ -19,3 +19,8 @@ mutation UpdateContactUs($where: ContactUsWhereUniqueInput!, $data: ContactUsUpd
   status  
   }
 }
+mutation deleteContactUs($where: ContactUsWhereUniqueInput!) {
+  deleteContactUs(where: $where) {
+  id  
+  }
+}
