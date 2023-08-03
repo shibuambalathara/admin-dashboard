@@ -1,26 +1,20 @@
-
-
-
-
-
-
-
 import {  useUsersSearchQuery } from '../../utils/graphql';
 import TabbleOfUsersOrUser from './tabbleData';
 
 
-const UsersByDate = ({startDate,fetchData}) => {
+const UsersByRole = ({role,fetchData}) => {
+
   
 
-   
-    const{data,loading}=useUsersSearchQuery({variables:{where:{createdAt:{gte:startDate}}}})
 
- 
-   
-    console.log(startDate,"state")
+    const{data,loading}=useUsersSearchQuery({variables:{where:{role:{equals:role}}}})
 
+   
+
+    
     if(loading)return<div>Loading....</div>
     if(data){
+      console.log(data?.users,"rolee")
       fetchData(data?.users)
     }
   return (
@@ -28,4 +22,4 @@ const UsersByDate = ({startDate,fetchData}) => {
   )
 }
 
-export default UsersByDate
+export default UsersByRole
