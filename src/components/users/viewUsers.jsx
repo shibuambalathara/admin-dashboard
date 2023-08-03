@@ -8,7 +8,7 @@ import format from 'date-fns/format'
 import UserByMobile from "./userByMobile";
 import TabbleOfUsersOrUser from "./tabbleData";
 import LimitedDataPaginationComponents from "../utils/limitedDataPagination";
-import Search from "../utils/search";
+
 
 const ViewUsers = () => {
   const [currentPage, setCurrentPage] = useState(0);

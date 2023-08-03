@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useUserQuery } from "../../utils/graphql";
-import TabbleOfUsersOrUser from "./tabbleData";
 
-const UserByMobile = ({onDataCheck}) => {
-  const [mobile, setMobile] = useState();
-  const [callEnabled, setCallEnabled] = useState(false);
+import { useUserQuery } from "../../utils/graphql";
+
+
+const UserByMobile = ({mobile,fetchData}) => {
+
   const [user, setUser] = useState([]);
   const { data, loading, } = useUserQuery(
     {
@@ -15,76 +14,24 @@ const UserByMobile = ({onDataCheck}) => {
       enabled:false
     }
   );
-console.log(data,"bymobile")
+console.log(data,"bymobile",mobile)
  
   useEffect(() => {
     if (data && data.user) {
       const userArray = [Object.fromEntries(Object.entries(data.user))];
       console.log(userArray, "user array");
       setUser(userArray);
+      fetchData(userArray)
     }
   }, [data]);
 
-  if (data?.user) {onDataCheck(true)};
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    reset,
-    getValues,
-    setValue,
-    formState: { errors },
-  } = useForm();
-  const onSubmit = async (dataOnSubmit) => {
-    // setCallEnabled(true);
-    if (onSubmit) {
-      // console.log(dataOnSubmit.mobile);
-      // setMobile(dataOnSubmit.mobile);
-      // refetch();
-    }
-  };
+
+
   if (loading) return <div>Loading....</div>;
   return (
-    <div className=" bg-gray-100">
-      <div>
-        {/* <form onSubmit={handleSubmit(onSubmit)}> */}
-          <div className="flex space-x-2">
-            <div className="">
-            <div className="space-x-6 flex  align-middle">
-         <p className="my-auto">   Search By Mobile</p>
-              <input
-                placeholder=" Enter mobile Number"
-                type="number"
-                className="p-3  input input-bordered input-secondary w-64"
-                {...register("mobile", {
-                  required: true,
-                  minLength: 10,
-                  maxLength: 10,
-                })}
-                onChange={(e) => {
-                  const value = e.target.value;
-                  setValue("mobile", parseInt(value));
-                  if (value.length === 10) {
-                    setMobile(parseInt(value));
-                  }
-               
-                }}
-              />
-              <p className="text-red-500">
-                {" "}
-                {errors.mobile && <span>Please Enter 10 digits</span>}
-              </p>
-            </div>
-            </div>
-          </div>
-        {/* </form> */}
-        {data?.user  && <TabbleOfUsersOrUser users={user} />}
-        {!data.user && mobile && (
-          <p className="text-red-500"> Sorry there is no such User</p>
-        )}
-      </div>
-    </div>
+
+    <div></div>
   );
 };
 
