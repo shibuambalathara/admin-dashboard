@@ -58,6 +58,8 @@ import Enquiry from "./pages/enquiry";
 
 
 
+
+
 function App() {
   return (
     <Router>
@@ -80,6 +82,7 @@ function AppContent() {
             <Route element={<ProtectedRoutes />}>
               <Route path="/" element={<Home />} />
               <Route path="users" element={<Users />} />
+             
               <Route path="events" element={<AddEvents />} />
               <Route path="add-user" element={<AddUser />} />
               <Route path="view-user/:id" element={<UserDetails />} />

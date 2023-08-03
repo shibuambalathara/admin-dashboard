@@ -4,8 +4,7 @@ const PaginationComponents = ({tableData}) => {
 
 
 
-
-    const tableInstance =tableData
+    // const tableInstance =tableData
     const {
       getTableProps,
       getTableBodyProps,
@@ -24,7 +23,7 @@ const PaginationComponents = ({tableData}) => {
       state: { pageIndex: tablePageIndex, pageSize: tablePageSize },
       state,
       setGlobalFilter,
-    } = tableInstance;
+    } = tableData;
 
   return (
     <div className="flex justify-center">
@@ -32,7 +31,7 @@ const PaginationComponents = ({tableData}) => {
     <div className="flex justify-center">
   Page{' '}
   <strong>
-    {tablePageIndex + 1} of {tableInstance.pageOptions.length}
+    {tablePageIndex + 1} of {tableData.pageOptions.length} Total Rows: {tableData.preSortedRows.length}
  
   </strong>{' '}
 </div>
@@ -63,6 +62,7 @@ const PaginationComponents = ({tableData}) => {
         <button className="btn" onClick={() => gotoPage(pageCount - 1)}  disabled={!canNextPage}>
   {'>>'}
 </button>{' '}
+
       </div>
  
     </div>

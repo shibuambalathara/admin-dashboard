@@ -1183,6 +1183,8 @@ export type Mutation = {
   createUsers?: Maybe<Array<Maybe<User>>>;
   createVehicle?: Maybe<Vehicle>;
   createVehicles?: Maybe<Array<Maybe<Vehicle>>>;
+  createWorkSheet?: Maybe<WorkSheet>;
+  createWorkSheets?: Maybe<Array<Maybe<WorkSheet>>>;
   deleteBid?: Maybe<Bid>;
   deleteBids?: Maybe<Array<Maybe<Bid>>>;
   deleteContactUs?: Maybe<ContactUs>;
@@ -1209,6 +1211,8 @@ export type Mutation = {
   deleteUsers?: Maybe<Array<Maybe<User>>>;
   deleteVehicle?: Maybe<Vehicle>;
   deleteVehicles?: Maybe<Array<Maybe<Vehicle>>>;
+  deleteWorkSheet?: Maybe<WorkSheet>;
+  deleteWorkSheets?: Maybe<Array<Maybe<WorkSheet>>>;
   endSession: Scalars['Boolean'];
   redeemUserMagicAuthToken: RedeemUserMagicAuthTokenResult;
   sendUserMagicAuthLink: Scalars['Boolean'];
@@ -1238,6 +1242,8 @@ export type Mutation = {
   updateUsers?: Maybe<Array<Maybe<User>>>;
   updateVehicle?: Maybe<Vehicle>;
   updateVehicles?: Maybe<Array<Maybe<Vehicle>>>;
+  updateWorkSheet?: Maybe<WorkSheet>;
+  updateWorkSheets?: Maybe<Array<Maybe<WorkSheet>>>;
 };
 
 
@@ -1382,6 +1388,16 @@ export type MutationCreateVehiclesArgs = {
 };
 
 
+export type MutationCreateWorkSheetArgs = {
+  data: WorkSheetCreateInput;
+};
+
+
+export type MutationCreateWorkSheetsArgs = {
+  data: Array<WorkSheetCreateInput>;
+};
+
+
 export type MutationDeleteBidArgs = {
   where: BidWhereUniqueInput;
 };
@@ -1509,6 +1525,16 @@ export type MutationDeleteVehicleArgs = {
 
 export type MutationDeleteVehiclesArgs = {
   where: Array<VehicleWhereUniqueInput>;
+};
+
+
+export type MutationDeleteWorkSheetArgs = {
+  where: WorkSheetWhereUniqueInput;
+};
+
+
+export type MutationDeleteWorkSheetsArgs = {
+  where: Array<WorkSheetWhereUniqueInput>;
 };
 
 
@@ -1663,6 +1689,17 @@ export type MutationUpdateVehicleArgs = {
 
 export type MutationUpdateVehiclesArgs = {
   data: Array<VehicleUpdateArgs>;
+};
+
+
+export type MutationUpdateWorkSheetArgs = {
+  data: WorkSheetUpdateInput;
+  where: WorkSheetWhereUniqueInput;
+};
+
+
+export type MutationUpdateWorkSheetsArgs = {
+  data: Array<WorkSheetUpdateArgs>;
 };
 
 export type NestedStringFilter = {
@@ -1905,6 +1942,9 @@ export type Query = {
   vehicle?: Maybe<Vehicle>;
   vehicles?: Maybe<Array<Vehicle>>;
   vehiclesCount?: Maybe<Scalars['Int']>;
+  workSheet?: Maybe<WorkSheet>;
+  workSheets?: Maybe<Array<WorkSheet>>;
+  workSheetsCount?: Maybe<Scalars['Int']>;
 };
 
 
@@ -2176,6 +2216,24 @@ export type QueryVehiclesArgs = {
 
 export type QueryVehiclesCountArgs = {
   where?: VehicleWhereInput;
+};
+
+
+export type QueryWorkSheetArgs = {
+  where: WorkSheetWhereUniqueInput;
+};
+
+
+export type QueryWorkSheetsArgs = {
+  orderBy?: Array<WorkSheetOrderByInput>;
+  skip?: Scalars['Int'];
+  take?: InputMaybe<Scalars['Int']>;
+  where?: WorkSheetWhereInput;
+};
+
+
+export type QueryWorkSheetsCountArgs = {
+  where?: WorkSheetWhereInput;
 };
 
 export enum QueryMode {
@@ -3435,6 +3493,108 @@ export type VehicleWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
 };
 
+export type WorkSheet = {
+  __typename?: 'WorkSheet';
+  chassis?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  engineNo?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  image1?: Maybe<Scalars['String']>;
+  image2?: Maybe<Scalars['String']>;
+  image3?: Maybe<Scalars['String']>;
+  image4?: Maybe<Scalars['String']>;
+  image5?: Maybe<Scalars['String']>;
+  make?: Maybe<Scalars['String']>;
+  model?: Maybe<Scalars['String']>;
+  registrationNumber?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  vehicleCondition?: Maybe<Scalars['String']>;
+  videoUrl?: Maybe<Scalars['String']>;
+  voiceRecordUrl?: Maybe<Scalars['String']>;
+};
+
+export type WorkSheetCreateInput = {
+  chassis?: InputMaybe<Scalars['String']>;
+  engineNo?: InputMaybe<Scalars['String']>;
+  image1?: InputMaybe<Scalars['String']>;
+  image2?: InputMaybe<Scalars['String']>;
+  image3?: InputMaybe<Scalars['String']>;
+  image4?: InputMaybe<Scalars['String']>;
+  image5?: InputMaybe<Scalars['String']>;
+  make?: InputMaybe<Scalars['String']>;
+  model?: InputMaybe<Scalars['String']>;
+  registrationNumber?: InputMaybe<Scalars['String']>;
+  vehicleCondition?: InputMaybe<Scalars['String']>;
+  videoUrl?: InputMaybe<Scalars['String']>;
+  voiceRecordUrl?: InputMaybe<Scalars['String']>;
+};
+
+export type WorkSheetOrderByInput = {
+  chassis?: InputMaybe<OrderDirection>;
+  createdAt?: InputMaybe<OrderDirection>;
+  engineNo?: InputMaybe<OrderDirection>;
+  id?: InputMaybe<OrderDirection>;
+  image1?: InputMaybe<OrderDirection>;
+  image2?: InputMaybe<OrderDirection>;
+  image3?: InputMaybe<OrderDirection>;
+  image4?: InputMaybe<OrderDirection>;
+  image5?: InputMaybe<OrderDirection>;
+  make?: InputMaybe<OrderDirection>;
+  model?: InputMaybe<OrderDirection>;
+  registrationNumber?: InputMaybe<OrderDirection>;
+  updatedAt?: InputMaybe<OrderDirection>;
+  vehicleCondition?: InputMaybe<OrderDirection>;
+  videoUrl?: InputMaybe<OrderDirection>;
+  voiceRecordUrl?: InputMaybe<OrderDirection>;
+};
+
+export type WorkSheetUpdateArgs = {
+  data: WorkSheetUpdateInput;
+  where: WorkSheetWhereUniqueInput;
+};
+
+export type WorkSheetUpdateInput = {
+  chassis?: InputMaybe<Scalars['String']>;
+  engineNo?: InputMaybe<Scalars['String']>;
+  image1?: InputMaybe<Scalars['String']>;
+  image2?: InputMaybe<Scalars['String']>;
+  image3?: InputMaybe<Scalars['String']>;
+  image4?: InputMaybe<Scalars['String']>;
+  image5?: InputMaybe<Scalars['String']>;
+  make?: InputMaybe<Scalars['String']>;
+  model?: InputMaybe<Scalars['String']>;
+  registrationNumber?: InputMaybe<Scalars['String']>;
+  vehicleCondition?: InputMaybe<Scalars['String']>;
+  videoUrl?: InputMaybe<Scalars['String']>;
+  voiceRecordUrl?: InputMaybe<Scalars['String']>;
+};
+
+export type WorkSheetWhereInput = {
+  AND?: InputMaybe<Array<WorkSheetWhereInput>>;
+  NOT?: InputMaybe<Array<WorkSheetWhereInput>>;
+  OR?: InputMaybe<Array<WorkSheetWhereInput>>;
+  chassis?: InputMaybe<StringFilter>;
+  createdAt?: InputMaybe<DateTimeNullableFilter>;
+  engineNo?: InputMaybe<StringFilter>;
+  id?: InputMaybe<IdFilter>;
+  image1?: InputMaybe<StringFilter>;
+  image2?: InputMaybe<StringFilter>;
+  image3?: InputMaybe<StringFilter>;
+  image4?: InputMaybe<StringFilter>;
+  image5?: InputMaybe<StringFilter>;
+  make?: InputMaybe<StringFilter>;
+  model?: InputMaybe<StringFilter>;
+  registrationNumber?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeNullableFilter>;
+  vehicleCondition?: InputMaybe<StringFilter>;
+  videoUrl?: InputMaybe<StringFilter>;
+  voiceRecordUrl?: InputMaybe<StringFilter>;
+};
+
+export type WorkSheetWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
 export type VehicleBuyingLimits = {
   __typename?: 'vehicleBuyingLimits';
   specialVehicleBuyingLimit?: Maybe<Scalars['Int']>;
@@ -3477,10 +3637,10 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = { __typename?: 'Mutation', authenticateUserWithPassword?: { __typename?: 'UserAuthenticationWithPasswordFailure', message: string } | { __typename?: 'UserAuthenticationWithPasswordSuccess', sessionToken: string, item: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, role?: UserRoleType | null } } | null };
 
-export type AuthenticationQueryVariables = Exact<{ [key: string]: never; }>;
+export type UserauthenticationQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AuthenticationQuery = { __typename?: 'Query', authenticatedItem?: { __typename?: 'User', role?: UserRoleType | null } | null };
+export type UserauthenticationQuery = { __typename?: 'Query', authenticatedItem?: { __typename?: 'User', username?: string | null, role?: UserRoleType | null, state?: string | null } | null };
 
 export type CreateBidMutationVariables = Exact<{
   data: BidCreateInput;
@@ -3881,11 +4041,6 @@ export type UpdateStateMutationVariables = Exact<{
 
 export type UpdateStateMutation = { __typename?: 'Mutation', updateState?: { __typename?: 'State', id: string } | null };
 
-export type UserauthenticationQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type UserauthenticationQuery = { __typename?: 'Query', authenticatedItem?: { __typename?: 'User', username?: string | null, role?: UserRoleType | null, state?: string | null } | null };
-
 export type UserQueryVariables = Exact<{
   where: UserWhereUniqueInput;
 }>;
@@ -4206,42 +4361,44 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
-export const AuthenticationDocument = gql`
-    query authentication {
+export const UserauthenticationDocument = gql`
+    query Userauthentication {
   authenticatedItem {
     ... on User {
+      username
       role
+      state
     }
   }
 }
     `;
 
 /**
- * __useAuthenticationQuery__
+ * __useUserauthenticationQuery__
  *
- * To run a query within a React component, call `useAuthenticationQuery` and pass it any options that fit your needs.
- * When your component renders, `useAuthenticationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useUserauthenticationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserauthenticationQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useAuthenticationQuery({
+ * const { data, loading, error } = useUserauthenticationQuery({
  *   variables: {
  *   },
  * });
  */
-export function useAuthenticationQuery(baseOptions?: Apollo.QueryHookOptions<AuthenticationQuery, AuthenticationQueryVariables>) {
+export function useUserauthenticationQuery(baseOptions?: Apollo.QueryHookOptions<UserauthenticationQuery, UserauthenticationQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<AuthenticationQuery, AuthenticationQueryVariables>(AuthenticationDocument, options);
+        return Apollo.useQuery<UserauthenticationQuery, UserauthenticationQueryVariables>(UserauthenticationDocument, options);
       }
-export function useAuthenticationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AuthenticationQuery, AuthenticationQueryVariables>) {
+export function useUserauthenticationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserauthenticationQuery, UserauthenticationQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<AuthenticationQuery, AuthenticationQueryVariables>(AuthenticationDocument, options);
+          return Apollo.useLazyQuery<UserauthenticationQuery, UserauthenticationQueryVariables>(UserauthenticationDocument, options);
         }
-export type AuthenticationQueryHookResult = ReturnType<typeof useAuthenticationQuery>;
-export type AuthenticationLazyQueryHookResult = ReturnType<typeof useAuthenticationLazyQuery>;
-export type AuthenticationQueryResult = Apollo.QueryResult<AuthenticationQuery, AuthenticationQueryVariables>;
+export type UserauthenticationQueryHookResult = ReturnType<typeof useUserauthenticationQuery>;
+export type UserauthenticationLazyQueryHookResult = ReturnType<typeof useUserauthenticationLazyQuery>;
+export type UserauthenticationQueryResult = Apollo.QueryResult<UserauthenticationQuery, UserauthenticationQueryVariables>;
 export const CreateBidDocument = gql`
     mutation CreateBid($data: BidCreateInput!) {
   createBid(data: $data) {
@@ -6782,44 +6939,6 @@ export function useUpdateStateMutation(baseOptions?: Apollo.MutationHookOptions<
 export type UpdateStateMutationHookResult = ReturnType<typeof useUpdateStateMutation>;
 export type UpdateStateMutationResult = Apollo.MutationResult<UpdateStateMutation>;
 export type UpdateStateMutationOptions = Apollo.BaseMutationOptions<UpdateStateMutation, UpdateStateMutationVariables>;
-export const UserauthenticationDocument = gql`
-    query Userauthentication {
-  authenticatedItem {
-    ... on User {
-      username
-      role
-      state
-    }
-  }
-}
-    `;
-
-/**
- * __useUserauthenticationQuery__
- *
- * To run a query within a React component, call `useUserauthenticationQuery` and pass it any options that fit your needs.
- * When your component renders, `useUserauthenticationQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useUserauthenticationQuery({
- *   variables: {
- *   },
- * });
- */
-export function useUserauthenticationQuery(baseOptions?: Apollo.QueryHookOptions<UserauthenticationQuery, UserauthenticationQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<UserauthenticationQuery, UserauthenticationQueryVariables>(UserauthenticationDocument, options);
-      }
-export function useUserauthenticationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserauthenticationQuery, UserauthenticationQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<UserauthenticationQuery, UserauthenticationQueryVariables>(UserauthenticationDocument, options);
-        }
-export type UserauthenticationQueryHookResult = ReturnType<typeof useUserauthenticationQuery>;
-export type UserauthenticationLazyQueryHookResult = ReturnType<typeof useUserauthenticationLazyQuery>;
-export type UserauthenticationQueryResult = Apollo.QueryResult<UserauthenticationQuery, UserauthenticationQueryVariables>;
 export const UserDocument = gql`
     query User($where: UserWhereUniqueInput!) {
   user(where: $where) {
