@@ -56,7 +56,9 @@ console.log(data,"sellers")
     }
   
   }
- 
+ useEffect(()=>{
+refetch()
+ },[])
 
   const columns = useMemo(
     () => [

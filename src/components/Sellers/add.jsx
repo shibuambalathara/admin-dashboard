@@ -24,8 +24,7 @@ const AddPayment = () => {
   } = useForm();
   const onSubmit = async(dataOnSubmit) =>{ console.log(dataOnSubmit,"data")
  
-  try {
-    const result=AddSeller({variables:{data:
+ AddSeller({variables:{data:
      {
        name:dataOnSubmit?.sellerCompanyName,
         billingContactPerson:dataOnSubmit?.billingContactPerson,
@@ -40,13 +39,15 @@ const AddPayment = () => {
 
      }
      
-   }})
-    ShowPopup("Success!", `${dataOnSubmit?.sellerCompanyName} Added successfully!`,"success", 5000, true);
-    navigate('/sellers')
- } catch (error) {
+   }}).then(()=>{
+
+     ShowPopup("Success!", `${dataOnSubmit?.sellerCompanyName} Added successfully!`,"success", 5000, true);
+     navigate('/sellers')
+   })
+  .catch( (error)=> {
    console.log("the error in add seller",error);
    ShowPopup("Failed!", `${error?.message}`, "error", 5000, true);
- }
+ })
 
 
 
@@ -62,11 +63,15 @@ const AddPayment = () => {
 //     return <div>Loading............</div>;
 //   }
   return (
-    <div className="flex flex-col space-y-10 justify-center align-middle w-full bg-gray-50  my-10">
+    <div className="shadow-xl flex flex-col    w-full bg-slate-300 h-fit  m-5">
    
-      <form onSubmit={handleSubmit(onSubmit)} className=" w-full my-5 space-y-10">
-      <h1 className='flex justify-center'>Add Seller </h1> 
-         <div className="flex space-x-2 justify-around">
+      <form onSubmit={handleSubmit(onSubmit)} className=" w-full space-y-2">
+      <div className="py-4 bg-gray-200 rounded px-4 flex items-center shadow-xl justify-center ">
+          <h2 className="text-xl py-3 leading-3 font-bold text-gray-900">
+            ADD SELLER
+          </h2>
+        </div>
+         <div className="flex space-x-2 justify-around ">
           
             <div className="w-1/3">
               <label htmlFor="">Seller  Name</label>
@@ -148,7 +153,7 @@ const AddPayment = () => {
         </div>
 
   
-<div className=" flex justify-center my-5">
+<div className=" flex justify-center ">
           <button
             type="submit" 
             className="btn btn-outline btn-primary px-10"

@@ -15,12 +15,12 @@ const Sidebar = () => {
   navigate(`${path}`)
   }
   return (
-    <div className='w-72  min-h-screen  bg-black space-y-5 p-3  '>
+    <div className='w-72  min-h-screen  bg-blue-700 space-y-5 p-3  '>
       {Sidebar_items.map((item)=>{
         return(
           <>{item.path===pathNm?
-          <div><button onClick={() => HandleClick(item.path)}  className='btn btn-success  text-start font-bold   w-full '> {item.name}</button>  </div>
-          :<div><button onClick={() => HandleClick(item.path)}  className='btn btn-ghos  text-start font-bold   w-full text-white'> {item.name}</button>  </div>
+          <div><button onClick={() => HandleClick(item.path)}  className='btn bg-white text-start font-bold text-orange-500  w-full '> {item.name}</button>  </div>
+          :<div><button onClick={() => HandleClick(item.path)}  className='btn btn-ghost  text-start font-bold   w-full text-white'> {item.name}</button>  </div>
       }
           </>
           )
