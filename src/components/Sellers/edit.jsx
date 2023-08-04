@@ -63,9 +63,14 @@ const Editseller = () => {
     return <div>Loading............</div>;
   }
   return (
-    <div className="flex flex-col space-y-10 justify-center align-middle w-full bg-gray-50  my-10">
-    <h1 className='flex justify-center'> Seller {data?.seller?.name}</h1> 
-      <form onSubmit={handleSubmit(onSubmit)} className=" w-full my-5 space-y-10">
+    <div className="shadow-xl flex flex-col     bg-slate-300 h-fit  m-5">
+          <div className="py-4 bg-gray-200 rounded px-4 flex items-center shadow-xl justify-center ">
+          <h2 className="text-xl py-3 leading-3 font-bold text-gray-900">
+          Seller: {data?.seller?.name}
+          </h2>
+          </div>
+    
+      <form onSubmit={handleSubmit(onSubmit)} className="  my-5 space-y-2">
          <div className="flex space-x-2 justify-around">
           
             <div className="w-1/3">
@@ -90,8 +95,8 @@ const Editseller = () => {
             <p className="text-red-500"> {errors.amount && <span>Amount Required</span>}</p>
           </div>
           </div>
-          <div className="flex space-x-2 justify-around">
-            <div className="w-1/3">
+          {/* <div className="flex space-x-2 justify-around">
+            <div className="w-1/3"> */}
           
             {/* <div className="flex flex-col space-y-2 relative ">
                 <label className="text-base" htmlFor="">
@@ -121,8 +126,8 @@ const Editseller = () => {
                 <p className="text-red-500"> {errors.event&& <span>Event Name required</span>}</p> 
 
               </div>            <p className="text-red-500"> {errors.description && <span>Atleast 8 charators required</span>}</p> */}
-          </div>
-        </div>
+          {/* </div>
+        </div> */}
 
           <div className="flex space-x-2 justify-around">
           

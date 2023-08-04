@@ -117,3 +117,8 @@ mutation UpdateEvent($where: EventWhereUniqueInput!, $data: EventUpdateInput!) {
   id
   }
 }
+mutation DeleteEvent($where: EventWhereUniqueInput!) {
+  deleteEvent(where: $where) {
+  id  
+  }
+}

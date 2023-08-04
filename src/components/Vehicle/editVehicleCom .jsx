@@ -136,16 +136,15 @@ catch(err){
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
   return (
-    <div className="max-w-7xl mx-auto h-fit  my-10 bg-slate-100  ">
-   
-      <div className="py-4 bg-gray-200 rounded px-4 flex items-center justify-center ">
-        <h2 className="text-xl py-3 leading-3 font-bold text-gray-900">
+    <div className="shadow-xl flex flex-col     bg-slate-300 h-fit  m-5">
+    <div className="py-4 bg-gray-200 rounded px-4 flex items-center shadow-xl justify-center ">
+    <h2 className="text-xl py-3 leading-3 font-bold text-gray-900">
            VEHICLE DETAILS
         </h2>
       </div>
-      <div className="  max-w-6xl h-full mx-auto mt-5">
+      <div className="  max-w-6xl h-full  mt-5">
       <form onSubmit={handleSubmit(onSubmit)}>
-          <div className=" space-y-10">
+          <div className=" space-y-10 ml-5">
             <div className=" w-full  flex justify-between space-x-72">
               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
@@ -678,23 +677,24 @@ catch(err){
                 </label>
                 <Input defaultValue={data?.vehicle?.additionalRemarks} {...register("AdditionalRemarks",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
+              {/* <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                   Watched By{" "}
                 </label>
                 <Input   className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
-              </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+              </div> */}
+               <div className="w-1/2  ">
                 <label className="t" htmlFor=" ">
                   Auction Manager
                 </label>
                 <Input defaultValue={data?.vehicle?.auctionManager} {...register("autionManager",{})} className="max-w-[435px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-             
             </div>
-            <div>
+            {/* <div className=" w-full  flex justify-between space-x-72">
+             
+             
+            </div> */}
+            <div className="text-center">
             <button className="btn btn-success mb-5"> Save Changes</button>
             </div>
           </div>

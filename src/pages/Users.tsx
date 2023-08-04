@@ -52,17 +52,17 @@ useEffect(() => {
 
         <button 
           onClick={() => navigate("/add-user")}
-          className="m-5  w-fit  bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+          className="mt-5  w-fit  bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
         >
           Add User
         </button>
         </div>
-        <div className="text-center font-extrabold my-1  text-2xl w-full">
+        <div className="text-center font-extrabold mb-1  text-2xl w-full">
               {" "}
               Users Data Table{" "}
             </div>
       </div>
-      <div className="flex my-2 justify-evenly">
+      <div className="flex my-2 justify-evenly M-5 shadow-xl">
 
         <SearchByNumber inputData={handleInputData} /> 
         <SearchByDate setDate={handleInputData}/>
