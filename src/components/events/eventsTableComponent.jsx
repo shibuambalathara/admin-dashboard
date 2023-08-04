@@ -2,7 +2,7 @@ import { Button, Tab } from '@material-tailwind/react'
 import React, { useEffect, useMemo,useState } from 'react'
 import {useNavigate} from 'react-router-dom'
 import { useTable,useSortBy,usePagination,useGlobalFilter } from "react-table"
-import {useEventTableQuery, useUpdateEventMutation} from '../../utils/graphql'
+import {useDeleteEventMutation, useEventTableQuery, useUpdateEventMutation} from '../../utils/graphql'
 import SearchUser from '../utils/search'
 
 import format from 'date-fns/format'
@@ -29,7 +29,7 @@ useEffect(()=>{
 },[data])
 
     const navigate=useNavigate()
-    
+   const [deleteEvent]=useDeleteEventMutation()
 
 
 
@@ -82,6 +82,10 @@ const { value: input } = await Swal.fire({
     
   })
   console.log(err,"error")})
+}
+const handleDelete=(id)=>{
+  deleteEvent({variables:{where:{id}}})
+  refetch()
 }
    
 
@@ -165,7 +169,12 @@ const { value: input } = await Swal.fire({
               <button className="btn bg-pink-500" onClick={() => handleReport(row.original.Report)}>Download</button>
             )
           },
-  
+  {
+    Header:"delete",
+    Cell: ({ row }) => (
+      <button className="btn btn-error" onClick={() => handleDelete(row.original.id)}>Delete</button>
+    )
+  }
         
           
         ],
