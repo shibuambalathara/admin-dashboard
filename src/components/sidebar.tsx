@@ -15,7 +15,7 @@ const Sidebar = () => {
   navigate(`${path}`)
   }
   return (
-    <div className='w-72  min-h-screen  bg-blue-700 space-y-5 p-3  '>
+    <div className='w-72  min-h-screen  bg-gray-700 space-y-5 p-3  '>
       {Sidebar_items.map((item)=>{
         return(
           <>{item.path===pathNm?
