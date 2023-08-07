@@ -10,6 +10,7 @@ import {
   useEditUserMutation,
   useSelectorsQuery,
   useStatesQuery,
+  useUserauthenticationQuery,
 } from "../../utils/graphql";
 import { ShowPopup } from "../alerts/popUps";
 import AddUser from "./addUser";
@@ -19,6 +20,8 @@ const UserDetailsComponent = () => {
   const { id } = useParams();
   const sellers = useSellersItemQuery();
   const allStates = useStatesQuery();
+  const {data:loginUser}=useUserauthenticationQuery()
+  
 
   const selectors = useSelectorsQuery();
   const [updatedDetails, response] = useEditUserMutation({
@@ -29,7 +32,6 @@ const UserDetailsComponent = () => {
     variables: { where: { id: id } },
   });
 
-  console.log(data, "data");
   const {
     register,
     control,
@@ -38,7 +40,7 @@ const UserDetailsComponent = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (dataOnSubmit) => {
-    console.log(dataOnSubmit);
+    
 
     const user = {
       firstName: dataOnSubmit?.first_Name,
@@ -48,14 +50,14 @@ const UserDetailsComponent = () => {
       mobile: dataOnSubmit?.mobile,
       businessName: dataOnSubmit?.bussiness,
       pancardNo: dataOnSubmit?.pancardNumber,
-      role: dataOnSubmit?.role,
+     
       // vehicleBuyingLimit:+dataOnSubmit?.buyingLimitCount,
 
       //    password:dataOnSubmit?.confirmPassword,
       idProofType: dataOnSubmit?.idType,
       idProofNo: dataOnSubmit?.IdNumber,
       country: dataOnSubmit?.country,
-      state: dataOnSubmit?.state,
+      // state: dataOnSubmit?.state,
       city: dataOnSubmit?.city,
       status: dataOnSubmit?.status,
 
@@ -66,7 +68,16 @@ const UserDetailsComponent = () => {
         set: dataOnSubmit.states.map((state) => ({ id: state.value })),
       },
     };
-
+if(loginUser?.authenticatedItem?.role==='admin'){
+ 
+ 
+  user['role']=dataOnSubmit?.role
+}
+if(loginUser?.authenticatedItem?.role==='admin'){
+ 
+ alert("reached")
+  user['state']=dataOnSubmit?.state
+}
     if (dataOnSubmit.user_image && dataOnSubmit.user_image.length) {
       user["image"] = { upload: dataOnSubmit.user_image[0] };
     }
@@ -262,7 +273,7 @@ const UserDetailsComponent = () => {
             </div>
           </div>
 
-          <div className="flex  justify-around  ">
+      { loginUser?.authenticatedItem?.role==='admin' &&  <div className="flex  justify-around  ">
             <div className="min-w-[300px] w-1/3">
               <label htmlFor="">Role</label>
               <select
@@ -299,7 +310,7 @@ const UserDetailsComponent = () => {
                 {errors.status && <span>Please select status</span>}
               </p>
             </div>
-          </div>
+          </div>}
 
           <div className="flex space-x-2 justify-around">
             <div className="min-w-[300px] w-1/3">

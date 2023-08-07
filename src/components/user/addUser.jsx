@@ -31,7 +31,7 @@ const AddUser = () => {
       mobile: dataOnSubmit?.mobile,
       businessName: dataOnSubmit?.bussiness,
       pancardNo: dataOnSubmit?.pancardNumber,
-      role: dataOnSubmit?.role,
+    //  role: dataOnSubmit?.role,
       //  category:{create:dataOnSubmit?.category},
 
     //  password: dataOnSubmit?.confirmPassword,
@@ -111,18 +111,7 @@ const AddUser = () => {
             </div>
 
             <div className="flex  justify-around">
-              <div className="flex flex-col  w-1/3 ">
-                <label htmlFor="">Email</label>
-                <input
-                  type="email"
-                  className="p-3 input input-bordered input-secondary w-full"
-                  {...register("email", {})}
-                ></input>
-                <p className="text-red-500">
-                  {" "}
-                  {errors.email && <span> email required</span>}
-                </p>
-              </div>
+         
               {/* <div className="flex flex-col  w-1/3">
                 <label htmlFor=""> Password</label>
                 <input
@@ -185,16 +174,16 @@ const AddUser = () => {
               </div>
             </div>
 
-            <div className="flex  justify-around ">
+            {/* <div className="flex  justify-around "> */}
               {/* <div className="flex flex-col  w-1/3">
                 <label htmlFor="">Bannned Sellers</label>
                 <Select isMulti className="p-3 input input-bordered input-secondary w-full"/>
                  
               </div> */}
             
-            </div>
+            {/* </div> */}
             <div className="flex  justify-around ">
-              <div className="flex flex-col  w-1/3">
+              {/* <div className="flex flex-col  w-1/3">
                 <label htmlFor="">Role</label>
                 <select
                   defaultValue=""
@@ -211,7 +200,7 @@ const AddUser = () => {
                   {" "}
                   {errors.role && <span>Please select Role</span>}
                 </p>
-              </div>
+              </div> */}
               <div className="flex flex-col  w-1/3">
                 <label htmlFor="">ID Proof Type</label>
                 <select
@@ -227,6 +216,18 @@ const AddUser = () => {
                 <p className="text-red-500">
                   {" "}
                   {errors.idType && <span>Please select Id proof type</span>}
+                </p>
+              </div>
+              <div className="flex flex-col  w-1/3 ">
+                <label htmlFor="">Email</label>
+                <input
+                  type="email"
+                  className="p-3 input input-bordered input-secondary w-full"
+                  {...register("email", {})}
+                ></input>
+                <p className="text-red-500">
+                  {" "}
+                  {errors.email && <span> email required</span>}
                 </p>
               </div>
             </div>
