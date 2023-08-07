@@ -7,7 +7,7 @@ query ContactUs {
     status
     mobile
     subject
-    email
+ 
     createdAt
     updatedAt
     

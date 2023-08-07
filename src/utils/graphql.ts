@@ -140,35 +140,35 @@ export type BooleanFilter = {
 export type ContactUs = {
   __typename?: 'ContactUs';
   createdAt?: Maybe<Scalars['DateTime']>;
-  email?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   lastName?: Maybe<Scalars['String']>;
   message?: Maybe<Scalars['String']>;
   mobile?: Maybe<Scalars['String']>;
+  state?: Maybe<Scalars['String']>;
   status?: Maybe<ContactUsStatusType>;
   subject?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
 export type ContactUsCreateInput = {
-  email?: InputMaybe<Scalars['String']>;
   firstName?: InputMaybe<Scalars['String']>;
   lastName?: InputMaybe<Scalars['String']>;
   message?: InputMaybe<Scalars['String']>;
   mobile?: InputMaybe<Scalars['String']>;
+  state?: InputMaybe<Scalars['String']>;
   status?: InputMaybe<ContactUsStatusType>;
   subject?: InputMaybe<Scalars['String']>;
 };
 
 export type ContactUsOrderByInput = {
   createdAt?: InputMaybe<OrderDirection>;
-  email?: InputMaybe<OrderDirection>;
   firstName?: InputMaybe<OrderDirection>;
   id?: InputMaybe<OrderDirection>;
   lastName?: InputMaybe<OrderDirection>;
   message?: InputMaybe<OrderDirection>;
   mobile?: InputMaybe<OrderDirection>;
+  state?: InputMaybe<OrderDirection>;
   status?: InputMaybe<OrderDirection>;
   subject?: InputMaybe<OrderDirection>;
   updatedAt?: InputMaybe<OrderDirection>;
@@ -192,11 +192,11 @@ export type ContactUsUpdateArgs = {
 };
 
 export type ContactUsUpdateInput = {
-  email?: InputMaybe<Scalars['String']>;
   firstName?: InputMaybe<Scalars['String']>;
   lastName?: InputMaybe<Scalars['String']>;
   message?: InputMaybe<Scalars['String']>;
   mobile?: InputMaybe<Scalars['String']>;
+  state?: InputMaybe<Scalars['String']>;
   status?: InputMaybe<ContactUsStatusType>;
   subject?: InputMaybe<Scalars['String']>;
 };
@@ -206,12 +206,12 @@ export type ContactUsWhereInput = {
   NOT?: InputMaybe<Array<ContactUsWhereInput>>;
   OR?: InputMaybe<Array<ContactUsWhereInput>>;
   createdAt?: InputMaybe<DateTimeNullableFilter>;
-  email?: InputMaybe<StringFilter>;
   firstName?: InputMaybe<StringFilter>;
   id?: InputMaybe<IdFilter>;
   lastName?: InputMaybe<StringFilter>;
   message?: InputMaybe<StringFilter>;
   mobile?: InputMaybe<StringFilter>;
+  state?: InputMaybe<StringFilter>;
   status?: InputMaybe<ContactUsStatusTypeNullableFilter>;
   subject?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeNullableFilter>;
@@ -3508,6 +3508,7 @@ export type WorkSheet = {
   model?: Maybe<Scalars['String']>;
   registrationNumber?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
+  varient?: Maybe<Scalars['String']>;
   vehicleCondition?: Maybe<Scalars['String']>;
   videoUrl?: Maybe<Scalars['String']>;
   voiceRecordUrl?: Maybe<Scalars['String']>;
@@ -3524,6 +3525,7 @@ export type WorkSheetCreateInput = {
   make?: InputMaybe<Scalars['String']>;
   model?: InputMaybe<Scalars['String']>;
   registrationNumber?: InputMaybe<Scalars['String']>;
+  varient?: InputMaybe<Scalars['String']>;
   vehicleCondition?: InputMaybe<Scalars['String']>;
   videoUrl?: InputMaybe<Scalars['String']>;
   voiceRecordUrl?: InputMaybe<Scalars['String']>;
@@ -3543,6 +3545,7 @@ export type WorkSheetOrderByInput = {
   model?: InputMaybe<OrderDirection>;
   registrationNumber?: InputMaybe<OrderDirection>;
   updatedAt?: InputMaybe<OrderDirection>;
+  varient?: InputMaybe<OrderDirection>;
   vehicleCondition?: InputMaybe<OrderDirection>;
   videoUrl?: InputMaybe<OrderDirection>;
   voiceRecordUrl?: InputMaybe<OrderDirection>;
@@ -3564,6 +3567,7 @@ export type WorkSheetUpdateInput = {
   make?: InputMaybe<Scalars['String']>;
   model?: InputMaybe<Scalars['String']>;
   registrationNumber?: InputMaybe<Scalars['String']>;
+  varient?: InputMaybe<Scalars['String']>;
   vehicleCondition?: InputMaybe<Scalars['String']>;
   videoUrl?: InputMaybe<Scalars['String']>;
   voiceRecordUrl?: InputMaybe<Scalars['String']>;
@@ -3586,6 +3590,7 @@ export type WorkSheetWhereInput = {
   model?: InputMaybe<StringFilter>;
   registrationNumber?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeNullableFilter>;
+  varient?: InputMaybe<StringFilter>;
   vehicleCondition?: InputMaybe<StringFilter>;
   videoUrl?: InputMaybe<StringFilter>;
   voiceRecordUrl?: InputMaybe<StringFilter>;
@@ -3754,7 +3759,7 @@ export type DeleteEmdUpdateMutation = { __typename?: 'Mutation', deleteEmdUpdate
 export type ContactUsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ContactUsQuery = { __typename?: 'Query', contactuses?: Array<{ __typename?: 'ContactUs', id: string, firstName?: string | null, lastName?: string | null, message?: string | null, status?: ContactUsStatusType | null, mobile?: string | null, subject?: string | null, email?: string | null, createdAt?: any | null, updatedAt?: any | null }> | null };
+export type ContactUsQuery = { __typename?: 'Query', contactuses?: Array<{ __typename?: 'ContactUs', id: string, firstName?: string | null, lastName?: string | null, message?: string | null, status?: ContactUsStatusType | null, mobile?: string | null, subject?: string | null, createdAt?: any | null, updatedAt?: any | null }> | null };
 
 export type UpdateContactUsMutationVariables = Exact<{
   where: ContactUsWhereUniqueInput;
@@ -5123,7 +5128,6 @@ export const ContactUsDocument = gql`
     status
     mobile
     subject
-    email
     createdAt
     updatedAt
   }
