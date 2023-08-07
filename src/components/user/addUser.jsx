@@ -34,7 +34,7 @@ const AddUser = () => {
     //  role: dataOnSubmit?.role,
       //  category:{create:dataOnSubmit?.category},
 
-    //  password: dataOnSubmit?.confirmPassword,
+ 
     password:voucherCode[0],
       idProofType: dataOnSubmit?.idType,
       idProofNo: dataOnSubmit?.IdNumber,
