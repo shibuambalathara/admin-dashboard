@@ -81,6 +81,12 @@ vehicleIndexNo
   mobile
   pancardNo
   }
+
+  AllImages {
+      url
+    }
+
+
   }
 }
 query vehiclePerEvent($where: VehicleWhereInput!) {

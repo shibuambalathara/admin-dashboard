@@ -17,19 +17,28 @@ const AddEventType = () => {
   const onSubmit = async (dataOnSubmit) => {
     console.log("dataOnSubmit", dataOnSubmit);
 
-    const result = await createState({
+   createState({
       variables: { data: { name: dataOnSubmit?.name } },
-    });
+    }).then(()=>{
+      Swal.fire({
+        title: "Success!",
+        text: `${dataOnSubmit?.name} Added successfully!`,
+        icon: "success",
+        timer: 3000,
+        showConfirmButton: true,
+        
+      });
+      setIsModalOpen(false);
+    }).catch((err)=>{
+      Swal.fire({
+        title:err,
+        icon:'error'
+      })
+    })
 
-    Swal.fire({
-      title: "Success!",
-      text: `${dataOnSubmit?.name} Added successfully!`,
-      icon: "success",
-      timer: 3000,
-      showConfirmButton: true,
-    });
+ 
 
-    setIsModalOpen(false);
+    
   };
   return (
     <div className="w-full max-w-xs     relative ml-50 ">
