@@ -2,7 +2,7 @@
 
 
 import { Button } from '@material-tailwind/react'
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import {useNavigate} from 'react-router-dom'
 import { useTable,usePagination,useGlobalFilter,useSortBy } from "react-table"
 import {useDeleteEventTypeMutation, useEventTypesQuery} from '../../utils/graphql'
@@ -15,7 +15,7 @@ import AddEventType from './eventTypeAdd'
 
 
 const EventTypesTable = () => {
-    const {data,loading,error}=useEventTypesQuery()
+    const {data,loading,error,refetch}=useEventTypesQuery()
     const [deleteEventType]=useDeleteEventTypeMutation()
     const navigate=useNavigate()
 
@@ -92,6 +92,11 @@ const EventTypesTable = () => {
       } = tableInstance;
     
       const { globalFilter } = state;
+
+
+      useEffect(()=>{
+refetch()
+      },[])
     
       if (loading) return <p>Loading...</p>;
       

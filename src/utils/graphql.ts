@@ -1182,6 +1182,8 @@ export type Mutation = {
   createUser?: Maybe<User>;
   createUsers?: Maybe<Array<Maybe<User>>>;
   createVehicle?: Maybe<Vehicle>;
+  createVehicleImage?: Maybe<VehicleImage>;
+  createVehicleImages?: Maybe<Array<Maybe<VehicleImage>>>;
   createVehicles?: Maybe<Array<Maybe<Vehicle>>>;
   createWorkSheet?: Maybe<WorkSheet>;
   createWorkSheets?: Maybe<Array<Maybe<WorkSheet>>>;
@@ -1210,6 +1212,8 @@ export type Mutation = {
   deleteUser?: Maybe<User>;
   deleteUsers?: Maybe<Array<Maybe<User>>>;
   deleteVehicle?: Maybe<Vehicle>;
+  deleteVehicleImage?: Maybe<VehicleImage>;
+  deleteVehicleImages?: Maybe<Array<Maybe<VehicleImage>>>;
   deleteVehicles?: Maybe<Array<Maybe<Vehicle>>>;
   deleteWorkSheet?: Maybe<WorkSheet>;
   deleteWorkSheets?: Maybe<Array<Maybe<WorkSheet>>>;
@@ -1241,6 +1245,8 @@ export type Mutation = {
   updateUser?: Maybe<User>;
   updateUsers?: Maybe<Array<Maybe<User>>>;
   updateVehicle?: Maybe<Vehicle>;
+  updateVehicleImage?: Maybe<VehicleImage>;
+  updateVehicleImages?: Maybe<Array<Maybe<VehicleImage>>>;
   updateVehicles?: Maybe<Array<Maybe<Vehicle>>>;
   updateWorkSheet?: Maybe<WorkSheet>;
   updateWorkSheets?: Maybe<Array<Maybe<WorkSheet>>>;
@@ -1383,6 +1389,16 @@ export type MutationCreateVehicleArgs = {
 };
 
 
+export type MutationCreateVehicleImageArgs = {
+  data: VehicleImageCreateInput;
+};
+
+
+export type MutationCreateVehicleImagesArgs = {
+  data: Array<VehicleImageCreateInput>;
+};
+
+
 export type MutationCreateVehiclesArgs = {
   data: Array<VehicleCreateInput>;
 };
@@ -1520,6 +1536,16 @@ export type MutationDeleteUsersArgs = {
 
 export type MutationDeleteVehicleArgs = {
   where: VehicleWhereUniqueInput;
+};
+
+
+export type MutationDeleteVehicleImageArgs = {
+  where: VehicleImageWhereUniqueInput;
+};
+
+
+export type MutationDeleteVehicleImagesArgs = {
+  where: Array<VehicleImageWhereUniqueInput>;
 };
 
 
@@ -1684,6 +1710,17 @@ export type MutationUpdateUsersArgs = {
 export type MutationUpdateVehicleArgs = {
   data: VehicleUpdateInput;
   where: VehicleWhereUniqueInput;
+};
+
+
+export type MutationUpdateVehicleImageArgs = {
+  data: VehicleImageUpdateInput;
+  where: VehicleImageWhereUniqueInput;
+};
+
+
+export type MutationUpdateVehicleImagesArgs = {
+  data: Array<VehicleImageUpdateArgs>;
 };
 
 
@@ -1940,6 +1977,9 @@ export type Query = {
   users?: Maybe<Array<User>>;
   usersCount?: Maybe<Scalars['Int']>;
   vehicle?: Maybe<Vehicle>;
+  vehicleImage?: Maybe<VehicleImage>;
+  vehicleImages?: Maybe<Array<VehicleImage>>;
+  vehicleImagesCount?: Maybe<Scalars['Int']>;
   vehicles?: Maybe<Array<Vehicle>>;
   vehiclesCount?: Maybe<Scalars['Int']>;
   workSheet?: Maybe<WorkSheet>;
@@ -2203,6 +2243,24 @@ export type QueryUsersCountArgs = {
 
 export type QueryVehicleArgs = {
   where: VehicleWhereUniqueInput;
+};
+
+
+export type QueryVehicleImageArgs = {
+  where: VehicleImageWhereUniqueInput;
+};
+
+
+export type QueryVehicleImagesArgs = {
+  orderBy?: Array<VehicleImageOrderByInput>;
+  skip?: Scalars['Int'];
+  take?: InputMaybe<Scalars['Int']>;
+  where?: VehicleImageWhereInput;
+};
+
+
+export type QueryVehicleImagesCountArgs = {
+  where?: VehicleImageWhereInput;
 };
 
 
@@ -2616,6 +2674,8 @@ export type User = {
   vehicleBuyingLimit?: Maybe<Scalars['Int']>;
   watchList?: Maybe<Array<Vehicle>>;
   watchListCount?: Maybe<Scalars['Int']>;
+  workSheetDetail?: Maybe<Array<WorkSheet>>;
+  workSheetDetailCount?: Maybe<Scalars['Int']>;
 };
 
 
@@ -2761,6 +2821,19 @@ export type UserWatchListCountArgs = {
   where?: VehicleWhereInput;
 };
 
+
+export type UserWorkSheetDetailArgs = {
+  orderBy?: Array<WorkSheetOrderByInput>;
+  skip?: Scalars['Int'];
+  take?: InputMaybe<Scalars['Int']>;
+  where?: WorkSheetWhereInput;
+};
+
+
+export type UserWorkSheetDetailCountArgs = {
+  where?: WorkSheetWhereInput;
+};
+
 export type UserAuthenticationWithPasswordFailure = {
   __typename?: 'UserAuthenticationWithPasswordFailure';
   message: Scalars['String'];
@@ -2815,6 +2888,7 @@ export type UserCreateInput = {
   username?: InputMaybe<Scalars['String']>;
   vehicleBuyingLimit?: InputMaybe<Scalars['Int']>;
   watchList?: InputMaybe<VehicleRelateToManyForCreateInput>;
+  workSheetDetail?: InputMaybe<WorkSheetRelateToManyForCreateInput>;
 };
 
 export enum UserIdProofTypeType {
@@ -2960,6 +3034,7 @@ export type UserUpdateInput = {
   username?: InputMaybe<Scalars['String']>;
   vehicleBuyingLimit?: InputMaybe<Scalars['Int']>;
   watchList?: InputMaybe<VehicleRelateToManyForUpdateInput>;
+  workSheetDetail?: InputMaybe<WorkSheetRelateToManyForUpdateInput>;
 };
 
 export type UserWhereInput = {
@@ -3004,6 +3079,7 @@ export type UserWhereInput = {
   username?: InputMaybe<StringFilter>;
   vehicleBuyingLimit?: InputMaybe<IntNullableFilter>;
   watchList?: InputMaybe<VehicleManyRelationFilter>;
+  workSheetDetail?: InputMaybe<WorkSheetManyRelationFilter>;
 };
 
 export type UserWhereUniqueInput = {
@@ -3015,6 +3091,8 @@ export type UserWhereUniqueInput = {
 
 export type Vehicle = {
   __typename?: 'Vehicle';
+  AllImages?: Maybe<Array<VehicleImage>>;
+  AllImagesCount?: Maybe<Scalars['Int']>;
   ExcelFile?: Maybe<ExcelUpload>;
   additionalRemarks?: Maybe<Scalars['String']>;
   approxParkingCharges?: Maybe<Scalars['String']>;
@@ -3101,6 +3179,19 @@ export type Vehicle = {
 };
 
 
+export type VehicleAllImagesArgs = {
+  orderBy?: Array<VehicleImageOrderByInput>;
+  skip?: Scalars['Int'];
+  take?: InputMaybe<Scalars['Int']>;
+  where?: VehicleImageWhereInput;
+};
+
+
+export type VehicleAllImagesCountArgs = {
+  where?: VehicleImageWhereInput;
+};
+
+
 export type VehicleUserVehicleBidsArgs = {
   orderBy?: Array<BidOrderByInput>;
   skip?: Scalars['Int'];
@@ -3141,6 +3232,7 @@ export type VehicleBidStatusTypeNullableFilter = {
 };
 
 export type VehicleCreateInput = {
+  AllImages?: InputMaybe<VehicleImageRelateToManyForCreateInput>;
   ExcelFile?: InputMaybe<ExcelUploadRelateToOneForCreateInput>;
   additionalRemarks?: InputMaybe<Scalars['String']>;
   approxParkingCharges?: InputMaybe<Scalars['String']>;
@@ -3216,6 +3308,64 @@ export type VehicleCreateInput = {
   watchedBy?: InputMaybe<UserRelateToManyForCreateInput>;
   yardLocation?: InputMaybe<Scalars['String']>;
   yearOfManufacture?: InputMaybe<Scalars['Int']>;
+};
+
+export type VehicleImage = {
+  __typename?: 'VehicleImage';
+  VehicleRelation?: Maybe<Vehicle>;
+  id: Scalars['ID'];
+  url?: Maybe<Scalars['String']>;
+};
+
+export type VehicleImageCreateInput = {
+  VehicleRelation?: InputMaybe<VehicleRelateToOneForCreateInput>;
+  url?: InputMaybe<Scalars['String']>;
+};
+
+export type VehicleImageManyRelationFilter = {
+  every?: InputMaybe<VehicleImageWhereInput>;
+  none?: InputMaybe<VehicleImageWhereInput>;
+  some?: InputMaybe<VehicleImageWhereInput>;
+};
+
+export type VehicleImageOrderByInput = {
+  id?: InputMaybe<OrderDirection>;
+  url?: InputMaybe<OrderDirection>;
+};
+
+export type VehicleImageRelateToManyForCreateInput = {
+  connect?: InputMaybe<Array<VehicleImageWhereUniqueInput>>;
+  create?: InputMaybe<Array<VehicleImageCreateInput>>;
+};
+
+export type VehicleImageRelateToManyForUpdateInput = {
+  connect?: InputMaybe<Array<VehicleImageWhereUniqueInput>>;
+  create?: InputMaybe<Array<VehicleImageCreateInput>>;
+  disconnect?: InputMaybe<Array<VehicleImageWhereUniqueInput>>;
+  set?: InputMaybe<Array<VehicleImageWhereUniqueInput>>;
+};
+
+export type VehicleImageUpdateArgs = {
+  data: VehicleImageUpdateInput;
+  where: VehicleImageWhereUniqueInput;
+};
+
+export type VehicleImageUpdateInput = {
+  VehicleRelation?: InputMaybe<VehicleRelateToOneForUpdateInput>;
+  url?: InputMaybe<Scalars['String']>;
+};
+
+export type VehicleImageWhereInput = {
+  AND?: InputMaybe<Array<VehicleImageWhereInput>>;
+  NOT?: InputMaybe<Array<VehicleImageWhereInput>>;
+  OR?: InputMaybe<Array<VehicleImageWhereInput>>;
+  VehicleRelation?: InputMaybe<VehicleWhereInput>;
+  id?: InputMaybe<IdFilter>;
+  url?: InputMaybe<StringFilter>;
+};
+
+export type VehicleImageWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
 };
 
 export type VehicleManyRelationFilter = {
@@ -3328,6 +3478,7 @@ export type VehicleUpdateArgs = {
 };
 
 export type VehicleUpdateInput = {
+  AllImages?: InputMaybe<VehicleImageRelateToManyForUpdateInput>;
   ExcelFile?: InputMaybe<ExcelUploadRelateToOneForUpdateInput>;
   additionalRemarks?: InputMaybe<Scalars['String']>;
   approxParkingCharges?: InputMaybe<Scalars['String']>;
@@ -3407,6 +3558,7 @@ export type VehicleUpdateInput = {
 
 export type VehicleWhereInput = {
   AND?: InputMaybe<Array<VehicleWhereInput>>;
+  AllImages?: InputMaybe<VehicleImageManyRelationFilter>;
   ExcelFile?: InputMaybe<ExcelUploadWhereInput>;
   NOT?: InputMaybe<Array<VehicleWhereInput>>;
   OR?: InputMaybe<Array<VehicleWhereInput>>;
@@ -3508,6 +3660,7 @@ export type WorkSheet = {
   model?: Maybe<Scalars['String']>;
   registrationNumber?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
+  userDetail?: Maybe<User>;
   varient?: Maybe<Scalars['String']>;
   vehicleCondition?: Maybe<Scalars['String']>;
   videoUrl?: Maybe<Scalars['String']>;
@@ -3525,10 +3678,17 @@ export type WorkSheetCreateInput = {
   make?: InputMaybe<Scalars['String']>;
   model?: InputMaybe<Scalars['String']>;
   registrationNumber?: InputMaybe<Scalars['String']>;
+  userDetail?: InputMaybe<UserRelateToOneForCreateInput>;
   varient?: InputMaybe<Scalars['String']>;
   vehicleCondition?: InputMaybe<Scalars['String']>;
   videoUrl?: InputMaybe<Scalars['String']>;
   voiceRecordUrl?: InputMaybe<Scalars['String']>;
+};
+
+export type WorkSheetManyRelationFilter = {
+  every?: InputMaybe<WorkSheetWhereInput>;
+  none?: InputMaybe<WorkSheetWhereInput>;
+  some?: InputMaybe<WorkSheetWhereInput>;
 };
 
 export type WorkSheetOrderByInput = {
@@ -3551,6 +3711,18 @@ export type WorkSheetOrderByInput = {
   voiceRecordUrl?: InputMaybe<OrderDirection>;
 };
 
+export type WorkSheetRelateToManyForCreateInput = {
+  connect?: InputMaybe<Array<WorkSheetWhereUniqueInput>>;
+  create?: InputMaybe<Array<WorkSheetCreateInput>>;
+};
+
+export type WorkSheetRelateToManyForUpdateInput = {
+  connect?: InputMaybe<Array<WorkSheetWhereUniqueInput>>;
+  create?: InputMaybe<Array<WorkSheetCreateInput>>;
+  disconnect?: InputMaybe<Array<WorkSheetWhereUniqueInput>>;
+  set?: InputMaybe<Array<WorkSheetWhereUniqueInput>>;
+};
+
 export type WorkSheetUpdateArgs = {
   data: WorkSheetUpdateInput;
   where: WorkSheetWhereUniqueInput;
@@ -3567,6 +3739,7 @@ export type WorkSheetUpdateInput = {
   make?: InputMaybe<Scalars['String']>;
   model?: InputMaybe<Scalars['String']>;
   registrationNumber?: InputMaybe<Scalars['String']>;
+  userDetail?: InputMaybe<UserRelateToOneForUpdateInput>;
   varient?: InputMaybe<Scalars['String']>;
   vehicleCondition?: InputMaybe<Scalars['String']>;
   videoUrl?: InputMaybe<Scalars['String']>;
@@ -3590,6 +3763,7 @@ export type WorkSheetWhereInput = {
   model?: InputMaybe<StringFilter>;
   registrationNumber?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeNullableFilter>;
+  userDetail?: InputMaybe<UserWhereInput>;
   varient?: InputMaybe<StringFilter>;
   vehicleCondition?: InputMaybe<StringFilter>;
   videoUrl?: InputMaybe<StringFilter>;
@@ -4117,7 +4291,7 @@ export type VehicleDetailsQueryVariables = Exact<{
 }>;
 
 
-export type VehicleDetailsQuery = { __typename?: 'Query', vehicle?: { __typename?: 'Vehicle', id: string, registrationNumber?: string | null, bidStatus?: VehicleBidStatusType | null, bidTimeExpire?: any | null, loanAgreementNo?: string | null, registeredOwnerName?: string | null, quoteIncreament?: number | null, make?: string | null, model?: string | null, varient?: string | null, categoty?: string | null, fuel?: string | null, type?: string | null, rcStatus?: string | null, yearOfManufacture?: number | null, ownership?: number | null, mileage?: number | null, kmReading?: number | null, insuranceStatus?: string | null, yardLocation?: string | null, startBidAmount?: number | null, currentBidAmount?: number | null, reservePrice?: number | null, repoDt?: any | null, veicleLocation?: string | null, vehicleRemarks?: string | null, auctionManager?: string | null, parkingCharges?: string | null, insurance?: string | null, insuranceValidTill?: any | null, tax?: string | null, taxValidityDate?: any | null, fitness?: string | null, permit?: string | null, fitnessPermit?: string | null, engineNo?: string | null, chassisNo?: string | null, frontImage?: string | null, backImage?: string | null, leftImage?: string | null, rightImage?: string | null, image5?: string | null, image6?: string | null, inspectionLink?: string | null, autobseContact?: string | null, autobse_contact_person?: string | null, vehicleCondition?: string | null, powerSteering?: string | null, shape?: string | null, color?: string | null, city?: string | null, area?: string | null, state?: string | null, paymentTerms?: string | null, dateOfRegistration?: any | null, hypothication?: string | null, climateControl?: string | null, doorCount?: number | null, gearBox?: string | null, buyerFees?: string | null, rtoFine?: string | null, parkingRate?: string | null, approxParkingCharges?: string | null, clientContactPerson?: string | null, clientContactNo?: string | null, additionalRemarks?: string | null, vehicleIndexNo?: number | null, event?: { __typename?: 'Event', seller?: { __typename?: 'Seller', name?: string | null } | null } | null, currentBidUser?: { __typename?: 'User', firstName?: string | null, lastName?: string | null, username?: string | null, mobile?: string | null, pancardNo?: string | null } | null } | null };
+export type VehicleDetailsQuery = { __typename?: 'Query', vehicle?: { __typename?: 'Vehicle', id: string, registrationNumber?: string | null, bidStatus?: VehicleBidStatusType | null, bidTimeExpire?: any | null, loanAgreementNo?: string | null, registeredOwnerName?: string | null, quoteIncreament?: number | null, make?: string | null, model?: string | null, varient?: string | null, categoty?: string | null, fuel?: string | null, type?: string | null, rcStatus?: string | null, yearOfManufacture?: number | null, ownership?: number | null, mileage?: number | null, kmReading?: number | null, insuranceStatus?: string | null, yardLocation?: string | null, startBidAmount?: number | null, currentBidAmount?: number | null, reservePrice?: number | null, repoDt?: any | null, veicleLocation?: string | null, vehicleRemarks?: string | null, auctionManager?: string | null, parkingCharges?: string | null, insurance?: string | null, insuranceValidTill?: any | null, tax?: string | null, taxValidityDate?: any | null, fitness?: string | null, permit?: string | null, fitnessPermit?: string | null, engineNo?: string | null, chassisNo?: string | null, frontImage?: string | null, backImage?: string | null, leftImage?: string | null, rightImage?: string | null, image5?: string | null, image6?: string | null, inspectionLink?: string | null, autobseContact?: string | null, autobse_contact_person?: string | null, vehicleCondition?: string | null, powerSteering?: string | null, shape?: string | null, color?: string | null, city?: string | null, area?: string | null, state?: string | null, paymentTerms?: string | null, dateOfRegistration?: any | null, hypothication?: string | null, climateControl?: string | null, doorCount?: number | null, gearBox?: string | null, buyerFees?: string | null, rtoFine?: string | null, parkingRate?: string | null, approxParkingCharges?: string | null, clientContactPerson?: string | null, clientContactNo?: string | null, additionalRemarks?: string | null, vehicleIndexNo?: number | null, event?: { __typename?: 'Event', seller?: { __typename?: 'Seller', name?: string | null } | null } | null, currentBidUser?: { __typename?: 'User', firstName?: string | null, lastName?: string | null, username?: string | null, mobile?: string | null, pancardNo?: string | null } | null, AllImages?: Array<{ __typename?: 'VehicleImage', url?: string | null }> | null } | null };
 
 export type VehiclePerEventQueryVariables = Exact<{
   where: VehicleWhereInput;
@@ -7557,6 +7731,9 @@ export const VehicleDetailsDocument = gql`
       username
       mobile
       pancardNo
+    }
+    AllImages {
+      url
     }
   }
 }
