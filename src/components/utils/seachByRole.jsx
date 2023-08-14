@@ -28,11 +28,7 @@ const SeachByRole = ({setRole}) => {
     }}
   >
     <option value="">Select Role </option>
-    {/* {states?.states?.map((item) => (
-      <option key={item.name} value={item.name}>
-        {item.name}
-      </option>
-    ))} */}
+  
   <option value="admin">Admin </option>
   <option value="staff">Staff </option>
   <option value="dealer">Dealer </option>

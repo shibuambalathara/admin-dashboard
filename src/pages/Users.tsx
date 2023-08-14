@@ -33,13 +33,12 @@ const handledata=(data:any)=>{
 setStateData('')
  setUsersData(data)
 
-  console.log(data,"daaaaaaaaa")
-  console.log(usersData,"users Data")
+
 }
 
 useEffect(() => {
  
-  console.log(usersData, 'users Data');
+
 }, [usersData]);
 
 
