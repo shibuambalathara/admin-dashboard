@@ -75,7 +75,7 @@ if(loginUser?.authenticatedItem?.role==='admin'){
 }
 if(loginUser?.authenticatedItem?.role==='admin'){
  
- alert("reached")
+
   user['state']=dataOnSubmit?.state
 }
     if (dataOnSubmit.user_image && dataOnSubmit.user_image.length) {

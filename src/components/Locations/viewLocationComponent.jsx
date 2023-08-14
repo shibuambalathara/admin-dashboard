@@ -2,7 +2,7 @@ import { Button } from "@material-tailwind/react";
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTable, usePagination, useGlobalFilter,useSortBy } from "react-table";
-import { useDeleteLocationMutation, useEventTableQuery } from "../../utils/graphql";
+import { useDeleteLocationMutation, useEventTableQuery, useUpdateLocationMutation } from "../../utils/graphql";
 import SearchUser from "../utils/search";
 import { useLocationsQuery } from "../../utils/graphql";
 import Swal from "sweetalert2";
@@ -14,8 +14,43 @@ const ViewLocationComponent = () => {
  
   const { data, loading, error,refetch } = useLocationsQuery();
   const [deleteLOcation]=useDeleteLocationMutation()
-
+const [updateLocation]=useUpdateLocationMutation()
   console.log("this is the data from view location",data);
+
+
+  const handleEditLocation = async (name, id) => {
+    
+    const { value: input } = await Swal.fire({
+      title: 'Enter Location Name',
+      html: '<input id="location" class="swal2-select"></input>',
+      focusConfirm: false,
+      preConfirm: () => {
+        return [document.getElementById('location').value];
+      },
+    });
+  
+    const newState = input[0];
+  
+    updateLocation({
+      variables: { where: { id }, data: { name: newState } },
+    })
+      .then((res) => {
+        console.log("res",res)
+        Swal.fire({
+          icon: 'success',
+          title: `Location " ${name} "Changed to "${res?.data?.updateLocation?.name}"`,
+        });
+        refetch();
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Location Not Updated',
+        });
+      });
+   };
+
+
   const handleDelete=async(id)=>{
 
     const result = await Swal.fire({
@@ -48,6 +83,12 @@ const ViewLocationComponent = () => {
       { Header: "City", accessor: "name" }, 
       { Header: "State", accessor: (state) => state?.state?.name },
       { Header: "Country", accessor: "country" },
+      {
+        Header: "City",
+        Cell: ({ row }) => (
+          <button className="btn bg-red-500" onClick={()=>handleEditLocation(row.original.name,row.original.id) }>Edit</button>
+        )
+      },
         
       {
         Header: "Delete",
@@ -61,7 +102,7 @@ const ViewLocationComponent = () => {
 
   const tableData = useMemo(() => (data ? data.locations : []), [data]);
 
-  console.log("this is the tabledata from view location",tableData);
+  
   
   const tableInstance = useTable(
     {

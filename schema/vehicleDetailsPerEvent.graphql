@@ -30,5 +30,8 @@ currentVehicleBuyingLimit {
       coupenNumber
     }
   } 
+   seller {
+    name
+  } 
   }
 }

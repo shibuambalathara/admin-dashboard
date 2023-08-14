@@ -23,6 +23,7 @@ query BidsTable {
 query BidDetailsPerVehicle($where: VehicleWhereUniqueInput!) {
   vehicle(where: $where) {
     id
+    make
     registrationNumber
     vehicleIndexNo
         userVehicleBidsCount
@@ -31,6 +32,9 @@ query BidDetailsPerVehicle($where: VehicleWhereUniqueInput!) {
     bidStatus
     event {
   eventNo
+   seller {
+    name
+  }
 }
     userVehicleBids {
     amount

@@ -55,7 +55,7 @@ useEffect(()=>{
     useEffect(() => {
       if (vehicleId && vehicleDetails) {
         const {vehicle}=vehicleDetails
-        console.log(vehicleDetails?.vehicle?.event?.seller?.name,"v",vehicleId)
+     
         const pdf = new jsPDF();
        const logoImg = '../AutoBSE_Logo.png';
        
