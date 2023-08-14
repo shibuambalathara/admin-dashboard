@@ -29,7 +29,7 @@ const AllPaymentComponent = () => {
   return (
     <div className="bg-gray-100">
       
-     <PaymentTable data={data}/>
+     <PaymentTable data={data?.payments}/>
        <LimitedDataPaginationComponents
       currentPage={currentPage}
       onPageChange={handlePageChange}

@@ -16,9 +16,9 @@ import PaginationComponent from '../utils/pagination'
 const PaymentTable = ({data}) => {
 
 
+  
   const navigate = useNavigate();
 
-  console.log(data, "payment.. ",data?.payments.length);
 
   const handlePaymentPerUser = (userId) => {
     navigate(`/payment/${userId}`);
@@ -63,19 +63,7 @@ const PaymentTable = ({data}) => {
           data.createdBy ? data.createdBy.firstName : "self",
       },
 
-      // {
-      //   Header: "Update Buying Limit",
-      //   Cell: ({ row }) => (
-      //     <a
-      //       className="btn btn-secondary"
-      //       href={`/add-emd/${row.original.id}`}
-      //       target="_blank"
-      //       rel="noopener noreferrer"
-      //     >
-      //       Update
-      //     </a>
-      //   ),
-      // },
+   
       {
         Header: "Create Buying Limit",
         Cell: ({ row }) => {
@@ -148,17 +136,12 @@ const PaymentTable = ({data}) => {
           </a>
         ),
       },
-      // {
-      //   Header:"Delete Payment",
-      //   Cell:({row})=>(
-      //     <button onClick={()=>deleteHandler(row.original.id)}>Delete</button>
-      //   )
-      // }
+    
     ],
     []
   );
 
-  const tableData = useMemo(() => (data ? data.payments : []), [data]);
+  const tableData = useMemo(() => (data ? data : []), [data]);
   const tableInstance = useTable(
     {
       columns,
@@ -194,7 +177,7 @@ const PaymentTable = ({data}) => {
     />
 
     <TableComponent tableData={tableInstance} />
-{data?.payments?.length>10 && <PaginationComponent tableData={tableInstance}/>}
+{data?.length>10 && <PaginationComponent tableData={tableInstance}/>}
 
   </div>
   )
