@@ -15,10 +15,10 @@ const PaymentInputForm = ({ onSubmit, inputType }) => {
 
   return (
     <div>
-      <div className="flex justify-between">
+      <div className="">
         {inputType !== "select" && (
-          <div className="space-x-16 flex  align-middle">
-            <p className="my-auto"> Search By Date:</p>
+          <div className="   align-middle">
+            <p className="my-auto"> Select From Date:</p>
             <input
               type="date"
               className="p-3  input input-bordered input-secondary w-64"
