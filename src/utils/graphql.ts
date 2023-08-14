@@ -3838,7 +3838,7 @@ export type BidDetailsPerVehicleQueryVariables = Exact<{
 }>;
 
 
-export type BidDetailsPerVehicleQuery = { __typename?: 'Query', vehicle?: { __typename?: 'Vehicle', id: string, registrationNumber?: string | null, vehicleIndexNo?: number | null, userVehicleBidsCount?: number | null, vehicleEventStatus?: VehicleEventStatus | null, watchedByCount?: number | null, bidStatus?: VehicleBidStatusType | null, currentBidAmount?: number | null, event?: { __typename?: 'Event', eventNo?: number | null } | null, userVehicleBids?: Array<{ __typename?: 'Bid', amount?: number | null, id: string, createdAt?: any | null, user?: { __typename?: 'User', id: string, idNo?: number | null, firstName?: string | null, lastName?: string | null, mobile?: string | null } | null }> | null, currentBidUser?: { __typename?: 'User', id: string, idNo?: number | null, username?: string | null, firstName?: string | null, lastName?: string | null } | null } | null };
+export type BidDetailsPerVehicleQuery = { __typename?: 'Query', vehicle?: { __typename?: 'Vehicle', id: string, make?: string | null, registrationNumber?: string | null, vehicleIndexNo?: number | null, userVehicleBidsCount?: number | null, vehicleEventStatus?: VehicleEventStatus | null, watchedByCount?: number | null, bidStatus?: VehicleBidStatusType | null, currentBidAmount?: number | null, event?: { __typename?: 'Event', eventNo?: number | null, seller?: { __typename?: 'Seller', name?: string | null } | null } | null, userVehicleBids?: Array<{ __typename?: 'Bid', amount?: number | null, id: string, createdAt?: any | null, user?: { __typename?: 'User', id: string, idNo?: number | null, firstName?: string | null, lastName?: string | null, mobile?: string | null } | null }> | null, currentBidUser?: { __typename?: 'User', id: string, idNo?: number | null, username?: string | null, firstName?: string | null, lastName?: string | null } | null } | null };
 
 export type UpdateBidMutationVariables = Exact<{
   where: BidWhereUniqueInput;
@@ -4068,6 +4068,14 @@ export type AddLocationMutationVariables = Exact<{
 
 
 export type AddLocationMutation = { __typename?: 'Mutation', createLocation?: { __typename?: 'Location', city?: string | null, name?: string | null, country?: string | null, state?: { __typename?: 'State', name?: string | null, id: string } | null } | null };
+
+export type UpdateLocationMutationVariables = Exact<{
+  where: LocationWhereUniqueInput;
+  data: LocationUpdateInput;
+}>;
+
+
+export type UpdateLocationMutation = { __typename?: 'Mutation', updateLocation?: { __typename?: 'Location', id: string, name?: string | null } | null };
 
 export type DeleteLocationMutationVariables = Exact<{
   where: LocationWhereUniqueInput;
@@ -4305,7 +4313,7 @@ export type VehicleDetailsPerEventQueryVariables = Exact<{
 }>;
 
 
-export type VehicleDetailsPerEventQuery = { __typename?: 'Query', event?: { __typename?: 'Event', id: string, status?: EventStatusType | null, eventNo?: number | null, vehiclesCount?: number | null, vehicles?: Array<{ __typename?: 'Vehicle', bidStartTime?: any | null, bidTimeExpire?: any | null, id: string, vehicleIndexNo?: number | null, registrationNumber?: string | null, totalBids?: number | null, frontImage?: string | null, vehicleEventStatus?: VehicleEventStatus | null, bidStatus?: VehicleBidStatusType | null, state?: string | null, city?: string | null, currentBidAmount?: number | null, currentBidUser?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, mobile?: string | null, currentVehicleBuyingLimit?: { __typename?: 'vehicleBuyingLimits', vehicleBuyingLimit?: number | null } | null } | null, coupenDetail?: { __typename?: 'Coupen', coupenNumber?: string | null } | null }> | null } | null };
+export type VehicleDetailsPerEventQuery = { __typename?: 'Query', event?: { __typename?: 'Event', id: string, status?: EventStatusType | null, eventNo?: number | null, vehiclesCount?: number | null, vehicles?: Array<{ __typename?: 'Vehicle', bidStartTime?: any | null, bidTimeExpire?: any | null, id: string, vehicleIndexNo?: number | null, registrationNumber?: string | null, totalBids?: number | null, frontImage?: string | null, vehicleEventStatus?: VehicleEventStatus | null, bidStatus?: VehicleBidStatusType | null, state?: string | null, city?: string | null, currentBidAmount?: number | null, currentBidUser?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, mobile?: string | null, currentVehicleBuyingLimit?: { __typename?: 'vehicleBuyingLimits', vehicleBuyingLimit?: number | null } | null } | null, coupenDetail?: { __typename?: 'Coupen', coupenNumber?: string | null } | null }> | null, seller?: { __typename?: 'Seller', name?: string | null } | null } | null };
 
 export type VehicleTableQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -4675,6 +4683,7 @@ export const BidDetailsPerVehicleDocument = gql`
     query BidDetailsPerVehicle($where: VehicleWhereUniqueInput!) {
   vehicle(where: $where) {
     id
+    make
     registrationNumber
     vehicleIndexNo
     userVehicleBidsCount
@@ -4683,6 +4692,9 @@ export const BidDetailsPerVehicleDocument = gql`
     bidStatus
     event {
       eventNo
+      seller {
+        name
+      }
     }
     userVehicleBids {
       amount
@@ -6155,6 +6167,41 @@ export function useAddLocationMutation(baseOptions?: Apollo.MutationHookOptions<
 export type AddLocationMutationHookResult = ReturnType<typeof useAddLocationMutation>;
 export type AddLocationMutationResult = Apollo.MutationResult<AddLocationMutation>;
 export type AddLocationMutationOptions = Apollo.BaseMutationOptions<AddLocationMutation, AddLocationMutationVariables>;
+export const UpdateLocationDocument = gql`
+    mutation updateLocation($where: LocationWhereUniqueInput!, $data: LocationUpdateInput!) {
+  updateLocation(where: $where, data: $data) {
+    id
+    name
+  }
+}
+    `;
+export type UpdateLocationMutationFn = Apollo.MutationFunction<UpdateLocationMutation, UpdateLocationMutationVariables>;
+
+/**
+ * __useUpdateLocationMutation__
+ *
+ * To run a mutation, you first call `useUpdateLocationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateLocationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateLocationMutation, { data, loading, error }] = useUpdateLocationMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useUpdateLocationMutation(baseOptions?: Apollo.MutationHookOptions<UpdateLocationMutation, UpdateLocationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateLocationMutation, UpdateLocationMutationVariables>(UpdateLocationDocument, options);
+      }
+export type UpdateLocationMutationHookResult = ReturnType<typeof useUpdateLocationMutation>;
+export type UpdateLocationMutationResult = Apollo.MutationResult<UpdateLocationMutation>;
+export type UpdateLocationMutationOptions = Apollo.BaseMutationOptions<UpdateLocationMutation, UpdateLocationMutationVariables>;
 export const DeleteLocationDocument = gql`
     mutation DeleteLocation($where: LocationWhereUniqueInput!) {
   deleteLocation(where: $where) {
@@ -7834,6 +7881,9 @@ export const VehicleDetailsPerEventDocument = gql`
       coupenDetail {
         coupenNumber
       }
+    }
+    seller {
+      name
     }
   }
 }

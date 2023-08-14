@@ -1,15 +1,15 @@
 
 
 
-import { Button } from '@material-tailwind/react'
-import React, { useEffect, useMemo,useState } from 'react'
+
+import React, {  useMemo,useState } from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import { useTable,useSortBy,usePagination,useGlobalFilter } from "react-table"
-import {useBidUserPerVehicleQuery, useCoupensperUserQuery, useDeleteVehicleMutation, useUpdateCoupenMutation, useVehicleDetailsPerEventQuery, useVehiclePerEventQuery, useVehicleTableQuery} from '../../utils/graphql'
+import { useCoupensperUserQuery, useDeleteVehicleMutation, useUpdateCoupenMutation, useVehicleDetailsPerEventQuery, useVehiclePerEventQuery, useVehicleTableQuery} from '../../utils/graphql'
 import SearchUser from '../utils/search'
 import format from 'date-fns/format'
 import Swal from "sweetalert2";
-import Report from './report'
+
 import TableComponent from '../utils/table'
 import PaginationComponents from '../utils/pagination'
 
@@ -19,7 +19,7 @@ const VehicleDetailsPerEventComponent = () => {
    
     const{id}=useParams()
   
-    const navigate=useNavigate()
+
     const [userId,setUserId]=useState('0')
     const {data,loading,error,refetch}=useVehicleDetailsPerEventQuery({variables:{where:{id}}})
     const [updateCoupen]=useUpdateCoupenMutation()
@@ -136,6 +136,13 @@ Swal.fire({
         () => [
         
           { Header: "Vehicle ID", accessor: "vehicleIndexNo" },
+          {
+            Header: "Vehicle Details",accessor: "registrationNumber",
+            Cell: ({ row }) => (
+              <a className="btn bg-sky-500 w-24" href={`/edit-vehicle/${row.original.id}`} target="_blank" rel="noopener noreferrer">{row.original.registrationNumber}</a>
+
+              )
+          },
           { Header: "State", accessor: "state" },
          { Header: "City", accessor: "city" },
       
@@ -168,15 +175,9 @@ Swal.fire({
               )
           },
          
+     
           {
-            Header: "Vehicle Details",accessor: "registrationNumber",
-            Cell: ({ row }) => (
-              <a className="btn bg-sky-500 w-24" href={`/edit-vehicle/${row.original.id}`} target="_blank" rel="noopener noreferrer">{row.original.registrationNumber}</a>
-
-              )
-          },
-          {
-            Header: "Remove",
+            Header: "Vehicle",
             Cell: ({ row }) => (
               <button className="btn btn-error" onClick={() => handleDelete(row.original.id)}>Remove</button>
             )
@@ -243,9 +244,13 @@ Swal.fire({
   <div className="text-center font-extrabold my-5 text-lg min-w-full">  Vehicle Data Table of Event No {data?.event?.eventNo} </div>
   
    
-     <div className='flex justify-end'>
-    <SearchUser filter={globalFilter} className="  text-white " setFilter={setGlobalFilter}/>
-    <div className='min-w-fit mr-10'>
+     <div className='flex justify-between'>
+      <div>
+      <SearchUser filter={globalFilter} className="  text-white " setFilter={setGlobalFilter}/>
+
+      </div>
+    <div className='h-1 font-bold'>Seller Name :{data?.event?.seller?.name}</div>
+    <div className='min-w-fit '>
     <h1 >Event Status: <span className='font-bold'>{data?.event?.status}</span></h1>
     <h1 >No Of Vehicles: <span className='font-bold'>{data?.event?.vehiclesCount}</span></h1>
         </div>
