@@ -1,46 +1,61 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBuilding, faCalendarXmark,  faComment } from '@fortawesome/free-regular-svg-icons';
+import { faCar, faEarthAsia, faFileArrowUp, faFileInvoiceDollar, faHouse, faLocationDot, faUsers } from '@fortawesome/free-solid-svg-icons';
 const Sidebar_items=[
     {
       name:"Dashboard",
-      path:'/'
+      path:'/',
+       iconType:<FontAwesomeIcon icon={faHouse} style={{ fontSize:24 }} />
   },
   {
     name:"Users",
-    path:"users"
+    path:"users",
+    iconType:<FontAwesomeIcon icon={faUsers} style={{ fontSize:24 }} />
+    
   },
   {
     name:"Events",
-    path:"events"
+    path:"events",
+    iconType:<FontAwesomeIcon icon={faCalendarXmark} style={{ fontSize:24 }} />
   },
   {
     name:"Payments",
-    path:"payment"
+    path:"payment",
+    iconType:<FontAwesomeIcon icon={faFileInvoiceDollar} style={{ fontSize:24 }} />
   },
   {
     name:"Sellers",
-    path:"sellers"
+    path:"sellers",
+    iconType:<FontAwesomeIcon icon={faBuilding} style={{ fontSize:24 }} />
   },
   {
     name:"Locations",
-    path:"viewlocation"
+    path:"viewlocation",
+    iconType:<FontAwesomeIcon icon={faLocationDot} style={{ fontSize:24 }} />
   },
   {
     name:"States",
-    path:"states"
+    path:"states",
+    iconType:<FontAwesomeIcon icon={faEarthAsia} style={{ fontSize:24 }} />
   },
  
 
   {
     name:"Enquiries",
-    path:"enquiry"
+    path:"enquiry",
+    iconType:<FontAwesomeIcon icon={faComment} style={{ fontSize:24 }} />
   },
   
   {
     name:"Events types",
-    path:"event-types"
+    path:"event-types",
+    iconType:<FontAwesomeIcon icon={faCar} style={{ fontSize:24 }} />
   },
   {
     name:"Image Upload",
-    path:"image-upload"
+    path:"image-upload",
+    iconType:<FontAwesomeIcon icon={faFileArrowUp} style={{ fontSize:24 }} />
+   
   },
 
   
