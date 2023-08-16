@@ -9,6 +9,8 @@ import SearchUser from "../utils/search";
 import Swal from "sweetalert2";
 import TableComponent from "../utils/table";
 import PaginationComponents from "../utils/pagination";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 
 
 const ViewStates = () => {
@@ -87,7 +89,7 @@ const ViewStates = () => {
       {
         Header: "Edit State",
         Cell: ({ row }) => (
-          <button className="btn bg-red-500" onClick={() => handleEditState(row.original?.name,row.original?.id)}>Edit State</button>
+          <button className="text-2xl" onClick={() => handleEditState(row.original?.name,row.original?.id)}><FontAwesomeIcon icon={faPenToSquare} /></button>
         )
       },
       // {
