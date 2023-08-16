@@ -11,6 +11,8 @@ import SearchUser from '../utils/search'
 import TableComponent from '../utils/table'
 import PaginationComponents from '../utils/pagination'
 import AddEventType from './eventTypeAdd'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashCan } from '@fortawesome/free-regular-svg-icons'
 
 
 
@@ -41,7 +43,7 @@ const EventTypesTable = () => {
           {
             Header: "Delete",
             Cell: ({ row }) => (
-              <button className="btn btn-error" onClick={() => handleDelete(row.original.id)}>Delete</button>
+              <button className="text-2xl" onClick={() => handleDelete(row.original.id)}><FontAwesomeIcon icon={faTrashCan} /></button>
             )
           }
           

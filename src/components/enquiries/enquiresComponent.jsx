@@ -19,6 +19,8 @@ import Swal from "sweetalert2";
 import format from "date-fns/format";
 import TableComponent from "../utils/table";
 import PaginationComponents from "../utils/pagination";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 
 const ViewQueries = () => {
   const navigate = useNavigate();
@@ -113,10 +115,10 @@ const ViewQueries = () => {
         Header: "Delete",
         Cell: ({ row }) => (
           <button
-            className="btn btn-error"
+            className="text-2xl"
             onClick={() => handleDelete(row.original.id)}
           >
-            Delete
+          <FontAwesomeIcon icon={faTrashCan} />
           </button>
         ),
       },

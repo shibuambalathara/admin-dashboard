@@ -13,6 +13,9 @@ import SearchUser from "../utils/search";
 import format from "date-fns/format";
 import TableComponent from "../utils/table";
 import PaginationComponent from '../utils/pagination'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCirclePlus, faUserPen } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faMoneyBill1 } from "@fortawesome/free-regular-svg-icons";
 const PaymentTable = ({data}) => {
 
 
@@ -75,12 +78,12 @@ const PaymentTable = ({data}) => {
           ) {
             return (
               <a
-                className="btn bg-green-500"
+                className="  text-2xl"
                 href={`/add-emd/${row.original.id}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Increase Buying Limit
+               <FontAwesomeIcon icon={faCirclePlus} />
               </a>
             );
           }
@@ -98,12 +101,12 @@ const PaymentTable = ({data}) => {
         Header: "View Emds",
         Cell: ({ row }) => (
       row.original.emdUpdateCount!==0 &&     <a
-            className="btn btn-accent"
+            className="text-2xl"
             href={`/emd-payment/${row.original.id}`}
             target="_blank"
             rel="noopener noreferrer"
           >
-            Emd
+          <FontAwesomeIcon icon={faEye} />
           </a>
         ),
       },
@@ -112,12 +115,12 @@ const PaymentTable = ({data}) => {
         Header: "Payment details",
         Cell: ({ row }) => (
           <a
-            className="btn bg-rose-500"
+            className="  text-2xl"
             href={`/payment/${row.original?.user?.id}`}
             target="_blank"
             rel="noopener noreferrer"
           >
-            Payment Details
+           <FontAwesomeIcon icon={faMoneyBill1} />
           </a>
         ),
       },
@@ -126,13 +129,13 @@ const PaymentTable = ({data}) => {
         Header: "View User",
         Cell: ({ row }) => (
           <a
-            className="btn btn-info"
+            className="text-2xl"
             href={`/view-user/${row.original.user?.id}`}
             target="_blank"
             rel="noopener noreferrer"
           >
             {" "}
-            View User
+            <FontAwesomeIcon icon={faUserPen} />
           </a>
         ),
       },

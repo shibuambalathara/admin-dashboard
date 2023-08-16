@@ -10,6 +10,9 @@ import format from 'date-fns/format'
 import Swal from "sweetalert2";
 import TableComponent from "../utils/table";
 import PaginationComponent from "../utils/pagination";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserPen } from "@fortawesome/free-solid-svg-icons";
+import { faCreditCard } from "@fortawesome/free-regular-svg-icons";
 
 const TabbleOfUsersOrUser = ({users}) => {
  
@@ -97,7 +100,7 @@ const handleMessage=(coupen)=>{
         Header: "Create Payment",
         Cell: ({ row }) => (
      
-     <a className="btn btn-success" href={`/create-payment/${row.original.id}`} target="_blank" rel="noopener noreferrer">Create Payment</a>
+     <a className="text-xl" href={`/create-payment/${row.original.id}`} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faCreditCard} /></a>
 
         ),
       },
@@ -105,7 +108,7 @@ const handleMessage=(coupen)=>{
         Header: "User Details",
         Cell: ({ row }) => (
       
-          <a className="btn btn-info" href={`/view-user/${row.original.id}`} target="_blank" rel="noopener noreferrer">View/Edit</a>
+          <a className=" text-2xl" href={`/view-user/${row.original.id}`} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faUserPen} /></a>
 
 
 
