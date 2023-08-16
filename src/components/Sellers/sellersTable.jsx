@@ -11,6 +11,8 @@ import EditSeller from "./editSeller1";
 import AddSeller from "./addSeller";
 import TableComponent from "../utils/table";
 import PaginationComponents from "../utils/pagination";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBuilding, faCalendarCheck, faTrashCan } from "@fortawesome/free-regular-svg-icons";
 
 
 const Table = () => {
@@ -69,7 +71,7 @@ refetch()
         Header: "View/Edit Seller",
         Cell: ({ row }) => (
       
-      <a className="btn btn-info" href={`/edit-seller/${row.original.id}`} target="_blank" rel="noopener noreferrer"> View/Edit</a>
+      <a className="text-2xl" href={`/edit-seller/${row.original.id}`} target="_blank" rel="noopener noreferrer"> <FontAwesomeIcon icon={faBuilding} /></a>
 
       )
       },
@@ -84,14 +86,14 @@ refetch()
         Header: "View Events",
         Cell: ({ row }) => (
           //<button className="btn btn-success" onClick={() => handleEvents(row.original?.id)}>View</button>
-          <a className="btn btn-success" href={`/events-seller/${row.original?.id}`} target="_blank" rel="noopener noreferrer"> View/Edit</a>
+          <a className="text-2xl" href={`/events-seller/${row.original?.id}`} target="_blank" rel="noopener noreferrer"> <FontAwesomeIcon icon={faCalendarCheck} /></a>
 
         )
       },
       {
         Header: "Remove Seller",
         Cell: ({ row }) => (
-          <button className="btn btn-error" onClick={() => handleRemove(row.original?.id)}>Remove</button>
+          <button className="text-2xl" onClick={() => handleRemove(row.original?.id)}><FontAwesomeIcon icon={faTrashCan} /></button>
         )
       },
     ],

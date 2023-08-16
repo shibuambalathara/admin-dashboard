@@ -8,6 +8,8 @@ import { useLocationsQuery } from "../../utils/graphql";
 import Swal from "sweetalert2";
 import TableComponent from "../utils/table";
 import PaginationComponents from "../utils/pagination";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
 
 const ViewLocationComponent = () => {
   
@@ -86,14 +88,14 @@ const [updateLocation]=useUpdateLocationMutation()
       {
         Header: "City",
         Cell: ({ row }) => (
-          <button className="btn bg-red-500" onClick={()=>handleEditLocation(row.original.name,row.original.id) }>Edit</button>
+          <button className="text-2xl" onClick={()=>handleEditLocation(row.original.name,row.original.id) }><FontAwesomeIcon icon={faPenToSquare} /></button>
         )
       },
         
       {
         Header: "Delete",
         Cell: ({ row }) => (
-          <button className="btn btn-error" onClick={()=>handleDelete(row.original.id) }>Delete</button>
+          <button className="text-2xl" onClick={()=>handleDelete(row.original.id) }><FontAwesomeIcon icon={faTrashCan} /></button>
         )
       },
     ],

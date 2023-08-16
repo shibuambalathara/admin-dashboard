@@ -13,6 +13,9 @@ import Swal from "sweetalert2";
 import TableComponent from '../utils/table'
 
 import LimitedDataPaginationComponents from '../utils/limitedDataPagination'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCar, faFileArrowDown, faFileArrowUp, faUserPlus } from '@fortawesome/free-solid-svg-icons'
+import { faEye, faTrashCan } from '@fortawesome/free-regular-svg-icons'
 
 
 const EventsTableComponent = () => {
@@ -120,7 +123,7 @@ const handleDelete=(id)=>{
           {
             Header: "Add Partcipant",
             Cell: ({ row }) => (
-              row.original.endDate>new Date().toISOString() ?       <button className="btn bg-orange-500" onClick={() => handleDealer(row.original.id)}>Add</button>:"Event Completed"
+              row.original.endDate>new Date().toISOString() ?       <button className="text-2xl" onClick={() => handleDealer(row.original.id)}><FontAwesomeIcon icon={faUserPlus} /></button>:"Event Completed"
             )
           },
           {
@@ -134,16 +137,16 @@ const handleDelete=(id)=>{
         {
           Header: "Add Vehicles ",
           Cell: ({ row }) => (
-<p className='flex'>       
+<p className='flex justify-center'>       
 
-{ (row.original.endDate >new Date().toISOString()) && (row.original.vehiclesCount===0 || row.original.eventCategory==='online')  &&      <a className="btn btn-accent" href={`/add-vehicle/${row.original.id}`} target="_blank" rel="noopener noreferrer">Add</a>}
+{ (row.original.endDate >new Date().toISOString()) && (row.original.vehiclesCount===0 || row.original.eventCategory==='online')  &&      <a className="text-2xl" href={`/add-vehicle/${row.original.id}`} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faCar}  /></a>}
 </p>
             )
         },
           {
             Header: "View Vehicles",
             Cell: ({ row }) => (
-                <a className="btn bg-lime-500" href={`/view-vehicls/${row.original.id}`} target="_blank" rel="noopener noreferrer">{row.original.vehiclesCount}</a>
+                <a className="btn bg-pink-500" href={`/view-vehicls/${row.original.id}`} target="_blank" rel="noopener noreferrer">{row.original.vehiclesCount}</a>
               )
           },
          
@@ -151,7 +154,7 @@ const handleDelete=(id)=>{
             Header: "Upload Excel File",
             Cell: ({ row }) => (
       //        <button className="btn btn-info" onClick={()=>handleUploadExcelFile(row.original.id) }>Upload</button>
-      <a className="btn bg-emerald-500" href={`/excel-upload/${row.original.id}`} target="_blank" rel="noopener noreferrer">Upload</a>
+      <a className="text-2xl " href={`/excel-upload/${row.original.id}`} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faFileArrowUp} /></a>
    
       )
           },
@@ -159,20 +162,20 @@ const handleDelete=(id)=>{
           {
             Header: "View/Edit Event",
             Cell: ({ row }) => (
-              <a className="btn bg-cyan-500" href={`/edit-event/${row.original.id}`} target="_blank" rel="noopener noreferrer">View/Edit</a>
+              <a className=" text-2xl " href={`/edit-event/${row.original.id}`} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faEye} /></a>
 
               )
           },
           {
             Header: "Report (excel)",
             Cell: ({ row }) => (
-              <button className="btn bg-pink-500" onClick={() => handleReport(row.original.Report)}>Download</button>
+              <button className="text-2xl " onClick={() => handleReport(row.original.Report)}><FontAwesomeIcon icon={faFileArrowDown} /></button>
             )
           },
   {
     Header:"delete",
     Cell: ({ row }) => (
-      <button className="btn btn-error" onClick={() => handleDelete(row.original.id)}>Delete</button>
+      <button className="text-2xl" onClick={() => handleDelete(row.original.id)}><FontAwesomeIcon icon={faTrashCan} /></button>
     )
   }
         
