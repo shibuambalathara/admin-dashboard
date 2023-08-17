@@ -5,6 +5,7 @@ import { useNavigate,useLocation } from 'react-router-dom';
 import Sidebar_items from './sideBarData';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {  faCircleLeft, faCircleRight, } from '@fortawesome/free-regular-svg-icons';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 const Sidebar = () => {
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const navigate=useNavigate()
@@ -24,10 +25,10 @@ const Sidebar = () => {
   return (
     <div>
    {sidebarVisible ? 
-   <div className='w-56 min-h-full bg-gray-700 space-y-5 pl-3 pt-3 shadow-xl'>
+   <div className='w-56 min-h-full bg-gray-700 space-y-5 pl-3 pt-3 pr-1 shadow-xl'>
 <div className='bg-none flex justify-end shadow-inherit'  >  
-  <button onClick={toggleSidebar} className='  bg-none text-white '>
-  <FontAwesomeIcon icon={faCircleLeft} style={{ fontSize:24 }} />
+  <button onClick={toggleSidebar} className='  bg-none text-white border-2 p-1'>
+  <FontAwesomeIcon icon={faBars} style={{ fontSize:24 }} />
   
       </button>
       </div>
@@ -42,11 +43,11 @@ const Sidebar = () => {
           )
       })}
     </div>:
-    <div className='bg-black h-full shadow-xl' >  
+    <div className='bg-black h-full shadow-xl px-1' >  
     <div className='flex justify-end'>
      
-    <button onClick={toggleSidebar} className='  bg-none text-white my-3'>
-    <FontAwesomeIcon icon={faCircleRight} style={{ fontSize:24 }} />
+    <button onClick={toggleSidebar} className='  bg-none text-white my-3 border-2 p-1'>
+    <FontAwesomeIcon icon={faBars}  style={{ fontSize:24 }} />
    
         </button>
         </div>
@@ -57,8 +58,8 @@ const Sidebar = () => {
 
           {item.path===pathNm?
           
-          <div  className='my-8 mx-1'><button onClick={() => HandleClick(item.path)}  className='  text-start font-bold text-red-500  w-full '>  {item?.iconType}</button>  </div>
-          :<div  className='my-8 mx-1'><button onClick={() => HandleClick(item.path)}  className=' btn-ghost  text-start font-bold   w-full text-white'>   {item?.iconType}</button>  </div>
+          <div  className='my-8'><button onClick={() => HandleClick(item.path)}  className='  text-start font-bold text-red-500  w-full '>  {item?.iconType}</button>  </div>
+          :<div  className='my-8 '><button onClick={() => HandleClick(item.path)}  className=' btn-ghost  text-start font-bold   w-full text-white'>   {item?.iconType}</button>  </div>
       }
           </div>
           )
