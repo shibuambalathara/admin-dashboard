@@ -36,8 +36,8 @@ const Sidebar = () => {
       {Sidebar_items.map((item)=>{
         return(
           <>{item.path===pathNm?
-          <div><button onClick={() => HandleClick(item.path)}  className='text-lg  text-start font-bold text-red-700 my-2 w-full '> {item.name}</button>  </div>
-          :<div><button onClick={() => HandleClick(item.path)}  className='text-lg  text-start font-bold my-2  w-full text-white'> {item.name}</button>  </div>
+          <div><button onClick={() => HandleClick(item.path)}  className='text-lg  text-start font-bold text-red-700 my-2 w-full '> {item?.iconType} {item.name}</button>  </div>
+          :<div><button onClick={() => HandleClick(item.path)}  className='text-lg  text-start font-bold my-2  w-full text-white'> {item?.iconType} {item.name}</button>  </div>
       }
           </>
           )
