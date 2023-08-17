@@ -20,6 +20,7 @@ import {
 } from "../../utils/graphql";
 
 import Swal from "sweetalert2";
+import { Carousel, IconButton } from "@material-tailwind/react";
 
 
 
@@ -31,7 +32,7 @@ import Swal from "sweetalert2";
 
 const LivetimeOfVehicle = () => {
    const { id } = useParams();
-
+const[images,setimages]=useState([])
   const [rInterval, setRInterval] = useState(2000);
   const [liveItem, setLiveItem] = useState(null);
   const [upcoming, setUpcoming] = useState(null);
@@ -150,7 +151,8 @@ const handleEventActivate=async()=>{
       //   bidStartTime;
       if (live) {
         setLiveItem(live);
-      
+      setimages((live.rightImage).split(','))
+   
   
       } else {
         setLiveItem(null);
@@ -356,7 +358,7 @@ const handleEventActivate=async()=>{
               
             <div className="flex    ">
 <div className="carousel w-full   m-2 shadow-xl rounded-xl h-[35rem]">
-  <div id="slide1" className="carousel-item relative w-full ">
+  {/* <div id="slide1" className="carousel-item relative w-full ">
     <img src={liveItem?.frontImage} className="w-full   object-cover"  alt="img1" />
     <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
       <a href="#slide4" className="btn btn-circle">❮</a> 
@@ -397,7 +399,43 @@ const handleEventActivate=async()=>{
       <a href="#slide3" className="btn btn-circle">❮</a> 
       <a href="#slide1" className="btn btn-circle">❯</a>
     </div>
-  </div>
+  </div> */}
+ <Carousel  className="rounded-xl"
+      prevArrow={({ handlePrev }) => (
+        <IconButton
+          variant="text"
+          color="white"
+          size="lg"
+          onClick={handlePrev}
+          className="!absolute top-2/4 left-4 -translate-y-2/4"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="h-6 w-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+            />
+          </svg>
+        </IconButton>
+      )}>
+ {images.map((img, i) => (
+  <img
+    key={i}
+    src={img}
+    alt={`image1 ${i + 1}`}
+    className="h-full w-full object-cover"
+  />
+))}  
+  
+    
+    </Carousel>
 </div>
                
                 {/* </Tab.Group> */}

@@ -478,7 +478,7 @@ catch(err){
                 <label className="t" htmlFor=" ">
                   Right Image url
                 </label>
-                <Input defaultValue={data?.vehicle?.rightImage} {...register("rightImage",{})} type='text' className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <textarea  defaultValue={data?.vehicle?.rightImage} {...register("rightImage",{})}  className="w-full h-28  border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
                 <img src={`${data?.vehicle?.rightImage}`}alt="rightImage"/>
 
               </div>
