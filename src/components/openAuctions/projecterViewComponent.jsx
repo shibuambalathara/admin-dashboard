@@ -20,7 +20,7 @@ import {
 } from "../../utils/graphql";
 
 import Swal from "sweetalert2";
-import { Carousel, IconButton } from "@material-tailwind/react";
+import { Carousel } from "@material-tailwind/react";
 
 
 
@@ -400,31 +400,7 @@ const handleEventActivate=async()=>{
       <a href="#slide1" className="btn btn-circle">❯</a>
     </div>
   </div> */}
- <Carousel  className="rounded-xl"
-      prevArrow={({ handlePrev }) => (
-        <IconButton
-          variant="text"
-          color="white"
-          size="lg"
-          onClick={handlePrev}
-          className="!absolute top-2/4 left-4 -translate-y-2/4"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-            className="h-6 w-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
-            />
-          </svg>
-        </IconButton>
-      )}>
+ <Carousel transition={{ duration: 1 }} className="rounded-xl">
  {images.map((img, i) => (
   <img
     key={i}
