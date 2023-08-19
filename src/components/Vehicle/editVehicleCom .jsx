@@ -95,7 +95,7 @@ const vehicle={
   inspectionLink:dataOnSubmit?.inspectionLink,
    autobseContact:dataOnSubmit?.autobseContact,
     autobse_contact_person:dataOnSubmit?.autoBseContactPerson,
-    vehicleCondition:dataOnSubmit?.vehicleLocation,
+    vehicleCondition:dataOnSubmit?.vehicleCondition,
     powerSteering:dataOnSubmit?.powerSteering,
    shape:dataOnSubmit?.shape,
     color:dataOnSubmit?.color,
@@ -522,7 +522,7 @@ catch(err){
                 <label className="t" htmlFor=" ">
               Vehicle Condition{" "}
                 </label>
-                <Input defaultValue={data?.vehicle?.vehicleCondition} {...register("vehicleCondion",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <Input defaultValue={data?.vehicle?.vehicleCondition} {...register("vehicleCondition",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
             </div>
             <div className=" w-full  flex justify-between space-x-72">
