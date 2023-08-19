@@ -82,9 +82,7 @@ vehicleIndexNo
   pancardNo
   }
 
-  AllImages {
-      url
-    }
+
 
 
   }

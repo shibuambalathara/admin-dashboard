@@ -4,18 +4,11 @@
 
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-
-import { Tab } from "@headlessui/react";
+import format from 'date-fns/format'
 import moment from "moment";
 import {
   useOpenAuctionVehiclesQuery,
-  OpenAuctionVehiclesQuery,
-  QueryQueryVariables,
   useQueryQuery,
-  OrderDirection,
-  useSudoBidsQuery,
-  SudoBidsQuery,
-  useBidUserQuery,
   useEditEventMutation
 } from "../../utils/graphql";
 
@@ -358,65 +351,43 @@ const handleEventActivate=async()=>{
               
             <div className="flex    ">
 <div className="carousel w-full   m-2 shadow-xl rounded-xl h-[35rem]">
-  {/* <div id="slide1" className="carousel-item relative w-full ">
-    <img src={liveItem?.frontImage} className="w-full   object-cover"  alt="img1" />
-    <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-      <a href="#slide4" className="btn btn-circle">❮</a> 
-      <a href="#slide2" className="btn btn-circle">❯</a>
-    </div>
-  </div> 
-  <div id="slide2" className="carousel-item relative w-full">
-    <img src={liveItem?.backImage} className="w-full"   alt="img2" />
-    <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-      <a href="#slide1" className="btn btn-circle">❮</a> 
-      <a href="#slide3" className="btn btn-circle">❯</a>
-    </div>
-  </div> 
-  <div id="slide3" className="carousel-item relative w-full">
-    <img src={liveItem?.leftImage} className="w-full"  alt="img3"/>
-    <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-      <a href="#slide2" className="btn btn-circle">❮</a> 
-      <a href="#slide4" className="btn btn-circle">❯</a>
-    </div>
-  </div> 
-  <div id="slide4" className="carousel-item relative w-full">
-    <img src={liveItem?.rightImage} className="w-full"  alt="img4"/>
-    <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-      <a href="#slide3" className="btn btn-circle">❮</a> 
-      <a href="#slide1" className="btn btn-circle">❯</a>
-    </div>
-  </div>
-    <div id="slide4" className="carousel-item relative w-full">
-    <img src={liveItem?.image5} className="w-full"  alt="img5"/>
-    <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-      <a href="#slide3" className="btn btn-circle">❮</a> 
-      <a href="#slide1" className="btn btn-circle">❯</a>
-    </div>
-  </div>
-  <div id="slide4" className="carousel-item relative w-full">
-    <img src={liveItem?.image6} className="w-full"  alt="img6"/>
-    <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-      <a href="#slide3" className="btn btn-circle">❮</a> 
-      <a href="#slide1" className="btn btn-circle">❯</a>
-    </div>
-  </div> */}
- <Carousel transition={{ duration: 1 }} className="rounded-xl">
+
+
+<Carousel
+      className="rounded-xl"
+      navigation={({ setActiveIndex, activeIndex, length }) => (
+        <div className="absolute bottom-16 left-2/4 z-50 flex -translate-x-2/4 gap-2">
+          {images.map((imgs, i) => (
+            <span
+              key={i}
+              className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
+                activeIndex === i ? "w-24 bg-white " : "w-20 bg-white/50 "
+              }`}
+              onClick={() => setActiveIndex(i)}
+            >
+            <img src={imgs} key={i} alt="no images"></img>
+            </span>
+          ))}
+        </div>
+        
+      )}
+    >
+
  {images.map((img, i) => (
+
   <img
     key={i}
     src={img}
-    alt={`image1 ${i + 1}`}
+    alt={`images ${i + 1}`}
     className="h-full w-full object-cover"
   />
-))}  
+   
+))} 
   
-    
     </Carousel>
 </div>
                
-                {/* </Tab.Group> */}
-             
-              {/* </div> */}
+      
      
   
            
@@ -486,11 +457,12 @@ const handleEventActivate=async()=>{
                        
                      
                 </div>
-                {/* <div className=" flex flex-col shadow-lg">
+                <div className=" flex flex-col shadow-lg  text-center">
                         <label>Repo Date</label>
                       
                         <label className="font-bold">{formatedDate}</label>
-                        </div> */}
+                        <label className="font-bold">{format(new Date(liveItem?.repoDt),`dd/MM/yy, HH:mm`)}</label>
+                        </div>
              </div>
             </div>
             

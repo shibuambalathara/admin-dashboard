@@ -2,6 +2,7 @@ import { useState } from "react";
 import storage from "../firebaseConfig";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { v4 } from 'uuid';
+import imageCompression from 'browser-image-compression';
 function ImageUpload() {
   // State to store uploaded files and their download URLs
   const [files, setFiles] = useState([]);
@@ -14,13 +15,29 @@ function ImageUpload() {
     setFiles(fileArray);
   }
 
-  const handleUpload = () => {
+  const handleUpload =async () => {
     if (!files || files.length === 0) {
       alert("Please upload at least one image!");
       return;
     }
+try{
 
-    const uploadTasks = files.map((file) => {
+
+  const options = {
+    maxSizeMB: 1,          // Maximum size in megabytes
+    maxWidthOrHeight: 800, // Maximum width or height (whichever is larger)
+    useWebWorker: true,    // Use a web worker for better performance
+  };
+
+  const compressedFiles = await Promise.all(
+    files.map(async (file) => {
+      const compressedFile = await imageCompression(file, options);
+      return compressedFile;
+    })
+  );
+
+
+const uploadTasks = compressedFiles.map((file) => {
       const storageRef = ref(storage, `/files/${file.name + v4()}`);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
@@ -46,15 +63,22 @@ function ImageUpload() {
     });
 
     Promise.all(uploadTasks)
-      .then((urls) => {
-        setDownloadUrls(urls);
-        setFiles([]); // Clear the selected files after successful upload
-        setPercent(0); // Reset the progress bar
-      })
-      .catch((error) => {
-        console.error("Error uploading images:", error);
-      });
-  };
+    .then((urls) => {
+      const urlsString = urls.join(', ');
+      setDownloadUrls(urlsString);
+      setFiles([]); // Clear the selected files after successful upload
+      setPercent(0); // Reset the progress bar
+    })
+  
+    .catch((error) => {
+      console.error("Error uploading images:", error);
+    });
+  } catch (error) {
+    console.error("Error compressing or uploading images:", error);
+  }
+
+};
+
 
   return (
     <div className="w-full flex justify-center flex-col space-y-5 m-10">
@@ -72,15 +96,18 @@ function ImageUpload() {
           <p>{percent} % done</p>
         </>
       }
-      {downloadUrls.length > 0 &&
+      {downloadUrls&&
         <>
           <p>URLs:</p>
-          {downloadUrls.map((url, index) => (
-            <div key={index}>
-              <textarea className="w-full border-2 border-solid border-black h-36 p-1" value={url}></textarea>
-              <img className="w-2/5" src={url} alt="firebase url" />
+         
+            <div>
+            <textarea
+            className="w-full border-2 border-solid border-black h-36 p-1"
+            value={downloadUrls}
+            readOnly
+          ></textarea>
             </div>
-          ))}
+        
         </>
       }
     </div>
