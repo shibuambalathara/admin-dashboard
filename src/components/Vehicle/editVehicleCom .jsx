@@ -1,4 +1,4 @@
-import { Input } from "@material-tailwind/react";
+import { input } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
@@ -106,12 +106,12 @@ const EditVehicleComponent = () => {
       fitnessPermit: dataOnSubmit?.fitnessPermit,
       engineNo: dataOnSubmit?.engineNumber,
       chassisNo: dataOnSubmit?.chassisNo,
-      frontImage: dataOnSubmit?.frontImage,
-      backImage: dataOnSubmit?.backImage,
-      leftImage: dataOnSubmit?.leftImage,
+      // frontImage: dataOnSubmit?.frontImage,
+      // backImage: dataOnSubmit?.backImage,
+      // leftImage: dataOnSubmit?.leftImage,
       rightImage: cleanedRightImage,
-      image5: dataOnSubmit?.image5,
-      image6: dataOnSubmit?.image6,
+      // image5: dataOnSubmit?.image5,
+      // image6: dataOnSubmit?.image6,
       inspectionLink: dataOnSubmit?.inspectionLink,
       autobseContact: dataOnSubmit?.autobseContact,
       autobse_contact_person: dataOnSubmit?.autoBseContactPerson,
@@ -163,23 +163,23 @@ const EditVehicleComponent = () => {
       </div>
       <div className="   h-full  mt-5">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className=" space-y-10 ml-5">
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+          <div className="grid sm:grid-cols-3 gap-x-20 gap-y-5 mx-5">
+         
+              <div className=" ">
                 <label className="t" htmlFor=" ">
                   Registration{" "}
                 </label>
-                <Input
+                <input
                   defaultValue={data?.vehicle?.registrationNumber}
                   {...register("regNo", { required: true })}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
                 <p className="text-red-500">
                   {" "}
                   {errors.regNo && <span>Register Number required</span>}
                 </p>
               </div>
-              <div className="w-1/2  ">
+              {/* <div className=" ">
                 <label className="t" htmlFor=" ">
                   vehicle id{" "}
                 </label>
@@ -188,21 +188,21 @@ const EditVehicleComponent = () => {
                   type="text"
                   {...register("eventId", { required: true })}
                   placeholder="select"
-                  className="w-full max-w-[560px] bg-slate-200  border border-gray-300 rounded mt-2 py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
+                  className="w-full  bg-slate-200  border border-gray-300 rounded mt-2 py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
                 />
                 <p className="text-red-500">
                   {" "}
                   {errors.eventId && <span>Event Id required</span>}
                 </p>
-              </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+              </div> */}
+          
+         
+              <div className="flex flex-col ">
                 <label htmlFor="">Bid Status</label>
                 <select
                   {...register("bidStatus", {})}
                   placeholder="select"
-                  className="w-full max-w-[560px] bg-slate-200  border border-gray-300 rounded mt-2 py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
+                  className="w-full  bg-slate-200  border border-gray-300 rounded mt-2 py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
                 >
                   {/* <option value="" selected placeholder="select">select </option> */}
                   <option value={data?.vehicle?.bidStatus}>
@@ -214,14 +214,15 @@ const EditVehicleComponent = () => {
                   <option value="declined">declined</option>
                 </select>
               </div>
-              <div className="w-1/2  ">
+        
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Loan Agreement number{" "}
                 </label>
-                <Input
+                <input
                   defaultValue={data?.vehicle?.loanAgreementNo}
                   {...register("loanANum", { required: true })}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
                 <p className="text-red-500">
                   {" "}
@@ -230,711 +231,684 @@ const EditVehicleComponent = () => {
                   )}
                 </p>
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+         
+             
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Registered Owner Name
                 </label>
-                <Input
+                <input
                   defaultValue={data?.vehicle?.registeredOwnerName}
                   {...register("regOwnerName", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-              <div className="w-1/2  ">
+             
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Quote Increment{" "}
                 </label>
-                <Input
+                <input
                   defaultValue={data?.vehicle?.quoteIncreament}
                   type="number"
                   {...register("quoteInc", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+           
+         
+           
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Vehicle Company Name
                 </label>
-                <Input
+                <input
                   defaultValue={data?.vehicle?.make}
                   {...register("vehicleCompanyName", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-              <div className="w-1/2  ">
+          
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Model{" "}
                 </label>
-                <Input
+                <input
                   defaultValue={data?.vehicle?.model}
                   {...register("model", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+     
+            
+              
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Varient
                 </label>
-                <Input
+                <input
                   defaultValue={data?.vehicle?.varient}
                   {...register("varient", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-              <div className="w-1/2  ">
+            
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Category{" "}
                 </label>
-                <Input
+                <input
                   defaultValue={data?.vehicle?.categoty}
                   {...register("category", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+        
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Fuel
                 </label>
-                <Input
+                <input
                   defaultValue={data?.vehicle?.fuel}
                   {...register("fuel", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-              <div className="w-1/2  ">
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Type{" "}
                 </label>
-                <Input
+                <input
                   defaultValue={data?.vehicle?.type}
                   {...register("type", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+       
+           
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Rc status
                 </label>
-                <Input
+                <input
                   defaultValue={data?.vehicle?.rcStatus}
                   {...register("rcStatus", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-              <div className="w-1/2  ">
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Year Of Manufacture{" "}
                 </label>
-                <Input
+                <input
                   defaultValue={data?.vehicle?.yearOfManufacture}
                   type="number"
                   {...register("yearOfManuFacture", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+    
+    
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Ownership
                 </label>
-                <Input
+                <input
                   defaultValue={data?.vehicle?.ownership}
                   type="number"
                   {...register("Ownership", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-              <div className="w-1/2  ">
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Mileage{" "}
                 </label>
-                <Input
+                <input
                   defaultValue={data?.vehicle?.mileage}
                   type="number"
                   {...register("mileage", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+    
+         
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Km Reading
                 </label>
-                <Input
+                <input
                   defaultValue={data?.vehicle?.kmReading}
                   type="number"
                   {...register("kmReading", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-              <div className="w-1/2  ">
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Insurance Status{" "}
                 </label>
-                <Input
+                <input
                   defaultValue={data?.vehicle?.insuranceStatus}
                   {...register("insuranceStatus", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+       
+         
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Yard Location
                 </label>
-                <Input
+                <input
                   defaultValue={data?.vehicle?.yardLocation}
                   {...register("yardLocation", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-              <div className="w-1/2  ">
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Start Price{" "}
                 </label>
-                <Input
+                <input
                   defaultValue={data?.vehicle?.startBidAmount}
                   type="number"
                   {...register("startPrice", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+    
+           
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Reserve price
                 </label>
-                <Input
+                <input
                   defaultValue={data?.vehicle?.reservePrice}
                   type="number"
                   {...register("reservePrice", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-              <div className="w-1/2  ">
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Repo Date{" "}
                 </label>
 
                 <div className="flex">
-                  <Input
+                  <input
                     defaultValue={repoDate}
                     type="datetime-local"
                     {...register("repoDate", {})}
-                    className="max-w-[260px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                    className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                   />
                 </div>
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+          
+          
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Vehicle Remarks
                 </label>
-                <Input
+                <input
                   defaultValue={data?.vehicle?.vehicleRemarks}
                   {...register("vehicleRemarks", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-              <div className="w-1/2  ">
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Vechile Loaction{" "}
                 </label>
-                <Input
+                <input
                   defaultValue={data?.vehicle?.veicleLocation}
                   {...register("vehicleLocation", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+         
+            
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Parking Charges
                 </label>
-                <Input
+                <input
                   defaultValue={data?.vehicle?.parkingCharges}
                   {...register("parkingCharge", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-              <div className="w-1/2  ">
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Permit{" "}
                 </label>
-                <Input
+                <input
                   defaultValue={data?.vehicle?.permit}
                   {...register("permit", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+       
+           
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Insurance
                 </label>
-                <Input
+                <input
                   type="text"
                   defaultValue={data?.vehicle?.insurance}
                   {...register("insurance", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-              <div className="w-1/2  ">
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Insurance valid Till{" "}
                 </label>
 
                 <div className="flex">
-                  <Input
+                  <input
                     type="datetime-local"
                     {...register("insuranceValidDate", {})}
                     defaultValue={insuranceValidTill}
-                    className="max-w-[260px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                    className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                   />
-                  {/* <Input
+                  {/* <input
                     type="time"
                     className="max-w-[160px] ml-5 border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                   /> */}
                 </div>
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+       
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Tax
                 </label>
-                <Input
+                <input
                   type="text"
                   defaultValue={data?.vehicle?.tax}
                   {...register("tax", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-              <div className="w-1/2  ">
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Tax Validity Date{" "}
                 </label>
 
                 <div className="flex">
-                  <Input
+                  <input
                     type="datetime-local"
                     {...register("taxValidityDate", {})}
                     defaultValue={taxValidTill}
-                    className="max-w-[260px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                    className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                   />
-                  {/* <Input
+                  {/* <input
                     type="time"
                     className="max-w-[160px] ml-5 border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                   /> */}
                 </div>
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+          
+          
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Fitness
                 </label>
-                <Input
+                <input
                   defaultValue={data?.vehicle?.fitness}
                   {...register("fitness", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-              <div className="w-1/2  ">
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Fitness Permit{" "}
                 </label>
-                <Input
+                <input
                   defaultValue={data?.vehicle?.fitnessPermit}
                   {...register("fitnessPermit", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+     
+        
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Engine Number
                 </label>
-                <Input
+                <input
                   defaultValue={data?.vehicle?.engineNo}
                   {...register("engineNumber", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-              <div className="w-1/2  ">
+              <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Chassis No{" "}
                 </label>
-                <Input
+                <input
                   defaultValue={data?.vehicle?.chassisNo}
                   {...register("chassisNo", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div>
-            </div>
-            <div className=" w-full  grid grid-cols-2 gap-32">
-              {images?.map((imgs, index) => {
+        
+
+        
+        
+              <div className="flex flex-col ">
+                <label className="t" htmlFor=" ">
+                  Inspection Link
+                </label>
+                <input
+                  defaultValue={data?.vehicle?.inspectionLink}
+                  {...register("inspectLink", {})}
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                />
+              </div>
+              <div className="flex flex-col ">
+                <label className="t" htmlFor=" ">
+                  Autobse Contact
+                </label>
+                <input
+                  defaultValue={data?.vehicle?.autobseContact}
+                  {...register("autobseContact", {})}
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                />
+              </div>
+           
+         
+              <div className="flex flex-col ">
+                <label className="t" htmlFor=" ">
+                  Autobse Contact Person
+                </label>
+                <input
+                  defaultValue={data?.vehicle?.autobse_contact_person}
+                  {...register("autoBseContactPerson", {})}
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                />
+              </div>
+              <div className="flex flex-col ">
+                <label className="t" htmlFor=" ">
+                  Vehicle Condition{" "}
+                </label>
+                <input
+                  defaultValue={data?.vehicle?.vehicleCondition}
+                  {...register("vehicleCondition", {})}
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                />
+              </div>
+         
+        
+              <div className="flex flex-col ">
+                <label className="t" htmlFor=" ">
+                  Power Steering
+                </label>
+                <input
+                  defaultValue={data?.vehicle?.powerSteering}
+                  {...register("powerSteering", {})}
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                />
+              </div>
+              <div className="flex flex-col ">
+                <label className="t" htmlFor=" ">
+                  Shape{" "}
+                </label>
+                <input
+                  defaultValue={data?.vehicle?.shape}
+                  {...register("shape", {})}
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                />
+              </div>
+          
+        
+              <div className="flex flex-col ">
+                <label className="t" htmlFor=" ">
+                  Color
+                </label>
+                <input
+                  defaultValue={data?.vehicle?.color}
+                  {...register("color", {})}
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                />
+              </div>
+              <div className="flex flex-col ">
+                <label className="t" htmlFor=" ">
+                  State{" "}
+                </label>
+                <input
+                  defaultValue={data?.vehicle?.state}
+                  {...register("state", {})}
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                />
+              </div>
+          
+            
+              <div className="flex flex-col ">
+                <label className="t" htmlFor=" ">
+                  City
+                </label>
+                <input
+                  defaultValue={data?.vehicle?.city}
+                  {...register("city", {})}
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                />
+              </div>
+              <div className="flex flex-col ">
+                <label className="t" htmlFor=" ">
+                  Area{" "}
+                </label>
+                <input
+                  defaultValue={data?.vehicle?.area}
+                  {...register("area", {})}
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                />
+              </div>
+          
+          
+              <div className="flex flex-col ">
+                <label className="t" htmlFor=" ">
+                  Payment Terms
+                </label>
+                <input
+                  type="text"
+                  defaultValue={data?.vehicle?.paymentTerms}
+                  {...register("paymentTerms", {})}
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                />
+              </div>
+              <div className="flex flex-col ">
+                <label className="t" htmlFor=" ">
+                  Date of Registration{" "}
+                </label>
+
+                <div className="flex">
+                  <input
+                    defaultValue={registrationValidTill}
+                    type="datetime-local"
+                    {...register("dateOfRegistration", {})}
+                    className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  />
+                  {/* <input
+                    type="time"
+                    className="max-w-[160px] ml-5 border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  /> */}
+                </div>
+              </div>
+         
+        
+              <div className="flex flex-col ">
+                <label className="t" htmlFor=" ">
+                  Hypothication
+                </label>
+                <input
+                  defaultValue={data?.vehicle?.hypothication}
+                  {...register("hypothication", {})}
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                />
+              </div>
+              <div className="flex flex-col ">
+                <label className="t" htmlFor=" ">
+                  Climate Control{" "}
+                </label>
+                <input
+                  defaultValue={data?.vehicle?.climateControl}
+                  {...register("climateControl", {})}
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                />
+              </div>
+     
+          
+              <div className="flex flex-col ">
+                <label className="t" htmlFor=" ">
+                  Door Count
+                </label>
+                <input
+                  defaultValue={data?.vehicle?.doorCount}
+                  type="number"
+                  {...register("doorCount", {})}
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                />
+              </div>
+              <div className="flex flex-col ">
+                <label className="t" htmlFor=" ">
+                  Gear Box{" "}
+                </label>
+                <input
+                  defaultValue={data?.vehicle?.gearBox}
+                  {...register("gearBox", {})}
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                />
+              </div>
+          
+            
+              <div className="flex flex-col ">
+                <label className="t" htmlFor=" ">
+                  Buyer Fees
+                </label>
+                <input
+                  defaultValue={data?.vehicle?.buyerFees}
+                  {...register("buyerFees", {})}
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                />
+              </div>
+              <div className="flex flex-col ">
+                <label className="t" htmlFor=" ">
+                  RTO fine{" "}
+                </label>
+                <input
+                  defaultValue={data?.vehicle?.rtoFine}
+                  {...register("rtoFine", {})}
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                />
+              </div>
+         
+       
+              <div className="flex flex-col ">
+                <label className="t" htmlFor=" ">
+                  parking Rate
+                </label>
+                <input
+                  defaultValue={data?.vehicle?.parkingRate}
+                  {...register("parkingRate", {})}
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                />
+              </div>
+              <div className="flex flex-col ">
+                <label className="t" htmlFor=" ">
+                  Approx Parking Charges{" "}
+                </label>
+                <input
+                  defaultValue={data?.vehicle?.approxParkingCharges}
+                  {...register("approxParkingCharges", {})}
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                />
+              </div>
+           
+        
+              <div className="flex flex-col ">
+                <label className="t" htmlFor=" ">
+                  Client Contact Person
+                </label>
+                <input
+                  defaultValue={data?.vehicle?.clientContactPerson}
+                  {...register("clientContactPerson", {})}
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                />
+              </div>
+              <div className="flex flex-col ">
+                <label className="t" htmlFor=" ">
+                  Client Contact No{" "}
+                </label>
+                <input
+                  defaultValue={data?.vehicle?.clientContactNo}
+                  {...register("clientContactNo", {})}
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                />
+              </div>
+         
+       
+              <div className="flex flex-col ">
+                <label className="t" htmlFor=" ">
+                  Additional Remarks
+                </label>
+                <input
+                  defaultValue={data?.vehicle?.additionalRemarks}
+                  {...register("AdditionalRemarks", {})}
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                />
+              </div>
+              {/* <div className="flex flex-col ">
+                <label className="t" htmlFor=" ">
+                  Watched By{" "}
+                </label>
+                <input   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+              </div> */}
+              <div className="flex flex-col ">
+                <label className="t" htmlFor=" ">
+                  Auction Manager
+                </label>
+                <input
+                  defaultValue={data?.vehicle?.auctionManager}
+                  {...register("autionManager", {})}
+                  className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                />
+              </div>
+          
+            {/* <div className=" w-full  flex justify-between space-x-72">
+             
+             
+            </div> */}
+             </div>
+             <div className="grid grid-cols-2 gap-x-10  gap-y-5 m-2">
+             {images?.map((imgs, index) => {
                 return (
-                  <div className="">
-                    <textarea
-                      defaultValue={imgs}
-                 
-                      className="w-full h-24  border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                    />
+                  <div className=" bg-gray-50 rounded-2xl">
+             
+                    <div className="text-center">  <p>Image {index+1}</p></div>
+                  
 <div className=" flex justify-center">
 <img src={imgs} alt={imgs} key={index} className="h-80  text-center" />
   </div>
                    
-                    {/* <Input defaultValue={imgs} {...register("frontImage",{})} type='text' className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " /> */}
                   </div>
                 );
               })}
                  
-        
-            </div>
+                 </div>
+     
             <textarea
   defaultValue={formatTextAreaValue(data?.vehicle?.rightImage)}
   {...register("rightImage", {})}
  
   className="w-full h-40 border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700 hover:bg-white"
 />
-            {/* <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  Left Image url
-                </label>
-                <Input defaultValue={data?.vehicle?.leftImage} {...register("leftImage",{})} type='text' className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
-                <img src={`${data?.vehicle?.leftImage}`}alt="leftImage"/>
-              </div>
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  Right Image url
-                </label>
-                <textarea  defaultValue={data?.vehicle?.rightImage} {...register("rightImage",{})}  className="w-full h-28  border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
-                <img src={`${data?.vehicle?.rightImage}`}alt="rightImage"/>
-
-              </div>
-            </div> */}
-            {/* <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                   Image 5 url
-                </label>
-                <Input defaultValue={data?.vehicle?.image5} {...register("image5",{})} type='text' className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
-              </div>
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                 Image 6 url
-                </label>
-                <Input defaultValue={data?.vehicle?.image6} {...register("image6",{})} type='text' className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
-              </div>
-            </div> */}
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  Inspection Link
-                </label>
-                <Input
-                  defaultValue={data?.vehicle?.inspectionLink}
-                  {...register("inspectLink", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
-              </div>
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  Autobse Contact
-                </label>
-                <Input
-                  defaultValue={data?.vehicle?.autobseContact}
-                  {...register("autobseContact", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
-              </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  Autobse Contact Person
-                </label>
-                <Input
-                  defaultValue={data?.vehicle?.autobse_contact_person}
-                  {...register("autoBseContactPerson", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
-              </div>
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  Vehicle Condition{" "}
-                </label>
-                <Input
-                  defaultValue={data?.vehicle?.vehicleCondition}
-                  {...register("vehicleCondition", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
-              </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  Power Steering
-                </label>
-                <Input
-                  defaultValue={data?.vehicle?.powerSteering}
-                  {...register("powerSteering", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
-              </div>
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  Shape{" "}
-                </label>
-                <Input
-                  defaultValue={data?.vehicle?.shape}
-                  {...register("shape", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
-              </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  Color
-                </label>
-                <Input
-                  defaultValue={data?.vehicle?.color}
-                  {...register("color", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
-              </div>
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  State{" "}
-                </label>
-                <Input
-                  defaultValue={data?.vehicle?.state}
-                  {...register("state", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
-              </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  City
-                </label>
-                <Input
-                  defaultValue={data?.vehicle?.city}
-                  {...register("city", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
-              </div>
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  Area{" "}
-                </label>
-                <Input
-                  defaultValue={data?.vehicle?.area}
-                  {...register("area", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
-              </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  Payment Terms
-                </label>
-                <Input
-                  type="text"
-                  defaultValue={data?.vehicle?.paymentTerms}
-                  {...register("paymentTerms", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
-              </div>
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  Date of Registration{" "}
-                </label>
-
-                <div className="flex">
-                  <Input
-                    defaultValue={registrationValidTill}
-                    type="datetime-local"
-                    {...register("dateOfRegistration", {})}
-                    className="max-w-[260px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                  />
-                  {/* <Input
-                    type="time"
-                    className="max-w-[160px] ml-5 border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                  /> */}
-                </div>
-              </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  Hypothication
-                </label>
-                <Input
-                  defaultValue={data?.vehicle?.hypothication}
-                  {...register("hypothication", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
-              </div>
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  Climate Control{" "}
-                </label>
-                <Input
-                  defaultValue={data?.vehicle?.climateControl}
-                  {...register("climateControl", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
-              </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  Door Count
-                </label>
-                <Input
-                  defaultValue={data?.vehicle?.doorCount}
-                  type="number"
-                  {...register("doorCount", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
-              </div>
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  Gear Box{" "}
-                </label>
-                <Input
-                  defaultValue={data?.vehicle?.gearBox}
-                  {...register("gearBox", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
-              </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  Buyer Fees
-                </label>
-                <Input
-                  defaultValue={data?.vehicle?.buyerFees}
-                  {...register("buyerFees", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
-              </div>
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  RTO fine{" "}
-                </label>
-                <Input
-                  defaultValue={data?.vehicle?.rtoFine}
-                  {...register("rtoFine", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
-              </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  parking Rate
-                </label>
-                <Input
-                  defaultValue={data?.vehicle?.parkingRate}
-                  {...register("parkingRate", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
-              </div>
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  Approx Parking Charges{" "}
-                </label>
-                <Input
-                  defaultValue={data?.vehicle?.approxParkingCharges}
-                  {...register("approxParkingCharges", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
-              </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  Client Contact Person
-                </label>
-                <Input
-                  defaultValue={data?.vehicle?.clientContactPerson}
-                  {...register("clientContactPerson", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
-              </div>
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  Client Contact No{" "}
-                </label>
-                <Input
-                  defaultValue={data?.vehicle?.clientContactNo}
-                  {...register("clientContactNo", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
-              </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  Additional Remarks
-                </label>
-                <Input
-                  defaultValue={data?.vehicle?.additionalRemarks}
-                  {...register("AdditionalRemarks", {})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
-              </div>
-              {/* <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  Watched By{" "}
-                </label>
-                <Input   className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
-              </div> */}
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  Auction Manager
-                </label>
-                <Input
-                  defaultValue={data?.vehicle?.auctionManager}
-                  {...register("autionManager", {})}
-                  className="max-w-[435px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
-              </div>
-            </div>
-            {/* <div className=" w-full  flex justify-between space-x-72">
-             
-             
-            </div> */}
-            <div className="text-center">
+       
+            <div className="text-center my-5">
               <button className="btn btn-success mb-5"> Save Changes</button>
             </div>
-          </div>
+         
         </form>
       </div>
     </div>
