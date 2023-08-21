@@ -1,4 +1,4 @@
-import { Input } from "@material-tailwind/react";
+import { input } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { useCreateVehicleMutation,useEventStartTimeQuery } from "../../utils/graphql";
@@ -110,25 +110,25 @@ if(result){
 }
   }
   return (
-    <div className="max-w-7xl mx-auto h-fit  my-10 bg-slate-100  ">
+    <div className="shadow-xl flex flex-col     bg-slate-300 h-fit  m-5">
     
-      <div className="py-4 bg-gray-200 rounded px-4 flex items-center justify-center ">
+    <div className="py-4 bg-gray-200 rounded px-4 flex items-center shadow-xl justify-center ">
         <h2 className="text-xl py-3 leading-3 font-bold text-gray-900">
-          ADD VECHILE
+       ADD VEHICLE
         </h2>
       </div>
-      <div className="  max-w-6xl h-full mx-auto mt-5">
+      <div className="   h-full  mt-5">
       <form onSubmit={handleSubmit(onSubmit)}>
-          <div className=" space-y-10">
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+      <div className="grid sm:grid-cols-3 gap-x-20 gap-y-5 mx-5">
+          
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Registration{" "}
                 </label>
-                <Input  {...register("regNo",{required:true})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input  {...register("regNo",{required:true})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
                 <p className="text-red-500"> {errors.regNo&& <span>Register Number required</span>}</p> 
               </div>
-              <div className="w-1/2  ">
+               {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Event{" "}
                 </label>
@@ -138,18 +138,18 @@ if(result){
                   type="text"
                   {...register("eventId",{required:true})}
                   placeholder="select"
-                  className="w-full max-w-[560px] bg-slate-200  border border-gray-300 rounded mt-2 py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
+                  className="w-full w-full bg-slate-200  border border-gray-300 rounded mt-2 py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
                 />
                  <p className="text-red-500"> {errors.eventId&& <span>Event Id required</span>}</p> 
-              </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+              </div> */}
+       
+
+               <div className="flex flex-col ">
                 <label htmlFor="">Bid Status</label>
                 <select
                   {...register("bidStatus",{})}
                   placeholder="select"
-                  className="w-full max-w-[560px] bg-slate-200  border border-gray-300 rounded mt-2 py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
+                  className="w-full w-full bg-slate-200  border border-gray-300 rounded mt-2 py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
                 >
                   {/* <option value="" selected placeholder="select">select </option> */}
                   <option value="pending">pending </option>
@@ -158,509 +158,509 @@ if(result){
                   <option value="declined">declined</option>
                 </select>
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Loan Agreement number{" "}
                 </label>
-                <Input {...register("loanANum",{required:true})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("loanANum",{required:true})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
                 <p className="text-red-500"> {errors.loanANum&& <span>Loan Agreement Number required</span>}</p> 
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+        
+        
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                 Registered Owner Name
                 </label>
-                <Input {...register("regOwnerName",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("regOwnerName",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Quote Increment{" "}
                 </label>
-                <Input type='number' defaultValue='1000' {...register("quoteInc",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input type='number' defaultValue='1000' {...register("quoteInc",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+     
+          
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Vehicle Company Name
                 </label>
-                <Input {...register("vehicleCompanyName",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("vehicleCompanyName",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Model{" "}
                 </label>
-                <Input {...register("model",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("model",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+    
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Varient
                 </label>
-                <Input {...register("varient",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("varient",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Category{" "}
                 </label>
-                <Input {...register("category",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("category",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+         
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Fuel
                 </label>
-                <Input {...register("fuel",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("fuel",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Type{" "}
                 </label>
-                <Input {...register("type",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("type",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+          
+         
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Rc status
                 </label>
-                <Input {...register("rcStatus",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("rcStatus",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Year Of Manufacture{" "}
                 </label>
-                <Input type='number' {...register("yearOfManuFacture",{})}  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input type='number' {...register("yearOfManuFacture",{})}  className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+  
+
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Ownership
                 </label>
-                <Input type='number' {...register("Ownership",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input type='number' {...register("Ownership",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Mileage{" "}
                 </label>
-                <Input type='number' {...register("mileage",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input type='number' {...register("mileage",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+     
+    
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Km Reading
                 </label>
-                <Input type='number' {...register("kmReading",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input type='number' {...register("kmReading",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Insurance Status{" "}
                 </label>
-                <Input {...register("insuranceStatus",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("insuranceStatus",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+      
+          
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Yard Location
                 </label>
-                <Input {...register("yardLocation",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("yardLocation",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Start Price{" "}
                 </label>
-                <Input type='number' {...register("startPrice",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input type='number' {...register("startPrice",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+      
+
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Reserve price
                 </label>
-                <Input type='number' {...register("reservePrice",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input type='number' {...register("reservePrice",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Repo Date{" "}
                 </label>
 
                 <div className="flex">
-                  <Input
+                  <input
                     type="datetime-local"
                     {...register("repoDate",{})}
-                    className="max-w-[260px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                    className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                   />
-                  {/* <Input
+                  {/* <input
                     type="time"
                     className="max-w-[160px] ml-5 border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                   /> */}
                 </div>
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+      
+       
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Vehicle Remarks
                 </label>
-                <Input {...register("vehicleRemarks",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("vehicleRemarks",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
-                Vechile  Loaction{" "}
+                Vehicle Locaction{" "}
                 </label>
-                <Input {...register("vehicleLocation",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("vehicleLocation",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+          
+         
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Parking Charges
                 </label>
-                <Input {...register("parkingCharge",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("parkingCharge",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Permit{" "}
                 </label>
-                <Input {...register("permit",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("permit",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+         
+               <div className="flex flex-col ">
               <label className="t" htmlFor=" ">
                   Insurance
                 </label>
-                <Input
+                <input
                   type="text"
                   {...register("insurance",{})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
                
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
               <label className="t" htmlFor=" ">
                   Insurance valid Till{" "}
                 </label>
 
                 <div className="flex">
-                  <Input
+                  <input
                     type="datetime-local"
                     {...register("insuranceValidDate",{})}
-                    className="max-w-[260px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                    className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                   />
-                  {/* <Input
+                  {/* <input
                     type="time"
                     className="max-w-[160px] ml-5 border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                   /> */}
                 </div>
-              </div>
-              
             </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+          
+        
+               <div className="flex flex-col ">
               <label className="t" htmlFor=" ">
                   Tax
                 </label>
-                <Input
+                <input
                   type="text"
                   {...register("tax",{})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
                
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
               <label className="t" htmlFor=" ">
                   Tax Validity Date{" "}
                 </label>
 
                 <div className="flex">
-                  <Input
+                  <input
                     type="datetime-local"
                     {...register("taxValidityDate",{})}
-                    className="max-w-[260px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                    className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                   />
-                  {/* <Input
+                  {/* <input
                     type="time"
                     className="max-w-[160px] ml-5 border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                   /> */}
                 </div>
-              </div>
+      
               
             </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+          
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Fitness
                 </label>
-                <Input {...register("fitness",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("fitness",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Fitness Permit{" "}
                 </label>
-                <Input {...register("fitnessPermit",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("fitnessPermit",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+       
+        
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                  Engine Number
                 </label>
-                <Input {...register("engineNumber",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("engineNumber",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Chassis No{" "}
                 </label>
-                <Input {...register("chassisNo",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("chassisNo",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+        
+     
+          
+       
+            {/* <div className=" w-full  flex justify-between space-x-72">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Front Image url
                 </label>
-                <Input {...register("frontImage",{})} type='text' className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("frontImage",{})} type='text' className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Back Image url
                 </label>
-                <Input type='text' {...register("backImage",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input type='text' {...register("backImage",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+       
+        
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Left Image url
                 </label>
-                <Input {...register("leftImage",{})} type='text' className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("leftImage",{})} type='text' className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
-                <label className="t" htmlFor=" ">
-                  Right Image url
-                </label>
-                <Input {...register("rightImage",{})} type='text' className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
-              </div>
+           
             </div>
             <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                    Image 5 url
                 </label>
-                <Input {...register("image5",{})} type='text' className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("image5",{})} type='text' className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                  Image 6 url
                 </label>
-                <Input {...register("image6",{})} type='text' className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("image6",{})} type='text' className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+         
+         
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                  Inspection Link
                 </label>
-                <Input {...register("inspectLink",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("inspectLink",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                 Autobse Contact
                 </label>
-                <Input {...register("autobseContact",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("autobseContact",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+        
+           
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                  Autobse Contact Person
                 </label>
-                <Input {...register("autoBseContactPerson",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("autoBseContactPerson",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
               Vehicle Condition{" "}
                 </label>
-                <Input {...register("vehicleCondion",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("vehicleCondion",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+            </div> */}
+           
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                  Power Steering
                 </label>
-                <Input {...register("powerSteering",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("powerSteering",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                  Shape{" "}
                 </label>
-                <Input {...register("shape",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("shape",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+         
+  
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                 Color
                 </label>
-                <Input {...register("color",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("color",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                  State{" "}
                 </label>
-                <Input {...register("state",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("state",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div> 
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+       
+        
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   City
                 </label>
-                <Input {...register("city",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("city",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Area{" "}
                 </label>
-                <Input {...register("area",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("area",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+        
+       
+               <div className="flex flex-col ">
               <label className="t" htmlFor=" ">
                   Payment Terms
                 </label>
-                <Input
+                <input
                   type="text"
                   {...register("paymentTerms",{})}
-                  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
                
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
               <label className="t" htmlFor=" ">
                   Date of Registration{" "}
                 </label>
 
                 <div className="flex">
-                  <Input
+                  <input
                     type="datetime-local"
                     {...register("dateOfRegistration",{})}
-                    className="max-w-[260px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                    className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                   />
-                  {/* <Input
+                  {/* <input
                     type="time"
                     className="max-w-[160px] ml-5 border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                   /> */}
                 </div>
-              </div>
+           
               
             </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+         
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Hypothication
                 </label>
-                <Input {...register("hypothication",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("hypothication",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Climate Control{" "}
                 </label>
-                <Input {...register("climateControl",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("climateControl",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+            
+        
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Door Count
                 </label>
-                <Input type='number' {...register("doorCount",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input type='number' {...register("doorCount",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Gear Box{" "}
                 </label>
-                <Input {...register("gearBox",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("gearBox",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+         
+        
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Buyer Fees
                 </label>
-                <Input {...register("buyerFees",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("buyerFees",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   RTO fine{" "}
                 </label>
-                <Input {...register("rtoFine",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("rtoFine",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+    
+   
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   parking Rate
                 </label>
-                <Input {...register("parkingRate",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("parkingRate",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Approx Parking Charges{" "}
                 </label>
-                <Input {...register("approxParkingCharges",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("approxParkingCharges",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+      
+   
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Client Contact Person
                 </label>
-                <Input {...register("clientContactPerson",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("clientContactPerson",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Client Contact No{" "}
                 </label>
-                <Input {...register("clientContactNo",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("clientContactNo",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+      
+ 
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Additional Remarks
                 </label>
-                <Input {...register("AdditionalRemarks",{})} className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("AdditionalRemarks",{})} className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-              <div className="w-1/2  ">
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Watched By{" "}
                 </label>
-                <Input  className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input  className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
-            </div>
-            <div className=" w-full  flex justify-between space-x-72">
-              <div className="w-1/2  ">
+       
+     
+               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Auction Manager
                 </label>
-                <Input {...register("autionManager",{})} className="max-w-[435px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input {...register("autionManager",{})} className="max-w-[435px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div>
              
+              </div>
+              <div className="flex flex-col m-5">
+                <label className="t" htmlFor=" ">
+                   Image url
+                </label>
+                <textarea {...register("rightImage",{})} type='text' className="w-full h-40 border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+              </div>
+            <div className="text-center">
+            <button className="btn btn-success my-5"> Save Changes</button>
             </div>
-            <div>
-            <button className="btn btn-success mb-5"> Save Changes</button>
-            </div>
-          </div>
+      
         </form>
       </div>
      

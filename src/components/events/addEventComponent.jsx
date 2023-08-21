@@ -89,22 +89,22 @@ const handleOnClick=()=>{
 }
 
   return (
-    <div className="shadow-xl  bg-slate-300  m-10 ">
+    <div className="shadow-xl  bg-slate-300  m-10 p-5">
       <div className="space-y-1 "> 
         <div className="py-4 bg-gray-200 rounded px-4 flex items-center shadow-xl justify-center ">
           <h2 className="text-xl py-3 leading-3 font-bold text-gray-900">
             ADD EVENT
           </h2>
         </div>
-        <div className="flex flex-col  w-full px-10 py-10 ">
+      
         <form onSubmit={handleSubmit(onSubmit)}>
-            <div className=" space-y-6 ">
-              <div className="flex flex-col space-y-2 relative "> 
-                <label className="text-base" htmlFor="">
+            <div className=" grid md:grid-cols-3 gap-x-10 gap-y-10 mx-3 my-2">
+              <div className="flex flex-col   "> 
+                <label className="font-bold" htmlFor="">
                   Event Category
                 </label>
-                <div class="absolute inset-y-10 - right-32 flex items-center ">
-                  <div class="h-5 w-0.5 border bg-gray-400 "></div>
+                <div >
+              
                 </div>
                 <select
                   onChange={(e) => {
@@ -112,8 +112,7 @@ const handleOnClick=()=>{
                   }}
                   placeholder="select"
                   //  {...register("eventCategory",{required:true})}
-                  className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
-                >
+                  className="  bg-white  border border-black rounded-md  p-2  shadow text-gray-700  hover:outline-double "                >
               
                   <option value="online">Online Auction </option>
                   <option value="open">Open Auction</option>
@@ -122,13 +121,13 @@ const handleOnClick=()=>{
 
               </div>
               <div className="flex">
-              <div className=" flex flex-col space-y-2 space-x-px ">
-                <label htmlFor="">Start Date and Time</label>
+              <div className=" flex flex-col  space-x-px ">
+                <label htmlFor="" className="font-bold">Start Date and Time</label>
                 <div className="flex space-x-6 ">
                
                   <input
                     type="datetime-local"
-                    className="btn btn-outline"
+                    className="btn btn-outline bg-white"
                  
                     {...register("startDate",{required:true})}
                   />
@@ -136,12 +135,12 @@ const handleOnClick=()=>{
                  
                 </div>
               </div>
-              <div className=" flex flex-col space-y-2 space-x-px ">
-                <label htmlFor="">End Date and Time</label>
+              <div className=" flex flex-col  space-x-px ">
+                <label htmlFor="" className="font-bold">End Date and Time</label>
                 <div className="flex space-x-6">
                   <input
                     type="datetime-local"
-                    className="btn btn-outline "
+                    className="btn btn-outline bg-white"
                     placeholder="mm//dd/yy"
                     {...register("endDate",{required:true})}
                   />
@@ -151,18 +150,16 @@ const handleOnClick=()=>{
                 </div>
               </div>
               </div>
-              <div className="flex flex-col space-y-2 relative ">
-                <label className="text-base" htmlFor="">
+              <div className="flex flex-col   ">
+                <label className="font-bold" htmlFor="">
                   Seller
                 </label>
-                <div class="absolute inset-y-10 - right-32 flex items-center ">
-                  <div class="h-5 w-0.5 border bg-gray-400 "></div>
-                </div>
+             
                 <select
                   
                   placeholder="select"
                   {...register("sellerName",{required:true})}
-                  className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
+                  className="w-full max-w-xl bg-white  border border-black rounded-md  p-2  shadow text-gray-700  hover:outline-double "
                 >
                 
                   <option  value="">Select</option>
@@ -174,20 +171,18 @@ const handleOnClick=()=>{
                 </select>
                 <p className="text-red-500"> {errors.sellerName&& <span>Seller Name required</span>}</p> 
               </div>
-              <div className="flex flex-col space-y-2 relative ">
-                <label className="text-base" htmlFor="">
+              <div className="flex flex-col  ">
+                <label className="font-bold" htmlFor="">
                   Event Type
                 </label>
-                <div class="absolute inset-y-10 - right-32 flex items-center ">
-                  <div class="h-5 w-0.5 border bg-gray-400 "></div>
-                </div>
+              
                 <Controller
   name="eventId"
   control={control}
 
   render={({ field }) => (
     <Select
-      className="w-full text-black max-w-[560px] mt-2"
+    className="w-full max-w-xl bg-white  border border-black rounded-md  p-2  shadow text-gray-700  hover:outline-double "
       options={eventType?.data?.eventTypes?.map((event) => ({
         label: event.name,
         value: event.id
@@ -202,19 +197,16 @@ const handleOnClick=()=>{
                 <p className="text-red-500"> {errors.event&& <span>Event Name required</span>}</p> 
 
               </div>
-              <div className="flex flex-col space-y-2 relative ">
-                <label className="text-base" htmlFor="">
+              <div className="flex flex-col  relative ">
+                <label className="font-bold" htmlFor="">
                   Location
                 </label>
-                <div class="absolute inset-y-10 - right-32 flex items-center ">
-                  <div class="h-5 w-0.5 border bg-gray-400 "></div>
-                </div>
+              
                 <select
                   
                   placeholder="select"
                   {...register("location",{required:true})}
-                  className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700   hover:bg-white "
-                >
+                  className="w-full  bg-white  border border-black rounded-md  p-2  shadow text-gray-700  hover:outline-double "                >
                   <option  value="">Select</option>
                    {location?.data?.locations?.map((location)=>
                  (
@@ -226,29 +218,29 @@ const handleOnClick=()=>{
               </div>
              
              
-              <div className="w-full max-w-xl">
-                <label htmlFor="">Number of Bids(per User)</label>
-                <Input
+              <div className="w-full ">
+                <div>
+
+                <label htmlFor="" className="font-bold">Number of Bids(per User)</label>
+                </div>
+                <input
                   type="number" defaultValue={10}
                   {...register("noOfBids",{required:true})}
                   
-                  className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
+                  className="w-full  bg-white  border border-black rounded-md  p-2  shadow text-gray-700  hover:outline-double "/>
+         
                  <p className="text-red-500"> {errors.noOfBids&& <span>No of bids Required</span>}</p> 
               </div>
-              <div className="flex flex-col space-y-2 relative ">
-                <label className="text-base" htmlFor="">
+              <div className="flex flex-col  relative ">
+                <label className="font-bold" htmlFor="">
                  Auction status
                 </label>
-                <div class="absolute inset-y-10 - right-32 flex items-center ">
-                  <div class="h-5 w-0.5 border bg-gray-400 "></div>
-                </div>
+               
                 <select
                   
                   placeholder="select"
                   {...register("status",{})}
-                  className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700  hover:bg-white"
-                >
+                  className="w-full max-w-xl bg-white  border border-black rounded-md  p-2  shadow text-gray-700  hover:outline-double "                >
         
                   <option value="active">active</option>
                   <option value="pending">pending </option>
@@ -260,95 +252,102 @@ const handleOnClick=()=>{
           
              
                <div className="flex flex-col items-start  ">
-                <label>Downloadable File</label>
+                <label className="font-bold">Downloadable File</label>
                 <input type="file"
                   {...register("downloadable",{})}
-                 className="  btn btn-outline btn-success border border-1 border-lime-800 text-black rounded  px-10 m-2 bg-slate-200"></input>
+                  className="w-full max-w-xl bg-white  border border-black rounded-md  p-2  shadow text-gray-700  hover:outline-double "                >
+                  
+                 </input>
               <p className="text-red-500"> {errors.downloadable&& <span>Downloadable file required</span>}</p> 
               </div>
              
-              <div className="flex flex-col space-y-2">
-                <label htmlFor="">Terms & Condition</label>
-               <textarea
-               type="text" 
-                 {...register("conditions",{})}
-               className="max-w-xl border border-gray-400   text-gray-700  rounded  shadow hover:bg-white "  cols="30" rows="10"/>
-              </div>
              
-              
-          { category ==='online'  &&   <div className="flex flex-col space-y-2 relative ">
-                <label className="text-base" htmlFor="">
-                Bids on Amount Smaller than the Winning bid amount is
+             
+       
+          { category ==='online'  &&   <div className="flex flex-col  relative ">
+                <label className="font-bold" htmlFor="">
+                Bids Amount Smaller than the Winning bid amount is
                 </label>
-                <div class="absolute inset-y-10 - right-32 flex items-center ">
-                  <div class="h-5 w-0.5 border bg-gray-400 "></div>
-                </div>
+              
                 <select
            
                   placeholder="select"
                   {...register("lockedOrNot",{})}
-                  className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700   hover:bg-white "
-                >
+                  className="w-full max-w-xl bg-white  border border-black rounded-md  p-2  shadow text-gray-700  hover:outline-double "                >
                   {/* <option value="" selected placeholder="select">select </option> */}
                   <option value="locked">locked </option>
                   <option value="unlocked">unlocked</option>
                 </select>
               </div>}
+              <div className="w-full max-w-xl">
+                <label htmlFor="" className="font-bold">Extra Time Trigger in Minutes</label>
+                <input
+                  type="number" defaultValue={2}
+                  {...register("timeTriger",{})}
+                  className="w-full  bg-white  border border-black rounded-md  p-2  shadow text-gray-700  hover:outline-double "/>
+         
+              </div>
+              <div className="w-full max-w-xl">
+                <div>
+
+                <label htmlFor="" className="font-bold">Extra Time in minutes</label>
+                </div>
+                <input
+                  type="number" defaultValue={2}
+                  {...register("extraTime",{})}
+                  className="w-full bg-white  border border-black rounded-md  p-2  shadow text-gray-700  hover:outline-double " />
+              </div>
+           
               {/* <div className="flex space-x-6">
                 <input type="checkbox"   {...register("special",{})}
                  className="checkbox checkbox-success hover:bg-white" />
                 <label htmlFor="">Is this a special event ?</label>
               </div> */}
-              <div className="w-full max-w-xl">
-                <label htmlFor="">Extra Time Trigger in Minutes</label>
-                <Input
-                  type="number" defaultValue={2}
-                  {...register("timeTriger",{})}
-                  className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
-              </div>
-              <div className="w-full max-w-xl">
-                <label htmlFor="">Extra Time in minutes</label>
-                <Input
-                  type="number" defaultValue={2}
-                  {...register("extraTime",{})}
-                  className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
-              </div>
+             
+           
             {category==='open' &&  <div className="w-full max-w-xl">
-                <label htmlFor="">
+                <label htmlFor="" className="font-bold">
                   Open Auction Vehicle Live Time in minutes
                 </label>
-                <Input
+                <input
                   type="number" defaultValue={3}
                   {...register("liveTime",{})}
-                  className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
+                  className="w-full bg-white  border border-black rounded-md  p-2  shadow text-gray-700  hover:outline-double " />
+           
               </div>}
               <div className="w-full max-w-xl">
-                <label htmlFor="">
-                  Open Auction Gap in between vehicles in seconds / Online End
-                  Time Increase in Minuts
+                <label htmlFor="" className="font-bold">
+            {category==='open'? 'Open Auction Gap in between vehicles in seconds' :'Online End Time Increase in Minuts'}        
                 </label>
-                <Input
+                <input
                   type="number" defaultValue={2}
                   {...register("gap",{})}
-                  className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                />
+                  className="w-full bg-white  border border-black rounded-md  p-2  shadow text-gray-700  hover:outline-double " />
+        
               </div>
 
 
            
 
               <div className=" flex space-x-10">
-         {!data  && <button  className="btn btn-success"> Save </button>}
-                
-               
               </div>
             </div>
+            <div className="flex flex-col ">
+                <label htmlFor="" className="font-bold">Terms & Condition</label>
+               <textarea
+               type="text" 
+                 {...register("conditions",{})}
+                 className=" m-2 bg-white h-40  border border-black rounded-md  p-2  shadow text-gray-700  hover:outline-double " />
+                 </div>
+            <div  className="text-center m-5 ">
+
+         {!data  && <button  className="btn btn-success"> Save </button>}
+            </div>
+                
+               
           </form>
           {data && <button onClick={handleOnClick} className="btn w-fit btn-secondary"> Upload Excel file </button> }
-        </div>
+      
       </div>
     </div>
   );
