@@ -6,6 +6,10 @@ import { ShowPopup } from "../alerts/popUps";
 
 import{useSellersItemQuery,useEventTypesQuery,useLocationsQuery,useCreateEventMutation}from '../../utils/graphql'
 import { useNavigate } from "react-router-dom";
+import {terms} from './terms&conditions'
+
+
+
 
 
 const AddEventComponent = () => {
@@ -87,6 +91,7 @@ const handleOnClick=()=>{
   console.log(data,"return data")
   navigate(`/excel-upload/${data.createEvent.id}`)
 }
+
 
   return (
     <div className="shadow-xl  bg-slate-300  m-10 p-5">
@@ -335,7 +340,8 @@ const handleOnClick=()=>{
             <div className="flex flex-col ">
                 <label htmlFor="" className="font-bold">Terms & Condition</label>
                <textarea
-               type="text" 
+               type="text"
+               defaultValue={terms.data} 
                  {...register("conditions",{})}
                  className=" m-2 bg-white h-40  border border-black rounded-md  p-2  shadow text-gray-700  hover:outline-double " />
                  </div>
@@ -354,3 +360,4 @@ const handleOnClick=()=>{
 };
 
 export default AddEventComponent;
+
