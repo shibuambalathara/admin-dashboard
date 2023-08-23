@@ -8,6 +8,7 @@ import Select from 'react-select'
 import{useSellersItemQuery,useEventTypesQuery,useLocationsQuery,useEventQuery,useEditEventMutation}from '../../utils/graphql'
 import {  useParams } from "react-router-dom";
 import { ShowPopup } from '../alerts/popUps';
+import { formStyle, headerStyle, inputStyle, labelAndInputDiv, pageStyle } from "../utils/style";
 
 const EditEventComponent =() => {
 const[startDatedata,setStartDate]=useState('')
@@ -134,19 +135,18 @@ const handleStartDateToIso=(date)=>{
  }
 
   return (
-    <div className="max-w-7xl mx-auto h-fit  my-10 bg-slate-100 ">
-      <div className="space-y-1 "> 
-        <div className="py-4 bg-gray-200 rounded px-4 flex items-center justify-center ">
-          <h2 className="text-xl py-3 leading-3 font-bold text-gray-900">
-            EDIT EVENT
-          </h2>
-        </div>
-        <div className="flex flex-col  w-full px-10 py-10 ">
+    <div className={`${pageStyle.data}`}>
+    <div className="space-y-1 ">
+      <div className={`${headerStyle.data}`}>
+        <h2 className="text-xl py-3 leading-3 font-bold text-gray-900">
+    EDIT EVENT
+        </h2>
+      </div>
         <form onSubmit={handleSubmit(onSubmit)}>
-            <div className=" space-y-6 ">
+        <div className={formStyle.data}>
               {response?.error?.message && <p className="text-red-500">{response?.error?.message}</p>}
-              <div className="flex flex-col space-y-2 relative ">
-                <label className="text-base" htmlFor="">
+            <div className={`${labelAndInputDiv.data}`}>
+              <label className="font-bold" htmlFor="">
                   Event Category
                 </label>
                 <div class="absolute inset-y-10 - right-32 flex items-center ">
@@ -157,8 +157,7 @@ const handleStartDateToIso=(date)=>{
                   defaultValue={data?.event?.eventCategory}
                   placeholder="select"
                    {...register("eventCategory",{})}
-                  className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
-                >
+                   className={`${inputStyle.data}`}                >
               <option value={data?.event?.eventCategory}>{data?.event?.eventCategory}</option>
                   <option value="online">Online  </option>
                   <option value="open">Open </option>
@@ -166,13 +165,14 @@ const handleStartDateToIso=(date)=>{
                 <p className="text-red-500"> {errors.eventCategory&& <span>Event type required</span>}</p> 
 
               </div>
-              <div className=" flex flex-col space-y-2 space-x-px ">
-                <label htmlFor="">Start Date and Time</label>
-                <div className="flex space-x-6 ">
+              <div className=" xl:flex space-x-2">
+              <div className={`${labelAndInputDiv.data}`}>
+                 <label className="font-bold" htmlFor="">Start Date and Time</label>
+                <div className={`${labelAndInputDiv.data}`}>
                
                   <input
                     type="datetime-local"
-                    className="btn btn-outline"
+                    className={`${inputStyle.data}`}  
                  defaultValue={startDatedata}  onChange={(event) => handleStartDateToIso(event.target.value)} 
                     //  {...register("startDate",{})}
                   />
@@ -180,12 +180,12 @@ const handleStartDateToIso=(date)=>{
                  
                 </div>
               </div>
-              <div className=" flex flex-col space-y-2 space-x-px ">
-                <label htmlFor="">End Date and Time</label>
-                <div className="flex space-x-6">
+              <div className={`${labelAndInputDiv.data}`}>
+                 <label className="font-bold" htmlFor="">End Date and Time</label>
+                 <div className={`${labelAndInputDiv.data}`}>
                   <input
                     type="datetime-local"
-                    className="btn btn-outline "
+                    className={`${inputStyle.data}`}  
                     placeholder="mm//dd/yy"
                     defaultValue={endDatedata}
                      onChange={(event) => handleEndDateToIso(event.target.value)}
@@ -196,9 +196,9 @@ const handleStartDateToIso=(date)=>{
                    <p className="text-red-500"> {errors.endDate&& <span>End date and time required</span>}</p> 
                 </div>
               </div>
-
-              <div className="flex flex-col space-y-2 relative ">
-                <label className="text-base" htmlFor="">
+</div>
+            <div className={`${labelAndInputDiv.data}`}>
+              <label className="font-bold" htmlFor="">
                   Seller
                 </label>
                 <div class="absolute inset-y-10 - right-32 flex items-center ">
@@ -208,8 +208,7 @@ const handleStartDateToIso=(date)=>{
                   
                   placeholder="select"
                   {...register("sellerName",{})}
-                  className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
-                >
+                  className={`${inputStyle.data}`}                >
                 
                   <option  value={data?.event?.seller?.id}>{data?.event?.seller?.name}</option>
                   {sellersItem?.data?.sellers.map((seller)=>
@@ -220,13 +219,11 @@ const handleStartDateToIso=(date)=>{
                 </select>
                 <p className="text-red-500"> {errors.sellerName&& <span>Seller Name required</span>}</p> 
               </div>
-              <div className="flex flex-col space-y-2 relative ">
-                <label className="text-base" htmlFor="">
+            <div className={`${labelAndInputDiv.data}`}>
+              <label className="font-bold" htmlFor="">
                   Event Type
                 </label>
-                <div class="absolute inset-y-10 - right-32 flex items-center ">
-                  <div class="h-5 w-0.5 border bg-gray-400 "></div>
-                </div>
+            
                 
 
                 <Controller
@@ -238,7 +235,7 @@ const handleStartDateToIso=(date)=>{
   }))}
   render={({ field }) => (
     <Select
-      className="w-full text-black max-w-[560px] mt-2"
+    className={`${inputStyle.data}`}  
       options={eventType?.data?.eventTypes?.map((event) => ({
         label: event.name,
         value: event.id
@@ -255,19 +252,16 @@ const handleStartDateToIso=(date)=>{
                 <p className="text-red-500"> {errors.eventId&& <span>Event Name required</span>}</p> 
 
               </div>
-              <div className="flex flex-col space-y-2 relative ">
-                <label className="text-base" htmlFor="">
+            <div className={`${labelAndInputDiv.data}`}>
+              <label className="font-bold" htmlFor="">
                   Location
                 </label>
-                <div class="absolute inset-y-10 - right-32 flex items-center ">
-                  <div class="h-5 w-0.5 border bg-gray-400 "></div>
-                </div>
+                
                 <select
                   defaultValue={data?.event?.location?.id}
                   placeholder="select"
                   {...register("location",{})}
-                  className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700   hover:bg-white "
-                >
+                  className={`${inputStyle.data}`}                >
                      <option  value={data?.event?.location?.id}>{data?.event?.location?.name}</option>
                    {location?.data?.locations?.map((location)=>
                  (
@@ -279,29 +273,26 @@ const handleStartDateToIso=(date)=>{
               </div>
              
              
-              <div className="w-full flex flex-col max-w-xl">
-                <label htmlFor="">Number of Bids(per User)</label>
+              <div className={`${labelAndInputDiv.data}`}>
+                 <label className="font-bold" htmlFor="">Number of Bids(per User)</label>
                 <input
                   type="number"
                   {...register("noOfBids",{})}
                   defaultValue={data?.event?.noOfBids}
-                  className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className={`${inputStyle.data}`}
                 />
                  <p className="text-red-500"> {errors.noOfBids&& <span>No of bids Required</span>}</p> 
               </div>
-              <div className="flex flex-col space-y-2 relative ">
-                <label className="text-base" htmlFor="">
+            <div className={`${labelAndInputDiv.data}`}>
+              <label className="font-bold" htmlFor="">
                  Auction status
                 </label>
-                <div class="absolute inset-y-10 - right-32 flex items-center ">
-                  <div class="h-5 w-0.5 border bg-gray-400 "></div>
-                </div>
+              
                 <select
                   
                   placeholder="select"
                   {...register("status",{})}
-                  className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700  hover:bg-white"
-                >
+                  className={`${inputStyle.data}`}                >
            <option  value={data?.event?.status}>{data?.event?.status}</option>
                   <option value="pending">pending </option>
                   <option value="blocked">blocked</option>
@@ -319,100 +310,99 @@ const handleStartDateToIso=(date)=>{
                 <label>Downloadable File</label>
                 <input type="file"
                   {...register("downloadable",{})}
-                 className="  btn btn-outline btn-success border border-1 border-lime-800 text-black rounded  px-10 m-2 bg-slate-200"></input>
+                  className={`${inputStyle.data}`}                  
+                 />
               <p className="text-red-500"> {errors.downloadable&& <span>Downloadable file required</span>}</p> 
               </div>
              
-              <div className="flex flex-col space-y-2">
-                <label htmlFor="">Terms & Condition</label>
-               <textarea
-               type="text" 
-               defaultValue={data?.event?.termsAndConditions}
-                 {...register("conditions",{})}
-               className="max-w-xl border border-gray-400   text-gray-700  rounded  shadow hover:bg-white "  cols="30" rows="10"/>
-              </div>
+          
              
               
-              <div className="flex flex-col space-y-2 relative ">
-                <label className="text-base" htmlFor="">
-                Bids on Amount Smaller than the Winning bid amount is
+            <div className={`${labelAndInputDiv.data}`}>
+              <label className="font-bold" htmlFor="">
+                Bid Amount Smaller than the Winning bid amount is
                 </label>
                 <div class="absolute inset-y-10 - right-32 flex items-center ">
-                  <div class="h-5 w-0.5 border bg-gray-400 "></div>
+             
                 </div>
                 <select
            
                   placeholder="select"
                   {...register("lockedOrNot",{})}
-                  className="w-full max-w-xl bg-slate-200  border border-gray-300 rounded py-1 px-4 outline-none shadow text-gray-700   hover:bg-white "
-                >
+                  className={`${inputStyle.data}`}                >
                   {/* <option value="" selected placeholder="select">select </option> */}
                   <option  value={data?.event?.bidLock}>{data?.event?.bidLock}</option>
                   <option value="locked">locked </option>
                   <option value="unlocked">unlocked</option>
                 </select>
               </div>
-              <div className="flex space-x-6">
-                <input type="checkbox"   defaultChecked={data?.event?.isSpecialEvent} {...register("special",{})}
-                 className="checkbox checkbox-success hover:bg-white" />
-                <label htmlFor="">Is this a special event ?</label>
-              </div>
-              <div className="w-full max-w-xl">
-                <label htmlFor="">Extra Time Trigger in Minutes</label>
-                <Input
+           
+               <div className={`${labelAndInputDiv.data}`}>
+                 <label className="font-bold" htmlFor="">Extra Time Trigger in Minutes</label>
+                <input
                   type="number"
                   defaultValue={data?.event?.extraTimeTrigerIn}
                   {...register("timeTriger",{})}
-                  className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className={`${inputStyle.data}`}
                 />
               </div>
-              <div className="w-full max-w-xl">
-                <label htmlFor="">Extra Time in minutes</label>
-                <Input
+               <div className={`${labelAndInputDiv.data}`}>
+                 <label className="font-bold" htmlFor="">Extra Time in minutes</label>
+                <input
                   type="number"
                   defaultValue={data?.event?.extraTime}
                   {...register("extraTime",{})}
-                  className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className={`${inputStyle.data}`}
                 />
               </div>
-              <div className="w-full max-w-xl">
-                <label htmlFor="">
+               <div className={`${labelAndInputDiv.data}`}>
+                 <label className="font-bold" htmlFor="">
                   Open Auction Vehicle Live Time in minutes
                 </label>
-                <Input
+                <input
                   type="number"
                   defaultValue={data?.event?.vehicleLiveTimeIn}
                   {...register("liveTime",{})}
-                  className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className={`${inputStyle.data}`}
                 />
               </div>
-              <div className="w-full max-w-xl">
-                <label htmlFor="">
+              <div className={`${labelAndInputDiv.data}`}>
+                 <label className="font-bold" htmlFor="">
                   Open Auction Gap in between vehicles in seconds / Online End
                   Time Increase in Minuts
                 </label>
-                <Input
+                <input
                   type="number"
                   defaultValue={data?.event?.gapInBetweenVehicles}
                   {...register("gap",{})}
-                  className="min-w-[20px]  border-gray-400 rounded py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
+                  className={`${inputStyle.data}`}
                 />
               </div>
 
 
            
 
-              <div className=" flex space-x-10">
+        
+            </div>
+            <div className={`${labelAndInputDiv.data}`}>
+                 <label className="font-bold" htmlFor="">Terms & Condition</label>
+               <textarea
+               type="text" 
+               defaultValue={data?.event?.termsAndConditions}
+                 {...register("conditions",{})}
+                 className={`${inputStyle.data} h-40`}
+               />
+              </div>
+              <div className=" text-center my-5">
          <button  className="btn btn-success"> Save Changes </button>
                 
                
               </div>
-            </div>
           </form>
-          {/* {data && <button onClick={handleOnClick} className="btn w-fit btn-secondary"> Upload Excel file </button> } */}
+       
         </div>
       </div>
-    </div>
+
   );
 };
 

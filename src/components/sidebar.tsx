@@ -27,7 +27,7 @@ const Sidebar = () => {
    {sidebarVisible ? 
    <div className='w-56 min-h-full bg-gray-700 space-y-5 pl-3 pt-3 pr-1 shadow-xl'>
 <div className='bg-none flex justify-end shadow-inherit'  >  
-  <button onClick={toggleSidebar} className='  bg-none text-white border-2 p-1'>
+  <button onClick={toggleSidebar} className='  bg-none text-white '>
   <FontAwesomeIcon icon={faBars} style={{ fontSize:24 }} />
   
       </button>
@@ -46,7 +46,7 @@ const Sidebar = () => {
     <div className='bg-black h-full shadow-xl px-1' >  
     <div className='flex justify-end'>
      
-    <button onClick={toggleSidebar} className='  bg-none text-white my-3 border-2 p-1'>
+    <button onClick={toggleSidebar} className='  bg-none text-white my-3 '>
     <FontAwesomeIcon icon={faBars}  style={{ fontSize:24 }} />
    
         </button>
