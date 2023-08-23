@@ -639,7 +639,9 @@ if(result){
                 <label className="t" htmlFor=" ">
                   Watched By{" "}
                 </label>
-                <input  className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
+                <input
+                  className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " 
+                  />
               </div>
        
      

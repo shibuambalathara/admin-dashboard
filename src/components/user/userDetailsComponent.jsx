@@ -14,6 +14,7 @@ import {
 } from "../../utils/graphql";
 import { ShowPopup } from "../alerts/popUps";
 import AddUser from "./addUser";
+import { formStyle, h2Style, headerStyle, inputStyle, labelAndInputDiv, pageStyle } from "../utils/style";
 
 const UserDetailsComponent = () => {
   const navigate = useNavigate();
@@ -120,21 +121,22 @@ if(loginUser?.authenticatedItem?.role==='admin'){
   if (error) return <p>Error :(</p>;
 
   return (
-    <div className="flex flex-col justify-center align-middle shadow-xl  bg-slate-300  m-10">
-     <div className="py-4 bg-gray-200 rounded px-4 flex items-center shadow-xl justify-center ">
-     <h2 className="text-xl py-3 leading-3 font-bold text-gray-900">  {data.user.firstName} {data.user.lastName}</h2>
+    <div className={`${pageStyle.data}`}>
+    <div className={`${headerStyle.data}`}>
+         <h2 className={`${h2Style.data}`}>
+      {data.user.firstName} {data.user.lastName}</h2>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)} className=" w-full my-5  p-2 ">
-        <div className="flex flex-col  w-full space-y-5">
-          <div className="flex  justify-around">
-            <div className="flex flex-col  w-1/3">
+      <form onSubmit={handleSubmit(onSubmit)} >
+      <div className={`${formStyle.data}`}>
+         
+           <div className={`${labelAndInputDiv.data}`}>
               <label className=" text-left" htmlFor="">
                 First Name
               </label>
               <input
                 type="text "
                 defaultValue={data.user.firstName}
-                className="input input-bordered input-secondary w-full "
+                className={`${inputStyle.data}`}
                 {...register("first_Name", { required: true })}
               ></input>
               <p className="text-red-500">
@@ -142,11 +144,11 @@ if(loginUser?.authenticatedItem?.role==='admin'){
                 {errors.first_Name && <span>first Name is required</span>}
               </p>
             </div>
-            <div className="  flex flex-col  w-1/3">
+            <div className={`${labelAndInputDiv.data}`}>
               <label htmlFor="">Last Name</label>
               <input
                 type="text"
-                className="input input-bordered input-secondary w-full "
+                className={`${inputStyle.data}`}
                 defaultValue={data.user.lastName}
                 {...register("last_Name", { required: true })}
               ></input>
@@ -155,17 +157,16 @@ if(loginUser?.authenticatedItem?.role==='admin'){
                 {errors.last_Name && <span>last Name is required</span>}
               </p>
             </div>
-          </div>
+        
 
-          <div className="flex  justify-around  ">
-            <div className="flex flex-col  w-1/3">
+           <div className={`${labelAndInputDiv.data}`}>
               <label className=" text-left" htmlFor="">
                 Email
               </label>
               <input
                 type="email"
                 defaultValue={data.user.email}
-                className="input input-bordered input-secondary w-full "
+                className={`${inputStyle.data}`}
                 {...register("email", {})}
               ></input>
               <p className="text-red-500">
@@ -173,14 +174,14 @@ if(loginUser?.authenticatedItem?.role==='admin'){
                 {errors.email && <span> email required</span>}
               </p>
             </div>
-            <div className="flex flex-col w-1/3 ">
+         <div className={`${labelAndInputDiv.data}`}>
               <label className="w-20" htmlFor="">
                 user Name
               </label>
               <input
                 type="text"
                 defaultValue={data.user.username}
-                className="input input-bordered input-secondary w-full "
+                className={`${inputStyle.data}`}
                 {...register("user_Name", { required: true })}
               ></input>
               <p className="text-red-500">
@@ -188,14 +189,14 @@ if(loginUser?.authenticatedItem?.role==='admin'){
                 {errors.user_Name && <span>User Name required</span>}
               </p>
             </div>
-          </div>
-          <div className="flex  justify-around  ">
-            <div className="flex flex-col w-1/3 ">
+       
+       
+         <div className={`${labelAndInputDiv.data}`}>
               <label htmlFor="">Mobile</label>
               <input
                 type="number"
                 defaultValue={data.user.mobile}
-                className="input input-bordered input-secondary w-full "
+                className={`${inputStyle.data}`}
                 {...register("mobile", {
                   required: true,
                   minLength: 10,
@@ -209,12 +210,12 @@ if(loginUser?.authenticatedItem?.role==='admin'){
                 )}
               </p>
             </div>
-            <div className="flex flex-col w-1/3 ">
+         <div className={`${labelAndInputDiv.data}`}>
               <label htmlFor="">Bussiness Name</label>
               <input
                 type="text"
                 defaultValue={data?.user?.businessName}
-                className="input input-bordered input-secondary w-full "
+                className={`${inputStyle.data}`}
                 {...register("bussiness", {})}
               ></input>
               <p className="text-red-500">
@@ -222,10 +223,9 @@ if(loginUser?.authenticatedItem?.role==='admin'){
                 {errors.bussiness && <span>Bussiness Name required</span>}
               </p>
             </div>
-          </div>
-
-          <div className="flex  justify-around  ">
-            <div className="flex flex-col w-1/3 ">
+      
+         
+         <div className={`${labelAndInputDiv.data}`}>
               <label htmlFor="">Current Buying Limit </label>
               <input
                 type="number"
@@ -233,7 +233,7 @@ if(loginUser?.authenticatedItem?.role==='admin'){
                 defaultValue={
                   data?.user?.currentVehicleBuyingLimit?.vehicleBuyingLimit
                 }
-                className="input input-bordered input-secondary w-full "
+                className={`${inputStyle.data}`}
                 // {...register("buyingLimitCount", {
 
                 // })}
@@ -246,7 +246,7 @@ if(loginUser?.authenticatedItem?.role==='admin'){
               </p>
             </div>
 
-            <div className="flex flex-col  w-1/3">
+           <div className={`${labelAndInputDiv.data}`}>
               <label htmlFor="">Bannned Sellers</label>
 
               <Controller
@@ -258,26 +258,147 @@ if(loginUser?.authenticatedItem?.role==='admin'){
                 }))}
                 render={({ field }) => (
                   <Select
-                    className="w-full text-black max-w-[560px] mt-2"
+             className={`${inputStyle.data}`}
                     option=""
                     options={sellers?.data?.sellers.map((seller) => ({
                       label: seller.name,
                       value: seller.id,
                     }))}
                     {...field}
-                    isMulti
+                    isMultiRole
                     getOptionValue={(option) => option.value}
                   />
                 )}
               />
             </div>
-          </div>
+    
 
-      { loginUser?.authenticatedItem?.role==='admin' &&  <div className="flex  justify-around  ">
-            <div className="min-w-[300px] w-1/3">
+     
+
+            <div className={`${labelAndInputDiv.data}`}>
+              <label htmlFor="">ID Proof Type</label>
+              <select
+                defaultValue={data?.user?.idProofType}
+                className={`${inputStyle.data}`}
+                {...register("idType", { required: true })}
+              >
+                <option value={data?.user?.idProofType}>
+                  {data?.user?.idProofType}
+                </option>
+                <option value="aadhar">Aadhar</option>
+                <option value="drivingLicense">Driving Licence</option>
+                <option value="passport">Passport</option>
+              </select>
+              <p className="text-red-500">
+                {" "}
+                {errors.idType && <span>Please select Id proof type</span>}
+              </p>
+            </div>
+            <div className={`${labelAndInputDiv.data}`}>
+              <label htmlFor="">ID proof Number</label>
+              <input
+                defaultValue={data?.user?.idProofNo}
+                type="text"
+                className={`${inputStyle.data}`}
+                {...register("IdNumber", { minLength: 8 })}
+              />
+              <p className="text-red-500">
+                {" "}
+                {errors.IdNumber && <span>Atleast 8 charators required</span>}
+              </p>
+            </div>
+       
+
+        
+              <div className={`${labelAndInputDiv.data}`}>
+              <label htmlFor="">State</label>
+
+              <select
+                className={`${inputStyle.data}`}
+                {...register("state", {})}
+              >
+                <option value={data?.user?.state}>{data?.user?.state}</option>
+                {selectors?.data?.states.map((state) => (
+                  <option value={state.name} key={state.name}>
+                    {state.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+              <div className={`${labelAndInputDiv.data}`}>
+              <label htmlFor="">City</label>
+
+              <input
+                defaultValue={data?.user?.city}
+                className={`${inputStyle.data}`}
+                {...register("city", {})}
+              />
+              <p className="text-red-500">
+                {" "}
+                {errors.city && <span>Please select city</span>}
+              </p>
+            </div>
+        
+
+   
+              <div className={`${labelAndInputDiv.data}`}>
+              <label htmlFor="">Pancard</label>
+              <input
+                defaultValue={data?.user?.pancardNo}
+                type="text"
+                className={`${inputStyle.data}`}
+                {...register("pancardNumber", {})}
+              />
+              <p className="text-red-500">
+                {" "}
+                {errors.IdNumber && <span>Atleast 8 charators required</span>}
+              </p>
+            </div>
+
+            <div className={`${labelAndInputDiv.data}`}>
+              <label htmlFor="">Country</label>
+              <input
+                defaultValue={data?.user?.country}
+                className={`${inputStyle.data}`}
+                {...register("country", {})}
+              />
+              <p className="text-red-500">
+                {" "}
+                {errors.country && <span>country Required</span>}
+              </p>
+</div>
+              <div className="flex flex-col  w-full">
+                <label htmlFor="">Auction Allowed states</label>
+
+                <Controller
+                  name="states"
+                  control={control}
+                  defaultValue={data?.user?.states.map((state) => ({
+                    label: state.name,
+                    value: state.id,
+                  }))}
+                  render={({ field }) => (
+                    <Select
+               className={`${inputStyle.data}`}
+                      option=""
+                      options={allStates?.data?.states?.map((state) => ({
+                        label: state.name,
+                        value: state.id,
+                      }))}
+                      {...field}
+                      isMulti
+                      getOptionValue={(option) => option.value}
+                    />
+                  )}
+                />
+              </div>
+
+              { loginUser?.authenticatedItem?.role==='admin' &&  <div>
+            <div className={`${labelAndInputDiv.data}`}>
               <label htmlFor="">Role</label>
               <select
-                className="input input-bordered input-secondary w-full "
+                className={`${inputStyle.data}`}
                 {...register("role", { required: true })}
               >
                 <option value={data.user.role}>{data.user.role}</option>
@@ -292,11 +413,11 @@ if(loginUser?.authenticatedItem?.role==='admin'){
               </p>
             </div>
 
-            <div className="flex flex-col w-1/3 ">
+         <div className={`${labelAndInputDiv.data}`}>
               <label htmlFor="">Status</label>
               <select
                 defaultValue={data.user.status}
-                className="input input-bordered input-secondary w-full "
+                className={`${inputStyle.data}`}
                 {...register("status", {})}
               >
                 <option value=""></option>
@@ -312,184 +433,64 @@ if(loginUser?.authenticatedItem?.role==='admin'){
             </div>
           </div>}
 
-          <div className="flex space-x-2 justify-around">
-            <div className="min-w-[300px] w-1/3">
-              <label htmlFor="">ID Proof Type</label>
-              <select
-                defaultValue={data?.user?.idProofType}
-                className="input input-bordered input-secondary w-full "
-                {...register("idType", { required: true })}
-              >
-                <option value={data?.user?.idProofType}>
-                  {data?.user?.idProofType}
-                </option>
-                <option value="aadhar">Aadhar</option>
-                <option value="drivingLicense">Driving Licence</option>
-                <option value="passport">Passport</option>
-              </select>
-              <p className="text-red-500">
-                {" "}
-                {errors.idType && <span>Please select Id proof type</span>}
-              </p>
-            </div>
-            <div className="w-1/3">
-              <label htmlFor="">ID proof Number</label>
-              <input
-                defaultValue={data?.user?.idProofNo}
-                type="text"
-                className="input input-bordered input-secondary w-full "
-                {...register("IdNumber", { minLength: 8 })}
-              />
-              <p className="text-red-500">
-                {" "}
-                {errors.IdNumber && <span>Atleast 8 charators required</span>}
-              </p>
-            </div>
-          </div>
-
-          <div className="flex space-x-2 justify-around">
-            <div className="w-1/3">
-              <label htmlFor="">State</label>
-
-              <select
-                className="input input-bordered input-secondary w-full "
-                {...register("state", {})}
-              >
-                <option value={data?.user?.state}>{data?.user?.state}</option>
-                {selectors?.data?.states.map((state) => (
-                  <option value={state.name} key={state.name}>
-                    {state.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="w-1/3">
-              <label htmlFor="">City</label>
-
-              <input
-                defaultValue={data?.user?.city}
-                className="input input-bordered input-secondary w-full "
-                {...register("city", {})}
-              />
-              <p className="text-red-500">
-                {" "}
-                {errors.city && <span>Please select city</span>}
-              </p>
-            </div>
-          </div>
-
-          <div className="flex space-x-2 justify-around">
-            <div className="w-1/3">
-              <label htmlFor="">Pancard</label>
-              <input
-                defaultValue={data?.user?.pancardNo}
-                type="text"
-                className="input input-bordered input-secondary w-full "
-                {...register("pancardNumber", {})}
-              />
-              <p className="text-red-500">
-                {" "}
-                {errors.IdNumber && <span>Atleast 8 charators required</span>}
-              </p>
-            </div>
-            <div className="w-1/3">
+              <div className={`${labelAndInputDiv.data}`}>
               <label htmlFor="">Pancard Image</label>
-              <Input
+              <input
                 type="file"
-                className="p-1"
+                className={`${inputStyle.data}`}
                 {...register("pancardImage", {})}
-              ></Input>
+              ></input>
 
               <img
-                className="w-full h-36 border"
+                 className={`${inputStyle.data} h-40`}
                 src={`https://api.autobse.com${data?.user?.pancard?.url}`}
                 alt="no pancard_Image"
               />
             </div>
-          </div>
+    
 
-          <div className="flex space-x-2 justify-around">
-            <div className=" flex  flex-col w-1/3">
+
+            <div className={`${labelAndInputDiv.data}`}>
               <label htmlFor="">ID proof(front page)</label>
-              <Input
-                className="input   "
+              <input
+                 className={`${inputStyle.data}`}
                 type="file"
                 {...register("idProof", {})}
               />
 
               <img
-                className="w-full h-36 border"
+                className={`${inputStyle.data} h-40`}
                 src={`https://api.autobse.com${data?.user?.idProof?.url}`}
                 alt="No id proof front page"
               />
             </div>
-            <div className="w-1/3">
+              <div className={`${labelAndInputDiv.data}`}>
               <label htmlFor="">ID proof(Back page)</label>
-              <Input
+              <input
                 type="file"
-                className="p-1"
+                className={`${inputStyle.data} `}
                 {...register("idBack", {})}
-              ></Input>
+              ></input>
 
               <img
-                className="w-full h-36 border"
+               className={`${inputStyle.data} h-40`}
                 src={`https://api.autobse.com${data?.user?.idProofBack?.url}`}
                 alt="no id proof back side_image"
               />
             </div>
-          </div>
-
-          <div className="flex space-x-2 justify-around">
-            <div className="flex w-1/3 flex-col">
+       
+            <div className={`${labelAndInputDiv.data}`}>
               <label htmlFor="">Dealership Image</label>
-              <Input className="" type="file" {...register("dealership", {})} />
+              <input   className={`${inputStyle.data} `} type="file" {...register("dealership", {})} />
               <img
-                className="w-full h-36 border"
+                className={`${inputStyle.data} h-40`}
                 src={`https://api.autobse.com${data?.user?.dealership?.url}`}
                 alt=" No dealership img"
               />
             </div>
-            <div className="flex  flex-col w-1/3">
-              <label htmlFor="">Country</label>
-              <input
-                defaultValue={data?.user?.country}
-                className="input input-bordered input-secondary w-full "
-                {...register("country", {})}
-              />
-              <p className="text-red-500">
-                {" "}
-                {errors.country && <span>country Required</span>}
-              </p>
-
-              <div className="flex flex-col  w-full">
-                <label htmlFor="">Auction Allowed states</label>
-
-                <Controller
-                  name="states"
-                  control={control}
-                  defaultValue={data?.user?.states.map((state) => ({
-                    label: state.name,
-                    value: state.id,
-                  }))}
-                  render={({ field }) => (
-                    <Select
-                      className="w-full text-black max-w-[560px] mt-2"
-                      option=""
-                      options={allStates?.data?.states?.map((state) => ({
-                        label: state.name,
-                        value: state.id,
-                      }))}
-                      {...field}
-                      isMulti
-                      getOptionValue={(option) => option.value}
-                    />
-                  )}
-                />
-              </div>
+       
             </div>
-          </div>
-        </div>
+       
         <div className=" flex justify-center my-5">
           <button type="submit" className="btn btn-outline btn-primary">
             Save Changes

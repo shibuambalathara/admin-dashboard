@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useParams,useNavigate } from 'react-router-dom';
 import{useUserQuery,useCreatePaymentMutation} from '../../utils/graphql'
 import { ShowPopup } from '../alerts/popUps';
+import { formStyle, h2Style, headerStyle, inputStyle, labelAndInputDiv, pageStyle } from '../utils/style';
 const CreatePayment = () => {
   const {id}=useParams()
   const navigate=useNavigate()
@@ -48,38 +49,40 @@ const CreatePayment = () => {
 
   
   return (
-    <div className="shadow-xl  bg-slate-300  m-10 ">
-       <div className="py-4 bg-gray-200 rounded px-4 flex items-center shadow-xl justify-center ">
-          <h2 className="text-xl py-3 leading-3 font-bold text-gray-900">
+    <div className={`${pageStyle.data}`}>
+     <div className={`${headerStyle.data}`}>
+          <h2 className={`${h2Style.data}`}>
           Create Payment For {data?.user?.firstName} {data?.user?.lastName}</h2>
           </div>
-      <form onSubmit={handleSubmit(onSubmit)} className=" w-full my-5 space-y-10">
-         <div className="flex space-x-2 justify-around">
+      <form onSubmit={handleSubmit(onSubmit)} >
+      <div className={`${formStyle.data}`}>
+
+      
           
-            <div className="w-1/3">
+      <div className={`${labelAndInputDiv.data}`}>
               <label htmlFor="">User Name</label>
-              <input  value={data?.user?.firstName} disabled  type="text" className="input input-bordered input-secondary w-full " {...register("IdNumber", {minLength:8 })}></input>
+              <input  value={data?.user?.firstName} disabled  type="text" className={`${inputStyle.data}`} {...register("IdNumber", {minLength:8 })}></input>
               <p className="text-red-500"> {errors.IdNumber && <span>Atleast 8 charators required</span>}</p>
             </div>
 
-            <div className="w-1/3">
+            <div className={`${labelAndInputDiv.data}`}>
               <label htmlFor="">User ID</label>
-              <input value={data?.user?.username} disabled  type="text" className="input input-bordered input-secondary w-full " {...register("IdNumber", {minLength:8 })}></input>
+              <input value={data?.user?.username} disabled  type="text" className={`${inputStyle.data}`} {...register("IdNumber", {minLength:8 })}></input>
               <p className="text-red-500"> {errors.IdNumber && <span>Atleast 8 charators required</span>}</p>
             </div>
             
-          </div>
+     
 
-          <div className="flex space-x-2 justify-around">
+         
           
-          <div className="w-1/3">
+            <div className={`${labelAndInputDiv.data}`}>
             <label htmlFor="">Amount</label>
-            <input   type="number" className="input input-bordered input-secondary w-full " {...register("amount", {required:true})}></input>
+            <input   type="number" className={`${inputStyle.data}`} {...register("amount", {required:true})}></input>
             <p className="text-red-500"> {errors.amount && <span>Amount Required</span>}</p>
           </div>
-          <div className="min-w-[300px] w-1/3">
+          <div className={`${labelAndInputDiv.data}`}>
             <label htmlFor="">Payment For</label>
-            <select   className="input input-bordered input-secondary w-full " {...register("paymentFor", {required:true})}>
+            <select   className={`${inputStyle.data}`} {...register("paymentFor", {required:true})}>
             <option value=""></option>
       <option value="registrations">Registration</option>
       <option value="emd">EMD</option>
@@ -92,18 +95,17 @@ const CreatePayment = () => {
     <p className="text-red-500"> {errors.paymentFor && <span>This field cannot empty</span>}</p>
 
           </div>
-        </div>
+        
 
-          <div className="flex space-x-2 justify-around">
           
-          <div className="w-1/3">
+          <div className={`${labelAndInputDiv.data}`}>
             <label htmlFor="">Description</label>
-            <input   type="text" className="input input-bordered input-secondary w-full " {...register("description", { })}></input>
+            <input   type="text" className={`${inputStyle.data}`} {...register("description", { })}></input>
             {/* <p className="text-red-500"> {errors.description && <span>Atleast 8 charators required</span>}</p> */}
           </div>
-          <div className="min-w-[300px] w-1/3">
+          <div className={`${labelAndInputDiv.data}`}>
             <label htmlFor="">Payment Status</label>
-            <select   className="input input-bordered input-secondary w-full " {...register("paymentStatus", {})}>
+            <select  className={`${inputStyle.data}`} {...register("paymentStatus", {})}>
             {/* <option value=""></option> */}
       <option value="pending">Pending</option>
       <option value="success">Success</option>
@@ -113,12 +115,12 @@ const CreatePayment = () => {
     </select>
     <p className="text-red-500"> {errors.paymentStatus && <span>Please select Id proof type</span>}</p>
 
-          </div>
+  
 
 
           
         </div>
-        <div className="flex flex-col space-x-2 justify-center w-1/3 ml-28">
+        <div className={`${labelAndInputDiv.data}`}>
 
               <label  htmlFor="">Payment proof Image</label>
          
@@ -130,8 +132,9 @@ const CreatePayment = () => {
                 src={`https://api.autobse.com${payment?.data?.payment?.image?.url}`}
                 alt="No ID proof_Image"
               /> */}
-               <input type="file" className="p-1" {...register("imgForPaymentProof", { })}></input>
+               <input type="file" className={`${inputStyle.data}`} {...register("imgForPaymentProof", { })}></input>
             </div>
+</div>
 </div>
 <div className=" flex justify-center my-5">
           <button
@@ -139,6 +142,7 @@ const CreatePayment = () => {
             className="btn btn-outline btn-primary px-10"
           >Save </button>
         </div>
+      
         </form>
     </div>
   )
