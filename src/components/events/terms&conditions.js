@@ -1,5 +1,4 @@
- export const terms= {data:`Event Terms & Conditions:
-  1. All vehicles are sold on "As is where is basis"
+ export const terms= {data:`  1. All vehicles are sold on "As is where is basis"
   2. All vehicles to be inspected by the bidder / buyer before the auction & bidding .
   3. The bidder will be liable for transfer of vehicle.
   4. All issues related to RTO needs to be checked before bidding like RTO Objection / hold etc.

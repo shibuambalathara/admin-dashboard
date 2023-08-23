@@ -97,7 +97,7 @@ const EditVehicleComponent = () => {
       auctionManager: dataOnSubmit?.autionManager,
       parkingCharges: dataOnSubmit?.approxParkingCharges,
       insurance: dataOnSubmit?.insuranceStatus,
-
+      startPrice:+dataOnSubmit?.startPrice || null,
       insuranceValidTill: Insurance || null,
       tax: dataOnSubmit?.tax,
       taxValidityDate: tax || null,
