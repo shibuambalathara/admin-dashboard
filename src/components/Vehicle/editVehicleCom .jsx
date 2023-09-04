@@ -1,4 +1,4 @@
-import { input } from "@material-tailwind/react";
+
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
@@ -7,7 +7,8 @@ import {
   useUpdateVehicleMutation,
 } from "../../utils/graphql";
 import { ShowPopup } from "../alerts/popUps";
-
+import { FormFieldInput } from "../utils/formField";
+import format from 'date-fns/format'
 const EditVehicleComponent = () => {
   const [repoDate, setRepoDate] = useState("");
   const [insuranceValidTill, setinsuranceValidTill] = useState("");
@@ -26,22 +27,24 @@ const EditVehicleComponent = () => {
 
   useEffect(() => {
     if (data?.vehicle?.repoDt) {
-      setRepoDate(new Date(data?.vehicle?.repoDt).toISOString().slice(0, 16));
+      
+      const localDate=  converttolocaldate(data?.vehicle?.repoDt)
+      setRepoDate(localDate)
     }
     if (data?.vehicle?.insuranceValidTill) {
-      setinsuranceValidTill(
-        new Date(data?.vehicle?.insuranceValidTill).toISOString().slice(0, 16)
-      );
+    
+
+      const localDate=  converttolocaldate(data?.vehicle?.insuranceValidTill)
+      setinsuranceValidTill(localDate)
     }
     if (data?.vehicle?.taxValidityDate) {
-      setTaxValidTill(
-        new Date(data?.vehicle?.taxValidityDate).toISOString().slice(0, 16)
-      );
+      const localDate=  converttolocaldate(data?.vehicle?.taxValidityDate)
+      setTaxValidTill(localDate)
+    
     }
     if (data?.vehicle?.dateOfRegistration) {
-      setregistrationValidTil(
-        new Date(data?.vehicle?.dateOfRegistration).toISOString().slice(0, 16)
-      );
+    const localDate=  converttolocaldate(data?.vehicle?.dateOfRegistration)
+      setregistrationValidTil(localDate)
     }
     data?.vehicle?.rightImage &&
       setImages((data?.vehicle?.rightImage).split(","));
@@ -58,15 +61,20 @@ const EditVehicleComponent = () => {
   const onSubmit = (dataOnSubmit) => {
     console.log(dataOnSubmit, "data on submit");
     const cleanedRightImage = dataOnSubmit?.rightImage.replace(/,\n/g, ',');
-    let repo, tax, Insurance;
+    let repo, tax, InsuranceValidity,regDate;
     if (dataOnSubmit?.repoDate) {
       repo = new Date(dataOnSubmit?.repoDate).toISOString();
+      alert(tax)
     }
     if (dataOnSubmit?.insuranceValidDate) {
-      Insurance = new Date(dataOnSubmit?.insuranceValidDate).toISOString();
+      InsuranceValidity = new Date(dataOnSubmit?.insuranceValidDate).toISOString();
     }
     if (dataOnSubmit?.taxValidityDate) {
       tax = new Date(dataOnSubmit?.taxValidityDate).toISOString();
+     
+    }
+    if(dataOnSubmit?.dateOfRegistration){
+      regDate=new Date(dataOnSubmit?.dateOfRegistration).toISOString();
     }
     const vehicle = {
       // event:{connect:{id}},
@@ -79,7 +87,7 @@ const EditVehicleComponent = () => {
       make: dataOnSubmit?.vehicleCompanyName,
       model: dataOnSubmit?.model,
       varient: dataOnSubmit?.varient,
-      categoty: dataOnSubmit?.categoty,
+      categoty: dataOnSubmit?.category,
       fuel: dataOnSubmit?.fuel,
       type: dataOnSubmit?.type,
       rcStatus: dataOnSubmit?.rcStatus,
@@ -91,14 +99,14 @@ const EditVehicleComponent = () => {
       yardLocation: dataOnSubmit?.yardLocation,
       startBidAmount: +dataOnSubmit?.startPrice || null,
       reservePrice: +dataOnSubmit?.reservePrice || null,
-      repoDt: repo || null,
+      repoDt: repo ,
       veicleLocation: dataOnSubmit?.vehicleLocation,
       vehicleRemarks: dataOnSubmit?.vehicleRemarks,
       auctionManager: dataOnSubmit?.autionManager,
       parkingCharges: dataOnSubmit?.approxParkingCharges,
-      insurance: dataOnSubmit?.insuranceStatus,
+      insurance: dataOnSubmit?.insurance,
       startPrice:+dataOnSubmit?.startPrice || null,
-      insuranceValidTill: Insurance || null,
+      insuranceValidTill: InsuranceValidity || null,
       tax: dataOnSubmit?.tax,
       taxValidityDate: tax || null,
       fitness: dataOnSubmit?.fitness,
@@ -123,7 +131,7 @@ const EditVehicleComponent = () => {
       area: dataOnSubmit?.area,
       state: dataOnSubmit?.state,
       paymentTerms: dataOnSubmit?.paymentTerms,
-      // dateOfRegistration:dataOnSubmit?.
+       dateOfRegistration:regDate,
       hypothication: dataOnSubmit?.hypothication,
       climateControl: dataOnSubmit?.climateControl,
       doorCount: +dataOnSubmit?.doorCount || null,
@@ -165,7 +173,7 @@ const EditVehicleComponent = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid sm:grid-cols-3 gap-x-20 gap-y-5 mx-5">
          
-              <div className=" ">
+              {/* <div className=" ">
                 <label className="t" htmlFor=" ">
                   Registration{" "}
                 </label>
@@ -178,23 +186,9 @@ const EditVehicleComponent = () => {
                   {" "}
                   {errors.regNo && <span>Register Number required</span>}
                 </p>
-              </div>
-              {/* <div className=" ">
-                <label className="t" htmlFor=" ">
-                  vehicle id{" "}
-                </label>
-                <input
-                  value={id}
-                  type="text"
-                  {...register("eventId", { required: true })}
-                  placeholder="select"
-                  className="w-full  bg-slate-200  border border-gray-300 rounded mt-2 py-1 px-4 outline-none shadow text-gray-700  hover:bg-white "
-                />
-                <p className="text-red-500">
-                  {" "}
-                  {errors.eventId && <span>Event Id required</span>}
-                </p>
               </div> */}
+                        <FormFieldInput defaultValue={data?.vehicle?.registrationNumber} label="Registration" type="text" name="regNo" register={register} error={errors.regNo} required/>
+
           
          
               <div className="flex flex-col ">
@@ -215,7 +209,7 @@ const EditVehicleComponent = () => {
                 </select>
               </div>
         
-              <div className="flex flex-col ">
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Loan Agreement number{" "}
                 </label>
@@ -230,10 +224,11 @@ const EditVehicleComponent = () => {
                     <span>Loan Agreement Number required</span>
                   )}
                 </p>
-              </div>
-         
+              </div> */}
+                     <FormFieldInput label="Loan Agreement number" type="text" defaultValue={data?.vehicle?.loanAgreementNo} name="loanANum" register={register} error={errors.loanANum} required/>
+
              
-              <div className="flex flex-col ">
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Registered Owner Name
                 </label>
@@ -242,9 +237,10 @@ const EditVehicleComponent = () => {
                   {...register("regOwnerName", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-             
-              <div className="flex flex-col ">
+              </div> */}
+                         <FormFieldInput defaultValue={data?.vehicle?.registeredOwnerName} label="Registered Owner Name" type="text" name="regOwnerName" register={register} error={errors.regOwnerName} />
+
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Quote Increment{" "}
                 </label>
@@ -254,11 +250,12 @@ const EditVehicleComponent = () => {
                   {...register("quoteInc", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-           
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.quoteIncreament} label="Quote Increment" type="number" defaultValue='1000' name="quoteInc" register={register} error={errors.quoteInc} />
+
          
            
-              <div className="flex flex-col ">
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Vehicle Company Name
                 </label>
@@ -267,9 +264,10 @@ const EditVehicleComponent = () => {
                   {...register("vehicleCompanyName", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-          
-              <div className="flex flex-col ">
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.make} label="Vehicle Company Name" type="text" name="vehicleCompanyName" register={register} error={errors.vehicleCompanyName} />
+
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Model{" "}
                 </label>
@@ -278,11 +276,12 @@ const EditVehicleComponent = () => {
                   {...register("model", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
+              </div> */}
      
-            
+              <FormFieldInput defaultValue={data?.vehicle?.model} label="Model" type="text" name="model" register={register} error={errors.model} />
+
               
-              <div className="flex flex-col ">
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Varient
                 </label>
@@ -291,9 +290,11 @@ const EditVehicleComponent = () => {
                   {...register("varient", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.varient} label="Varient" type="text" name="varient" register={register} error={errors.varient} />
+
             
-              <div className="flex flex-col ">
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Category{" "}
                 </label>
@@ -302,9 +303,10 @@ const EditVehicleComponent = () => {
                   {...register("category", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-        
-              <div className="flex flex-col ">
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.categoty} label="Category" type="text" name="category" register={register} error={errors.category} />
+
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Fuel
                 </label>
@@ -313,7 +315,9 @@ const EditVehicleComponent = () => {
                   {...register("fuel", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.fuel} label="Fuel" type="text" name="fuel" register={register} error={errors.fuel} />
+{/* 
               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Type{" "}
@@ -323,9 +327,10 @@ const EditVehicleComponent = () => {
                   {...register("type", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-       
-           
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.type} label="Type" type="text" name="type" register={register} error={errors.type} />
+
+{/*            
               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Rc status
@@ -335,7 +340,9 @@ const EditVehicleComponent = () => {
                   {...register("rcStatus", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.rcStatus} label="Rc status" type="text" name="rcStatus" register={register} error={errors.rcStatus} />          
+{/* 
               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Year Of Manufacture{" "}
@@ -346,10 +353,11 @@ const EditVehicleComponent = () => {
                   {...register("yearOfManuFacture", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
+              </div> */}
+              <FormFieldInput  defaultValue={data?.vehicle?.yearOfManufacture} label="Year Of Manufacture" type="number" name="yearOfManuFacture" register={register} error={errors.yearOfManuFacture} />
+
     
-    
-              <div className="flex flex-col ">
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Ownership
                 </label>
@@ -359,8 +367,10 @@ const EditVehicleComponent = () => {
                   {...register("Ownership", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-              <div className="flex flex-col ">
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.ownership} label="Ownership" type="number" name="Ownership" register={register} error={errors.Ownership} />
+
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Mileage{" "}
                 </label>
@@ -370,10 +380,11 @@ const EditVehicleComponent = () => {
                   {...register("mileage", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
+              </div> */}
     
-         
-              <div className="flex flex-col ">
+              <FormFieldInput defaultValue={data?.vehicle?.mileage} label="Mileage" type="number" name="mileage" register={register} error={errors.mileage} />
+
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Km Reading
                 </label>
@@ -383,8 +394,10 @@ const EditVehicleComponent = () => {
                   {...register("kmReading", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-              <div className="flex flex-col ">
+              </div> */}
+              <FormFieldInput  defaultValue={data?.vehicle?.kmReading} label="Km Reading" type="number" name="kmReading" register={register} error={errors.kmReading} />
+
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Insurance Status{" "}
                 </label>
@@ -393,10 +406,11 @@ const EditVehicleComponent = () => {
                   {...register("insuranceStatus", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-       
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.insuranceStatus} label="Insurance Status" type="text" name="insuranceStatus" register={register} error={errors.insuranceStatus} />
+
          
-              <div className="flex flex-col ">
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Yard Location
                 </label>
@@ -405,7 +419,9 @@ const EditVehicleComponent = () => {
                   {...register("yardLocation", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.yardLocation} label="Yard Location" type="text" name="yardLocation" register={register} error={errors.yardLocation} />
+{/* 
               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Start Price{" "}
@@ -416,10 +432,11 @@ const EditVehicleComponent = () => {
                   {...register("startPrice", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-    
+              </div> */}
+              <FormFieldInput  defaultValue={data?.vehicle?.startBidAmount} label="Start Price" type="number" name="startPrice" register={register} error={errors.startPrice} />
+
            
-              <div className="flex flex-col ">
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Reserve price
                 </label>
@@ -429,8 +446,10 @@ const EditVehicleComponent = () => {
                   {...register("reservePrice", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-              <div className="flex flex-col ">
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.reservePrice} label="Reserve price" type="number" name="reservePrice" register={register} error={errors.reservePrice} />
+
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Repo Date{" "}
                 </label>
@@ -443,10 +462,11 @@ const EditVehicleComponent = () => {
                     className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                   />
                 </div>
-              </div>
+              </div> */}
+              <FormFieldInput  defaultValue={repoDate} label="Repo Date" type="datetime-local" name="repoDate" register={register} error={errors.repoDate} />
+
           
-          
-              <div className="flex flex-col ">
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Vehicle Remarks
                 </label>
@@ -455,8 +475,10 @@ const EditVehicleComponent = () => {
                   {...register("vehicleRemarks", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-              <div className="flex flex-col ">
+              </div> */}
+              <FormFieldInput  defaultValue={data?.vehicle?.vehicleRemarks} label="Vehicle Remarks" type="text" name="vehicleRemarks" register={register} error={errors.vehicleRemarks} />
+
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Vechile Loaction{" "}
                 </label>
@@ -465,10 +487,11 @@ const EditVehicleComponent = () => {
                   {...register("vehicleLocation", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-         
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.veicleLocation} label="Vehicle Locaction" type="text" name="vehicleLocation" register={register} error={errors.vehicleLocation} />
+
             
-              <div className="flex flex-col ">
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Parking Charges
                 </label>
@@ -477,8 +500,10 @@ const EditVehicleComponent = () => {
                   {...register("parkingCharge", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-              <div className="flex flex-col ">
+              </div>   */}
+                        <FormFieldInput defaultValue={data?.vehicle?.parkingCharges} label="Parking Charges" type="text" name="parkingCharge" register={register} error={errors.parkingCharge} />
+
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Permit{" "}
                 </label>
@@ -487,9 +512,10 @@ const EditVehicleComponent = () => {
                   {...register("permit", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-       
-           
+              </div> */}
+              <FormFieldInput  defaultValue={data?.vehicle?.permit} label=" Permit" type="text" name="permit" register={register} error={errors.permit} />
+
+{/*            
               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Insurance
@@ -500,7 +526,9 @@ const EditVehicleComponent = () => {
                   {...register("insurance", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.insurance} label="Insurance" type="text" name="insurance" register={register} error={errors.insurance} />
+{/* 
               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Insurance valid Till{" "}
@@ -513,14 +541,15 @@ const EditVehicleComponent = () => {
                     defaultValue={insuranceValidTill}
                     className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                   />
-                  {/* <input
+                   <input
                     type="time"
                     className="max-w-[160px] ml-5 border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                  /> */}
-                </div>
-              </div>
-       
-              <div className="flex flex-col ">
+                  />
+                </div> 
+            </div> */}
+              <FormFieldInput  defaultValue={insuranceValidTill} label=" Insurance valid Till" type="datetime-local" name="insuranceValidDate" register={register} error={errors.insuranceValidDate} />
+
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Tax
                 </label>
@@ -530,8 +559,10 @@ const EditVehicleComponent = () => {
                   {...register("tax", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-              <div className="flex flex-col ">
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.tax} label="Tax" type="text" name="tax" register={register} error={errors.tax} />
+
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Tax Validity Date{" "}
                 </label>
@@ -543,15 +574,16 @@ const EditVehicleComponent = () => {
                     defaultValue={taxValidTill}
                     className="w-full border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                   />
-                  {/* <input
+                  <input
                     type="time"
                     className="max-w-[160px] ml-5 border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-                  /> */}
+                  /> 
                 </div>
-              </div>
+              </div> */}
+              <FormFieldInput  defaultValue={taxValidTill} label=" Tax Validity Date" type="datetime-local" name="taxValidityDate" register={register} error={errors.taxValidityDate} /> 
+
           
-          
-              <div className="flex flex-col ">
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Fitness
                 </label>
@@ -560,8 +592,10 @@ const EditVehicleComponent = () => {
                   {...register("fitness", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-              <div className="flex flex-col ">
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.fitness} label="Fitness" type="text" name="fitness" register={register} error={errors.fitness} />
+
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Fitness Permit{" "}
                 </label>
@@ -570,10 +604,11 @@ const EditVehicleComponent = () => {
                   {...register("fitnessPermit", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-     
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.fitnessPermit} label="Fitness Permit" type="text" name="fitnessPermit" register={register} error={errors.fitnessPermit} />
+
         
-              <div className="flex flex-col ">
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Engine Number
                 </label>
@@ -582,8 +617,10 @@ const EditVehicleComponent = () => {
                   {...register("engineNumber", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-              <div className="flex flex-col ">
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.engineNo} label="Engine Number" type="text" name="engineNumber" register={register} error={errors.engineNumber} />
+
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Chassis No{" "}
                 </label>
@@ -592,12 +629,13 @@ const EditVehicleComponent = () => {
                   {...register("chassisNo", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-        
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.chassisNo} label="Chassis No" type="text" name="chassisNo" register={register} error={errors.chassisNo} />
+
 
         
         
-              <div className="flex flex-col ">
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Inspection Link
                 </label>
@@ -606,20 +644,23 @@ const EditVehicleComponent = () => {
                   {...register("inspectLink", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-              <div className="flex flex-col ">
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.inspectionLink} label="Inspection Link" type="text" name="inspectionLink" register={register} error={errors.inspectionLink} />
+
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
-                  Autobse Contact
+                  
                 </label>
                 <input
                   defaultValue={data?.vehicle?.autobseContact}
                   {...register("autobseContact", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-           
+              </div> */}
+              <FormFieldInput  defaultValue={data?.vehicle?.autobseContact} label="Autobse Contact" type="text" name="autobseContact" register={register} error={errors.autobseContact} />
+
          
-              <div className="flex flex-col ">
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Autobse Contact Person
                 </label>
@@ -628,8 +669,10 @@ const EditVehicleComponent = () => {
                   {...register("autoBseContactPerson", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-              <div className="flex flex-col ">
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.autobse_contact_person} label="Autobse Contact Person" type="text" name="autobse_contact_person" register={register} error={errors.autobse_contact_person} />
+
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Vehicle Condition{" "}
                 </label>
@@ -638,10 +681,11 @@ const EditVehicleComponent = () => {
                   {...register("vehicleCondition", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-         
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.vehicleCondition} label="Vehicle Condition" type="text" name="vehicleCondition" register={register} error={errors.vehicleCondition} />
+
         
-              <div className="flex flex-col ">
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Power Steering
                 </label>
@@ -650,8 +694,10 @@ const EditVehicleComponent = () => {
                   {...register("powerSteering", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-              <div className="flex flex-col ">
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.powerSteering} label="Power Steering" type="text" name="powerSteering" register={register} error={errors.powerSteering} />
+
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Shape{" "}
                 </label>
@@ -660,10 +706,11 @@ const EditVehicleComponent = () => {
                   {...register("shape", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-          
+              </div> */}
+              <FormFieldInput  defaultValue={data?.vehicle?.shape} label="Shape" type="text" name="shape" register={register} error={errors.shape} />
+
         
-              <div className="flex flex-col ">
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Color
                 </label>
@@ -672,8 +719,10 @@ const EditVehicleComponent = () => {
                   {...register("color", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-              <div className="flex flex-col ">
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.color} label="Color" type="text" name="color" register={register} error={errors.color} />
+
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   State{" "}
                 </label>
@@ -682,10 +731,11 @@ const EditVehicleComponent = () => {
                   {...register("state", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-          
+              </div> */}
+              <FormFieldInput  defaultValue={data?.vehicle?.state} label="State" type="text" name="state" register={register} error={errors.state} />
+
             
-              <div className="flex flex-col ">
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   City
                 </label>
@@ -694,8 +744,10 @@ const EditVehicleComponent = () => {
                   {...register("city", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-              <div className="flex flex-col ">
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.city} label="City" type="text" name="city" register={register} error={errors.city} />
+
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Area{" "}
                 </label>
@@ -704,10 +756,11 @@ const EditVehicleComponent = () => {
                   {...register("area", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.area} label="Area" type="text" name="area" register={register} error={errors.area} />
+
           
-          
-              <div className="flex flex-col ">
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Payment Terms
                 </label>
@@ -717,13 +770,15 @@ const EditVehicleComponent = () => {
                   {...register("paymentTerms", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-              <div className="flex flex-col ">
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.paymentTerms} label="Payment Terms" type="text" name="paymentTerms" register={register} error={errors.paymentTerms} />
+
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Date of Registration{" "}
                 </label>
 
-                <div className="flex">
+                {/* <div className="flex">
                   <input
                     defaultValue={registrationValidTill}
                     type="datetime-local"
@@ -734,11 +789,13 @@ const EditVehicleComponent = () => {
                     type="time"
                     className="max-w-[160px] ml-5 border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                   /> */}
-                </div>
-              </div>
-         
+               
         
-              <div className="flex flex-col ">
+           
+              <FormFieldInput defaultValue={registrationValidTill} label="Date of Registration" type="datetime-local" name="dateOfRegistration" register={register} error={errors.dateOfRegistration} />
+
+        
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Hypothication
                 </label>
@@ -747,8 +804,10 @@ const EditVehicleComponent = () => {
                   {...register("hypothication", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-              <div className="flex flex-col ">
+              </div> */}
+              <FormFieldInput  defaultValue={data?.vehicle?.hypothication} label="Hypothication" type="text" name="hypothication" register={register} error={errors.hypothication} />
+
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Climate Control{" "}
                 </label>
@@ -757,10 +816,11 @@ const EditVehicleComponent = () => {
                   {...register("climateControl", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-     
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.climateControl} label="Climate Control" type="text" name="climateControl" register={register} error={errors.climateControl} />
+
           
-              <div className="flex flex-col ">
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Door Count
                 </label>
@@ -770,8 +830,10 @@ const EditVehicleComponent = () => {
                   {...register("doorCount", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-              <div className="flex flex-col ">
+              </div> */}
+              <FormFieldInput  defaultValue={data?.vehicle?.doorCount} label="Door Count" type="number" name="doorCount" register={register} error={errors.doorCount} />
+
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Gear Box{" "}
                 </label>
@@ -780,9 +842,11 @@ const EditVehicleComponent = () => {
                   {...register("gearBox", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.gearBox} label="Gear Box" type="text" name="gearBox" register={register} error={errors.gearBox} />
+
           
-            
+{/*             
               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Buyer Fees
@@ -792,8 +856,10 @@ const EditVehicleComponent = () => {
                   {...register("buyerFees", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-              <div className="flex flex-col ">
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.buyerFees} label="Buyer Fees" type="text" name="buyerFees" register={register} error={errors.buyerFees} />
+
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   RTO fine{" "}
                 </label>
@@ -802,10 +868,11 @@ const EditVehicleComponent = () => {
                   {...register("rtoFine", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-         
+              </div> */}
+              <FormFieldInput  defaultValue={data?.vehicle?.rtoFine} label="RTO fine" type="text" name="rtoFine" register={register} error={errors.rtoFine} />
+
        
-              <div className="flex flex-col ">
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   parking Rate
                 </label>
@@ -814,8 +881,10 @@ const EditVehicleComponent = () => {
                   {...register("parkingRate", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-              <div className="flex flex-col ">
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.parkingRate} label="parking Rate" type="text" name="parkingRate" register={register} error={errors.parkingRate} />
+
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Approx Parking Charges{" "}
                 </label>
@@ -824,10 +893,12 @@ const EditVehicleComponent = () => {
                   {...register("approxParkingCharges", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.approxParkingCharges} label="Approx Parking Charges" type="text" name="approxParkingCharges" register={register} error={errors.approxParkingCharges} />
+
            
         
-              <div className="flex flex-col ">
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Client Contact Person
                 </label>
@@ -836,8 +907,10 @@ const EditVehicleComponent = () => {
                   {...register("clientContactPerson", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-              <div className="flex flex-col ">
+              </div> */}
+              <FormFieldInput  defaultValue={data?.vehicle?.clientContactPerson} label="Client Contact Person" type="text" name="clientContactPerson" register={register} error={errors.clientContactPerson} />
+
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Client Contact No{" "}
                 </label>
@@ -846,9 +919,10 @@ const EditVehicleComponent = () => {
                   {...register("clientContactNo", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-         
-       
+              </div> */}
+              <FormFieldInput defaultValue={data?.vehicle?.clientContactNo} label=" Client Contact No" type="text" name="clientContactNo" register={register} error={errors.clientContactNo} />
+
+{/*        
               <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Additional Remarks
@@ -858,14 +932,11 @@ const EditVehicleComponent = () => {
                   {...register("AdditionalRemarks", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
-              {/* <div className="flex flex-col ">
-                <label className="t" htmlFor=" ">
-                  Watched By{" "}
-                </label>
-                <input   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white " />
               </div> */}
-              <div className="flex flex-col ">
+              <FormFieldInput defaultValue={data?.vehicle?.additionalRemarks} label="Additional Remarks" type="text" name="AdditionalRemarks" register={register} error={errors.AdditionalRemarks} />
+
+              
+              {/* <div className="flex flex-col ">
                 <label className="t" htmlFor=" ">
                   Auction Manager
                 </label>
@@ -874,7 +945,9 @@ const EditVehicleComponent = () => {
                   {...register("autionManager", {})}
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
-              </div>
+              </div> */}
+              <FormFieldInput  defaultValue={data?.vehicle?.auctionManager} label="Auction Manager" type="text" name="auctionManager" register={register} error={errors.auctionManager} />
+
           
             {/* <div className=" w-full  flex justify-between space-x-72">
              
@@ -920,6 +993,20 @@ export default EditVehicleComponent;
 
 
 function formatTextAreaValue(text) {
-  if (!text) return ""; // Handle cases where text is undefined or empty
+  if (!text) return ""; 
   return text.replace(/,/g, ',\n');
+}
+function converttolocaldate(isoDate){
+
+
+  const localDate = new Date(isoDate);
+  const year = localDate.getFullYear();
+  const month = String(localDate.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
+  const day = String(localDate.getDate()).padStart(2, '0');
+  const hours = String(localDate.getHours()).padStart(2, '0');
+  const minutes = String(localDate.getMinutes()).padStart(2, '0');
+  
+  const formattedDateTimeLocal = `${year}-${month}-${day}T${hours}:${minutes}`;
+  console.log("Formatted DateTime-Local:", formattedDateTimeLocal);
+  return formattedDateTimeLocal
 }
