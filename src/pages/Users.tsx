@@ -26,17 +26,16 @@ const handleInputData=(data:any)=>{
 
 
 
-const handleState=(state:string)=>{
-  setStateData(state)
-}
-const handledata=(data:any)=>{
-setStateData('')
- setUsersData(data)
 
+const handledata=(data:any)=>{
+
+ setUsersData(data)
 
 }
 
 useEffect(() => {
+  console.log("input data",inputData)
+  console.log("users data",usersData)
  
 
 }, [usersData]);
@@ -61,18 +60,19 @@ useEffect(() => {
               Users Data Table{" "}
             </div>
       </div>
-      <div className="flex my-2 justify-evenly M-5 shadow-xl">
+      <div className=" md:flex my-2 justify-evenly M-5 shadow-xl">
 
         <SearchByNumber inputData={handleInputData} /> 
         <SearchByDate setDate={handleInputData}/>
         <SeachByRole setRole={handleInputData}/>
-        {/* <SearchByState setState={handleInputData}/> */}
+         <SearchByState setState={handleInputData}/> 
       
       </div>
+      <UsersByState state={inputData}  fetchData={handledata}/> 
         <UserByMobile  mobile={inputData} fetchData={handledata}/>
         <UsersByDate startDate={inputData} fetchData={handledata}/>
         <UsersByRole role={inputData}  fetchData={handledata}/>
-        {/* <UsersByState state={inputData}  fetchData={handledata}/> */}
+    
     {    usersData.length<1 &&    <ViewUsers/>}
         <div>
       

@@ -1,9 +1,7 @@
 
 
-import React, { useEffect, useMemo, useState } from "react";
-import { Button } from "@material-tailwind/react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useUsersQuery, useDeleteUserMutation, useUserauthenticationQuery } from "../../utils/graphql";
+import React, { useMemo, } from "react";
+import { useLocation } from "react-router-dom";
 import { useTable,useSortBy, usePagination, useGlobalFilter } from "react-table";
 import SearchUser from "../utils/search";
 import format from 'date-fns/format'
@@ -11,8 +9,9 @@ import Swal from "sweetalert2";
 import TableComponent from "../utils/table";
 import PaginationComponent from "../utils/pagination";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserPen } from "@fortawesome/free-solid-svg-icons";
+import { faFileArrowDown, faUserPen } from "@fortawesome/free-solid-svg-icons";
 import { faCreditCard } from "@fortawesome/free-regular-svg-icons";
+import UsersDetailsExcel from "./UsersDetailsExcel";
 
 const TabbleOfUsersOrUser = ({users}) => {
  
@@ -199,8 +198,8 @@ const handleMessage=(coupen)=>{
   
 
           </div> 
-          <div className="flex justify-end text-end">
-          {users.length>10 && <p className="font-bold">Count:<span>{users.length}</span></p>}
+          <div className="flex justify-end text-end space-x-2">
+           <p className="font-bold">Count:<span>{users.length}</span></p><span className="text-red-500"> <button onClick={()=>UsersDetailsExcel(users)}> <FontAwesomeIcon icon={faFileArrowDown} size="xl"/></button></span>
          </div>
           <TableComponent tableData={tableInstance} />
           { users && users.length>10 && <PaginationComponent tableData={tableInstance}/>}
