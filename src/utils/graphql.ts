@@ -1182,6 +1182,8 @@ export type Mutation = {
   createUser?: Maybe<User>;
   createUsers?: Maybe<Array<Maybe<User>>>;
   createVehicle?: Maybe<Vehicle>;
+  createVehicleImage?: Maybe<VehicleImage>;
+  createVehicleImages?: Maybe<Array<Maybe<VehicleImage>>>;
   createVehicles?: Maybe<Array<Maybe<Vehicle>>>;
   createWorkSheet?: Maybe<WorkSheet>;
   createWorkSheets?: Maybe<Array<Maybe<WorkSheet>>>;
@@ -1210,6 +1212,8 @@ export type Mutation = {
   deleteUser?: Maybe<User>;
   deleteUsers?: Maybe<Array<Maybe<User>>>;
   deleteVehicle?: Maybe<Vehicle>;
+  deleteVehicleImage?: Maybe<VehicleImage>;
+  deleteVehicleImages?: Maybe<Array<Maybe<VehicleImage>>>;
   deleteVehicles?: Maybe<Array<Maybe<Vehicle>>>;
   deleteWorkSheet?: Maybe<WorkSheet>;
   deleteWorkSheets?: Maybe<Array<Maybe<WorkSheet>>>;
@@ -1241,6 +1245,8 @@ export type Mutation = {
   updateUser?: Maybe<User>;
   updateUsers?: Maybe<Array<Maybe<User>>>;
   updateVehicle?: Maybe<Vehicle>;
+  updateVehicleImage?: Maybe<VehicleImage>;
+  updateVehicleImages?: Maybe<Array<Maybe<VehicleImage>>>;
   updateVehicles?: Maybe<Array<Maybe<Vehicle>>>;
   updateWorkSheet?: Maybe<WorkSheet>;
   updateWorkSheets?: Maybe<Array<Maybe<WorkSheet>>>;
@@ -1383,6 +1389,16 @@ export type MutationCreateVehicleArgs = {
 };
 
 
+export type MutationCreateVehicleImageArgs = {
+  data: VehicleImageCreateInput;
+};
+
+
+export type MutationCreateVehicleImagesArgs = {
+  data: Array<VehicleImageCreateInput>;
+};
+
+
 export type MutationCreateVehiclesArgs = {
   data: Array<VehicleCreateInput>;
 };
@@ -1520,6 +1536,16 @@ export type MutationDeleteUsersArgs = {
 
 export type MutationDeleteVehicleArgs = {
   where: VehicleWhereUniqueInput;
+};
+
+
+export type MutationDeleteVehicleImageArgs = {
+  where: VehicleImageWhereUniqueInput;
+};
+
+
+export type MutationDeleteVehicleImagesArgs = {
+  where: Array<VehicleImageWhereUniqueInput>;
 };
 
 
@@ -1684,6 +1710,17 @@ export type MutationUpdateUsersArgs = {
 export type MutationUpdateVehicleArgs = {
   data: VehicleUpdateInput;
   where: VehicleWhereUniqueInput;
+};
+
+
+export type MutationUpdateVehicleImageArgs = {
+  data: VehicleImageUpdateInput;
+  where: VehicleImageWhereUniqueInput;
+};
+
+
+export type MutationUpdateVehicleImagesArgs = {
+  data: Array<VehicleImageUpdateArgs>;
 };
 
 
@@ -1940,6 +1977,9 @@ export type Query = {
   users?: Maybe<Array<User>>;
   usersCount?: Maybe<Scalars['Int']>;
   vehicle?: Maybe<Vehicle>;
+  vehicleImage?: Maybe<VehicleImage>;
+  vehicleImages?: Maybe<Array<VehicleImage>>;
+  vehicleImagesCount?: Maybe<Scalars['Int']>;
   vehicles?: Maybe<Array<Vehicle>>;
   vehiclesCount?: Maybe<Scalars['Int']>;
   workSheet?: Maybe<WorkSheet>;
@@ -2203,6 +2243,24 @@ export type QueryUsersCountArgs = {
 
 export type QueryVehicleArgs = {
   where: VehicleWhereUniqueInput;
+};
+
+
+export type QueryVehicleImageArgs = {
+  where: VehicleImageWhereUniqueInput;
+};
+
+
+export type QueryVehicleImagesArgs = {
+  orderBy?: Array<VehicleImageOrderByInput>;
+  skip?: Scalars['Int'];
+  take?: InputMaybe<Scalars['Int']>;
+  where?: VehicleImageWhereInput;
+};
+
+
+export type QueryVehicleImagesCountArgs = {
+  where?: VehicleImageWhereInput;
 };
 
 
@@ -3033,6 +3091,8 @@ export type UserWhereUniqueInput = {
 
 export type Vehicle = {
   __typename?: 'Vehicle';
+  AllImages?: Maybe<Array<VehicleImage>>;
+  AllImagesCount?: Maybe<Scalars['Int']>;
   ExcelFile?: Maybe<ExcelUpload>;
   additionalRemarks?: Maybe<Scalars['String']>;
   approxParkingCharges?: Maybe<Scalars['String']>;
@@ -3119,6 +3179,19 @@ export type Vehicle = {
 };
 
 
+export type VehicleAllImagesArgs = {
+  orderBy?: Array<VehicleImageOrderByInput>;
+  skip?: Scalars['Int'];
+  take?: InputMaybe<Scalars['Int']>;
+  where?: VehicleImageWhereInput;
+};
+
+
+export type VehicleAllImagesCountArgs = {
+  where?: VehicleImageWhereInput;
+};
+
+
 export type VehicleUserVehicleBidsArgs = {
   orderBy?: Array<BidOrderByInput>;
   skip?: Scalars['Int'];
@@ -3159,6 +3232,7 @@ export type VehicleBidStatusTypeNullableFilter = {
 };
 
 export type VehicleCreateInput = {
+  AllImages?: InputMaybe<VehicleImageRelateToManyForCreateInput>;
   ExcelFile?: InputMaybe<ExcelUploadRelateToOneForCreateInput>;
   additionalRemarks?: InputMaybe<Scalars['String']>;
   approxParkingCharges?: InputMaybe<Scalars['String']>;
@@ -3234,6 +3308,64 @@ export type VehicleCreateInput = {
   watchedBy?: InputMaybe<UserRelateToManyForCreateInput>;
   yardLocation?: InputMaybe<Scalars['String']>;
   yearOfManufacture?: InputMaybe<Scalars['Int']>;
+};
+
+export type VehicleImage = {
+  __typename?: 'VehicleImage';
+  VehicleRelation?: Maybe<Vehicle>;
+  id: Scalars['ID'];
+  url?: Maybe<Scalars['String']>;
+};
+
+export type VehicleImageCreateInput = {
+  VehicleRelation?: InputMaybe<VehicleRelateToOneForCreateInput>;
+  url?: InputMaybe<Scalars['String']>;
+};
+
+export type VehicleImageManyRelationFilter = {
+  every?: InputMaybe<VehicleImageWhereInput>;
+  none?: InputMaybe<VehicleImageWhereInput>;
+  some?: InputMaybe<VehicleImageWhereInput>;
+};
+
+export type VehicleImageOrderByInput = {
+  id?: InputMaybe<OrderDirection>;
+  url?: InputMaybe<OrderDirection>;
+};
+
+export type VehicleImageRelateToManyForCreateInput = {
+  connect?: InputMaybe<Array<VehicleImageWhereUniqueInput>>;
+  create?: InputMaybe<Array<VehicleImageCreateInput>>;
+};
+
+export type VehicleImageRelateToManyForUpdateInput = {
+  connect?: InputMaybe<Array<VehicleImageWhereUniqueInput>>;
+  create?: InputMaybe<Array<VehicleImageCreateInput>>;
+  disconnect?: InputMaybe<Array<VehicleImageWhereUniqueInput>>;
+  set?: InputMaybe<Array<VehicleImageWhereUniqueInput>>;
+};
+
+export type VehicleImageUpdateArgs = {
+  data: VehicleImageUpdateInput;
+  where: VehicleImageWhereUniqueInput;
+};
+
+export type VehicleImageUpdateInput = {
+  VehicleRelation?: InputMaybe<VehicleRelateToOneForUpdateInput>;
+  url?: InputMaybe<Scalars['String']>;
+};
+
+export type VehicleImageWhereInput = {
+  AND?: InputMaybe<Array<VehicleImageWhereInput>>;
+  NOT?: InputMaybe<Array<VehicleImageWhereInput>>;
+  OR?: InputMaybe<Array<VehicleImageWhereInput>>;
+  VehicleRelation?: InputMaybe<VehicleWhereInput>;
+  id?: InputMaybe<IdFilter>;
+  url?: InputMaybe<StringFilter>;
+};
+
+export type VehicleImageWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
 };
 
 export type VehicleManyRelationFilter = {
@@ -3346,6 +3478,7 @@ export type VehicleUpdateArgs = {
 };
 
 export type VehicleUpdateInput = {
+  AllImages?: InputMaybe<VehicleImageRelateToManyForUpdateInput>;
   ExcelFile?: InputMaybe<ExcelUploadRelateToOneForUpdateInput>;
   additionalRemarks?: InputMaybe<Scalars['String']>;
   approxParkingCharges?: InputMaybe<Scalars['String']>;
@@ -3425,6 +3558,7 @@ export type VehicleUpdateInput = {
 
 export type VehicleWhereInput = {
   AND?: InputMaybe<Array<VehicleWhereInput>>;
+  AllImages?: InputMaybe<VehicleImageManyRelationFilter>;
   ExcelFile?: InputMaybe<ExcelUploadWhereInput>;
   NOT?: InputMaybe<Array<VehicleWhereInput>>;
   OR?: InputMaybe<Array<VehicleWhereInput>>;
