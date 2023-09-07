@@ -11,9 +11,10 @@ import SearchUser from "../utils/search";
 import TableComponent from "../utils/table";
 import PaginationComponent from '../utils/pagination'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePlus, faUserPen } from "@fortawesome/free-solid-svg-icons";
+import { faCirclePlus, faFileArrowDown, faUserPen } from "@fortawesome/free-solid-svg-icons";
 import { faEye, faMoneyBill1 } from "@fortawesome/free-regular-svg-icons";
 import { FormatDate } from "../utils/dateFormat";
+import { ConvertToExcel } from "../utils/excelFormat";
 const PaymentTable = ({data}) => {
 
 
@@ -171,11 +172,16 @@ const PaymentTable = ({data}) => {
 
   return (
     <div>
-    <SearchUser
+      <div className="flex">
+      <SearchUser
       filter={globalFilter}
       className="  text-white "
       setFilter={setGlobalFilter}
     />
+      <button onClick={()=>ConvertToExcel(data)}><FontAwesomeIcon icon={faFileArrowDown} size="xl"/></button>
+
+      </div>
+
 
     <TableComponent tableData={tableInstance} />
 {data?.length>10 && <PaginationComponent tableData={tableInstance}/>}
