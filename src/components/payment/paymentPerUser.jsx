@@ -12,6 +12,7 @@ import PaginationComponents from '../utils/pagination';
 import { ConvertToExcel } from '../utils/excelFormat';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { FormatDate } from '../utils/dateFormat';
 
 const PaymentPerUser = () => {
     const {id}=useParams()
@@ -57,13 +58,13 @@ navigate(`/update-payment/${paymentId}`)
             { Header: "Amount", accessor: "amount" },
             {Header:"Payment For",accessor:"paymentFor"},
            { Header: "Status", accessor: "status" },
-           { Header: "Created At", accessor: ({createdAt})=>{return format(new Date( createdAt),`dd/MM/yy, HH:mm`)} },
-           { Header: "Updated At",  accessor: ({updatedAt})=>{return format(new Date( updatedAt),`dd/MM/yy, HH:mm`)} },
+           { Header: "Created At", accessor: ({createdAt})=>{return FormatDate(createdAt)} },
+           { Header: "Updated At",  accessor: ({updatedAt})=>{return FormatDate( updatedAt)} },
            {
             Header: "Registration Expire",
                accessor: ({ RegistrationExpire }) =>RegistrationExpire && new Date( RegistrationExpire),
         
-   Cell: ({ value }) =>value ? format(value, "dd/MM/yy, HH:mm"):'-',
+   Cell: ({ value }) =>value ? FormatDate(value):'-',
            },
             { Header: "Created By ",  accessor: data => data.createdBy ? data.createdBy.firstName : "self" },
             {
