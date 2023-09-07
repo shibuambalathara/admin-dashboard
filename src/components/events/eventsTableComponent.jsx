@@ -1,13 +1,8 @@
-import { Button, Tab } from '@material-tailwind/react'
 import React, { useEffect, useMemo,useState } from 'react'
 import {useNavigate} from 'react-router-dom'
 import { useTable,useSortBy,usePagination,useGlobalFilter } from "react-table"
 import {useDeleteEventMutation, useEventTableQuery, useUpdateEventMutation} from '../../utils/graphql'
 import SearchUser from '../utils/search'
-
-import format from 'date-fns/format'
-import * as XLSX from 'xlsx';
-import * as FileSaver from 'file-saver';
 import Report from './report'
 import Swal from "sweetalert2";
 import TableComponent from '../utils/table'
@@ -16,6 +11,8 @@ import LimitedDataPaginationComponents from '../utils/limitedDataPagination'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCar, faFileArrowDown, faFileArrowUp, faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import { faEye, faTrashCan } from '@fortawesome/free-regular-svg-icons'
+import  { ConvertToExcel } from '../utils/excelFormat'
+import { FormatDate } from '../utils/dateFormat'
 
 
 const EventsTableComponent = () => {
@@ -40,18 +37,7 @@ useEffect(()=>{
 
 
   
-   const handleReport=(report)=>{
-    console.log(report,"report")
-
-    const convertToExcel = (report) => {
-      const worksheet = XLSX.utils.json_to_sheet(report);
-      const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-      const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-      const excelData = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
-      FileSaver.saveAs(excelData, 'Event-Report.xlsx');
-    }
-    convertToExcel(report);
-   }
+   
    const handleDealer=async(eventId)=>{
 
 
@@ -116,9 +102,9 @@ const handleDelete=(id)=>{
             Header: "start Date",
             accessor: ({ startDate }) => new Date( startDate),
             sortType: "datetime",
-            Cell: ({ value }) => format(value, "dd/MM/yy, HH:mm"),
+            Cell: ({ value }) => FormatDate(value),
           },
-          { Header: "End Date ", accessor: ({endDate})=>{return format(new Date (endDate),`dd/MM/yy, HH:mm`)} },
+          { Header: "End Date ", accessor: ({endDate})=>{return FormatDate(endDate)} },
           { Header: "Status ", accessor: "status" }, 
           {
             Header: "Add Partcipant",
@@ -169,7 +155,7 @@ const handleDelete=(id)=>{
           {
             Header: "Report (excel)",
             Cell: ({ row }) => (
-              <button className="text-2xl " onClick={() => handleReport(row.original.Report)}><FontAwesomeIcon icon={faFileArrowDown} /></button>
+              <button className="text-2xl " onClick={() => ConvertToExcel(row.original.Report)}><FontAwesomeIcon icon={faFileArrowDown} /></button>
             )
           },
   {

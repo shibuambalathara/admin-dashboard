@@ -9,6 +9,9 @@ import Swal from "sweetalert2";
 import jsPDF from 'jspdf';
 import TableComponent from '../utils/table';
 import PaginationComponents from '../utils/pagination';
+import { ConvertToExcel } from '../utils/excelFormat';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFileArrowDown } from '@fortawesome/free-solid-svg-icons';
 
 const PaymentPerUser = () => {
     const {id}=useParams()
@@ -119,7 +122,7 @@ navigate(`/update-payment/${paymentId}`)
             Header: "Download",
             Cell: ({ row }) => {
               
-    if(row.original.status==='success' ){return(   <button className="btn bg-pink-500" onClick={() => handleDownload(row.original)}>Download</button>)}
+    if(row.original.status==='success' ){return(   <button className="btn bg-pink-500" onClick={() => handleDownload(row.original)}>PDF</button>)}
     else {
       
       return row.original.status;}
@@ -179,8 +182,11 @@ navigate(`/update-payment/${paymentId}`)
     
     <div className=" flex flex-col w-full justify-center m-auto ">
     <div className="mb-2">
-  <div className="text-center font-extrabold my-5 text-lg min-w-full">  Payment Data Table of {data?.user?.firstName} {data?.user?.lastName} </div>
+  <div className="text-center  font-extrabold my-5 text-lg min-w-full">  Payment Data Table of {data?.user?.firstName} {data?.user?.lastName} </div>
+   <div className='flex'>
     <SearchUser filter={globalFilter} className="  text-white " setFilter={setGlobalFilter}/>
+    <button onClick={()=>ConvertToExcel(data?.user?.payments)}><FontAwesomeIcon icon={faFileArrowDown} size="xl"/></button>
+    </div>
   </div>
   
           <TableComponent tableData={tableInstance}/>

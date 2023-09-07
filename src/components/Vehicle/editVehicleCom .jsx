@@ -8,8 +8,10 @@ import {
 } from "../../utils/graphql";
 import { ShowPopup } from "../alerts/popUps";
 import { FormFieldInput } from "../utils/formField";
-import format from 'date-fns/format'
+import ImageUpload from "../imageUpload/imageUpload";
+
 const EditVehicleComponent = () => {
+  const[viewImageUpload,setViewImageUpload]=useState(false)
   const [repoDate, setRepoDate] = useState("");
   const [insuranceValidTill, setinsuranceValidTill] = useState("");
   const [taxValidTill, setTaxValidTill] = useState("");
@@ -251,7 +253,7 @@ const EditVehicleComponent = () => {
                   className=" border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
                 />
               </div> */}
-              <FormFieldInput defaultValue={data?.vehicle?.quoteIncreament} label="Quote Increment" type="number" defaultValue='1000' name="quoteInc" register={register} error={errors.quoteInc} />
+              <FormFieldInput defaultValue={data?.vehicle?.quoteIncreament} label="Quote Increment" type="number"  name="quoteInc" register={register} error={errors.quoteInc} />
 
          
            
@@ -975,20 +977,30 @@ const EditVehicleComponent = () => {
   defaultValue={formatTextAreaValue(data?.vehicle?.rightImage)}
   {...register("rightImage", {})}
  
-  className="w-full h-40 border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700 hover:bg-white"
+  className="w-3/4 h-40 border-gray-400 rounded m-2 p-2 flex   outline-none shadow text-gray-700 hover:bg-white"
 />
-       
+
+<div className="w-1/2">
+
+{viewImageUpload && <ImageUpload/>}
+ </div>
             <div className="text-center my-5">
               <button className="btn btn-success mb-5"> Save Changes</button>
             </div>
          
         </form>
+        <button onClick={()=>setViewImageUpload(!viewImageUpload)} className="btn bg-red-500 text-right">Image Upload</button>
+
+
+
       </div>
     </div>
   );
 };
 
 export default EditVehicleComponent;
+
+
 
 
 

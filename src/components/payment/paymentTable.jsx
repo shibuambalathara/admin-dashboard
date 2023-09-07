@@ -1,6 +1,4 @@
-
-import { Button } from "@material-tailwind/react";
-import React, { useMemo, useState } from "react";
+import React, { useMemo,} from "react";
 import { useNavigate } from "react-router-dom";
 import {
   useTable,
@@ -10,12 +8,12 @@ import {
 } from "react-table";
 
 import SearchUser from "../utils/search";
-import format from "date-fns/format";
 import TableComponent from "../utils/table";
 import PaginationComponent from '../utils/pagination'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus, faUserPen } from "@fortawesome/free-solid-svg-icons";
 import { faEye, faMoneyBill1 } from "@fortawesome/free-regular-svg-icons";
+import { FormatDate } from "../utils/dateFormat";
 const PaymentTable = ({data}) => {
 
 
@@ -39,20 +37,20 @@ const PaymentTable = ({data}) => {
         Header: "Created At",
         accessor: ({ createdAt }) => new Date(createdAt),
         sortType: "datetime",
-        Cell: ({ value }) => format(value, "dd/MM/yy, HH:mm"),
+        Cell: ({ value }) => FormatDate(value),
       },
       {
         Header: "Updated At",
         accessor: ({ updatedAt }) => new Date(updatedAt),
         sortType: "datetime",
-        Cell: ({ value }) => format(value, "dd/MM/yy, HH:mm"),
+        Cell: ({ value }) => FormatDate(value),
       },
       {
         Header: "Registration Expire",
         accessor: ({ RegistrationExpire }) =>
           RegistrationExpire && new Date(RegistrationExpire),
 
-    Cell: ({ value }) => ( value ?  format(value, "dd/MM/yy, HH:mm") : "-"),
+    Cell: ({ value }) => ( value ?   FormatDate(value) : "-"),
     className:"bg-red-100", 
       },
       { Header: "Payment For ", accessor: "paymentFor" },

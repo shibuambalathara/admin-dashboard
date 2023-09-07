@@ -16,11 +16,11 @@ import {
 import SearchUser from "../utils/search";
 
 import Swal from "sweetalert2";
-import format from "date-fns/format";
 import TableComponent from "../utils/table";
 import PaginationComponents from "../utils/pagination";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import { FormatDate } from "../utils/dateFormat";
 
 const ViewQueries = () => {
   const navigate = useNavigate();
@@ -85,13 +85,13 @@ const ViewQueries = () => {
       {
         Header: "Created At ",
         accessor: ({ createdAt }) => {
-          return format(new Date(createdAt), `dd/MM/yy, HH:mm`);
+          return  FormatDate(createdAt);
         },
       },
       {
         Header: "Updated At ",
         accessor: ({ updatedAt }) => {
-          return format(new Date(updatedAt), `dd/MM/yy, HH:mm`);
+          return FormatDate(updatedAt);
         },
       },
       { Header: "State", accessor: "email" },
