@@ -1,8 +1,7 @@
 import { useState } from "react";
-import storage from "../firebaseConfig";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { v4 } from 'uuid';
-import imageCompression from 'browser-image-compression';
+
+
+import { HandleUpload } from "./handleUpload";
 function ImageUpload() {
   // State to store uploaded files and their download URLs
   const [files, setFiles] = useState([]);
@@ -15,69 +14,7 @@ function ImageUpload() {
     setFiles(fileArray);
   }
 
-  const handleUpload =async () => {
-    if (!files || files.length === 0) {
-      alert("Please upload at least one image!");
-      return;
-    }
-try{
 
-
-  const options = {
-    maxSizeMB: 1,          // Maximum size in megabytes
-    maxWidthOrHeight: 800, // Maximum width or height (whichever is larger)
-    useWebWorker: true,    // Use a web worker for better performance
-  };
-
-  const compressedFiles = await Promise.all(
-    files.map(async (file) => {
-      const compressedFile = await imageCompression(file, options);
-      return compressedFile;
-    })
-  );
-
-
-const uploadTasks = compressedFiles.map((file) => {
-      const storageRef = ref(storage, `/files/${file.name + v4()}`);
-      const uploadTask = uploadBytesResumable(storageRef, file);
-
-      return new Promise((resolve, reject) => {
-        uploadTask.on(
-          "state_changed",
-          (snapshot) => {
-            const percent = Math.round(
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-            );
-            setPercent(percent);
-          },
-          (err) => {
-            console.log(err);
-            reject(err);
-          },
-          async () => {
-            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-            resolve(downloadURL);
-          }
-        );
-      });
-    });
-
-    Promise.all(uploadTasks)
-    .then((urls) => {
-      const urlsString = urls.join(', ');
-      setDownloadUrls(urlsString);
-      setFiles([]); // Clear the selected files after successful upload
-      setPercent(0); // Reset the progress bar
-    })
-  
-    .catch((error) => {
-      console.error("Error uploading images:", error);
-    });
-  } catch (error) {
-    console.error("Error compressing or uploading images:", error);
-  }
-
-};
 
 
   return (
@@ -92,7 +29,8 @@ const uploadTasks = compressedFiles.map((file) => {
       />
       {files.length > 0 &&
         <>
-          <button className="btn w-fit bg-red-500" onClick={handleUpload}>Upload to Firebase</button>
+                    <button className="btn w-fit bg-red-500" onClick={() => HandleUpload(files, setFiles, setPercent, setDownloadUrls)}>Upload</button>
+
           <p>{percent} % done</p>
         </>
       }
@@ -102,7 +40,7 @@ const uploadTasks = compressedFiles.map((file) => {
          
             <div>
             <textarea
-            className="w-full border-2 border-solid border-black h-36 p-1"
+            className="w-full border-2 border-solid border-black h-36 "
             value={downloadUrls}
             readOnly
           ></textarea>

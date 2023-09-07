@@ -2,7 +2,7 @@ import SearchUser from "./search";
 
 
 const TableComponent = ({tableData,UsersLength}) => {
-console.log(tableData,"ull")
+
  
 
     const tableInstance = tableData
