@@ -1,6 +1,5 @@
-import { input } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
-import Select from 'react-select';
+
 
 import React, { useState } from "react";
 import { useCreateUserMutation, useSelectorsQuery } from "../../utils/graphql";
@@ -12,9 +11,7 @@ const AddUser = () => {
   const {
     register,
     handleSubmit,
-    watch,
-    reset,
-    formState: { errors },
+       formState: { errors },
   } = useForm();
   const [createUser, { error }] = useCreateUserMutation();
   const { data } = useSelectorsQuery();

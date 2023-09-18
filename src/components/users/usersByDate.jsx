@@ -6,7 +6,7 @@
 
 
 import {  useUsersSearchQuery } from '../../utils/graphql';
-import TabbleOfUsersOrUser from './tabbleData';
+import TabbleOfUsersOrUser from './tableData';
 
 
 const UsersByDate = ({startDate,fetchData}) => {

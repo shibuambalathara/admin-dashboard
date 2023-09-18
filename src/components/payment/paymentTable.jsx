@@ -1,20 +1,11 @@
 import React, { useMemo,} from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  useTable,
-  useSortBy,
-  usePagination,
-  useGlobalFilter,
-} from "react-table";
-
-import SearchUser from "../utils/search";
 import TableComponent from "../utils/table";
-import PaginationComponent from '../utils/pagination'
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePlus, faFileArrowDown, faUserPen } from "@fortawesome/free-solid-svg-icons";
+import { faCirclePlus, faUserPen } from "@fortawesome/free-solid-svg-icons";
 import { faEye, faMoneyBill1 } from "@fortawesome/free-regular-svg-icons";
 import { FormatDate } from "../utils/dateFormat";
-import { ConvertToExcel } from "../utils/excelFormat";
 const PaymentTable = ({data}) => {
 
 
@@ -143,28 +134,9 @@ const PaymentTable = ({data}) => {
     []
   );
 
-  const tableData = useMemo(() => (data ? data : []), [data]);
-  const tableInstance = useTable(
-    {
-      columns,
-      data: tableData,
-      initialState: {
-        sortBy: [
-          {
-            id: "Updated At",
-            desc: true,
-          },
-        ],
-      },
-    },
-    useGlobalFilter,
-    useSortBy,
-    usePagination
-  );
 
-  const { state, setGlobalFilter } = tableInstance;
 
-  const { globalFilter } = state;
+
 
 
 
@@ -172,19 +144,11 @@ const PaymentTable = ({data}) => {
 
   return (
     <div>
-      <div className="flex">
-      <SearchUser
-      filter={globalFilter}
-      className="  text-white "
-      setFilter={setGlobalFilter}
-    />
-      <button onClick={()=>ConvertToExcel(data)}><FontAwesomeIcon icon={faFileArrowDown} size="xl"/></button>
-
-      </div>
+  
 
 
-    <TableComponent tableData={tableInstance} />
-{data?.length>10 && <PaginationComponent tableData={tableInstance}/>}
+    <TableComponent tableData={data} columns={columns} sortBy='Created At'/>
+
 
   </div>
   )

@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useCoupenPerPaymentQuery } from "../../utils/graphql";
-import format from 'date-fns/format';
-import TableComponent from "./coupenTable";
+import TableComponent from "../utils/table";
+
 
 const CoupensPerPaymentComponent = () => {
   const { id } = useParams();
@@ -26,7 +26,6 @@ console.log(data,"payment")
     []
   );
 
-  const tableData = React.useMemo(() => (data ? data?.payment.coupenDetail : []), [data]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -36,7 +35,7 @@ console.log(data,"payment")
       <div className="text-center font-extrabold my-1 text-2xl w-full">
          Coupens Of Payment {data?.payment?.amount} From {data?.payment?.user?.firstName} {data?.payment?.user?.lastName}
       </div>
-      <TableComponent columns={columns} data={tableData} />
+      <TableComponent columns={columns} tableData={data?.payment.coupenDetail} />
     </div>
   );
 };

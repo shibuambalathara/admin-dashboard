@@ -3,15 +3,12 @@
 
 
 import React, {  useMemo,useState } from 'react'
-import {useNavigate, useParams} from 'react-router-dom'
-import { useTable,useSortBy,usePagination,useGlobalFilter } from "react-table"
-import { useCoupensperUserQuery, useDeleteVehicleMutation, useUpdateCoupenMutation, useVehicleDetailsPerEventQuery, useVehiclePerEventQuery, useVehicleTableQuery} from '../../utils/graphql'
-import SearchUser from '../utils/search'
+import { useParams} from 'react-router-dom'
+import { useCoupensperUserQuery, useDeleteVehicleMutation, useUpdateCoupenMutation, useVehicleDetailsPerEventQuery} from '../../utils/graphql'
 import format from 'date-fns/format'
 import Swal from "sweetalert2";
 
 import TableComponent from '../utils/table'
-import PaginationComponents from '../utils/pagination'
 
 
 
@@ -187,49 +184,10 @@ Swal.fire({
         [coupens,userId]
       );
 
-      const tableData=useMemo(() => (data ? data.event?.vehicles : []), [data]);
-      const tableInstance = useTable(
-        {
-          columns,
-          data: tableData,
-          initialState: {
-            sortBy: [
-              {
-                id: "Bid Time Expire",
-                desc: false,
-              },
-            ],
-          },
-        },
-       
-        useGlobalFilter,
-        useSortBy,
-        usePagination,
-        
-        
-      );
      
-      const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
+ 
     
-        page,
-        prepareRow,
-        nextPage,
-        previousPage,
-        canNextPage,
-        canPreviousPage,
-        pageOptions,
-        pageCount,
-        gotoPage,
-        setPageSize: setTablePageSize,
-        state: { pageIndex: tablePageIndex, pageSize: tablePageSize },
-        state,
-        setGlobalFilter,
-      } = tableInstance;
     
-      const { globalFilter } = state;
     
       if (loading) return <p>Loading...</p>;
 
@@ -246,7 +204,6 @@ Swal.fire({
    
      <div className='flex justify-between'>
       <div>
-      <SearchUser filter={globalFilter} className="  text-white " setFilter={setGlobalFilter}/>
 
       </div>
     <div className='h-1 font-bold'>Seller Name :{data?.event?.seller?.name}</div>
@@ -258,9 +215,8 @@ Swal.fire({
     </div>
 
 
-      <TableComponent tableData={tableInstance}/>
+      <TableComponent tableData={data.event?.vehicles} columns={columns} sortBy='Bid Time Expire'/>
 
-    <PaginationComponents tableData={tableInstance}/>
   </div>
   </div>
   )

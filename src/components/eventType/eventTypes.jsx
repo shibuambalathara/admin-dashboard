@@ -51,49 +51,9 @@ const EventTypesTable = () => {
         []
       );
 
-      const tableData=useMemo(() => (data ? data.eventTypes : []), [data]);
-      const tableInstance = useTable(
-        {
-          columns,
-          data: tableData,
-          initialState: {
-            sortBy: [
-              {
-                id: "Name",
-                desc: true,
-              },
-            ],
-          },
-        },
-       
-        useGlobalFilter,
-        useSortBy,
-        usePagination,
-        
-        
-      );
+    
      
-      const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-    
-        page,
-        prepareRow,
-        nextPage,
-        previousPage,
-        canNextPage,
-        canPreviousPage,
-        pageOptions,
-        pageCount,
-        gotoPage,
-        setPageSize: setTablePageSize,
-        state: { pageIndex: tablePageIndex, pageSize: tablePageSize },
-        state,
-        setGlobalFilter,
-      } = tableInstance;
-    
-      const { globalFilter } = state;
+  
 
 
       useEffect(()=>{
@@ -113,12 +73,11 @@ refetch()
       <AddEventType/>
       </div>
       <div className="text-center font-extrabold my-5 text-lg min-w-full">  Events type Table </div>
-    <SearchUser filter={globalFilter} className="  text-white " setFilter={setGlobalFilter}/>
 
-  <TableComponent tableData={tableInstance}/>
+  <TableComponent tableData={data?.eventTypes} columns={columns}/>
       
      
-          <PaginationComponents tableData={tableInstance}/>
+        
   </div>
 
 

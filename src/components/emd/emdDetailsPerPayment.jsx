@@ -3,12 +3,10 @@ import React, { useEffect, useMemo, useState } from "react";
 import format from 'date-fns/format'
 import { useNavigate,useParams } from "react-router-dom";
 import { useTable,useSortBy, usePagination, useGlobalFilter } from "react-table";
- import SearchUser from "../utils/search";
 
 import Swal from "sweetalert2";
 import {   useEmdUpdatesPerPaymentQuery } from "../../utils/graphql";
 import TableComponent from "../utils/table";
-import PaginationComponents from "../utils/pagination";
 
 
 const EmdDetails = () => {
@@ -21,7 +19,6 @@ const EmdDetails = () => {
   const { data, loading, error,refetch } =useEmdUpdatesPerPaymentQuery({variables:{ where: {payment:{id: {equals:id}}}}});
  // const [changeStatus]=useMutationTokenDetailMutation()
 
- console.log("this is the data from view users11", data);
 
 
 const handleMessage=(emdUpdates)=>{
@@ -55,17 +52,13 @@ const handleMessage=(emdUpdates)=>{
       
       { Header: "Emd No", accessor: "emdNo",  className: 'w-1/3', },
        { Header: "vehicle BuyingLimit", accessor: "vehicleBuyingLimitIncrement" ,  className: 'w-1/3', },
-      // { Header: "Last Name", accessor: "lastName" ,  className: 'w-1/3', },
-      // { Header: "Mobile", accessor: "mobile",  className: 'w-1/3',   },
-
-      // { Header: "Emd", accessor: "emd",  className: 'w-1/3',   },
-      // { Header: "No Of Tokens", accessor: "noOfTokens",  className: 'w-1/3',   },
+  
       {
         Header: "Message",
         Cell: ({ row }) => (
            
              
-               <button className="btn bg-teal-500" onClick={()=>handleMessage(row.original) }>Message to:{row.original.user.mobile}</button>
+               <button className="btn bg-teal-500" onClick={()=>handleMessage(row.original) }>Message to:{row.original?.user?.mobile}</button>
     
     
   
@@ -76,58 +69,19 @@ const handleMessage=(emdUpdates)=>{
         Header: "View Token status ",
         Cell: ({ row }) => (
     
-          <a className="btn btn-primary w-24" href={`/coupenPerPayment/${row.original.payment.id}`} target="_blank" rel="noopener noreferrer">View status</a>
+          <a className="btn btn-primary w-24" href={`/coupenPerPayment/${row.original?.payment?.id}`} target="_blank" rel="noopener noreferrer">View status</a>
         ),
       },
      
     ],
     []
   );
-  const tableData = useMemo(() => (data ? data.emdUpdates : []), [data]);
 
 
-  const tableInstance = useTable(
-    {
-      columns,
-      data: tableData,
-      initialState: {
-        sortBy: [
-          {
-            id: "idNo",
-            desc: true,
-          },
-        ],
-      },
-    },
-   
-    useGlobalFilter,
-    useSortBy,
-    usePagination,
-    
-    
-  );
 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
 
-    page,
-    prepareRow,
-    nextPage,
-    previousPage,
-    canNextPage,
-    canPreviousPage,
-    pageOptions,
-    pageCount,
-    gotoPage,
-    setPageSize: setTablePageSize,
-    state: { pageIndex: tablePageIndex, pageSize: tablePageSize },
-    state,
-    setGlobalFilter,
-  } = tableInstance;
 
-  const { globalFilter } = state;
+
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :{error}</p>;
@@ -145,15 +99,10 @@ const handleMessage=(emdUpdates)=>{
               {" "}
               Emd of Amount {data?.emdUpdates[0]?.payment?.amount} of {data?.emdUpdates[0]?.user?.firstName} {data?.emdUpdates[0]?.user?.lastName} {" "}
             </div>
-            <SearchUser
-              filter={globalFilter}
-              className="  text-white "
-              setFilter={setGlobalFilter}
-            />
+       
           </div>
           
-          <TableComponent tableData={tableInstance}/>
-         <PaginationComponents tableData={tableInstance}/>
+          <TableComponent tableData={ data.emdUpdates} columns={columns}/>
         </div>
       </div>
     </div>

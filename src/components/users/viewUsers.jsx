@@ -6,7 +6,7 @@ import { useTable,useSortBy, usePagination, useGlobalFilter } from "react-table"
 import SearchUser from "../utils/search";
 import format from 'date-fns/format'
 import UserByMobile from "./userByMobile";
-import TabbleOfUsersOrUser from "./tabbleData";
+import TabbleOfUsersOrUser from "./tableData";
 import LimitedDataPaginationComponents from "../utils/limitedDataPagination";
 
 

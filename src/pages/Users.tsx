@@ -9,7 +9,7 @@ import SearchByDate from '../components/utils/SearchByDate';
 import SeachByRole from '../components/utils/seachByRole';
 import SearchByState from '../components/utils/searchByState';
 import UsersByRole from '../components/users/usersByRole';
-import TabbleOfUsersOrUser from '../components/users/tabbleData';
+import TabbleOfUsersOrUser from '../components/users/tableData';
 
 const Users = () => {
 

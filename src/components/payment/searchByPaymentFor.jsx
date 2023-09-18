@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useForm } from "react-hook-form";
 import { usePaymentsSearchQuery } from '../../utils/graphql';
+import { paymentsFor } from '../utils/constantValues';
 
 const SeachByPaymentFor = ({Response}) => {
   
@@ -24,14 +25,7 @@ if(selectedPaymentOption){
         formState: { errors },
       } = useForm();
 
-      const paymentFor = [
-        { value: '', label: 'Select Payment For' },
-        { value: 'registrations', label: 'Registration' },
-        { value: 'emd', label: 'emd' },
-        { value: 'refund', label: 'Refund' },
-        { value: 'other', label: 'Other' },
-        // Add more payment options as needed
-      ];
+   
 
       const handlePaymentOptionChange = (selectedOption) => {
         setValue('paymentOption', selectedOption);
@@ -50,7 +44,7 @@ if(selectedPaymentOption){
         className='input input-bordered input-secondary w-64 '
         onChange={(e) => handlePaymentOptionChange(e.target.value)}
       >
-        {paymentFor.map((option) => (
+        {paymentsFor.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}
           </option>

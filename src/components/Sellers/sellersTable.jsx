@@ -101,54 +101,6 @@ refetch()
   );
 
 
-  const tableData=useMemo(() => (data ? data?.sellers : []), [data]);
- 
-
-
- 
-  const tableInstance = useTable(
-    {
-      columns,
-      data: tableData,
-      initialState: {
-        sortBy: [
-          {
-            id: "eventsCount",
-            desc: true,
-          },
-        ],
-      },
-    },
-   
-    useGlobalFilter,
-    useSortBy,
-    usePagination,
-    
-    
-  );
- 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-
-    page,
-    prepareRow,
-    nextPage,
-    previousPage,
-    canNextPage,
-    canPreviousPage,
-    pageOptions,
-    pageCount,
-    gotoPage,
-    setPageSize: setTablePageSize,
-    state: { pageIndex: tablePageIndex, pageSize: tablePageSize },
-    state,
-    setGlobalFilter,
-  } = tableInstance;
-
-  const { globalFilter } = state;
-
   if (loading) return <p>Loading...</p>;
 
   if (error) return <p>Error :{error}</p>;
@@ -169,17 +121,13 @@ refetch()
             <div className="text-center font-extrabold my-5 text-lg w-full">
               SELLERS{" "}
             </div>
-            <SearchUser
-              filter={globalFilter}
-              className="  text-white "
-              setFilter={setGlobalFilter}
-            />
+           
           </div>
 
        
-          <TableComponent  tableData={tableInstance}/>
+          <TableComponent  tableData={data?.sellers} columns={columns}/>
        
-          <PaginationComponents tableData={tableInstance}/>
+        
         </div>
       </div>
     </div>

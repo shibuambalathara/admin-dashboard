@@ -4,6 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import{useUserQuery,useUpdatePaymentMutation,usePaymentDetailsQuery} from '../../utils/graphql'
 import { ShowPopup } from '../alerts/popUps';
 import { formStyle, h2Style, headerStyle, inputStyle, labelAndInputDiv, pageStyle } from '../utils/style';
+import { SelectInput } from '../utils/formField';
+import { paymentsFor } from '../utils/constantValues';
 const UpdatePayment = () => {
   
   const {id}=useParams()
@@ -84,17 +86,8 @@ const UpdatePayment = () => {
             <p className="text-red-500"> {errors.amount && <span>Amount Required</span>}</p>
           </div>
           <div className={`${labelAndInputDiv.data}`}>
-            <label htmlFor="">Payment For</label>
-            <select defaultValue={payment?.data?.payment?.paymentFor}  className={`${inputStyle.data}`} {...register("paymentFor", {})}>
-            <option value={payment?.data?.payment?.paymentFor}>{payment?.data?.payment?.paymentFor}</option>
-      <option value="registrations">Registration</option>
-      <option value="emd">EMD</option>
-      <option value="refund">Refund</option>
-      <option value="other">Other</option>
+          <SelectInput label="Payment For" name="paymentFor" defaultValue={payment?.data?.payment?.paymentFor} options={paymentsFor} register={register}/>
 
-      
-    
-    </select>
     <p className="text-red-500"> {errors.paymentFor && <span>This field cannot empty</span>}</p>
 
           </div>

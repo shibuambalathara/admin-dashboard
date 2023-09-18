@@ -17,7 +17,7 @@ export const ConvertToExcel = (data) => {
                 }
                 return formattedItem;
     });
-    console.log("excel data",formattedData)
+  
  
       const worksheet = XLSX.utils.json_to_sheet(formattedData);
       const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
@@ -25,6 +25,6 @@ export const ConvertToExcel = (data) => {
       const excelData = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
       FileSaver.saveAs(excelData, 'excel_download.xlsx');
  
-      
+
 }
 
