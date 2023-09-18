@@ -1,13 +1,12 @@
-import { Button } from "@material-tailwind/react";
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTable, usePagination, useGlobalFilter,useSortBy } from "react-table";
 import { useDeleteLocationMutation, useEventTableQuery, useUpdateLocationMutation } from "../../utils/graphql";
-import SearchUser from "../utils/search";
+
 import { useLocationsQuery } from "../../utils/graphql";
 import Swal from "sweetalert2";
 import TableComponent from "../utils/table";
-import PaginationComponents from "../utils/pagination";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
 
@@ -102,52 +101,6 @@ const [updateLocation]=useUpdateLocationMutation()
     []
   );
 
-  const tableData = useMemo(() => (data ? data.locations : []), [data]);
-
-  
-  
-  const tableInstance = useTable(
-    {
-      columns,
-      data: tableData,
-      initialState: {
-        sortBy: [
-          {
-            id: "name",
-            desc: true,
-          },
-        ],
-      },
-    },
-   
-    useGlobalFilter,
-    useSortBy,
-    usePagination,
-    
-    
-  );
- 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-
-    page,
-    prepareRow,
-    nextPage,
-    previousPage,
-    canNextPage,
-    canPreviousPage,
-    pageOptions,
-    pageCount,
-    gotoPage,
-    setPageSize: setTablePageSize,
-    state: { pageIndex: tablePageIndex, pageSize: tablePageSize },
-    state,
-    setGlobalFilter,
-  } = tableInstance;
-
-  const { globalFilter } = state;
 
   if (loading) return <p>Loading...</p>;
 
@@ -162,17 +115,13 @@ const [updateLocation]=useUpdateLocationMutation()
             <div className="text-center font-extrabold my-5 text-lg w-full">
               LOCATIONS{" "}
             </div>
-            <SearchUser
-              filter={globalFilter}
-              className="  text-white "
-              setFilter={setGlobalFilter}
-            />
+          
       
 
        
-          <TableComponent tableData={tableInstance}/>
+          <TableComponent tableData={data?.locations} columns={columns}/>
        
-          <PaginationComponents tableData={tableInstance}/>
+        
         </div>
       </div>
     </div>

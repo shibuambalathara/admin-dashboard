@@ -1,0 +1,6 @@
+query Institutions {
+  institutions {
+  id 
+  name  
+  }
+}

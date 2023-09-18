@@ -1,16 +1,20 @@
 import SearchUser from "./search";
+import { useTable,useSortBy,usePagination,useGlobalFilter } from "react-table"
+import PaginationComponent from "../utils/pagination";
+import { ConvertToExcel } from "./excelFormat";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFileArrowDown } from "@fortawesome/free-solid-svg-icons";
+
+const TableComponent = ({tableData,columns,sortBy}) => {
+
+console.log("tabledata",tableData,"sort by",sortBy)  
 
 
-const TableComponent = ({tableData,UsersLength}) => {
-
- 
-
-    const tableInstance = tableData
     const {
       getTableProps,
       getTableBodyProps,
       headerGroups,
-  
+      pageIndex,
       page,
       prepareRow,
       nextPage,
@@ -20,13 +24,40 @@ const TableComponent = ({tableData,UsersLength}) => {
       pageOptions,
       pageCount,
       gotoPage,
+      
       setPageSize: setTablePageSize,
-      state: { pageIndex: tablePageIndex, pageSize: tablePageSize },
+      state: { pageIndex: tablePageIndex, pageSize: tablePageSize, },
       state,
       setGlobalFilter,
-    } = tableInstance;
-  
-    const { globalFilter } = state;
+    } =useTable(
+      {
+        columns,
+        data: tableData,
+        initialState: {
+          sortBy: [
+            {
+              id: sortBy, 
+              desc: true,
+            },
+          ],
+        },
+      },
+      useGlobalFilter, // Add useGlobalFilter here
+      useSortBy,
+      usePagination
+    );
+    const { globalFilter, } = state;
+    const paginationProps = {
+      page,
+      nextPage,
+      previousPage,
+      canNextPage,
+      canPreviousPage,
+      pageOptions,
+      pageCount,
+      gotoPage,
+      pageIndex
+    };
 
   return (
     <div className=" mx-1 shadow-xl  ">
@@ -34,7 +65,10 @@ const TableComponent = ({tableData,UsersLength}) => {
 
     <div className="   h-fit">
       <div className=" flex flex-col justify-center ">
-   
+        <div className="flex">
+      <SearchUser filter={globalFilter} className="  text-white bg-red-200" setFilter={setGlobalFilter}/>
+      <p className="font-bold">Count:<span>{tableData?.length}</span></p><span className="text-red-500">  <button onClick={()=>ConvertToExcel(tableData)}> <FontAwesomeIcon icon={faFileArrowDown} size="xl"/></button></span>
+      </div>
         <table  
           className="w-full  bg-white border-collapse border  border-1 border-gray-300  divide-y   text-gray-900"
           {...getTableProps()}
@@ -81,7 +115,7 @@ const TableComponent = ({tableData,UsersLength}) => {
             })}
           </tbody>
         </table>
-
+        { tableData && tableData.length>10 && <PaginationComponent {...paginationProps}/> }
 
   
   

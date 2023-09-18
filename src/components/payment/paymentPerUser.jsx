@@ -1,22 +1,16 @@
-import { Button } from '@material-tailwind/react'
-import React, { useEffect, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
-import { useTable,useSortBy, usePagination, useGlobalFilter } from "react-table";
 import {usePaymentOfUserQuery} from '../../utils/graphql'
-import SearchUser from '../utils/search'
 import format from 'date-fns/format'
 import Swal from "sweetalert2";
 import jsPDF from 'jspdf';
 import TableComponent from '../utils/table';
-import PaginationComponents from '../utils/pagination';
-import { ConvertToExcel } from '../utils/excelFormat';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileArrowDown } from '@fortawesome/free-solid-svg-icons';
+
 import { FormatDate } from '../utils/dateFormat';
 
 const PaymentPerUser = () => {
     const {id}=useParams()
-    const {data,loading,error,refetch}=usePaymentOfUserQuery({variables:{where:{id:id}}})
+    const {data,loading}=usePaymentOfUserQuery({variables:{where:{id:id}}})
     
     
     const navigate=useNavigate()
@@ -25,13 +19,13 @@ const PaymentPerUser = () => {
     //   navigate(`/view-user/${userId}`)
     // }
 
-    console.log(data,"data")
+   
     const handlePaymentStatus=(paymentId)=>{
 navigate(`/update-payment/${paymentId}`)
     }
     const handleMessage=(payment)=>{
       console.log(payment,"payment",data,"dddddd")
-      const {registrationNumber,currentBidAmount,amount,paymentFor,createdAt}=payment
+      const {amount,paymentFor,createdAt}=payment
       const formatedDate=format(new Date( createdAt),`dd/MM/yy, HH:mm`)
      const  {firstName,lastName}=data.user
      
@@ -136,43 +130,11 @@ navigate(`/update-payment/${paymentId}`)
         [data]
       );
 
-      const tableData=useMemo(() => (data ? data.user.payments : []), [data]);
-      const tableInstance=useTable({
-        columns ,
-        data: tableData,
-        initialState: {
-          sortBy: [
-            {
-              id: "createdAt",
-              desc: true,
-            },
-          ],
-        },
-      },  useGlobalFilter,
-      useSortBy,
-      usePagination,);
+
      
-        const {
-          getTableProps,
-          getTableBodyProps,
-          headerGroups,
-         
-          page,
-          prepareRow,
-          nextPage,
-          previousPage,
-          canNextPage,
-          canPreviousPage,
-          pageOptions,
-          pageCount,
-          gotoPage,
-          setPageSize: setTablePageSize,
-          state: { pageIndex: tablePageIndex, pageSize: tablePageSize },
-          state,
-          setGlobalFilter
-        } = tableInstance;
+
     
-        const {globalFilter}=state
+     
     
       if (loading) return <p>Loading...</p>;
       
@@ -184,40 +146,12 @@ navigate(`/update-payment/${paymentId}`)
     <div className=" flex flex-col w-full justify-center m-auto ">
     <div className="mb-2">
   <div className="text-center  font-extrabold my-5 text-lg min-w-full">  Payment Data Table of {data?.user?.firstName} {data?.user?.lastName} </div>
-   <div className='flex'>
-    <SearchUser filter={globalFilter} className="  text-white " setFilter={setGlobalFilter}/>
-    <button onClick={()=>ConvertToExcel(data?.user?.payments)}><FontAwesomeIcon icon={faFileArrowDown} size="xl"/></button>
-    </div>
+
   </div>
   
-          <TableComponent tableData={tableInstance}/>
-{/* <div className="flex justify-center">
-      <div className="flex justify-between mt-4">
-      <div>
-        <button
-          onClick={() => gotoPage(0)}
-          disabled={!canPreviousPage}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
-        >
-          {'<<'}
-        </button>
-        <button
-          onClick={() => previousPage()}
-          disabled={!canPreviousPage}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
-        >
-          {'<'}
-        </button>
-        <button
-          onClick={() => nextPage()}
-          disabled={!canNextPage}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
-          >  {'>'}</button>
-          </div>
-          </div>
-      
-    </div> */}
-    <PaginationComponents tableData={tableInstance}/>
+          <TableComponent tableData={data.user.payments} columns={columns} sortBy='Created At'/>
+
+  
   </div>
   </div>
   )

@@ -179,14 +179,9 @@ const ViewQueries = () => {
           <div className="text-center font-extrabold my-5 text-lg w-full">
             Enquiries{" "}
           </div>
-          <SearchUser
-            filter={globalFilter}
-            className="  text-white "
-            setFilter={setGlobalFilter}
-          />
+       
 
-          <TableComponent tableData={tableInstance} />
-          <PaginationComponents tableData={tableInstance} />
+          <TableComponent tableData={data?.contactuses} columns={columns} />
         </div>
      
     </div>

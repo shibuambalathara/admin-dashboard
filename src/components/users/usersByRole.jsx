@@ -1,5 +1,5 @@
 import {  useUsersSearchQuery } from '../../utils/graphql';
-import TabbleOfUsersOrUser from './tabbleData';
+import TabbleOfUsersOrUser from './tableData';
 
 
 const UsersByRole = ({role,fetchData}) => {

@@ -1,17 +1,17 @@
-import React from "react";
+import React,{useMemo} from "react";
 import { useParams } from "react-router-dom";
 import { useCoupensperUserQuery } from "../../utils/graphql";
-import format from 'date-fns/format';
-import TableComponent from "./coupenTable";
+import TableComponent from "../utils/table";
+
 
 const CoupensperUser = () => {
   const { id } = useParams();
   const { data, loading, error } = useCoupensperUserQuery({ variables: { where: { userDetail: { id: { equals: id } } } } });
 
-  const columns = React.useMemo(
+  const columns = useMemo(
     () => [
-      { Header: "Coupen Number", accessor: "coupenNumber", className: "w-1/3" },
-      { Header: "Token Status", accessor: "coupenStatus", className: "w-1/3" },
+      { Header: "Coupen Number", accessor: "coupenNumber" },
+      { Header: "Token Status", accessor: "coupenStatus" },
       {
         Header: "vehicle No",
         Cell: ({ row }) => (
@@ -26,7 +26,6 @@ const CoupensperUser = () => {
     []
   );
 
-  const tableData = React.useMemo(() => (data ? data?.coupens : []), [data]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -36,7 +35,8 @@ const CoupensperUser = () => {
       <div className="text-center font-extrabold my-1 text-2xl w-full">
         Coupens Of {data?.coupens[0]?.userDetail?.firstName} {data?.coupens[0]?.userDetail?.lastName}
       </div>
-      <TableComponent columns={columns} data={tableData} />
+      <TableComponent tableData={data?.coupens} columns={columns} />
+
     </div>
   );
 };

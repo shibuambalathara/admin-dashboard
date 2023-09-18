@@ -20,7 +20,7 @@ query VehicleDetails($where: VehicleWhereUniqueInput!) {
    kmReading
    insuranceStatus
    yardLocation
-  #  startPrice
+    startPrice
   startBidAmount
   currentBidAmount
    reservePrice

@@ -1,0 +1,20 @@
+query FindAuctions {
+  findAuctions {
+  address
+  auctionEndDate
+  auctionNotice
+  auctionStartDate
+  city
+  contactDetails
+  createdAt
+    emdAmount
+    emdSubmissionDate
+    id
+    institution_details {
+      name
+    }
+    listingId
+    propertyType
+    reservePrice
+  }
+}

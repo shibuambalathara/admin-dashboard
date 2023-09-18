@@ -2,11 +2,8 @@
 
 import React, { useMemo, } from "react";
 import { useLocation } from "react-router-dom";
-import { useTable,useSortBy, usePagination, useGlobalFilter } from "react-table";
-import SearchUser from "../utils/search";
 import Swal from "sweetalert2";
 import TableComponent from "../utils/table";
-import PaginationComponent from "../utils/pagination";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileArrowDown, faUserPen } from "@fortawesome/free-solid-svg-icons";
 import { faCreditCard } from "@fortawesome/free-regular-svg-icons";
@@ -131,51 +128,12 @@ const handleMessage=(coupen)=>{
     ],
     [users]
   );
-  const tableData = useMemo(() => (users? users : []), [users])
+  
 
 
-  const tableInstance = useTable(
-    {
-      columns,
-      data: tableData,
-      initialState: {
-        sortBy: [
-          {
-            id: "idNo",
-            desc: true,
-          },
-        ],
-      },
-    },
-   
-    useGlobalFilter,
-    useSortBy,
-    usePagination,
-    
-    
-  );
 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
 
-    page,
-    prepareRow,
-    nextPage,
-    previousPage,
-    canNextPage,
-    canPreviousPage,
-    pageOptions,
-    pageCount,
-    gotoPage,
-    setPageSize: setTablePageSize,
-    state: { pageIndex: tablePageIndex, pageSize: tablePageSize },
-    state,
-    setGlobalFilter,
-  } = tableInstance;
 
-  const { globalFilter } = state;
 
 
   
@@ -186,23 +144,11 @@ const handleMessage=(coupen)=>{
 
       <div className=" max-w-7xl mx-auto h-fit">
         <div className=" flex flex-col justify-center m-auto w-full">
-          <div className="flex">
       
-
-       { users && users.length>1 &&    <SearchUser
-              filter={globalFilter}
-              className="  text-white "
-              setFilter={setGlobalFilter}
-            />  }
-      
-  
-
-          </div> 
-          <div className="flex justify-end text-end space-x-2">
+          {/* <div className="flex justify-end text-end space-x-2">
            <p className="font-bold">Count:<span>{users.length}</span></p><span className="text-red-500"> <button onClick={()=>ConvertToExcel(users)}> <FontAwesomeIcon icon={faFileArrowDown} size="xl"/></button></span>
-         </div>
-          <TableComponent tableData={tableInstance} />
-          { users && users.length>10 && <PaginationComponent tableData={tableInstance}/>}
+         </div> */}
+          <TableComponent tableData={users}  columns={columns} sortBy='idNo'/>
         </div>
       </div>
     </div>

@@ -46,7 +46,7 @@ const Sidebar = () => {
     <div className='bg-black h-full shadow-xl px-1' >  
     <div className='flex justify-end'>
      
-    <button onClick={toggleSidebar} className='  bg-none text-white my-3 md:block hidden  '>
+    <button onClick={toggleSidebar} className='  bg-none text-white my-1 md:block hidden  '>
     <FontAwesomeIcon icon={faBars}  style={{ fontSize:24 }} />
    
         </button>
@@ -58,8 +58,8 @@ const Sidebar = () => {
 
           {item.path===pathNm?
           
-          <div  className='my-8'><button onClick={() => HandleClick(item.path)}  className='  text-start font-bold text-red-500  w-full '>  {item?.iconType}</button>  </div>
-          :<div  className='my-8 '><button onClick={() => HandleClick(item.path)}  className=' btn-ghost  text-start font-bold   w-full text-white'>   {item?.iconType}</button>  </div>
+          <div  className='my-7'><button onClick={() => HandleClick(item.path)}  className='  text-start font-bold text-red-500  w-full '>  {item?.iconType}</button>  </div>
+          :<div  className='my-7 '><button onClick={() => HandleClick(item.path)}  className=' btn-ghost  text-start font-bold   w-full text-white'>   {item?.iconType}</button>  </div>
       }
           </div>
           )
