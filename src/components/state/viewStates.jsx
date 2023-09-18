@@ -1,10 +1,8 @@
 
-import { Button } from "@material-tailwind/react";
 import React, { useMemo, useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTable, usePagination, useGlobalFilter,useSortBy } from "react-table";
 import { useDeleteStateMutation,useStatesQuery, useUpdateStateMutation} from "../../utils/graphql";
-import SearchUser from "../utils/search";
 
 import Swal from "sweetalert2";
 import TableComponent from "../utils/table";
@@ -103,52 +101,10 @@ const ViewStates = () => {
   );
 
 
-  const tableData=useMemo(() => (data ? data.states : []), [data]);
   
 
  
-  const tableInstance = useTable(
-    {
-      columns,
-      data: tableData,
-      initialState: {
-        sortBy: [
-          {
-            id: "name",
-            desc: true,
-          },
-        ],
-      },
-    },
-   
-    useGlobalFilter,
-    useSortBy,
-    usePagination,
-    
-    
-  );
- 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
 
-    page,
-    prepareRow,
-    nextPage,
-    previousPage,
-    canNextPage,
-    canPreviousPage,
-    pageOptions,
-    pageCount,
-    gotoPage,
-    setPageSize: setTablePageSize,
-    state: { pageIndex: tablePageIndex, pageSize: tablePageSize },
-    state,
-    setGlobalFilter,
-  } = tableInstance;
-
-  const { globalFilter } = state;
 
    
   
@@ -165,17 +121,12 @@ const ViewStates = () => {
           <div className="text-center font-extrabold my-5 text-lg w-full">
             STATES{" "}
           </div>
-          <SearchUser
-            filter={globalFilter}
-            className="  text-white "
-            setFilter={setGlobalFilter}
-          />
+       
        
 
    
-        <TableComponent tableData={tableInstance}/>
+        <TableComponent tableData={data?.states}columns={columns}/>
   
-          <PaginationComponents tableData={tableInstance}/>
       </div>
     </div>
   </div>

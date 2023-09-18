@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useParticipantsQuery } from '../../utils/graphql'
-import TabbleOfUsersOrUser from './tabbleData'
+import TabbleOfUsersOrUser from './tableData'
 
 
 const UsersPerEvent = () => {
@@ -25,7 +25,7 @@ const UsersPerEvent = () => {
             <div className="flex flex-col justify-between mt-4 ">
             <div className="flex justify-center">
           Page{' '}
-          <strong>
+              <strong>
             {currentPage + 1}
              {/* of {tableInstance.pageOptions.length} */}
          

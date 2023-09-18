@@ -4,11 +4,13 @@ import { useParams,useNavigate } from 'react-router-dom';
 import{useUserQuery,useCreatePaymentMutation} from '../../utils/graphql'
 import { ShowPopup } from '../alerts/popUps';
 import { formStyle, h2Style, headerStyle, inputStyle, labelAndInputDiv, pageStyle } from '../utils/style';
+import { SelectInput } from '../utils/formField';
+import { paymentsFor } from '../utils/constantValues';
 const CreatePayment = () => {
   const {id}=useParams()
   const navigate=useNavigate()
   console.log(id,"id")
-  const { data, loading, error } = useUserQuery({variables: { where: { id: id } }});
+  const { data,} = useUserQuery({variables: { where: { id: id } }});
   console.log(data,"user")
   const [addAmount]=useCreatePaymentMutation()
 
@@ -81,17 +83,13 @@ const CreatePayment = () => {
             <p className="text-red-500"> {errors.amount && <span>Amount Required</span>}</p>
           </div>
           <div className={`${labelAndInputDiv.data}`}>
-            <label htmlFor="">Payment For</label>
-            <select   className={`${inputStyle.data}`} {...register("paymentFor", {required:true})}>
-            <option value=""></option>
-      <option value="registrations">Registration</option>
-      <option value="emd">EMD</option>
-      <option value="refund">Refund</option>
-      <option value="other">Other</option>
+           
+            <SelectInput label="Payment For" name="paymentFor" options={paymentsFor} register={register}/>
+     
 
       
     
-    </select>
+
     <p className="text-red-500"> {errors.paymentFor && <span>This field cannot empty</span>}</p>
 
           </div>

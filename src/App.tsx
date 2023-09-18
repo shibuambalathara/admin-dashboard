@@ -10,7 +10,7 @@ import AddUser from "./components/user/addUser";
 import UserDetails from "./pages/userDetails";
 import Payments from "./pages/payments";
 import Emd from "./pages/emd";
-import Vehicles from "./pages/vehicles";
+
 import Bids from "./pages/bidsTable";
 import EventTypes from "./pages/eventTypes";
 
@@ -26,7 +26,6 @@ import AddStateForm from "./pages/addStateForm";
 import AddExcel from "./pages/addExcel";
 import AddEventType from "./pages/addEventType";
 import ViewLocations from "./pages/viewLocations";
-import Table from "./components/Sellers/sellersTable";
 import EditEvent from "./pages/editEvent";
 
 import EditVehicle from "./pages/editVehicle";
@@ -36,7 +35,6 @@ import VehicleDetailsPerEvent from "./pages/vehicleDetailsPerEvent";
 import BannedUsers from "./pages/bannedUsers";
 import BidDetailsPerVehicle from "./pages/bidDetailsPerVehicle";
 import AddEmd from "./pages/createEmd";
-import EmdUpdate from "./pages/emdUpdate";
 import EmdPerPayment from "./pages/emdPerPayment";
 import BidsPerUser from "./pages/bidsPerUser";
 import EventsPerSeller from "./pages/eventsPerSeller";
@@ -55,6 +53,8 @@ import CoupenPerUser from "./pages/coupenPerUser";
 import CoupensPerPayment from "./pages/coupensPerPayment";
 import ViewParticipants from "./pages/viewParticipants";
 import Enquiry from "./pages/enquiry";
+import FindAuction from "./pages/findAuction";
+import AddFindAuction from "./pages/addFindAuction";
 
 
 
@@ -88,7 +88,7 @@ function AppContent() {
               <Route path="view-user/:id" element={<UserDetails />} />
               <Route path="payment" element={<Payments />} />
               <Route path="emd" element={<Emd />} />
-              <Route path="vehicles" element={<Vehicles />} />
+            
               <Route path="bids" element={<Bids />} />
               <Route path="event-types" element={<EventTypes />} />
               <Route path="states" element={<States />} />
@@ -98,14 +98,8 @@ function AppContent() {
               <Route path="add-vehicle/:id" element={<AddVehicle />} />
               <Route path="edit-vehicle/:id" element={<EditVehicle />} />
               <Route path="editBid/:id" element={<EditBidForm />} />
-              <Route
-                path="create-payment/:id"
-                element={<AddPaymentForUser />}
-              />
-              <Route
-                path="update-payment/:id"
-                element={<AddPaymentDetails />}
-              />
+              <Route path="create-payment/:id" element={<AddPaymentForUser />} />
+              <Route path="update-payment/:id" element={<AddPaymentDetails />}/>
               <Route path="payment/:id" element={<PaymentUserDetails />} />
               <Route path="addstate" element={<AddStateForm />} />
               <Route path="addeventtype" element={<AddEventType />} />
@@ -134,7 +128,8 @@ function AppContent() {
               <Route path="coupenPerPayment/:id" element={<CoupensPerPayment/>} />
               <Route path="participants/:id" element={<ViewParticipants/>} />
               <Route path="enquiry" element={<Enquiry/>}/>
-              
+              <Route path="find-auction" element={<FindAuction/>}/>
+              <Route path="add-find-auction" element={<AddFindAuction/>}/>
             </Route>
           </Routes>
         </div>

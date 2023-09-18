@@ -1,17 +1,11 @@
-
-
-
-import { Button } from '@material-tailwind/react'
 import React, { useMemo, useState,useEffect } from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
-import {  useTable,usePagination,useSortBy,useGlobalFilter  } from "react-table"
 import {useActiveBidsPerUserQuery, useBidsTableQuery, useUpdateVehicleMutation, useVehicleDetailsQuery} from '../../utils/graphql'
-import SearchUser from '../utils/search'
+
 import format from "date-fns/format";
 import jsPDF from 'jspdf';
 import { ShowPopup } from '../alerts/popUps'
 import TableComponent from '../utils/table'
-import PaginationComponents from '../utils/pagination'
 
 
 
@@ -153,41 +147,7 @@ useEffect(()=>{
         []
       );
 
-      const tableData=useMemo(() => (data ? data.user.activeBids : []), [data]);
-      const tableInstance=useTable({
-        columns ,
-        data: tableData,
-        initialState: {
-          sortBy: [
-            {
-              id: "Bid End Time",
-              desc: true,
-            },
-          ],
-        },
-      },useGlobalFilter,useSortBy,usePagination);
-     
-        const {
-          getTableProps,
-          getTableBodyProps,
-          headerGroups,
-         
-          page,
-          prepareRow,
-          nextPage,
-          previousPage,
-          canNextPage,
-          canPreviousPage,
-          pageOptions,
-          pageCount,
-          gotoPage,
-          setPageSize: setTablePageSize,
-          state: { pageIndex: tablePageIndex, pageSize: tablePageSize },
-          state,
-          setGlobalFilter
-        } = tableInstance;
-    
-        const {globalFilter}=state
+ 
     
       if (loading) return <p>Loading...</p>;
       
@@ -200,12 +160,10 @@ useEffect(()=>{
     <div className=" flex flex-col w-full justify-center m-auto ">
    
   <div className="text-center font-extrabold my-5 text-lg min-w-full">  Bids Data Table Of {data?.user?.firstName} {data?.user?.lastName} </div>
-    <SearchUser filter={globalFilter} className="  text-white " setFilter={setGlobalFilter}/>
 
     
-      <TableComponent tableData={tableInstance}/>
+      <TableComponent tableData={data?.user?.activeBids} columns={columns} sortBy='Bid End Time'/>
 
-    <PaginationComponents tableData={tableInstance}/>
   </div>
   </div>
   )

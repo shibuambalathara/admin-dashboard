@@ -1,12 +1,9 @@
 import React, { useEffect, useMemo,useState } from 'react'
 import {useNavigate} from 'react-router-dom'
-import { useTable,useSortBy,usePagination,useGlobalFilter } from "react-table"
 import {useDeleteEventMutation, useEventTableQuery, useUpdateEventMutation} from '../../utils/graphql'
-import SearchUser from '../utils/search'
 import Report from './report'
 import Swal from "sweetalert2";
 import TableComponent from '../utils/table'
-
 import LimitedDataPaginationComponents from '../utils/limitedDataPagination'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCar, faFileArrowDown, faFileArrowUp, faUserPlus } from '@fortawesome/free-solid-svg-icons'
@@ -21,11 +18,13 @@ const EventsTableComponent = () => {
 
 
     const {data,loading,error,refetch}=useEventTableQuery({variables:{ skip: currentPage * pageSize,take:pageSize, orderBy: {startDate:"desc"}}})
-console.log(data,"data")
+
 const [addParticipants]=useUpdateEventMutation()
 
 useEffect(()=>{
   refetch()
+
+  
 },[data])
 
     const navigate=useNavigate()
@@ -170,44 +169,7 @@ const handleDelete=(id)=>{
         []
       );
 
-      const tableData=useMemo(() => (data ? data.events : []), [data]);
      
-      
-      
-      const tableInstance=useTable({
-        columns ,
-        data: tableData,
-        initialState: {
-          sortBy: [
-            {
-              id: "start Date",
-              desc: true,
-            },
-          ],
-        },
-      },useGlobalFilter,useSortBy,usePagination);
-     
-        const {
-          getTableProps,
-          getTableBodyProps,
-          headerGroups,
-         
-          page,
-          prepareRow,
-          nextPage,
-          previousPage,
-          canNextPage,
-          canPreviousPage,
-          pageOptions,
-          pageCount,
-          gotoPage,
-          setPageSize: setTablePageSize,
-          state: { pageIndex: tablePageIndex, pageSize: tablePageSize },
-          state,
-          setGlobalFilter
-        } = tableInstance;
-    
-        const {globalFilter}=state
     
         const handlePageChange = (newPage) => {
           setCurrentPage(newPage);
@@ -239,13 +201,13 @@ const handleDelete=(id)=>{
     <div className="mb-2">
   <div className="text-center font-extrabold my-5 text-lg min-w-full">  Events Data Table </div>
 
-    <SearchUser filter={globalFilter} className="  text-white bg-red-200" setFilter={setGlobalFilter}/>
+    
  
  
   
    </div>
      
-       <TableComponent tableData={tableInstance}/>
+       <TableComponent tableData={data?.events} columns={columns} sortBy='start Date'/>
   
           <LimitedDataPaginationComponents   
           currentPage={currentPage}

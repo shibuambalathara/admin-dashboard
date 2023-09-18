@@ -28,7 +28,7 @@ export const TextAreaInput = ({ label, type, name, register,defaultValue, error,
         type={type}
         defaultValue={defaultValue}
         {...register(name, rest)}
-        className={`${textAreaStyle.data} `}
+        className={`${inputStyle.data}`}
       />
       
       {error && <p className="text-red-500">{`${label} Required`}</p>}
@@ -37,7 +37,7 @@ export const TextAreaInput = ({ label, type, name, register,defaultValue, error,
 };
 
 
-export const SelectInput = ({ label, name, options, register, ...rest }) => {
+export const SelectInput = ({ label, name, options,defaultValue, register, ...rest }) => {
   return (
     <div className="flex flex-col">
       <label htmlFor={name}>{label}</label>
@@ -45,6 +45,7 @@ export const SelectInput = ({ label, name, options, register, ...rest }) => {
         {...register(name)}
         className={`${inputStyle.data}`}
         {...rest}
+        defaultValue={defaultValue}
       >
         {options.map((option) => (
           <option key={option.value} value={option.value}>

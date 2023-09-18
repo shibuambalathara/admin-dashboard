@@ -3,7 +3,7 @@ import EventsTablePerSeller from '../components/Sellers/eventsTablePerSeller'
 
 const EventsPerSeller = () => {
   return (
-    <div>
+    <div className='w-full'>
         <EventsTablePerSeller/>
     </div>
   )
