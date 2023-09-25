@@ -13,7 +13,7 @@ export const HandleUpload = async (files, setFiles, setPercent, setDownloadUrls)
 
   try {
     const options = {
-      maxSizeMB: 1,
+      maxSizeMB: 0.1,
       
       maxWidthOrHeight: 800,
       useWebWorker: true,

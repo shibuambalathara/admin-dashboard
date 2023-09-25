@@ -4,3 +4,19 @@ query Institutions {
   name  
   }
 }
+mutation createInstitution($data: InstitutionCreateInput!) {
+  createInstitution(data: $data) {
+    id
+    name
+  }
+}
+mutation UpdateInstitution($where: InstitutionWhereUniqueInput!, $data: InstitutionUpdateInput!) {
+  updateInstitution(where: $where, data: $data) {
+  id   
+  }
+}
+mutation deleteInstitution($where: InstitutionWhereUniqueInput!) {
+  deleteInstitution(where: $where) {
+   id 
+  }
+}
