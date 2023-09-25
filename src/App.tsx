@@ -54,7 +54,11 @@ import CoupensPerPayment from "./pages/coupensPerPayment";
 import ViewParticipants from "./pages/viewParticipants";
 import Enquiry from "./pages/enquiry";
 import FindAuction from "./pages/findAuction";
+
+import Institution from "./pages/institution";
+import EditFindAuction from "./pages/editFindAuction";
 import AddFindAuction from "./pages/addFindAuction";
+
 
 
 
@@ -130,6 +134,8 @@ function AppContent() {
               <Route path="enquiry" element={<Enquiry/>}/>
               <Route path="find-auction" element={<FindAuction/>}/>
               <Route path="add-find-auction" element={<AddFindAuction/>}/>
+              <Route path="edit-find-auction/:id" element={<EditFindAuction/>}/>
+                      <Route path="institution" element={<Institution/>}/>
             </Route>
           </Routes>
         </div>

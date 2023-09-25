@@ -16,5 +16,49 @@ query FindAuctions {
     listingId
     propertyType
     reservePrice
+    vehicleRegNo
+  
+  state {
+    name
   }
+  }
+}
+
+mutation CreateFindAuction($data: FindAuctionCreateInput!) {
+  createFindAuction(data: $data) {
+  id  
+  }
+}
+mutation updateFindAuction($where: FindAuctionWhereUniqueInput!, $data: FindAuctionUpdateInput!) {
+  updateFindAuction(where: $where, data: $data) {
+  id  
+  }
+}
+
+query findAuctionById($where: FindAuctionWhereInput!) {
+  findAuctions(where: $where) {
+    address
+  auctionEndDate
+  auctionNotice
+  auctionStartDate
+  city
+  contactDetails
+  emdAmount
+   emdSubmissionDate
+   id
+   propertyType
+   institution_details {
+     name
+     id
+   }  
+   listingId
+   vehicleRegNo
+   reservePrice
+
+      state {
+     id
+     name
+   }
+  }
+
 }

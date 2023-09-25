@@ -13,11 +13,11 @@ import {
   useDeleteContactUsMutation,
   useUpdateContactUsMutation,
 } from "../../utils/graphql";
-import SearchUser from "../utils/search";
+
 
 import Swal from "sweetalert2";
 import TableComponent from "../utils/table";
-import PaginationComponents from "../utils/pagination";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { FormatDate } from "../utils/dateFormat";
