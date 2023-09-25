@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBuilding, faCalendarXmark,  faComment } from '@fortawesome/free-regular-svg-icons';
-import { faCar, faEarthAsia, faFileArrowUp, faFileInvoiceDollar, faHouse, faLocationDot, faMagnifyingGlass, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faBuildingColumns, faCar, faEarthAsia, faFileArrowUp, faFileInvoiceDollar, faHouse, faLocationDot, faMagnifyingGlass, faUsers } from '@fortawesome/free-solid-svg-icons';
 const Sidebar_items=[
     {
       name:"Dashboard",
@@ -56,6 +56,12 @@ const Sidebar_items=[
     name:"Find Auction",
     path:"find-auction",
     iconType:<FontAwesomeIcon icon={faMagnifyingGlass}  style={{ fontSize:24 }} />
+  },
+  {
+    name:"Institution",
+    path:"institution",
+    iconType:<FontAwesomeIcon icon={faBuildingColumns} style={{ fontSize:24 }} />
+   
   },
   {
     name:"Image Upload",

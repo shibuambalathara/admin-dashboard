@@ -13,6 +13,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  BigInt: any;
   DateTime: any;
   JSON: any;
   Upload: any;
@@ -130,6 +131,17 @@ export type BidWhereInput = {
 
 export type BidWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
+};
+
+export type BigIntNullableFilter = {
+  equals?: InputMaybe<Scalars['BigInt']>;
+  gt?: InputMaybe<Scalars['BigInt']>;
+  gte?: InputMaybe<Scalars['BigInt']>;
+  in?: InputMaybe<Array<Scalars['BigInt']>>;
+  lt?: InputMaybe<Scalars['BigInt']>;
+  lte?: InputMaybe<Scalars['BigInt']>;
+  not?: InputMaybe<BigIntNullableFilter>;
+  notIn?: InputMaybe<Array<Scalars['BigInt']>>;
 };
 
 export type BooleanFilter = {
@@ -874,13 +886,13 @@ export type FindAuction = {
   city?: Maybe<Scalars['String']>;
   contactDetails?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
-  emdAmount?: Maybe<Scalars['String']>;
+  emdAmount?: Maybe<Scalars['BigInt']>;
   emdSubmissionDate?: Maybe<Scalars['DateTime']>;
   id: Scalars['ID'];
   institution_details?: Maybe<Institution>;
   listingId?: Maybe<Scalars['Int']>;
   propertyType?: Maybe<FindAuctionPropertyTypeType>;
-  reservePrice?: Maybe<Scalars['String']>;
+  reservePrice?: Maybe<Scalars['BigInt']>;
   state?: Maybe<State>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   vehicleRegNo?: Maybe<Scalars['String']>;
@@ -893,12 +905,12 @@ export type FindAuctionCreateInput = {
   auctionStartDate?: InputMaybe<Scalars['DateTime']>;
   city?: InputMaybe<Scalars['String']>;
   contactDetails?: InputMaybe<Scalars['String']>;
-  emdAmount?: InputMaybe<Scalars['String']>;
+  emdAmount?: InputMaybe<Scalars['BigInt']>;
   emdSubmissionDate?: InputMaybe<Scalars['DateTime']>;
   institution_details?: InputMaybe<InstitutionRelateToOneForCreateInput>;
   listingId?: InputMaybe<Scalars['Int']>;
   propertyType?: InputMaybe<FindAuctionPropertyTypeType>;
-  reservePrice?: InputMaybe<Scalars['String']>;
+  reservePrice?: InputMaybe<Scalars['BigInt']>;
   state?: InputMaybe<StateRelateToOneForCreateInput>;
   vehicleRegNo?: InputMaybe<Scalars['String']>;
 };
@@ -966,12 +978,12 @@ export type FindAuctionUpdateInput = {
   auctionStartDate?: InputMaybe<Scalars['DateTime']>;
   city?: InputMaybe<Scalars['String']>;
   contactDetails?: InputMaybe<Scalars['String']>;
-  emdAmount?: InputMaybe<Scalars['String']>;
+  emdAmount?: InputMaybe<Scalars['BigInt']>;
   emdSubmissionDate?: InputMaybe<Scalars['DateTime']>;
   institution_details?: InputMaybe<InstitutionRelateToOneForUpdateInput>;
   listingId?: InputMaybe<Scalars['Int']>;
   propertyType?: InputMaybe<FindAuctionPropertyTypeType>;
-  reservePrice?: InputMaybe<Scalars['String']>;
+  reservePrice?: InputMaybe<Scalars['BigInt']>;
   state?: InputMaybe<StateRelateToOneForUpdateInput>;
   vehicleRegNo?: InputMaybe<Scalars['String']>;
 };
@@ -987,13 +999,13 @@ export type FindAuctionWhereInput = {
   city?: InputMaybe<StringFilter>;
   contactDetails?: InputMaybe<StringFilter>;
   createdAt?: InputMaybe<DateTimeNullableFilter>;
-  emdAmount?: InputMaybe<StringFilter>;
+  emdAmount?: InputMaybe<BigIntNullableFilter>;
   emdSubmissionDate?: InputMaybe<DateTimeNullableFilter>;
   id?: InputMaybe<IdFilter>;
   institution_details?: InputMaybe<InstitutionWhereInput>;
   listingId?: InputMaybe<IntFilter>;
   propertyType?: InputMaybe<FindAuctionPropertyTypeTypeNullableFilter>;
-  reservePrice?: InputMaybe<StringFilter>;
+  reservePrice?: InputMaybe<BigIntNullableFilter>;
   state?: InputMaybe<StateWhereInput>;
   updatedAt?: InputMaybe<DateTimeNullableFilter>;
   vehicleRegNo?: InputMaybe<StringFilter>;
@@ -4260,12 +4272,56 @@ export type ExcelUploadsQuery = { __typename?: 'Query', excelUploads?: Array<{ _
 export type FindAuctionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindAuctionsQuery = { __typename?: 'Query', findAuctions?: Array<{ __typename?: 'FindAuction', address?: string | null, auctionEndDate?: any | null, auctionNotice?: string | null, auctionStartDate?: any | null, city?: string | null, contactDetails?: string | null, createdAt?: any | null, emdAmount?: string | null, emdSubmissionDate?: any | null, id: string, listingId?: number | null, propertyType?: FindAuctionPropertyTypeType | null, reservePrice?: string | null, institution_details?: { __typename?: 'Institution', name?: string | null } | null }> | null };
+export type FindAuctionsQuery = { __typename?: 'Query', findAuctions?: Array<{ __typename?: 'FindAuction', address?: string | null, auctionEndDate?: any | null, auctionNotice?: string | null, auctionStartDate?: any | null, city?: string | null, contactDetails?: string | null, createdAt?: any | null, emdAmount?: any | null, emdSubmissionDate?: any | null, id: string, listingId?: number | null, propertyType?: FindAuctionPropertyTypeType | null, reservePrice?: any | null, vehicleRegNo?: string | null, institution_details?: { __typename?: 'Institution', name?: string | null } | null, state?: { __typename?: 'State', name?: string | null } | null }> | null };
+
+export type CreateFindAuctionMutationVariables = Exact<{
+  data: FindAuctionCreateInput;
+}>;
+
+
+export type CreateFindAuctionMutation = { __typename?: 'Mutation', createFindAuction?: { __typename?: 'FindAuction', id: string } | null };
+
+export type UpdateFindAuctionMutationVariables = Exact<{
+  where: FindAuctionWhereUniqueInput;
+  data: FindAuctionUpdateInput;
+}>;
+
+
+export type UpdateFindAuctionMutation = { __typename?: 'Mutation', updateFindAuction?: { __typename?: 'FindAuction', id: string } | null };
+
+export type FindAuctionByIdQueryVariables = Exact<{
+  where: FindAuctionWhereInput;
+}>;
+
+
+export type FindAuctionByIdQuery = { __typename?: 'Query', findAuctions?: Array<{ __typename?: 'FindAuction', address?: string | null, auctionEndDate?: any | null, auctionNotice?: string | null, auctionStartDate?: any | null, city?: string | null, contactDetails?: string | null, emdAmount?: any | null, emdSubmissionDate?: any | null, id: string, propertyType?: FindAuctionPropertyTypeType | null, listingId?: number | null, vehicleRegNo?: string | null, reservePrice?: any | null, institution_details?: { __typename?: 'Institution', name?: string | null, id: string } | null, state?: { __typename?: 'State', id: string, name?: string | null } | null }> | null };
 
 export type InstitutionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type InstitutionsQuery = { __typename?: 'Query', institutions?: Array<{ __typename?: 'Institution', id: string, name?: string | null }> | null };
+
+export type CreateInstitutionMutationVariables = Exact<{
+  data: InstitutionCreateInput;
+}>;
+
+
+export type CreateInstitutionMutation = { __typename?: 'Mutation', createInstitution?: { __typename?: 'Institution', id: string, name?: string | null } | null };
+
+export type UpdateInstitutionMutationVariables = Exact<{
+  where: InstitutionWhereUniqueInput;
+  data: InstitutionUpdateInput;
+}>;
+
+
+export type UpdateInstitutionMutation = { __typename?: 'Mutation', updateInstitution?: { __typename?: 'Institution', id: string } | null };
+
+export type DeleteInstitutionMutationVariables = Exact<{
+  where: InstitutionWhereUniqueInput;
+}>;
+
+
+export type DeleteInstitutionMutation = { __typename?: 'Mutation', deleteInstitution?: { __typename?: 'Institution', id: string } | null };
 
 export type LiveEventsQueryVariables = Exact<{
   take: Scalars['Int'];
@@ -6264,6 +6320,10 @@ export const FindAuctionsDocument = gql`
     listingId
     propertyType
     reservePrice
+    vehicleRegNo
+    state {
+      name
+    }
   }
 }
     `;
@@ -6294,6 +6354,128 @@ export function useFindAuctionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type FindAuctionsQueryHookResult = ReturnType<typeof useFindAuctionsQuery>;
 export type FindAuctionsLazyQueryHookResult = ReturnType<typeof useFindAuctionsLazyQuery>;
 export type FindAuctionsQueryResult = Apollo.QueryResult<FindAuctionsQuery, FindAuctionsQueryVariables>;
+export const CreateFindAuctionDocument = gql`
+    mutation CreateFindAuction($data: FindAuctionCreateInput!) {
+  createFindAuction(data: $data) {
+    id
+  }
+}
+    `;
+export type CreateFindAuctionMutationFn = Apollo.MutationFunction<CreateFindAuctionMutation, CreateFindAuctionMutationVariables>;
+
+/**
+ * __useCreateFindAuctionMutation__
+ *
+ * To run a mutation, you first call `useCreateFindAuctionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateFindAuctionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createFindAuctionMutation, { data, loading, error }] = useCreateFindAuctionMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateFindAuctionMutation(baseOptions?: Apollo.MutationHookOptions<CreateFindAuctionMutation, CreateFindAuctionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateFindAuctionMutation, CreateFindAuctionMutationVariables>(CreateFindAuctionDocument, options);
+      }
+export type CreateFindAuctionMutationHookResult = ReturnType<typeof useCreateFindAuctionMutation>;
+export type CreateFindAuctionMutationResult = Apollo.MutationResult<CreateFindAuctionMutation>;
+export type CreateFindAuctionMutationOptions = Apollo.BaseMutationOptions<CreateFindAuctionMutation, CreateFindAuctionMutationVariables>;
+export const UpdateFindAuctionDocument = gql`
+    mutation updateFindAuction($where: FindAuctionWhereUniqueInput!, $data: FindAuctionUpdateInput!) {
+  updateFindAuction(where: $where, data: $data) {
+    id
+  }
+}
+    `;
+export type UpdateFindAuctionMutationFn = Apollo.MutationFunction<UpdateFindAuctionMutation, UpdateFindAuctionMutationVariables>;
+
+/**
+ * __useUpdateFindAuctionMutation__
+ *
+ * To run a mutation, you first call `useUpdateFindAuctionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateFindAuctionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateFindAuctionMutation, { data, loading, error }] = useUpdateFindAuctionMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useUpdateFindAuctionMutation(baseOptions?: Apollo.MutationHookOptions<UpdateFindAuctionMutation, UpdateFindAuctionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateFindAuctionMutation, UpdateFindAuctionMutationVariables>(UpdateFindAuctionDocument, options);
+      }
+export type UpdateFindAuctionMutationHookResult = ReturnType<typeof useUpdateFindAuctionMutation>;
+export type UpdateFindAuctionMutationResult = Apollo.MutationResult<UpdateFindAuctionMutation>;
+export type UpdateFindAuctionMutationOptions = Apollo.BaseMutationOptions<UpdateFindAuctionMutation, UpdateFindAuctionMutationVariables>;
+export const FindAuctionByIdDocument = gql`
+    query findAuctionById($where: FindAuctionWhereInput!) {
+  findAuctions(where: $where) {
+    address
+    auctionEndDate
+    auctionNotice
+    auctionStartDate
+    city
+    contactDetails
+    emdAmount
+    emdSubmissionDate
+    id
+    propertyType
+    institution_details {
+      name
+      id
+    }
+    listingId
+    vehicleRegNo
+    reservePrice
+    state {
+      id
+      name
+    }
+  }
+}
+    `;
+
+/**
+ * __useFindAuctionByIdQuery__
+ *
+ * To run a query within a React component, call `useFindAuctionByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindAuctionByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindAuctionByIdQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useFindAuctionByIdQuery(baseOptions: Apollo.QueryHookOptions<FindAuctionByIdQuery, FindAuctionByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindAuctionByIdQuery, FindAuctionByIdQueryVariables>(FindAuctionByIdDocument, options);
+      }
+export function useFindAuctionByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindAuctionByIdQuery, FindAuctionByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindAuctionByIdQuery, FindAuctionByIdQueryVariables>(FindAuctionByIdDocument, options);
+        }
+export type FindAuctionByIdQueryHookResult = ReturnType<typeof useFindAuctionByIdQuery>;
+export type FindAuctionByIdLazyQueryHookResult = ReturnType<typeof useFindAuctionByIdLazyQuery>;
+export type FindAuctionByIdQueryResult = Apollo.QueryResult<FindAuctionByIdQuery, FindAuctionByIdQueryVariables>;
 export const InstitutionsDocument = gql`
     query Institutions {
   institutions {
@@ -6329,6 +6511,107 @@ export function useInstitutionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type InstitutionsQueryHookResult = ReturnType<typeof useInstitutionsQuery>;
 export type InstitutionsLazyQueryHookResult = ReturnType<typeof useInstitutionsLazyQuery>;
 export type InstitutionsQueryResult = Apollo.QueryResult<InstitutionsQuery, InstitutionsQueryVariables>;
+export const CreateInstitutionDocument = gql`
+    mutation createInstitution($data: InstitutionCreateInput!) {
+  createInstitution(data: $data) {
+    id
+    name
+  }
+}
+    `;
+export type CreateInstitutionMutationFn = Apollo.MutationFunction<CreateInstitutionMutation, CreateInstitutionMutationVariables>;
+
+/**
+ * __useCreateInstitutionMutation__
+ *
+ * To run a mutation, you first call `useCreateInstitutionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateInstitutionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createInstitutionMutation, { data, loading, error }] = useCreateInstitutionMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateInstitutionMutation(baseOptions?: Apollo.MutationHookOptions<CreateInstitutionMutation, CreateInstitutionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateInstitutionMutation, CreateInstitutionMutationVariables>(CreateInstitutionDocument, options);
+      }
+export type CreateInstitutionMutationHookResult = ReturnType<typeof useCreateInstitutionMutation>;
+export type CreateInstitutionMutationResult = Apollo.MutationResult<CreateInstitutionMutation>;
+export type CreateInstitutionMutationOptions = Apollo.BaseMutationOptions<CreateInstitutionMutation, CreateInstitutionMutationVariables>;
+export const UpdateInstitutionDocument = gql`
+    mutation UpdateInstitution($where: InstitutionWhereUniqueInput!, $data: InstitutionUpdateInput!) {
+  updateInstitution(where: $where, data: $data) {
+    id
+  }
+}
+    `;
+export type UpdateInstitutionMutationFn = Apollo.MutationFunction<UpdateInstitutionMutation, UpdateInstitutionMutationVariables>;
+
+/**
+ * __useUpdateInstitutionMutation__
+ *
+ * To run a mutation, you first call `useUpdateInstitutionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateInstitutionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateInstitutionMutation, { data, loading, error }] = useUpdateInstitutionMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useUpdateInstitutionMutation(baseOptions?: Apollo.MutationHookOptions<UpdateInstitutionMutation, UpdateInstitutionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateInstitutionMutation, UpdateInstitutionMutationVariables>(UpdateInstitutionDocument, options);
+      }
+export type UpdateInstitutionMutationHookResult = ReturnType<typeof useUpdateInstitutionMutation>;
+export type UpdateInstitutionMutationResult = Apollo.MutationResult<UpdateInstitutionMutation>;
+export type UpdateInstitutionMutationOptions = Apollo.BaseMutationOptions<UpdateInstitutionMutation, UpdateInstitutionMutationVariables>;
+export const DeleteInstitutionDocument = gql`
+    mutation deleteInstitution($where: InstitutionWhereUniqueInput!) {
+  deleteInstitution(where: $where) {
+    id
+  }
+}
+    `;
+export type DeleteInstitutionMutationFn = Apollo.MutationFunction<DeleteInstitutionMutation, DeleteInstitutionMutationVariables>;
+
+/**
+ * __useDeleteInstitutionMutation__
+ *
+ * To run a mutation, you first call `useDeleteInstitutionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteInstitutionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteInstitutionMutation, { data, loading, error }] = useDeleteInstitutionMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useDeleteInstitutionMutation(baseOptions?: Apollo.MutationHookOptions<DeleteInstitutionMutation, DeleteInstitutionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteInstitutionMutation, DeleteInstitutionMutationVariables>(DeleteInstitutionDocument, options);
+      }
+export type DeleteInstitutionMutationHookResult = ReturnType<typeof useDeleteInstitutionMutation>;
+export type DeleteInstitutionMutationResult = Apollo.MutationResult<DeleteInstitutionMutation>;
+export type DeleteInstitutionMutationOptions = Apollo.BaseMutationOptions<DeleteInstitutionMutation, DeleteInstitutionMutationVariables>;
 export const LiveEventsDocument = gql`
     query LiveEvents($take: Int!, $skip: Int!, $where: EventWhereInput) {
   liveEvents(take: $take, skip: $skip, where: $where) {
