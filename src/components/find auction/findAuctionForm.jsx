@@ -6,7 +6,7 @@ import { FormFieldInput, SelectInput, SelectWithDynamic, TextAreaInput } from '.
 import {  propertyType } from '../utils/constantValues';
 import storage from '../firebaseConfig';
 import { v4 } from 'uuid';
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytesResumable, getDownloadURL, updateMetadata } from "firebase/storage";
 import imageCompression from 'browser-image-compression';
 
 import { DateConvert } from '../utils/dateFormat';
@@ -44,111 +44,9 @@ HandleUpload1(compressedFile,setDownloadUrls,setDownloadUrl)
 }
     
   
-    //   if (file) {
-    //     const reader = new FileReader();
-    //     reader.onload = () => {
-    //       const img = new Image();
-    //       img.src = reader.result;
   
-    //       img.onload =async () => {
-    //         const canvas = document.createElement('canvas');
-    //         const ctx = canvas.getContext('2d');
-    
-    //         // Set canvas dimensions to match the image
-    //         canvas.width = img.width;
-    //         canvas.height = img.height;
-    
-    //         // Draw the image on the canvas
-    //         ctx.drawImage(img, 0, 0);
-    
-    //         // Add watermark text
-    //         const watermarkText = 'AutoBse.com';
-    //         ctx.font = '24px Arial';
-    //         ctx.fillStyle = 'rgba(255, 0, 0, 0.5)'; // Adjust text color and opacity
-    
-    //         // Calculate text width and height
-    //         const textWidth = ctx.measureText(watermarkText).width;
-    //         const textHeight = 24; // Adjust the text height as needed
-    
-    //         // Calculate the angle in radians (45 degrees)
-    //         const angleInRadians = (-60 * Math.PI) /180;
-    
-    //         // Calculate the position for the text
-    //         const centerX = canvas.width / 2;
-    //         const centerY = canvas.height / 2;
-    //         const xOffset = (textHeight / Math.sqrt(2)) * Math.cos(angleInRadians) * 0.5;
-    //         const yOffset = (textHeight / Math.sqrt(2)) * Math.sin(angleInRadians) * 0.5;
-    
-    //         // Rotate and draw the text at the calculated position (centered)
-    //         ctx.translate(centerX, centerY);
-    //         ctx.rotate(angleInRadians);
-    //         ctx.fillText(watermarkText, -textWidth / 2 + xOffset, textHeight / 2 - yOffset);
-    
-    //         // Convert the canvas to a data URL (base64)
-    //         const watermarkedImageSrc = canvas.toDataURL('image/jpeg');
-
-    //         // Convert base64 to a File object
-    //         // const convertedFile =await base64ToBlob(watermarkedImageSrc, 'image/jpeg', 'watermarked.jpg');
-  
-    //         // Upload the File
-    //           HandleUpload(watermarkedImageSrc);
-    //          console.log("converted file",watermarkedImageSrc)
-    //         //  setDownloadUrls(watermarkedImageSrc)
-    //       };
-    //     };
-    //     reader.readAsDataURL(file);
-    // }
    };
-  // const HandleUpload = async (file) => {
-  //   if (!file) {
-  //     alert("Please upload an image first!");
-  //     return;
-  //   }
-
-  //   const storageRef = ref(storage, `/files/${file.name + v4()}`);
-  //   const uploadTask = uploadBytesResumable(storageRef, file);
-
-  //   uploadTask.on(
-  //     "state_changed",
-  //     (snapshot) => {
-  //       const percent = Math.round(
-  //         (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-  //       );
-  //       // You can set the upload progress if needed
-  //       // setPercent(percent);
-  //     },
-  //     (err) => console.error(err),
-  //     () => {
-  //       getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-  //         // Store the download URL in state or do something with it
-  //         setDownloadUrls([url]);
-  //       });
-  //     }
-  //   );
-  // };
-
-
-
-
-  // const base64ToBlob = (base64Data, mimeType, fileName) => {
-  //   const byteCharacters = atob(base64Data);
-  //   const byteArrays = [];
-
-  //   for (let offset = 0; offset < byteCharacters.length; offset += 512) {
-  //     const slice = byteCharacters.slice(offset, offset + 512);
-  //     const byteNumbers = new Array(slice.length);
-
-  //     for (let i = 0; i < slice.length; i++) {
-  //       byteNumbers[i] = slice.charCodeAt(i);
-  //     }
-
-  //     const byteArray = new Uint8Array(byteNumbers);
-  //     byteArrays.push(byteArray);
-  //   }
-
-  //   const blob = new Blob(byteArrays, { type: mimeType });
-  //   return new File([blob], fileName, { type: mimeType });
-  // };
+ 
   useEffect(()=>{
     if(passedData){
       setDownloadUrls(passedData[0]?.auctionNotice)
@@ -221,12 +119,16 @@ HandleUpload1(compressedFile,setDownloadUrls,setDownloadUrl)
 export default FindAuctionComponent
 
 
-const HandleUpload1 = async (file,setDownloadUrls,setDownloadUrl ) => {
+const HandleUpload1 = async (file, setDownloadUrls, setDownloadUrl) => {
   if (!file) {
     alert("Please upload an image first!");
+    return;
   }
-  const storageRef = ref(storage, `/files/${file.name + v4()}`);
+
+  const storageRef = ref(storage, `/files/${file.name+ v4()}`);
   const uploadTask = uploadBytesResumable(storageRef, file);
+
+
   uploadTask.on(
     "state_changed",
     (snapshot) => {
@@ -236,11 +138,23 @@ const HandleUpload1 = async (file,setDownloadUrls,setDownloadUrl ) => {
       // setPercent(percent);
     },
     (err) => console.log(err),
-    () => {
-      getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+    async () => {
+      try {
+        // Update metadata to specify content type as image/jpeg
+        const metadata = {
+          contentDisposition: 'attachment'
+        };
+        await updateMetadata(storageRef, metadata);
+
+        // Get the download URL
+        const url = await getDownloadURL(storageRef);
+
+        // Update the state with the download URL
         setDownloadUrls(url);
-         setDownloadUrl(url); 
-      });
+        setDownloadUrl(url);
+      } catch (error) {
+        console.error("Error updating metadata or getting download URL:", error);
+      }
     }
   );
 };

@@ -13,6 +13,9 @@ const EditFindAuction = () => {
     const [updateFindAuction]=useUpdateFindAuctionMutation()
     const {id}=useParams()
     const {data,loading}=useFindAuctionByIdQuery({variables:{where:{id:{equals:id}} }})
+    if(data){
+      console.log("data",data)
+    }
     const [files, setFiles] = useState([]);
     const [downloadUrl, setDownloadUrl] = useState('');
     const onSubmit = async (dataOnSubmit) => {
