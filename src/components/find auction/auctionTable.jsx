@@ -65,6 +65,7 @@ export default AuctionTable
 
 const DownloadImage = ({ imageUrl }) => {
   const handleDownload = () => {
+
     const link = document.createElement('a');
     link.href = imageUrl;
     link.download = 'downloaded-image.jpg'; // You can set the desired filename here
@@ -72,6 +73,10 @@ const DownloadImage = ({ imageUrl }) => {
   };
 
   return (
-    <button className='btn bg-red-500' onClick={handleDownload}><FontAwesomeIcon icon={faFile} /></button>
+    <a href={imageUrl} download="downloaded-image.jpg" onClick={handleDownload}>
+      <button className='btn bg-red-500'>
+        <FontAwesomeIcon icon={faFile} /> 
+      </button>
+    </a>
   );
 }
