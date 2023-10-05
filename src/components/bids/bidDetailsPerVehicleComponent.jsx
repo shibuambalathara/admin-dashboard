@@ -1,19 +1,13 @@
-import { useState } from "react";
-import { Button } from "@material-tailwind/react";
+
 import React, { useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  useTable,
-  usePagination,
-  useSortBy,
-  useGlobalFilter,
-} from "react-table";
+
 import {
   useBidDetailsPerVehicleQuery,
   useDeleteBidMutation,
 } from "../../utils/graphql";
 import { DownloadBidHistory } from "./bidsheet";
-import SearchUser from "../utils/search";
+
 import format from "date-fns/format";
 
 import Swal from "sweetalert2";
@@ -21,7 +15,7 @@ import Swal from "sweetalert2";
 import { ShowPopup } from "../alerts/popUps";
 
 import TableComponent from "../utils/table";
-import PaginationComponents from "../utils/pagination";
+
 
 const BidDetailsPerVehicleComponent = () => {
   // const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,7 +23,7 @@ const BidDetailsPerVehicleComponent = () => {
   const { data, loading, error, refetch } = useBidDetailsPerVehicleQuery({
     variables: { where: { id } },
   });
-  console.log(data, "bid");
+
   const [deleteBid] = useDeleteBidMutation();
   const navigate = useNavigate();
 
@@ -45,7 +39,7 @@ const BidDetailsPerVehicleComponent = () => {
       const result = await deleteBid({ variables: { where: { id } } });
 
       if (result?.data) {
-        console.log(result);
+       
         await Swal.fire({
           title: `  deleted Successfully`,
           icon: "success",
@@ -53,7 +47,7 @@ const BidDetailsPerVehicleComponent = () => {
 
         try {
           const result = await deleteBid({ variables: { where: { id } } });
-          console.log(result, "result");
+       
           ShowPopup("Success!", `successfully Deleted!`, "success", 5000, true);
         } catch (err) {
           console.log(err);
@@ -111,53 +105,12 @@ const BidDetailsPerVehicleComponent = () => {
     []
   );
 
-  const tableData = useMemo(
-    () => (data ? data?.vehicle?.userVehicleBids : []),
-    [data]
-  );
-  const tableInstance = useTable(
-    {
-      columns,
-      data: tableData,
-      initialState: {
-        sortBy: [
-          {
-            id: "amount",
-            desc: true,
-          },
-        ],
-      },
-    },
-    useGlobalFilter,
-    useSortBy,
-    usePagination
-  );
 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-
-    page,
-    prepareRow,
-    nextPage,
-    previousPage,
-    canNextPage,
-    canPreviousPage,
-    pageOptions,
-    pageCount,
-    gotoPage,
-    setPageSize: setTablePageSize,
-    state: { pageIndex: tablePageIndex, pageSize: tablePageSize },
-    state,
-    setGlobalFilter,
-  } = tableInstance;
-
-  const { globalFilter } = state;
+ 
 
   if (loading) return <p>Loading...</p>;
 
-  refetch();
+  // refetch();
 
   return (
     <div className="flex  flex-col w-full justify-around ">
@@ -216,15 +169,9 @@ const BidDetailsPerVehicleComponent = () => {
             </div>
           </div>
         </div>
-        <div>
-          <SearchUser
-            filter={globalFilter}
-            className="  text-white "
-            setFilter={setGlobalFilter}
-          />
-        </div>
-        <TableComponent tableData={tableInstance} />
-        <PaginationComponents tableData={tableInstance} />
+     
+        <TableComponent tableData={data?.vehicle?.userVehicleBids} columns={columns} sortBy='amount' />
+        {/* <PaginationComponents tableData={tableInstance} /> */}
       </div>
     </div>
   );
