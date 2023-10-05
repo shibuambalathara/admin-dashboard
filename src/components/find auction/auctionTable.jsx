@@ -30,7 +30,7 @@ console.log("find auction",data?.findAuctions)
       { Header: "Contact Details", accessor: "contactDetails" },
       { Header: "State", accessor: "state.name" },
       { Header: "city", accessor: "city" },
-      { Header: "Vehicele reg Number", accessor: "vehicleRegNo" },
+      { Header: "Vehicle reg Number", accessor: "vehicleRegNo" },
       {
         Header: "Document",
         accessor: "auctionNotice",
