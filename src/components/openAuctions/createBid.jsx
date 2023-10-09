@@ -326,11 +326,11 @@ console.log(result,"result")
   }
 
   return (
-    <div className="flex  justify-around  border-2 p-2">
-      <div className="border-2 flex justify-center align-middle p-5">
+    <div className="flex  justify-around  border-2 shadow-md p-2">
+      <div className="border-2 shadow-md flex justify-center align-middle p-5">
         <form onSubmit={handleSubmit(onSubmit)}>
           
-          <div className="space-y-5  ">
+          <div className="space-5 p-2  shadow-md">
             <div className="space-x-5 flex text-center flex-col ">
               <label className="pl-5 font-bold">
                 Lot Number :{" "}
@@ -389,7 +389,7 @@ console.log(result,"result")
             </div>
             </div>
        
-      <div>
+      <div className="shadow-md p-2">
         <div className="flex w-44 flex-col space-y-5">
         <div>
           <label>Start Price</label>
@@ -424,7 +424,7 @@ console.log(result,"result")
  
         </div>
       </div>
-      <div className="flex flex-col space-y-5">
+      <div className="flex flex-col shadow-md p-2 space-y-5">
         <label>Current Status: <p className="font-bold">{vehicleDetails?.liveVehicle?.bidStatus}</p></label>
         {vehicleDetails?.liveVehicle?.bidStatus !=='pending' &&     <button className="btn btn-success" onClick={() => handlePending()}>
           Pending
