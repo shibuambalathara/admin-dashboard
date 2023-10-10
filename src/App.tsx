@@ -58,6 +58,7 @@ import FindAuction from "./pages/findAuction";
 import Institution from "./pages/institution";
 import EditFindAuction from "./pages/editFindAuction";
 import AddFindAuction from "./pages/addFindAuction";
+import ExcelToPdf from "./pages/excelToPdf";
 
 
 
@@ -136,6 +137,7 @@ function AppContent() {
               <Route path="add-find-auction" element={<AddFindAuction/>}/>
               <Route path="edit-find-auction/:id" element={<EditFindAuction/>}/>
                       <Route path="institution" element={<Institution/>}/>
+                      <Route path="excelToPdf" element={<ExcelToPdf/>}/>
             </Route>
           </Routes>
         </div>

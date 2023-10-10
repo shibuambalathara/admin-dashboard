@@ -4,11 +4,15 @@
 
 import React, {  useMemo,useState } from 'react'
 import { useParams} from 'react-router-dom'
-import { useCoupensperUserQuery, useDeleteVehicleMutation, useUpdateCoupenMutation, useVehicleDetailsPerEventQuery} from '../../utils/graphql'
+import { useCoupensperUserQuery, useDeleteVehicleMutation, useUpdateCoupenMutation, useUpdateVehicleMutation, useVehicleDetailsPerEventQuery} from '../../utils/graphql'
 import format from 'date-fns/format'
 import Swal from "sweetalert2";
 
 import TableComponent from '../utils/table'
+import UpdateBidTime from './updateBidTime';
+import { FormatDate } from '../utils/dateFormat';
+import { ConfirmationAlert, SweetalertSuccess } from '../utils/sweetalert';
+
 
 
 
@@ -18,7 +22,11 @@ const VehicleDetailsPerEventComponent = () => {
   
 
     const [userId,setUserId]=useState('0')
+    const [updateDate,setUpdateDate]=useState({date:null,id:null,updateItem:null})
+    console.log("up",updateDate)
+    
     const {data,loading,error,refetch}=useVehicleDetailsPerEventQuery({variables:{where:{id}}})
+    const [updateBidTime]=useUpdateVehicleMutation()
     const [updateCoupen]=useUpdateCoupenMutation()
     
 console.log(data,"dataaa")
@@ -35,28 +43,37 @@ console.log(data,"dataaa")
     }
   }})
 
+const handleChangeStartTime=async(update)=>{
+   const isodate=new Date(update).toISOString()
+ console.log()
+  const result=await ConfirmationAlert()
+  if(updateDate?.updateItem==='startTime' && result?.isConfirmed)
+  {
+      updateBidTime({variables:{where:{id:updateDate?.id},data:{bidStartTime:isodate}}})
+     
+    }
+    if(updateDate?.updateItem==='endtime' && result?.isConfirmed)
+    {
+        updateBidTime({variables:{where:{id:updateDate?.id},data:{bidTimeExpire:isodate}}})
+       
+      }
+    refetch()
+    setUpdateDate({data:null,id:null,updateItem:null})
+}
 
 
 
     const handleDelete=async(deleteVehicleId)=>{
 console.log(deleteVehicleId)
-const result = await Swal.fire({
-  title: 'Are you sure?',
-  icon: 'question',
-  showCancelButton: true,
-  confirmButtonText: 'Yes',
-  cancelButtonText: 'Cancel',
-});
+const result = await ConfirmationAlert()
 if (result.isConfirmed) {
   const deleteResult = await DeleteVehicle({variables:{where:{id:deleteVehicleId}}})
-console.log(deleteResult,"delete result")
+
     
 
     if (deleteResult?.data?.deleteVehicle?.id) {
-      await Swal.fire({
-        title: `The vehicle deleted Successfully`,
-        icon: 'success',
-      });
+    
+      SweetalertSuccess()
     }
     refetch()
 }
@@ -146,8 +163,9 @@ Swal.fire({
          { Header: "Vehicle Status", accessor: "vehicleEventStatus" },
          
           { Header: "Bid Status", accessor: "bidStatus" },
-          { Header: "Bid Start Time", accessor: ({bidStartTime})=>{return format(new Date (bidStartTime),`dd/MM/yy,  HH:mm:ss`)}  },
-           { Header: "Bid Time Expire", accessor: ({bidTimeExpire})=>{return format(new Date (bidTimeExpire),`dd/MM/yy,  HH:mm:ss`)}  },
+          { Header: "Bid Start Time", accessor: ({bidStartTime,id})=>{return <button onClick={()=>setUpdateDate({date: bidStartTime,id,updateItem:'startTime'})} className='btn bg-rose-500'> {format(new Date (bidStartTime),`dd/MM/yy,  HH:mm:ss`)}</button>}  },
+          
+           { Header: "Bid Time Expire", accessor: ({bidTimeExpire,id})=>{return <button onClick={()=>setUpdateDate({date: bidTimeExpire,id,updateItem:'endtime'})} className='btn bg-orange-500'>{format(new Date (bidTimeExpire),`dd/MM/yy,  HH:mm:ss`)}</button>   }},
 
         {
           Header: "Bid Details",
@@ -210,10 +228,11 @@ Swal.fire({
     <div className='min-w-fit '>
     <h1 >Event Status: <span className='font-bold'>{data?.event?.status}</span></h1>
     <h1 >No Of Vehicles: <span className='font-bold'>{data?.event?.vehiclesCount}</span></h1>
+    <h1>Event Category: <span className='font-bold'>{data?.event?.eventCategory}</span></h1>
         </div>
         </div>
     </div>
-
+{updateDate?.date &&<UpdateBidTime currentDate={updateDate?.date} handleChangeStartTime={handleChangeStartTime}/>}
 
       <TableComponent tableData={data.event?.vehicles} columns={columns} sortBy='Bid Time Expire'/>
 

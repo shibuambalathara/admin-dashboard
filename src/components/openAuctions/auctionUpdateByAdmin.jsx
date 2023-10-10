@@ -229,6 +229,7 @@ const AuctionUpdateByAdmin = () => {
                   {liveItem.vehicleIndexNo}
                   {console.log("live item", liveItem)}
                 </p>
+                <h1>Reg. No:<span>{liveItem?.registrationNumber}</span></h1>
               </div>
             </div>
             <div className="bg-white px-4 py-5  sm:rounded-lg sm:px-6 border  border-gray-200 space-y-2">

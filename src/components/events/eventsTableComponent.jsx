@@ -124,7 +124,7 @@ const handleDelete=(id)=>{
           Cell: ({ row }) => (
 <p className='flex justify-center'>       
 
-{ (row.original.endDate >new Date().toISOString()) && (row.original.vehiclesCount===0 || row.original.eventCategory==='online')  &&      <a className="text-2xl" href={`/add-vehicle/${row.original.id}`} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faCar}  /></a>}
+{ (row.original.endDate >new Date().toISOString())   &&      <a className="text-2xl" href={`/add-vehicle/${row.original.id}`} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faCar}  /></a>}
 </p>
             )
         },
@@ -152,17 +152,17 @@ const handleDelete=(id)=>{
               )
           },
           {
-            Header: "Report (excel)",
+            Header: "ACR (excel)",
             Cell: ({ row }) => (
               <button className="text-2xl " onClick={() => ConvertToExcel(row.original.Report)}><FontAwesomeIcon icon={faFileArrowDown} /></button>
             )
           },
-  {
-    Header:"delete",
-    Cell: ({ row }) => (
-      <button className="text-2xl" onClick={() => handleDelete(row.original.id)}><FontAwesomeIcon icon={faTrashCan} /></button>
-    )
-  }
+  // {
+  //   Header:"delete",
+  //   Cell: ({ row }) => (
+  //     <button className="text-2xl" onClick={() => handleDelete(row.original.id)}><FontAwesomeIcon icon={faTrashCan} /></button>
+  //   )
+  // }
         
           
         ],
