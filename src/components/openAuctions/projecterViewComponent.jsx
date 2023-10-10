@@ -144,7 +144,7 @@ const handleEventActivate=async()=>{
       //   bidStartTime;
       if (live) {
         setLiveItem(live);
-      setimages((live.rightImage).split(','))
+      setimages((live.frontImage).split(','))
    
   
       } else {
@@ -156,15 +156,7 @@ const handleEventActivate=async()=>{
   }, [data]);
 
  
-  // const { data:bidUser,isLoading:load } = useBidUserQuery(
-  //   {
-  //     variables:{
-  //       where: {
-  //         username:"abs9487884391"
-  //     }
-  //   }
-  // );
-  //  console.log("biduser",bidUser);
+
 
 
   function SecondsLeft() {
@@ -223,67 +215,7 @@ const handleEventActivate=async()=>{
     }
   }
 
-  // console.log('return form upcomingSecondsLeft()',typeof(upcomingSecondsLeft()));
 
-  // function BindVehicleImage(vehicle) {
-    
-  //   if (vehicle) {
-  //     const tempImages = [];
-  //     let count = 0;
-  //     if (vehicle.frontImage !== "") {
-  //       tempImages.push({
-  //         id: 1,
-  //         name: "Front Image",
-  //         src: vehicle.frontImage,
-  //         alt: "Front Image.",
-  //       });
-  //     }
-  //     if (vehicle.backImage !== "") {
-  //       tempImages.push({
-  //         id: 2,
-  //         name: "Back Image",
-  //         src: vehicle.backImage,
-  //         alt: "Back Image.",
-  //       });
-  //     }
-  //     if (vehicle.leftImage !== "") {
-  //       tempImages.push({
-  //         id: 3,
-  //         name: "Left Image",
-  //         src: vehicle.leftImage,
-  //         alt: "Left Image.",
-  //       });
-  //     }
-  //     if (vehicle.rightImage !== "") {
-  //       tempImages.push({
-  //         id: 4,
-  //         name: "Right Image",
-  //         src: vehicle.rightImage,
-  //         alt: "Right Image.",
-  //       });
-  //     }
-  //     // console.log(vehicle);
-  //     // console.log(tempImages);
-  //     setImages(tempImages);
-  //     console.log(tempImages,"temp")
-  //   } else {
-  //     setImages([]);
-  //   }
-  // }
-
-  // let [vehicleDetails] = useState({
-  //   Specification: [],
-  //   Equipment: [],
-  // });
-
-  // const options = {
-  //   type: "loop",
-  //   gap: "1rem",
-  //   autoplay: true,
-  //   pauseOnHover: false,
-  //   resetProgress: false,
-  //   pagination: false,
-  // };
 
 
 
@@ -341,13 +273,7 @@ const handleEventActivate=async()=>{
 
          
           
-            {/* <section className="space-y-2 flex w-full "> */}
-           
-              {/* <div className="text-lg font-semibold">Live Bidding</div> */}
-
-              {/* Current Bid Amount */}
-              
-              {/* <div className="w-1/2 " > */}
+         
               
             <div className="flex    ">
 <div className="carousel w-full   m-2 shadow-xl rounded-xl h-[35rem]">
@@ -460,8 +386,7 @@ const handleEventActivate=async()=>{
                 <div className=" flex flex-col shadow-lg  text-center">
                         <label>Repo Date</label>
                       
-                        <label className="font-bold">{formatedDate}</label>
-                        <label className="font-bold">{format(new Date(liveItem?.repoDt),`dd/MM/yy, HH:mm`)}</label>
+                                       {liveItem?.repoDt?  <label className="font-bold">{format(new Date(liveItem?.repoDt),`dd/MM/yy, HH:mm`)}b</label>:'-'}
                         </div>
              </div>
             </div>

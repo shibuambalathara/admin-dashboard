@@ -12,3 +12,13 @@ export const SweetalertSuccess = async() => {
     })
 }
 
+export const ConfirmationAlert=async()=>{
+   const  result = await Swal.fire({
+        title: 'Are you sure?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+      });
+      return result
+}
