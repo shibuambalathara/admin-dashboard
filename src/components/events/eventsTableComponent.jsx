@@ -152,17 +152,17 @@ const handleDelete=(id)=>{
               )
           },
           {
-            Header: "Report (excel)",
+            Header: "ACR (excel)",
             Cell: ({ row }) => (
               <button className="text-2xl " onClick={() => ConvertToExcel(row.original.Report)}><FontAwesomeIcon icon={faFileArrowDown} /></button>
             )
           },
-  {
-    Header:"delete",
-    Cell: ({ row }) => (
-      <button className="text-2xl" onClick={() => handleDelete(row.original.id)}><FontAwesomeIcon icon={faTrashCan} /></button>
-    )
-  }
+  // {
+  //   Header:"delete",
+  //   Cell: ({ row }) => (
+  //     <button className="text-2xl" onClick={() => handleDelete(row.original.id)}><FontAwesomeIcon icon={faTrashCan} /></button>
+  //   )
+  // }
         
           
         ],
