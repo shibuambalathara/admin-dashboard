@@ -2,7 +2,7 @@
 
 
 
-import React, {  useMemo,useState } from 'react'
+import React, {  useEffect, useMemo,useState } from 'react'
 import { useParams} from 'react-router-dom'
 import { useCoupensperUserQuery, useDeleteVehicleMutation, useUpdateCoupenMutation, useUpdateVehicleMutation, useVehicleDetailsPerEventQuery} from '../../utils/graphql'
 import format from 'date-fns/format'
@@ -204,12 +204,20 @@ Swal.fire({
 
      
  
-    
+      useEffect(() => {
+        const intervalId = setInterval(() => {
+          refetch(); 
+        }, 2000);
+      
+        return () => {
+          clearInterval(intervalId);
+        };
+      }, []);
     
     
       if (loading) return <p>Loading...</p>;
 
-      
+  
 
   return (
     <div className="flex  flex-col  justify-around ">

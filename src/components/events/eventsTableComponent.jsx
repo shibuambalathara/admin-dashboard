@@ -178,6 +178,16 @@ const handleDelete=(id)=>{
         
         const totalPages = (data?.events?.length );
 
+        useEffect(() => {
+          const intervalId = setInterval(() => {
+            refetch(); 
+          }, 2000);
+        
+          return () => {
+            clearInterval(intervalId);
+          };
+        }, []);
+
       if (loading) return <p>Loading...</p>;
       
     
