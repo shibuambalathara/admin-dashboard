@@ -154,15 +154,15 @@ const handleStartDateToIso=(date)=>{
                 </div>
                 
                 <select
-                  defaultValue={data?.event?.eventCategory}
+                  value={data?.event?.eventCategory}
                   placeholder="select"
                    {...register("eventCategory",{})}
                    className={`${inputStyle.data}`}                >
               <option value={data?.event?.eventCategory}>{data?.event?.eventCategory}</option>
-                  <option value="online">Online  </option>
-                  <option value="open">Open </option>
+                  {/* <option value="online">Online  </option>
+                  <option value="open">Open </option> */}
                 </select>
-                <p className="text-red-500"> {errors.eventCategory&& <span>Event type required</span>}</p> 
+                {/* <p className="text-red-500"> {errors.eventCategory&& <span>Event type required</span>}</p>  */}
 
               </div>
               <div className=" xl:flex space-x-2">
@@ -341,7 +341,7 @@ const handleStartDateToIso=(date)=>{
                  <label className="font-bold" htmlFor="">Extra Time Trigger in Minutes</label>
                 <input
                   type="number"
-                  defaultValue={data?.event?.extraTimeTrigerIn}
+                  value={data?.event?.extraTimeTrigerIn}
                   {...register("timeTriger",{})}
                   className={`${inputStyle.data}`}
                 />
@@ -350,12 +350,12 @@ const handleStartDateToIso=(date)=>{
                  <label className="font-bold" htmlFor="">Extra Time in minutes</label>
                 <input
                   type="number"
-                  defaultValue={data?.event?.extraTime}
+                  value={data?.event?.extraTime}
                   {...register("extraTime",{})}
                   className={`${inputStyle.data}`}
                 />
               </div>
-               <div className={`${labelAndInputDiv.data}`}>
+           {data?.event?.eventCategory==='open' &&    <div className={`${labelAndInputDiv.data}`}>
                  <label className="font-bold" htmlFor="">
                   Open Auction Vehicle Live Time in minutes
                 </label>
@@ -365,11 +365,10 @@ const handleStartDateToIso=(date)=>{
                   {...register("liveTime",{})}
                   className={`${inputStyle.data}`}
                 />
-              </div>
+              </div>}
               <div className={`${labelAndInputDiv.data}`}>
                  <label className="font-bold" htmlFor="">
-                  Open Auction Gap in between vehicles in seconds / Online End
-                  Time Increase in Minuts
+                {data?.event?.eventCategory==='open'?  'Open Auction Gap in between vehicles in seconds' : 'Online End Time Increase in Minuts'}
                 </label>
                 <input
                   type="number"

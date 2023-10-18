@@ -1400,6 +1400,8 @@ export type Mutation = {
   createLocations?: Maybe<Array<Maybe<Location>>>;
   createPayment?: Maybe<Payment>;
   createPayments?: Maybe<Array<Maybe<Payment>>>;
+  createSellACar?: Maybe<SellACar>;
+  createSellACars?: Maybe<Array<Maybe<SellACar>>>;
   createSeller?: Maybe<Seller>;
   createSellers?: Maybe<Array<Maybe<Seller>>>;
   createState?: Maybe<State>;
@@ -1432,6 +1434,8 @@ export type Mutation = {
   deleteLocations?: Maybe<Array<Maybe<Location>>>;
   deletePayment?: Maybe<Payment>;
   deletePayments?: Maybe<Array<Maybe<Payment>>>;
+  deleteSellACar?: Maybe<SellACar>;
+  deleteSellACars?: Maybe<Array<Maybe<SellACar>>>;
   deleteSeller?: Maybe<Seller>;
   deleteSellers?: Maybe<Array<Maybe<Seller>>>;
   deleteState?: Maybe<State>;
@@ -1467,6 +1471,8 @@ export type Mutation = {
   updateLocations?: Maybe<Array<Maybe<Location>>>;
   updatePayment?: Maybe<Payment>;
   updatePayments?: Maybe<Array<Maybe<Payment>>>;
+  updateSellACar?: Maybe<SellACar>;
+  updateSellACars?: Maybe<Array<Maybe<SellACar>>>;
   updateSeller?: Maybe<Seller>;
   updateSellers?: Maybe<Array<Maybe<Seller>>>;
   updateState?: Maybe<State>;
@@ -1598,6 +1604,16 @@ export type MutationCreatePaymentArgs = {
 
 export type MutationCreatePaymentsArgs = {
   data: Array<PaymentCreateInput>;
+};
+
+
+export type MutationCreateSellACarArgs = {
+  data: SellACarCreateInput;
+};
+
+
+export type MutationCreateSellACarsArgs = {
+  data: Array<SellACarCreateInput>;
 };
 
 
@@ -1758,6 +1774,16 @@ export type MutationDeletePaymentArgs = {
 
 export type MutationDeletePaymentsArgs = {
   where: Array<PaymentWhereUniqueInput>;
+};
+
+
+export type MutationDeleteSellACarArgs = {
+  where: SellACarWhereUniqueInput;
+};
+
+
+export type MutationDeleteSellACarsArgs = {
+  where: Array<SellACarWhereUniqueInput>;
 };
 
 
@@ -1940,6 +1966,17 @@ export type MutationUpdatePaymentArgs = {
 
 export type MutationUpdatePaymentsArgs = {
   data: Array<PaymentUpdateArgs>;
+};
+
+
+export type MutationUpdateSellACarArgs = {
+  data: SellACarUpdateInput;
+  where: SellACarWhereUniqueInput;
+};
+
+
+export type MutationUpdateSellACarsArgs = {
+  data: Array<SellACarUpdateArgs>;
 };
 
 
@@ -2223,6 +2260,9 @@ export type Query = {
   payment?: Maybe<Payment>;
   payments?: Maybe<Array<Payment>>;
   paymentsCount?: Maybe<Scalars['Int']>;
+  sellACar?: Maybe<SellACar>;
+  sellACars?: Maybe<Array<SellACar>>;
+  sellACarsCount?: Maybe<Scalars['Int']>;
   seller?: Maybe<Seller>;
   sellers?: Maybe<Array<Seller>>;
   sellersCount?: Maybe<Scalars['Int']>;
@@ -2463,6 +2503,24 @@ export type QueryPaymentsCountArgs = {
 };
 
 
+export type QuerySellACarArgs = {
+  where: SellACarWhereUniqueInput;
+};
+
+
+export type QuerySellACarsArgs = {
+  orderBy?: Array<SellACarOrderByInput>;
+  skip?: Scalars['Int'];
+  take?: InputMaybe<Scalars['Int']>;
+  where?: SellACarWhereInput;
+};
+
+
+export type QuerySellACarsCountArgs = {
+  where?: SellACarWhereInput;
+};
+
+
 export type QuerySellerArgs = {
   where: SellerWhereUniqueInput;
 };
@@ -2590,6 +2648,288 @@ export type RedeemUserMagicAuthTokenSuccess = {
   __typename?: 'RedeemUserMagicAuthTokenSuccess';
   item: User;
   token: Scalars['String'];
+};
+
+export type SellACar = {
+  __typename?: 'SellACar';
+  additionalRemarks?: Maybe<Scalars['String']>;
+  approxParkingCharges?: Maybe<Scalars['String']>;
+  area?: Maybe<Scalars['String']>;
+  categoty?: Maybe<Scalars['String']>;
+  chassisNo?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  clientContactNo?: Maybe<Scalars['String']>;
+  clientContactPerson?: Maybe<Scalars['String']>;
+  climateControl?: Maybe<Scalars['String']>;
+  color?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  dateOfRegistration?: Maybe<Scalars['DateTime']>;
+  doorCount?: Maybe<Scalars['Int']>;
+  engineNo?: Maybe<Scalars['String']>;
+  expectToSell?: Maybe<Scalars['String']>;
+  fitness?: Maybe<Scalars['String']>;
+  fitnessPermit?: Maybe<Scalars['String']>;
+  fuel?: Maybe<Scalars['String']>;
+  gearBox?: Maybe<Scalars['String']>;
+  hypothication?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  images?: Maybe<Scalars['String']>;
+  insurance?: Maybe<Scalars['String']>;
+  insuranceStatus?: Maybe<Scalars['String']>;
+  insuranceValidTill?: Maybe<Scalars['DateTime']>;
+  kmReading?: Maybe<Scalars['Int']>;
+  make?: Maybe<Scalars['String']>;
+  mileage?: Maybe<Scalars['Int']>;
+  mobile?: Maybe<Scalars['String']>;
+  model?: Maybe<Scalars['String']>;
+  ownership?: Maybe<Scalars['Int']>;
+  parkingRate?: Maybe<Scalars['String']>;
+  permit?: Maybe<Scalars['String']>;
+  powerSteering?: Maybe<Scalars['String']>;
+  rcStatus?: Maybe<Scalars['String']>;
+  registeredOwnerName?: Maybe<Scalars['String']>;
+  registrationNumber?: Maybe<Scalars['String']>;
+  reservePrice?: Maybe<Scalars['Float']>;
+  rtoFine?: Maybe<Scalars['String']>;
+  shape?: Maybe<Scalars['String']>;
+  startPrice?: Maybe<Scalars['Float']>;
+  state?: Maybe<Scalars['String']>;
+  tax?: Maybe<Scalars['String']>;
+  taxValidityDate?: Maybe<Scalars['DateTime']>;
+  type?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  varient?: Maybe<Scalars['String']>;
+  vehicleCondition?: Maybe<Scalars['String']>;
+  vehicleIndexNo?: Maybe<Scalars['Int']>;
+  vehicleRemarks?: Maybe<Scalars['String']>;
+  veicleLocation?: Maybe<Scalars['String']>;
+  yearOfManufacture?: Maybe<Scalars['Int']>;
+};
+
+export type SellACarCreateInput = {
+  additionalRemarks?: InputMaybe<Scalars['String']>;
+  approxParkingCharges?: InputMaybe<Scalars['String']>;
+  area?: InputMaybe<Scalars['String']>;
+  categoty?: InputMaybe<Scalars['String']>;
+  chassisNo?: InputMaybe<Scalars['String']>;
+  city?: InputMaybe<Scalars['String']>;
+  clientContactNo?: InputMaybe<Scalars['String']>;
+  clientContactPerson?: InputMaybe<Scalars['String']>;
+  climateControl?: InputMaybe<Scalars['String']>;
+  color?: InputMaybe<Scalars['String']>;
+  dateOfRegistration?: InputMaybe<Scalars['DateTime']>;
+  doorCount?: InputMaybe<Scalars['Int']>;
+  engineNo?: InputMaybe<Scalars['String']>;
+  expectToSell?: InputMaybe<Scalars['String']>;
+  fitness?: InputMaybe<Scalars['String']>;
+  fitnessPermit?: InputMaybe<Scalars['String']>;
+  fuel?: InputMaybe<Scalars['String']>;
+  gearBox?: InputMaybe<Scalars['String']>;
+  hypothication?: InputMaybe<Scalars['String']>;
+  images?: InputMaybe<Scalars['String']>;
+  insurance?: InputMaybe<Scalars['String']>;
+  insuranceStatus?: InputMaybe<Scalars['String']>;
+  insuranceValidTill?: InputMaybe<Scalars['DateTime']>;
+  kmReading?: InputMaybe<Scalars['Int']>;
+  make?: InputMaybe<Scalars['String']>;
+  mileage?: InputMaybe<Scalars['Int']>;
+  mobile?: InputMaybe<Scalars['String']>;
+  model?: InputMaybe<Scalars['String']>;
+  ownership?: InputMaybe<Scalars['Int']>;
+  parkingRate?: InputMaybe<Scalars['String']>;
+  permit?: InputMaybe<Scalars['String']>;
+  powerSteering?: InputMaybe<Scalars['String']>;
+  rcStatus?: InputMaybe<Scalars['String']>;
+  registeredOwnerName?: InputMaybe<Scalars['String']>;
+  registrationNumber?: InputMaybe<Scalars['String']>;
+  reservePrice?: InputMaybe<Scalars['Float']>;
+  rtoFine?: InputMaybe<Scalars['String']>;
+  shape?: InputMaybe<Scalars['String']>;
+  startPrice?: InputMaybe<Scalars['Float']>;
+  state?: InputMaybe<Scalars['String']>;
+  tax?: InputMaybe<Scalars['String']>;
+  taxValidityDate?: InputMaybe<Scalars['DateTime']>;
+  type?: InputMaybe<Scalars['String']>;
+  varient?: InputMaybe<Scalars['String']>;
+  vehicleCondition?: InputMaybe<Scalars['String']>;
+  vehicleIndexNo?: InputMaybe<Scalars['Int']>;
+  vehicleRemarks?: InputMaybe<Scalars['String']>;
+  veicleLocation?: InputMaybe<Scalars['String']>;
+  yearOfManufacture?: InputMaybe<Scalars['Int']>;
+};
+
+export type SellACarOrderByInput = {
+  additionalRemarks?: InputMaybe<OrderDirection>;
+  approxParkingCharges?: InputMaybe<OrderDirection>;
+  area?: InputMaybe<OrderDirection>;
+  categoty?: InputMaybe<OrderDirection>;
+  chassisNo?: InputMaybe<OrderDirection>;
+  city?: InputMaybe<OrderDirection>;
+  clientContactNo?: InputMaybe<OrderDirection>;
+  clientContactPerson?: InputMaybe<OrderDirection>;
+  climateControl?: InputMaybe<OrderDirection>;
+  color?: InputMaybe<OrderDirection>;
+  createdAt?: InputMaybe<OrderDirection>;
+  dateOfRegistration?: InputMaybe<OrderDirection>;
+  doorCount?: InputMaybe<OrderDirection>;
+  engineNo?: InputMaybe<OrderDirection>;
+  expectToSell?: InputMaybe<OrderDirection>;
+  fitness?: InputMaybe<OrderDirection>;
+  fitnessPermit?: InputMaybe<OrderDirection>;
+  fuel?: InputMaybe<OrderDirection>;
+  gearBox?: InputMaybe<OrderDirection>;
+  hypothication?: InputMaybe<OrderDirection>;
+  id?: InputMaybe<OrderDirection>;
+  images?: InputMaybe<OrderDirection>;
+  insurance?: InputMaybe<OrderDirection>;
+  insuranceStatus?: InputMaybe<OrderDirection>;
+  insuranceValidTill?: InputMaybe<OrderDirection>;
+  kmReading?: InputMaybe<OrderDirection>;
+  make?: InputMaybe<OrderDirection>;
+  mileage?: InputMaybe<OrderDirection>;
+  mobile?: InputMaybe<OrderDirection>;
+  model?: InputMaybe<OrderDirection>;
+  ownership?: InputMaybe<OrderDirection>;
+  parkingRate?: InputMaybe<OrderDirection>;
+  permit?: InputMaybe<OrderDirection>;
+  powerSteering?: InputMaybe<OrderDirection>;
+  rcStatus?: InputMaybe<OrderDirection>;
+  registeredOwnerName?: InputMaybe<OrderDirection>;
+  registrationNumber?: InputMaybe<OrderDirection>;
+  reservePrice?: InputMaybe<OrderDirection>;
+  rtoFine?: InputMaybe<OrderDirection>;
+  shape?: InputMaybe<OrderDirection>;
+  startPrice?: InputMaybe<OrderDirection>;
+  state?: InputMaybe<OrderDirection>;
+  tax?: InputMaybe<OrderDirection>;
+  taxValidityDate?: InputMaybe<OrderDirection>;
+  type?: InputMaybe<OrderDirection>;
+  updatedAt?: InputMaybe<OrderDirection>;
+  varient?: InputMaybe<OrderDirection>;
+  vehicleCondition?: InputMaybe<OrderDirection>;
+  vehicleIndexNo?: InputMaybe<OrderDirection>;
+  vehicleRemarks?: InputMaybe<OrderDirection>;
+  veicleLocation?: InputMaybe<OrderDirection>;
+  yearOfManufacture?: InputMaybe<OrderDirection>;
+};
+
+export type SellACarUpdateArgs = {
+  data: SellACarUpdateInput;
+  where: SellACarWhereUniqueInput;
+};
+
+export type SellACarUpdateInput = {
+  additionalRemarks?: InputMaybe<Scalars['String']>;
+  approxParkingCharges?: InputMaybe<Scalars['String']>;
+  area?: InputMaybe<Scalars['String']>;
+  categoty?: InputMaybe<Scalars['String']>;
+  chassisNo?: InputMaybe<Scalars['String']>;
+  city?: InputMaybe<Scalars['String']>;
+  clientContactNo?: InputMaybe<Scalars['String']>;
+  clientContactPerson?: InputMaybe<Scalars['String']>;
+  climateControl?: InputMaybe<Scalars['String']>;
+  color?: InputMaybe<Scalars['String']>;
+  dateOfRegistration?: InputMaybe<Scalars['DateTime']>;
+  doorCount?: InputMaybe<Scalars['Int']>;
+  engineNo?: InputMaybe<Scalars['String']>;
+  expectToSell?: InputMaybe<Scalars['String']>;
+  fitness?: InputMaybe<Scalars['String']>;
+  fitnessPermit?: InputMaybe<Scalars['String']>;
+  fuel?: InputMaybe<Scalars['String']>;
+  gearBox?: InputMaybe<Scalars['String']>;
+  hypothication?: InputMaybe<Scalars['String']>;
+  images?: InputMaybe<Scalars['String']>;
+  insurance?: InputMaybe<Scalars['String']>;
+  insuranceStatus?: InputMaybe<Scalars['String']>;
+  insuranceValidTill?: InputMaybe<Scalars['DateTime']>;
+  kmReading?: InputMaybe<Scalars['Int']>;
+  make?: InputMaybe<Scalars['String']>;
+  mileage?: InputMaybe<Scalars['Int']>;
+  mobile?: InputMaybe<Scalars['String']>;
+  model?: InputMaybe<Scalars['String']>;
+  ownership?: InputMaybe<Scalars['Int']>;
+  parkingRate?: InputMaybe<Scalars['String']>;
+  permit?: InputMaybe<Scalars['String']>;
+  powerSteering?: InputMaybe<Scalars['String']>;
+  rcStatus?: InputMaybe<Scalars['String']>;
+  registeredOwnerName?: InputMaybe<Scalars['String']>;
+  registrationNumber?: InputMaybe<Scalars['String']>;
+  reservePrice?: InputMaybe<Scalars['Float']>;
+  rtoFine?: InputMaybe<Scalars['String']>;
+  shape?: InputMaybe<Scalars['String']>;
+  startPrice?: InputMaybe<Scalars['Float']>;
+  state?: InputMaybe<Scalars['String']>;
+  tax?: InputMaybe<Scalars['String']>;
+  taxValidityDate?: InputMaybe<Scalars['DateTime']>;
+  type?: InputMaybe<Scalars['String']>;
+  varient?: InputMaybe<Scalars['String']>;
+  vehicleCondition?: InputMaybe<Scalars['String']>;
+  vehicleIndexNo?: InputMaybe<Scalars['Int']>;
+  vehicleRemarks?: InputMaybe<Scalars['String']>;
+  veicleLocation?: InputMaybe<Scalars['String']>;
+  yearOfManufacture?: InputMaybe<Scalars['Int']>;
+};
+
+export type SellACarWhereInput = {
+  AND?: InputMaybe<Array<SellACarWhereInput>>;
+  NOT?: InputMaybe<Array<SellACarWhereInput>>;
+  OR?: InputMaybe<Array<SellACarWhereInput>>;
+  additionalRemarks?: InputMaybe<StringFilter>;
+  approxParkingCharges?: InputMaybe<StringFilter>;
+  area?: InputMaybe<StringFilter>;
+  categoty?: InputMaybe<StringFilter>;
+  chassisNo?: InputMaybe<StringFilter>;
+  city?: InputMaybe<StringFilter>;
+  clientContactNo?: InputMaybe<StringFilter>;
+  clientContactPerson?: InputMaybe<StringFilter>;
+  climateControl?: InputMaybe<StringFilter>;
+  color?: InputMaybe<StringFilter>;
+  createdAt?: InputMaybe<DateTimeNullableFilter>;
+  dateOfRegistration?: InputMaybe<DateTimeNullableFilter>;
+  doorCount?: InputMaybe<IntNullableFilter>;
+  engineNo?: InputMaybe<StringFilter>;
+  expectToSell?: InputMaybe<StringFilter>;
+  fitness?: InputMaybe<StringFilter>;
+  fitnessPermit?: InputMaybe<StringFilter>;
+  fuel?: InputMaybe<StringFilter>;
+  gearBox?: InputMaybe<StringFilter>;
+  hypothication?: InputMaybe<StringFilter>;
+  id?: InputMaybe<IdFilter>;
+  images?: InputMaybe<StringFilter>;
+  insurance?: InputMaybe<StringFilter>;
+  insuranceStatus?: InputMaybe<StringFilter>;
+  insuranceValidTill?: InputMaybe<DateTimeNullableFilter>;
+  kmReading?: InputMaybe<IntNullableFilter>;
+  make?: InputMaybe<StringFilter>;
+  mileage?: InputMaybe<IntNullableFilter>;
+  mobile?: InputMaybe<StringFilter>;
+  model?: InputMaybe<StringFilter>;
+  ownership?: InputMaybe<IntNullableFilter>;
+  parkingRate?: InputMaybe<StringFilter>;
+  permit?: InputMaybe<StringFilter>;
+  powerSteering?: InputMaybe<StringFilter>;
+  rcStatus?: InputMaybe<StringFilter>;
+  registeredOwnerName?: InputMaybe<StringFilter>;
+  registrationNumber?: InputMaybe<StringFilter>;
+  reservePrice?: InputMaybe<FloatNullableFilter>;
+  rtoFine?: InputMaybe<StringFilter>;
+  shape?: InputMaybe<StringFilter>;
+  startPrice?: InputMaybe<FloatNullableFilter>;
+  state?: InputMaybe<StringFilter>;
+  tax?: InputMaybe<StringFilter>;
+  taxValidityDate?: InputMaybe<DateTimeNullableFilter>;
+  type?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeNullableFilter>;
+  varient?: InputMaybe<StringFilter>;
+  vehicleCondition?: InputMaybe<StringFilter>;
+  vehicleIndexNo?: InputMaybe<IntFilter>;
+  vehicleRemarks?: InputMaybe<StringFilter>;
+  veicleLocation?: InputMaybe<StringFilter>;
+  yearOfManufacture?: InputMaybe<IntNullableFilter>;
+};
+
+export type SellACarWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
 };
 
 export type Seller = {

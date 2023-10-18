@@ -128,7 +128,7 @@ if(result){
           
        
             <FormFieldInput label="Registration" type="text" name="regNo" register={register} error={errors.regNo} required/>
-            <SelectInput label="Bid Status" name="bidStatus" options={bidStatusOptions} register={register}/>
+            <SelectInput label="Bid Status" name="bidStatus" defaultValue='pending' options={bidStatusOptions} register={register}/>
             <FormFieldInput label="Loan Agreement number" type="text" name="loanANum" register={register} error={errors.loanANum} required/>
             <FormFieldInput label="Registered Owner Name" type="text" name="regOwnerName" register={register} error={errors.regOwnerName} />
             <FormFieldInput label="Quote Increment" type="number" defaultValue='1000' name="quoteInc" register={register} error={errors.quoteInc} />

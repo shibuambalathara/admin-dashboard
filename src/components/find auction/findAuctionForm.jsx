@@ -10,9 +10,8 @@ import { ref, uploadBytesResumable, getDownloadURL, updateMetadata } from "fireb
 import imageCompression from 'browser-image-compression';
 
 import { DateConvert } from '../utils/dateFormat';
-import watermark from 'watermarkjs';
+
 import { useEffect, useState } from 'react';
-import { PDFDocument, rgb } from 'pdf-lib';
 
 
 const FindAuctionComponent = ({passedData,onSubmit,useForm,setDownloadUrl}) => {
