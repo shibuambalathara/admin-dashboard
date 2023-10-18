@@ -1,5 +1,5 @@
 
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import {
@@ -105,12 +105,20 @@ const BidDetailsPerVehicleComponent = () => {
     []
   );
 
-
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      refetch(); 
+    }, 2000);
+  
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
  
 
   if (loading) return <p>Loading...</p>;
 
-  // refetch();
+ 
 
   return (
     <div className="flex  flex-col w-full justify-around ">
