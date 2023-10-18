@@ -124,7 +124,9 @@ const handleDelete=(id)=>{
           Cell: ({ row }) => (
 <p className='flex justify-center'>       
 
-{ (row.original.endDate >new Date().toISOString())   &&      <a className="text-2xl" href={`/add-vehicle/${row.original.id}`} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faCar}  /></a>}
+{
+//  (row.original.endDate >new Date().toISOString())   &&
+      <a className="text-2xl" href={`/add-vehicle/${row.original.id}`} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faCar}  /></a>}
 </p>
             )
         },
