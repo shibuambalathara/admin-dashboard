@@ -87,7 +87,7 @@ const ViewStates = () => {
       {
         Header: "Edit State",
         Cell: ({ row }) => (
-          <button className="text-2xl" onClick={() => handleEditState(row.original?.name,row.original?.id)}><FontAwesomeIcon icon={faPenToSquare} /></button>
+          <button className="btn bg-red-500 text-xl" onClick={() => handleEditState(row.original?.name,row.original?.id)}><FontAwesomeIcon icon={faPenToSquare} /></button>
         )
       },
       // {

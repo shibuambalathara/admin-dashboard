@@ -1,11 +1,6 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { Button } from "@material-tailwind/react";
+import React, {  useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUsersQuery, useDeleteUserMutation, useUserauthenticationQuery } from "../../utils/graphql";
-import { useTable,useSortBy, usePagination, useGlobalFilter } from "react-table";
-import SearchUser from "../utils/search";
-import format from 'date-fns/format'
-import UserByMobile from "./userByMobile";
+import { useUsersQuery } from "../../utils/graphql";
 import TabbleOfUsersOrUser from "./tableData";
 import LimitedDataPaginationComponents from "../utils/limitedDataPagination";
 

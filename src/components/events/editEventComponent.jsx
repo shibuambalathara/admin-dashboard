@@ -341,7 +341,7 @@ const handleStartDateToIso=(date)=>{
                  <label className="font-bold" htmlFor="">Extra Time Trigger in Minutes</label>
                 <input
                   type="number"
-                  value={data?.event?.extraTimeTrigerIn}
+                  defaultValue={data?.event?.extraTimeTrigerIn}
                   {...register("timeTriger",{})}
                   className={`${inputStyle.data}`}
                 />
@@ -350,7 +350,7 @@ const handleStartDateToIso=(date)=>{
                  <label className="font-bold" htmlFor="">Extra Time in minutes</label>
                 <input
                   type="number"
-                  value={data?.event?.extraTime}
+                  defaultValue={data?.event?.extraTime}
                   {...register("extraTime",{})}
                   className={`${inputStyle.data}`}
                 />

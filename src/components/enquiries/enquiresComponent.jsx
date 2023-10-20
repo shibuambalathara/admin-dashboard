@@ -111,17 +111,17 @@ const ViewQueries = () => {
             <p className="text-green-500 font-bold">Solved</p>
           ),
       },
-      {
-        Header: "Delete",
-        Cell: ({ row }) => (
-          <button
-            className="text-2xl"
-            onClick={() => handleDelete(row.original.id)}
-          >
-          <FontAwesomeIcon icon={faTrashCan} />
-          </button>
-        ),
-      },
+      // {
+      //   Header: "Delete",
+      //   Cell: ({ row }) => (
+      //     <button
+      //       className="text-2xl"
+      //       onClick={() => handleDelete(row.original.id)}
+      //     >
+      //     <FontAwesomeIcon icon={faTrashCan} />
+      //     </button>
+      //   ),
+      // },
     ],
     []
   );

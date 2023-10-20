@@ -56,7 +56,8 @@ console.log("tabledata",tableData,"sort by",sortBy)
       pageOptions,
       pageCount,
       gotoPage,
-      pageIndex
+      pageIndex,
+      tablePageIndex
     };
 
   return (
