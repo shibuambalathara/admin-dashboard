@@ -71,7 +71,7 @@ refetch()
         Header: "View/Edit Seller",
         Cell: ({ row }) => (
       
-      <a className="text-2xl" href={`/edit-seller/${row.original.id}`} target="_blank" rel="noopener noreferrer"> <FontAwesomeIcon icon={faBuilding} /></a>
+      <a className="btn bg-orange-500 text-xl" href={`/edit-seller/${row.original.id}`} target="_blank" rel="noopener noreferrer"> <FontAwesomeIcon icon={faBuilding} /></a>
 
       )
       },
@@ -86,16 +86,16 @@ refetch()
         Header: "View Events",
         Cell: ({ row }) => (
           //<button className="btn btn-success" onClick={() => handleEvents(row.original?.id)}>View</button>
-          <a className="text-2xl" href={`/events-seller/${row.original?.id}`} target="_blank" rel="noopener noreferrer"> <FontAwesomeIcon icon={faCalendarCheck} /></a>
+          <a className="btn bg-cyan-500 text-xl" href={`/events-seller/${row.original?.id}`} target="_blank" rel="noopener noreferrer"> <FontAwesomeIcon icon={faCalendarCheck} /></a>
 
         )
       },
-      {
-        Header: "Remove Seller",
-        Cell: ({ row }) => (
-          <button className="text-2xl" onClick={() => handleRemove(row.original?.id)}><FontAwesomeIcon icon={faTrashCan} /></button>
-        )
-      },
+      // {
+      //   Header: "Remove Seller",
+      //   Cell: ({ row }) => (
+      //     <button className="text-2xl" onClick={() => handleRemove(row.original?.id)}><FontAwesomeIcon icon={faTrashCan} /></button>
+      //   )
+      // },
     ],
     []
   );

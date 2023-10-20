@@ -87,16 +87,16 @@ const [updateLocation]=useUpdateLocationMutation()
       {
         Header: "City",
         Cell: ({ row }) => (
-          <button className="text-2xl" onClick={()=>handleEditLocation(row.original.name,row.original.id) }><FontAwesomeIcon icon={faPenToSquare} /></button>
+          <button className="btn bg-red-500 text-xl" onClick={()=>handleEditLocation(row.original.name,row.original.id) }><FontAwesomeIcon icon={faPenToSquare} /></button>
         )
       },
         
-      {
-        Header: "Delete",
-        Cell: ({ row }) => (
-          <button className="text-2xl" onClick={()=>handleDelete(row.original.id) }><FontAwesomeIcon icon={faTrashCan} /></button>
-        )
-      },
+      // {
+      //   Header: "Delete",
+      //   Cell: ({ row }) => (
+      //     <button className="text-2xl" onClick={()=>handleDelete(row.original.id) }><FontAwesomeIcon icon={faTrashCan} /></button>
+      //   )
+      // },
     ],
     []
   );

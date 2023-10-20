@@ -96,7 +96,7 @@ const handleMessage=(coupen)=>{
         Header: "Create Payment",
         Cell: ({ row }) => (
      
-     <a className="text-xl" href={`/create-payment/${row.original.id}`} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faCreditCard} /></a>
+     <a className="btn bg-red-500 text-xl" href={`/create-payment/${row.original.id}`} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faCreditCard} /></a>
 
         ),
       },
@@ -104,7 +104,7 @@ const handleMessage=(coupen)=>{
         Header: "User Details",
         Cell: ({ row }) => (
       
-          <a className=" text-2xl" href={`/view-user/${row.original.id}`} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faUserPen} /></a>
+          <a className=" btn btn-info text-xl" href={`/view-user/${row.original.id}`} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faUserPen} /></a>
 
 
 

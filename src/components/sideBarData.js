@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBuilding, faCalendarXmark,  faComment } from '@fortawesome/free-regular-svg-icons';
-import { faBuildingColumns, faCar, faEarthAsia, faFileArrowUp, faFileInvoiceDollar, faHouse, faLocationDot, faMagnifyingGlass, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faBuildingColumns, faCar, faCarOn, faEarthAsia, faFileArrowUp, faFileInvoiceDollar, faHouse, faLocationDot, faMagnifyingGlass, faUsers } from '@fortawesome/free-solid-svg-icons';
 const Sidebar_items=[
     {
       name:"Dashboard",
@@ -63,6 +63,13 @@ const Sidebar_items=[
     iconType:<FontAwesomeIcon icon={faBuildingColumns} style={{ fontSize:24 }} />
    
   },
+  {
+    name:"Sell a Car",
+    path:"sell-a-car",
+    iconType:<FontAwesomeIcon icon={faCarOn} style={{ fontSize:24 }} />
+   
+  },
+  
   {
     name:"Image Upload",
     path:"image-upload",

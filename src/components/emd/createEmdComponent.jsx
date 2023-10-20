@@ -1,14 +1,15 @@
-import { useEffect } from "react";
+
 import { useForm } from "react-hook-form";
-import voucherCodes  from 'voucher-code-generator'
+
 import { useParams } from 'react-router-dom';
 import{ useCreateEmdUpdateMutation,  usePaymentDetailsQuery} from '../../utils/graphql'
 import { ShowPopup } from '../alerts/popUps';
 import Swal from "sweetalert2";
+import { h2Style, headerStyle, pageStyle } from "../utils/style";
 const CreateEmdComponent = () => {
   const {id}=useParams()
-  const { data, loading, error } =usePaymentDetailsQuery ({variables:{where:{id}}});
-  const userId=data?.payment?.user?.id
+  const { data, loading } =usePaymentDetailsQuery ({variables:{where:{id}}});
+
   console.log(data?.payment?.user?.id,"dd")
 
 
@@ -65,7 +66,12 @@ try {
  
 
   return (
-    <div className="flex flex-col space-y-10 justify-center align-middle w-full bg-gray-50  my-10">
+    <div className={`${pageStyle.data}`}>
+         <div className={`${headerStyle.data}`}>
+        <h2 className={`${h2Style.data}`}>
+       Buying Limit 
+        </h2>
+      </div>
       <form onSubmit={handleSubmit(onSubmit)} className=" w-full my-5 space-y-10">
          <div className="flex space-x-2 justify-around">
           
