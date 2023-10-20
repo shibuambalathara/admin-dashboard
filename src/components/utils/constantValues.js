@@ -24,3 +24,7 @@ export const bidStatusOptions = [
     { value:"other",label:"Other"}
   
 ]
+export const eventCategory=[
+    {value:"open",label:"Open"},
+    {value:"online",label:"Online"}
+]

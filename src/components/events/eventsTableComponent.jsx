@@ -7,7 +7,7 @@ import TableComponent from '../utils/table'
 import LimitedDataPaginationComponents from '../utils/limitedDataPagination'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCar, faFileArrowDown, faFileArrowUp, faUserPlus } from '@fortawesome/free-solid-svg-icons'
-import { faEye, faTrashCan } from '@fortawesome/free-regular-svg-icons'
+import { faCalendarDays,  } from '@fortawesome/free-regular-svg-icons'
 import  { ConvertToExcel } from '../utils/excelFormat'
 import { FormatDate } from '../utils/dateFormat'
 
@@ -125,8 +125,8 @@ const handleDelete=(id)=>{
 <p className='flex justify-center'>       
 
 {
-//  (row.original.endDate >new Date().toISOString())   &&
-      <a className="text-2xl" href={`/add-vehicle/${row.original.id}`} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faCar}  /></a>}
+  (row.original.endDate >new Date().toISOString())   &&
+      <a className="btn btn-accent text-xl" href={`/add-vehicle/${row.original.id}`} target="_blank" rel="noopener noreferrer">+ <FontAwesomeIcon icon={faCar}  /></a>}
 </p>
             )
         },
@@ -141,7 +141,7 @@ const handleDelete=(id)=>{
             Header: "Upload Excel File",
             Cell: ({ row }) => (
       //        <button className="btn btn-info" onClick={()=>handleUploadExcelFile(row.original.id) }>Upload</button>
-      <a className="text-2xl " href={`/excel-upload/${row.original.id}`} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faFileArrowUp} /></a>
+      <a className="btn bg-emerald-500 text-xl " href={`/excel-upload/${row.original.id}`} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faFileArrowUp} /></a>
    
       )
           },
@@ -149,14 +149,14 @@ const handleDelete=(id)=>{
           {
             Header: "View/Edit Event",
             Cell: ({ row }) => (
-              <a className=" text-2xl " href={`/edit-event/${row.original.id}`} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faEye} /></a>
+              <a className="btn bg-cyan-500 text-xl " href={`/edit-event/${row.original.id}`} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faCalendarDays} /></a>
 
               )
           },
           {
             Header: "ACR (excel)",
             Cell: ({ row }) => (
-              <button className="text-2xl " onClick={() => ConvertToExcel(row.original.Report)}><FontAwesomeIcon icon={faFileArrowDown} /></button>
+              <button className="btn bg-red-500 text-xl " onClick={() => ConvertToExcel(row.original.Report)}><FontAwesomeIcon icon={faFileArrowDown} /></button>
             )
           },
   // {

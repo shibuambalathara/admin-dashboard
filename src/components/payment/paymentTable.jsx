@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 import TableComponent from "../utils/table";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePlus, faUserPen } from "@fortawesome/free-solid-svg-icons";
-import { faEye, faMoneyBill1 } from "@fortawesome/free-regular-svg-icons";
+import { faCirclePlus, faE, faUserPen } from "@fortawesome/free-solid-svg-icons";
+import {  faMoneyBill1 } from "@fortawesome/free-regular-svg-icons";
 import { FormatDate } from "../utils/dateFormat";
+
 const PaymentTable = ({data}) => {
 
 
@@ -91,12 +92,13 @@ const PaymentTable = ({data}) => {
         Header: "View Emds",
         Cell: ({ row }) => (
       row.original.emdUpdateCount!==0 &&     <a
-            className="text-2xl"
+            className="btn bg-zinc-500 text-xl"
             href={`/emd-payment/${row.original.id}`}
             target="_blank"
             rel="noopener noreferrer"
           >
-          <FontAwesomeIcon icon={faEye} />
+         
+          <FontAwesomeIcon icon={faE} />
           </a>
         ),
       },
@@ -105,7 +107,7 @@ const PaymentTable = ({data}) => {
         Header: "Payment details",
         Cell: ({ row }) => (
           <a
-            className="  text-2xl"
+            className="btn bg-rose-500  text-xl"
             href={`/payment/${row.original?.user?.id}`}
             target="_blank"
             rel="noopener noreferrer"
@@ -119,7 +121,7 @@ const PaymentTable = ({data}) => {
         Header: "View User",
         Cell: ({ row }) => (
           <a
-            className="text-2xl"
+            className="btn btn-info text-xl"
             href={`/view-user/${row.original.user?.id}`}
             target="_blank"
             rel="noopener noreferrer"

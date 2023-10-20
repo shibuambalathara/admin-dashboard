@@ -36,8 +36,8 @@ const Sidebar = () => {
       {Sidebar_items.map((item)=>{
         return(
           <>{item.path===pathNm?
-          <div><button onClick={() => HandleClick(item.path)}  className='text-lg  text-start font-bold text-red-700 my-2 w-full '> {item?.iconType} {item.name}</button>  </div>
-          :<div><button onClick={() => HandleClick(item.path)}  className='text-lg  text-start font-bold my-2  w-full text-white'> {item?.iconType} {item.name}</button>  </div>
+          <div><button onClick={() => HandleClick(item.path)}  className='text-lg  text-start font-bold text-red-700  w-full '> {item?.iconType} {item.name}</button>  </div>
+          :<div><button onClick={() => HandleClick(item.path)}  className='text-lg  text-start font-bold   w-full text-white'> {item?.iconType} {item.name}</button>  </div>
       }
           </>
           )
@@ -58,8 +58,8 @@ const Sidebar = () => {
 
           {item.path===pathNm?
           
-          <div  className='my-7'><button onClick={() => HandleClick(item.path)}  className='  text-start font-bold text-red-500  w-full '>  {item?.iconType}</button>  </div>
-          :<div  className='my-7 '><button onClick={() => HandleClick(item.path)}  className=' btn-ghost  text-start font-bold   w-full text-white'>   {item?.iconType}</button>  </div>
+          <div  className='my-5'><button onClick={() => HandleClick(item.path)}  className='  text-start font-bold text-red-500  w-full '>  {item?.iconType}</button>  </div>
+          :<div  className='my-5 '><button onClick={() => HandleClick(item.path)}  className=' btn-ghost  text-start font-bold   w-full text-white'>   {item?.iconType}</button>  </div>
       }
           </div>
           )
