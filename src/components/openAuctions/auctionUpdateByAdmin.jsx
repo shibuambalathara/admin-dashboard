@@ -10,10 +10,12 @@ import {
 
 
   useEditEventMutation,
+
 } from "../../utils/graphql";
 import ParticipantsList from "./participantList";
 import VehicleDetails from "./createBid";
 import Swal from "sweetalert2";
+import Deletedbidtable from "../bids/deletedbidtable";
 
 
 
@@ -29,6 +31,7 @@ const AuctionUpdateByAdmin = () => {
 
 
   const [pauseEvent] = useEditEventMutation({ variables: { where: { id } } });
+
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -239,7 +242,7 @@ const AuctionUpdateByAdmin = () => {
                     Start Price :
                   </h2>
                   <p className="text-2xl font-bold text-red-600">
-                    {liveItem.startBidAmount.toLocaleString()}/-
+                    {liveItem?.startBidAmount?.toLocaleString()}/-
                   </p>
                 </div>
               </div>
@@ -264,6 +267,7 @@ const AuctionUpdateByAdmin = () => {
         </div>
               <VehicleDetails liveVehicle={liveItem} timedata1={timeData} />
               <ParticipantsList vehicleId={liveItem?.id} />
+              <Deletedbidtable vehicleId={liveItem?.id}/>
             </>
           ): counterLeftUpcoming(upcomingSecondsLeft())}
         </div>

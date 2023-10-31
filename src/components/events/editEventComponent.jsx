@@ -27,7 +27,7 @@ const[isoEndDatedata,setIsoEndDate]=useState('')
    const {data,loading,error}=useEventQuery({variables:{where:{id}}})
 
 
-
+console.log("data",data)
 
 useEffect(()=>{
   if(data?.event?.startDate){
@@ -175,6 +175,7 @@ const handleStartDateToIso=(date)=>{
                     className={`${inputStyle.data}`}  
                  defaultValue={startDatedata}  onChange={(event) => handleStartDateToIso(event.target.value)} 
                     //  {...register("startDate",{})}
+                    disabled={data?.event?.vehiclesCount>0}
                   />
  <p className="text-red-500"> {errors.startDate&& <span>Start date and time required</span>}</p> 
                  
@@ -190,6 +191,7 @@ const handleStartDateToIso=(date)=>{
                     defaultValue={endDatedata}
                      onChange={(event) => handleEndDateToIso(event.target.value)}
                 // {...register("endDate",{})}
+                disabled={data?.event?.vehiclesCount>0}
                   />
                
                   
@@ -353,6 +355,7 @@ const handleStartDateToIso=(date)=>{
                   defaultValue={data?.event?.extraTime}
                   {...register("extraTime",{})}
                   className={`${inputStyle.data}`}
+                  disabled={data?.event?.vehiclesCount>0}
                 />
               </div>
            {data?.event?.eventCategory==='open' &&    <div className={`${labelAndInputDiv.data}`}>
@@ -364,6 +367,7 @@ const handleStartDateToIso=(date)=>{
                   defaultValue={data?.event?.vehicleLiveTimeIn}
                   {...register("liveTime",{})}
                   className={`${inputStyle.data}`}
+                  disabled={data?.event?.vehiclesCount>0}
                 />
               </div>}
               <div className={`${labelAndInputDiv.data}`}>
@@ -375,6 +379,7 @@ const handleStartDateToIso=(date)=>{
                   defaultValue={data?.event?.gapInBetweenVehicles}
                   {...register("gap",{})}
                   className={`${inputStyle.data}`}
+                  disabled={data?.event?.vehiclesCount>0}
                 />
               </div>
 

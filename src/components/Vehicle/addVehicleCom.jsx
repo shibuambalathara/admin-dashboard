@@ -5,7 +5,7 @@ import { useCreateVehicleMutation,useEventStartTimeQuery } from "../../utils/gra
 import { ShowPopup } from '../alerts/popUps';
 import {FormFieldInput, SelectInput, TextAreaInput} from "../utils/formField";
 import { bidStatusOptions } from "../utils/constantValues";
-import { formStyle, headerStyle, pageStyle } from "../utils/style";
+import { formStyle, h2Style, headerStyle, pageStyle } from "../utils/style";
 
 const AddVehicleComponent = () => {
 
@@ -49,8 +49,8 @@ const vehicle={
   kmReading:+dataOnSubmit?.kmReading|| null,
   insuranceStatus:dataOnSubmit?.insuranceStatus,
   yardLocation:dataOnSubmit?.yardLocation,
-  startPrice:+dataOnSubmit?.startPrice|| null,
-  startBidAmount:+dataOnSubmit?.startPrice|| null,
+  startPrice:+dataOnSubmit?.startPrice?? 0,
+  startBidAmount:+dataOnSubmit?.startPrice?? 0,
   reservePrice:+dataOnSubmit?.reservePrice || null,
    repoDt:repo || null,
   veicleLocation:dataOnSubmit?.vehicleLocation,
@@ -118,7 +118,7 @@ if(result){
     <div className={`${pageStyle.data}`}>
     
     <div className={`${headerStyle.data}`}>
-        <h2 className="text-xl py-3 leading-3 font-bold text-gray-900">
+        <h2  className={`${h2Style.data}`}>
        ADD VEHICLE
         </h2>
       </div>

@@ -1,10 +1,6 @@
-import {useState} from 'react'
-import { Button, input } from '@material-tailwind/react'
 import React, { useMemo } from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
-import { useTable,usePagination,useSortBy,useGlobalFilter } from "react-table"
-import {useBidDetailsPerVehicleQuery, useDeleteBidMutation, useUpdateBidMutation,} from '../../utils/graphql'
-import SearchUser from '../utils/search'
+import {useBidDetailsPerVehicleQuery, useDeleteBidMutation, useDeletedBiddataMutation, useDeletedBidsperVehicleQuery, useUpdateBidMutation,} from '../../utils/graphql'
 import format from 'date-fns/format'
 
 import Swal from "sweetalert2";
@@ -13,6 +9,8 @@ import { ShowPopup } from '../alerts/popUps';
 
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import TableComponent from '../utils/table'
+
 
 
 
@@ -21,16 +19,17 @@ const ParticipantsList = (props) => {
   // const [isModalOpen, setIsModalOpen] = useState(false);
     const {id}=useParams()
     const {data,loading,error,refetch}=useBidDetailsPerVehicleQuery({variables:{where:{id:props?.vehicleId}}})
+  
     const[changeToken]=useUpdateBidMutation()
    
     const [deleteBid]=useDeleteBidMutation()
+    const [deletedbidData]=useDeletedBiddataMutation()
     const navigate=useNavigate()
 
 
-   
 
-    const handleDeleteBid=async(id)=>{
-
+    const handleDeleteBid=async(data)=>{
+console.log("row",id)
       const response = await Swal.fire({
         title: 'Are you sure?',
         icon: 'question',
@@ -39,8 +38,10 @@ const ParticipantsList = (props) => {
         cancelButtonText: 'Cancel',
       });
       if (response.isConfirmed) {
-      
-        const result=await  deleteBid({variables:{where:{id}}})
+        const result=await  deleteBid({variables:{where:{id:data?.id}}})
+        // store deleted bid data details
+       let store=await deletedbidData({variables:{data:{deletedbidVehicle:{connect:{id:props?.vehicleId}},amount:data?.amount,user:{connect:{id:data?.user?.id}}}}})
+      // ---------------------
 
         if (result?.data) {
          
@@ -72,45 +73,45 @@ const ParticipantsList = (props) => {
     }
 
 
-    const handleReport=(report)=>{
+  //   const handleReport=(report)=>{
    
-    const arr=[]
-    arr.push(report)
-   const take =arr.map((element)=>({
-     Auction_No:element.event.eventNo,
-     Lot_no:element.vehicleIndexNo,
-     RegistrationNumber:element.registrationNumber,
-    }))
+  //   const arr=[]
+  //   arr.push(report)
+  //  const take =arr.map((element)=>({
+  //    Auction_No:element.event.eventNo,
+  //    Lot_no:element.vehicleIndexNo,
+  //    RegistrationNumber:element.registrationNumber,
+  //   }))
   
 
   
-       report=report?.userVehicleBids.map((element)=>({
+  //      report=report?.userVehicleBids.map((element)=>({
         
-       Bidder_First_Name:element.user.firstName,
-        Last_Name:element.user.lastName,
-        Mobile:element.user.mobile,
-        Amount:element.amount,
-        Bid_Time:format(new Date (element.createdAt),`dd/MM/yy, HH:mm:ss`)
+  //      Bidder_First_Name:element.user.firstName,
+  //       Last_Name:element.user.lastName,
+  //       Mobile:element.user.mobile,
+  //       Amount:element.amount,
+  //       Bid_Time:format(new Date (element.createdAt),`dd/MM/yy, HH:mm:ss`)
        
-      }))
-      report.sort(function(a, b) {
-        return b.Amount - a.Amount;
-      });
+  //     }))
+  //     report.sort(function(a, b) {
+  //       return b.Amount - a.Amount;
+  //     });
      
-      const combined=[...take,...report]
-      const convertToExcel = (jsonToExcel) => {
-        const worksheet = XLSX.utils.json_to_sheet(combined);
-        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+  //     const combined=[...take,...report]
+  //     const convertToExcel = (jsonToExcel) => {
+  //       const worksheet = XLSX.utils.json_to_sheet(combined);
+  //       const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
         
-        const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-        const excelData = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
-        FileSaver.saveAs(excelData, `Bid-Report of Lot No: ${data?.vehicle?.vehicleIndexNo}.xlsx`);
-      }
+  //       const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+  //       const excelData = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+  //       FileSaver.saveAs(excelData, `Bid-Report of Lot No: ${data?.vehicle?.vehicleIndexNo}.xlsx`);
+  //     }
       
      
-      convertToExcel();
+  //     convertToExcel();
    
-     }
+  //    }
      const handleEditBid=async(id)=>{
       
     const {value:text }=  await Swal.fire({
@@ -183,7 +184,7 @@ Swal.fire({icon:'success',
           {
             Header: "Change token",
             Cell: ({ row }) => (
-              <button className="btn btn-warning" onClick={()=>handleEditBid(row.original.id) }>{row.original.user.idNo}</button>
+              <button className="btn bg-pink-800" onClick={()=>handleEditBid(row.original.id) }>{row.original.user.idNo}</button>
 
             )
           },
@@ -199,7 +200,10 @@ Swal.fire({icon:'success',
           {
             Header: "Delete Bid",
             Cell: ({ row }) => (
-              <button className="btn btn-error" onClick={()=>handleDeleteBid(row.original.id) }>Delete </button>
+             
+             
+              <button className="btn btn-error" onClick={()=>handleDeleteBid(row.original) }>Delete </button>
+           
             )
           },  
          
@@ -210,41 +214,11 @@ Swal.fire({icon:'success',
         []
       );
 
-      const tableData=useMemo(() => (data ? data?.vehicle?.userVehicleBids : []), [data]);
-      const tableInstance=useTable({
-        columns ,
-        data: tableData,
-        initialState: {
-          sortBy: [
-            {
-              id: "amount",
-              desc: true,
-            },
-          ],
-        },
-      },useGlobalFilter,useSortBy,usePagination);
      
-        const {
-          getTableProps,
-          getTableBodyProps,
-          headerGroups,
-         
-          page,
-          prepareRow,
-          nextPage,
-          previousPage,
-          canNextPage,
-          canPreviousPage,
-          pageOptions,
-          pageCount,
-          gotoPage,
-          setPageSize: setTablePageSize,
-          state: { pageIndex: tablePageIndex, pageSize: tablePageSize },
-          state,
-          setGlobalFilter
-        } = tableInstance;
+     
+       
     
-        const {globalFilter}=state
+       
     
       if (loading) return <p>Loading...</p>;
       
@@ -252,94 +226,12 @@ Swal.fire({icon:'success',
    
    
   return (
-    <div className="flex  flex-col w-full justify-around ">
-    {/* <Button
-      onClick={() => navigate("/addvehicle")}
-      className="m-5 justify-end w-fit bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-    >
-     Add Vechile
-    </Button> */}
-    
-    <div className=" flex flex-col w-full justify-center m-auto ">
-    <div className="mb-2">
-  <div className="text-center font-extrabold my-5 text-lg min-w-full">  Bidders Details of Lot No:<span className='text-red-500'> {data?.vehicle?.vehicleIndexNo}</span>  & Auction No:<span className='text-red-500'>{data?.vehicle?.event?.eventNo}</span> </div>
-   {/* <div className='flex justify-end space-y-2'>
-    <SearchUser filter={globalFilter} className="  text-white " setFilter={setGlobalFilter}/>
-    <div className='space-y-2'>
-<h1>Vehicle Event Status :<span className='font-bold'> {data?.vehicle?.vehicleEventStatus}</span></h1>
-<h1>Bid Status :<span className='font-bold'> {data?.vehicle?.bidStatus}</span></h1>
-<a className='btn' target="_blank" rel="noopener noreferrer" href={`/edit-vehicle/${data?.vehicle?.id}`}> Change Status</a>
-<button className='btn btn-warning' onClick={(e)=> handleReport(data?.vehicle)} >Report</button>
-    </div>
-    </div> */}
-  </div>
-      <table
-        className="w-full divide-y divide-gray-200"
-        {...getTableProps()}
-      >
-        <thead className="bg-gray-50">
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th
-                  scope="col"
-                  className="py-3 pl-4"
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                >
-                  {column.render("Header")}
-                  <span>
-                      {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
-                      </span>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody className="divide-y divide-gray-200" {...getTableBodyProps()}>
-          {page.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td className="py-3 pl-4 text-center" {...cell.getCellProps()}>
-                      {cell.render("Cell")}
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-<div className="flex justify-center">
-      <div className="flex justify-between mt-4">
-      <div>
-        <button
-          onClick={() => gotoPage(0)}
-          disabled={!canPreviousPage}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
-        >
-          {'<<'}
-        </button>
-        <button
-          onClick={() => previousPage()}
-          disabled={!canPreviousPage}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
-        >
-          {'<'}
-        </button>
-        <button
-          onClick={() => nextPage()}
-          disabled={!canNextPage}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md mr-2"
-          >  {'>'}</button>
-          </div>
-          </div>
-      
-    </div>
-  </div>
-  </div>
+
+
+
+<TableComponent tableData={data?.vehicle?.userVehicleBids} columns={columns} sortBy='amount'/>
+
+
   )
 }
 

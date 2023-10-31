@@ -1,7 +1,8 @@
 import React from 'react'
 import { DateConvert } from '../utils/dateFormat'
 
-const UpdateBidTime = ({currentDate,handleChangeStartTime}) => {
+
+ export const UpdateBidTime = ({currentDate,handleChangeStartTime}) => {
    console.log("current",currentDate)
 
   return (
@@ -14,4 +15,17 @@ const UpdateBidTime = ({currentDate,handleChangeStartTime}) => {
   )
 }
 
-export default UpdateBidTime
+
+
+export const UpdateEventEndTime = ({handleChangeEndTime}) => {
+ 
+
+ return (
+   <div className=' flex justify-end  '>
+       <div className='w-fit modal-box'>
+       <h1 className='font-bold'>Update Time</h1>
+       <input className='border-red-500 border-2 p-2 rounded-md' type='time' defaultValue="00:00" onChange={(e)=>handleChangeEndTime(e.target.value)}  />
+       </div>
+   </div>
+ )
+}

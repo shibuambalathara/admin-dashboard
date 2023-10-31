@@ -77,3 +77,21 @@ mutation DeleteBid($where: BidWhereUniqueInput!) {
     id
   }
 }
+mutation deletedBiddata($data: DeletedBidCreateInput!) {
+  createDeletedBid(data: $data) {
+    id
+  }
+}
+query DeletedBidsperVehicle($where: DeletedBidWhereInput!) {
+  deletedBids(where: $where) {
+    amount
+    user {
+      id
+      firstName
+      lastName
+      mobile
+idNo
+    }
+    
+  }
+}

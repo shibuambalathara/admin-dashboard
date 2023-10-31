@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   useBidDetailsPerVehicleQuery,
   useDeleteBidMutation,
+  useDeletedBiddataMutation,
 } from "../../utils/graphql";
 import { DownloadBidHistory } from "./bidsheet";
 
@@ -15,6 +16,7 @@ import Swal from "sweetalert2";
 import { ShowPopup } from "../alerts/popUps";
 
 import TableComponent from "../utils/table";
+import Deletedbidtable from "./deletedbidtable";
 
 
 const BidDetailsPerVehicleComponent = () => {
@@ -25,9 +27,11 @@ const BidDetailsPerVehicleComponent = () => {
   });
 
   const [deleteBid] = useDeleteBidMutation();
+  const [deletedbidData]=useDeletedBiddataMutation()
   const navigate = useNavigate();
 
-  const handleDeleteBid = async (id) => {
+  const handleDeleteBid = async (data) => {
+    console.log("data",data?.user?.id)
     const response = await Swal.fire({
       title: "Are you sure?",
       icon: "question",
@@ -36,7 +40,12 @@ const BidDetailsPerVehicleComponent = () => {
       cancelButtonText: "Cancel",
     });
     if (response.isConfirmed) {
-      const result = await deleteBid({ variables: { where: { id } } });
+
+      
+      const result = await deleteBid({ variables: { where: { id:data.id } } });
+      // store deleted bid data details
+      let store=await deletedbidData({variables:{data:{deletedbidVehicle:{connect:{id}},amount:data?.amount,user:{connect:{id:data?.user?.id}}}}})
+      // ---------------------
 
       if (result?.data) {
        
@@ -45,18 +54,19 @@ const BidDetailsPerVehicleComponent = () => {
           icon: "success",
         });
 
-        try {
-          const result = await deleteBid({ variables: { where: { id } } });
+        // try {
+        //   const result = await deleteBid({ variables: { where: { id } } });
        
-          ShowPopup("Success!", `successfully Deleted!`, "success", 5000, true);
-        } catch (err) {
-          console.log(err);
-        }
-      }
+        //   ShowPopup("Success!", `successfully Deleted!`, "success", 5000, true);
+        // } catch (err) {
+        //   console.log(err);
+        // }
+      // }
 
       refetch();
     }
   };
+}
   const handleUserDetails = (id) => {
     navigate(`/view-user/${id}`);
   };
@@ -95,7 +105,7 @@ const BidDetailsPerVehicleComponent = () => {
         Cell: ({ row }) => (
           <button
             className="btn btn-error"
-            onClick={() => handleDeleteBid(row.original.id)}
+            onClick={() => handleDeleteBid(row.original)}
           >
             Delete{" "}
           </button>
@@ -179,7 +189,8 @@ const BidDetailsPerVehicleComponent = () => {
         </div>
      
         <TableComponent tableData={data?.vehicle?.userVehicleBids} columns={columns} sortBy='amount' />
-        {/* <PaginationComponents tableData={tableInstance} /> */}
+        <Deletedbidtable vehicleId={id}/>
+        
       </div>
     </div>
   );
