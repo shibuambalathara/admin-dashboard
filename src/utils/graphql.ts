@@ -2824,7 +2824,7 @@ export type SellACar = {
   clientContactPerson?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   engineNo?: Maybe<Scalars['String']>;
-  expectToSell?: Maybe<Scalars['String']>;
+  expectToSell?: Maybe<Scalars['DateTime']>;
   fuel?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   images?: Maybe<Scalars['String']>;
@@ -2846,7 +2846,7 @@ export type SellACarCreateInput = {
   clientContactNo?: InputMaybe<Scalars['String']>;
   clientContactPerson?: InputMaybe<Scalars['String']>;
   engineNo?: InputMaybe<Scalars['String']>;
-  expectToSell?: InputMaybe<Scalars['String']>;
+  expectToSell?: InputMaybe<Scalars['DateTime']>;
   fuel?: InputMaybe<Scalars['String']>;
   images?: InputMaybe<Scalars['String']>;
   kmReading?: InputMaybe<Scalars['Int']>;
@@ -2894,7 +2894,7 @@ export type SellACarUpdateInput = {
   clientContactNo?: InputMaybe<Scalars['String']>;
   clientContactPerson?: InputMaybe<Scalars['String']>;
   engineNo?: InputMaybe<Scalars['String']>;
-  expectToSell?: InputMaybe<Scalars['String']>;
+  expectToSell?: InputMaybe<Scalars['DateTime']>;
   fuel?: InputMaybe<Scalars['String']>;
   images?: InputMaybe<Scalars['String']>;
   kmReading?: InputMaybe<Scalars['Int']>;
@@ -2918,7 +2918,7 @@ export type SellACarWhereInput = {
   clientContactPerson?: InputMaybe<StringFilter>;
   createdAt?: InputMaybe<DateTimeNullableFilter>;
   engineNo?: InputMaybe<StringFilter>;
-  expectToSell?: InputMaybe<StringFilter>;
+  expectToSell?: InputMaybe<DateTimeNullableFilter>;
   fuel?: InputMaybe<StringFilter>;
   id?: InputMaybe<IdFilter>;
   images?: InputMaybe<StringFilter>;
@@ -4838,6 +4838,26 @@ export type SelectorsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type SelectorsQuery = { __typename?: 'Query', states?: Array<{ __typename?: 'State', name?: string | null }> | null, locations?: Array<{ __typename?: 'Location', city?: string | null, id: string }> | null, eventTypes?: Array<{ __typename?: 'EventType', name?: string | null, id: string }> | null };
+
+export type SellACarsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SellACarsQuery = { __typename?: 'Query', sellACars?: Array<{ __typename?: 'SellACar', id: string, vehicleIndexNo?: number | null, registrationNumber?: string | null, make?: string | null, model?: string | null, varient?: string | null, fuel?: string | null, yearOfManufacture?: number | null, kmReading?: number | null, veicleLocation?: string | null, engineNo?: string | null, images?: string | null, vehicleCondition?: string | null, state?: string | null, address?: string | null, clientContactPerson?: string | null, clientContactNo?: string | null, expectToSell?: any | null, createdAt?: any | null, updatedAt?: any | null }> | null };
+
+export type SellACarByIdQueryVariables = Exact<{
+  where: SellACarWhereUniqueInput;
+}>;
+
+
+export type SellACarByIdQuery = { __typename?: 'Query', sellACar?: { __typename?: 'SellACar', id: string, vehicleIndexNo?: number | null, registrationNumber?: string | null, make?: string | null, model?: string | null, varient?: string | null, fuel?: string | null, yearOfManufacture?: number | null, kmReading?: number | null, veicleLocation?: string | null, engineNo?: string | null, images?: string | null, vehicleCondition?: string | null, state?: string | null, address?: string | null, clientContactPerson?: string | null, clientContactNo?: string | null, expectToSell?: any | null, createdAt?: any | null, updatedAt?: any | null } | null };
+
+export type UpdateSellACarMutationVariables = Exact<{
+  where: SellACarWhereUniqueInput;
+  data: SellACarUpdateInput;
+}>;
+
+
+export type UpdateSellACarMutation = { __typename?: 'Mutation', updateSellACar?: { __typename?: 'SellACar', id: string } | null };
 
 export type BannedUsersQueryVariables = Exact<{
   where: SellerWhereInput;
@@ -7878,6 +7898,147 @@ export function useSelectorsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type SelectorsQueryHookResult = ReturnType<typeof useSelectorsQuery>;
 export type SelectorsLazyQueryHookResult = ReturnType<typeof useSelectorsLazyQuery>;
 export type SelectorsQueryResult = Apollo.QueryResult<SelectorsQuery, SelectorsQueryVariables>;
+export const SellACarsDocument = gql`
+    query SellACars {
+  sellACars {
+    id
+    vehicleIndexNo
+    registrationNumber
+    make
+    model
+    varient
+    fuel
+    yearOfManufacture
+    kmReading
+    veicleLocation
+    engineNo
+    images
+    vehicleCondition
+    state
+    address
+    clientContactPerson
+    clientContactNo
+    expectToSell
+    createdAt
+    updatedAt
+  }
+}
+    `;
+
+/**
+ * __useSellACarsQuery__
+ *
+ * To run a query within a React component, call `useSellACarsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSellACarsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSellACarsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useSellACarsQuery(baseOptions?: Apollo.QueryHookOptions<SellACarsQuery, SellACarsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SellACarsQuery, SellACarsQueryVariables>(SellACarsDocument, options);
+      }
+export function useSellACarsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SellACarsQuery, SellACarsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SellACarsQuery, SellACarsQueryVariables>(SellACarsDocument, options);
+        }
+export type SellACarsQueryHookResult = ReturnType<typeof useSellACarsQuery>;
+export type SellACarsLazyQueryHookResult = ReturnType<typeof useSellACarsLazyQuery>;
+export type SellACarsQueryResult = Apollo.QueryResult<SellACarsQuery, SellACarsQueryVariables>;
+export const SellACarByIdDocument = gql`
+    query SellACarById($where: SellACarWhereUniqueInput!) {
+  sellACar(where: $where) {
+    id
+    vehicleIndexNo
+    registrationNumber
+    make
+    model
+    varient
+    fuel
+    yearOfManufacture
+    kmReading
+    veicleLocation
+    engineNo
+    images
+    vehicleCondition
+    state
+    address
+    clientContactPerson
+    clientContactNo
+    expectToSell
+    createdAt
+    updatedAt
+  }
+}
+    `;
+
+/**
+ * __useSellACarByIdQuery__
+ *
+ * To run a query within a React component, call `useSellACarByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSellACarByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSellACarByIdQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useSellACarByIdQuery(baseOptions: Apollo.QueryHookOptions<SellACarByIdQuery, SellACarByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SellACarByIdQuery, SellACarByIdQueryVariables>(SellACarByIdDocument, options);
+      }
+export function useSellACarByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SellACarByIdQuery, SellACarByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SellACarByIdQuery, SellACarByIdQueryVariables>(SellACarByIdDocument, options);
+        }
+export type SellACarByIdQueryHookResult = ReturnType<typeof useSellACarByIdQuery>;
+export type SellACarByIdLazyQueryHookResult = ReturnType<typeof useSellACarByIdLazyQuery>;
+export type SellACarByIdQueryResult = Apollo.QueryResult<SellACarByIdQuery, SellACarByIdQueryVariables>;
+export const UpdateSellACarDocument = gql`
+    mutation UpdateSellACar($where: SellACarWhereUniqueInput!, $data: SellACarUpdateInput!) {
+  updateSellACar(where: $where, data: $data) {
+    id
+  }
+}
+    `;
+export type UpdateSellACarMutationFn = Apollo.MutationFunction<UpdateSellACarMutation, UpdateSellACarMutationVariables>;
+
+/**
+ * __useUpdateSellACarMutation__
+ *
+ * To run a mutation, you first call `useUpdateSellACarMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateSellACarMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateSellACarMutation, { data, loading, error }] = useUpdateSellACarMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useUpdateSellACarMutation(baseOptions?: Apollo.MutationHookOptions<UpdateSellACarMutation, UpdateSellACarMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateSellACarMutation, UpdateSellACarMutationVariables>(UpdateSellACarDocument, options);
+      }
+export type UpdateSellACarMutationHookResult = ReturnType<typeof useUpdateSellACarMutation>;
+export type UpdateSellACarMutationResult = Apollo.MutationResult<UpdateSellACarMutation>;
+export type UpdateSellACarMutationOptions = Apollo.BaseMutationOptions<UpdateSellACarMutation, UpdateSellACarMutationVariables>;
 export const BannedUsersDocument = gql`
     query BannedUsers($where: SellerWhereInput!) {
   sellers(where: $where) {

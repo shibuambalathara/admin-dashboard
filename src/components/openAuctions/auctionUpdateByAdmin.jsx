@@ -290,7 +290,7 @@ const AuctionUpdateByAdmin = () => {
 
 export default AuctionUpdateByAdmin;
 function counterLeftUpcoming(hhmmss) {
-   console.log("**001", hhmmss);
+ 
   if (hhmmss === "no upcoming left") {
     return (
       <div
