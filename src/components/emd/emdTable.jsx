@@ -16,7 +16,7 @@ const EmdTable = () => {
 
     const navigate=useNavigate()
     
-console.log("emd table",data)
+
 
 const handleUser=(userId)=>{
 navigate(`/view-user/${userId}`)

@@ -20,7 +20,6 @@ const EditSellACar = () => {
       } = useForm();
     
       const onSubmit = (dataOnSubmit:any) => {
-        console.log("data on submit",dataOnSubmit)
         try{
          update({variables:{data:{
           address:dataOnSubmit?.address,
@@ -51,13 +50,11 @@ const EditSellACar = () => {
           
         }
         catch(err){
-          console.log("res error",err)
         }
       }
 
 
     if (loading) return <p>Loading...</p>;
-    console.log("id",data)
   return (
     <div className="shadow-xl flex flex-col     bg-slate-300 h-fit  m-5 w-full">
       <div className="py-4 bg-gray-200 rounded px-4 flex items-center shadow-xl justify-center ">

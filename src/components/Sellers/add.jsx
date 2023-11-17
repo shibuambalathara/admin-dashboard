@@ -22,7 +22,7 @@ const AddPayment = () => {
     control,
     formState: { errors },
   } = useForm();
-  const onSubmit = async(dataOnSubmit) =>{ console.log(dataOnSubmit,"data")
+  const onSubmit = async(dataOnSubmit) =>{
  
  AddSeller({variables:{data:
      {
@@ -45,7 +45,6 @@ const AddPayment = () => {
      navigate('/sellers')
    })
   .catch( (error)=> {
-   console.log("the error in add seller",error);
    ShowPopup("Failed!", `${error?.message}`, "error", 5000, true);
  })
 

@@ -59,7 +59,6 @@ const VehicleDetails = (props) => {
   },[bidAmount])
 // ...........................................................
  
-  console.log(props, "veh",bidAmount,"bid Amount");
 
 
   const [userIdNo, setUserId] = useState();
@@ -151,7 +150,6 @@ const VehicleDetails = (props) => {
   
       .then((result) => {
         // Additional actions after successful bid submission
-console.log(result,"result")
      
         Swal.fire({
           title: `Amount ${result?.data?.createBid?.amount} successfully Added`,
@@ -194,7 +192,6 @@ console.log(result,"result")
             title: `Event Paused Successfully`,
             icon: "success",
           });
-          // console.log(result,"zzz")
         }
       );
     }
@@ -225,7 +222,6 @@ console.log(result,"result")
   };
   const handleBidAmount = (price) => {
     dispatch({ type: 'UPDATE_BID_AMOUNT', payload: price });
-    console.log(bidAmount + price, "price");
   };
   const handlePending=async()=>{
     const response = await Swal.fire({

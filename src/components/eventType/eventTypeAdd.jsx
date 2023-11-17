@@ -15,7 +15,6 @@ const AddEventType = () => {
   } = useForm();
 
   const onSubmit = async (dataOnSubmit) => {
-    console.log("dataOnSubmit", dataOnSubmit);
 
    createState({
       variables: { data: { name: dataOnSubmit?.name } },

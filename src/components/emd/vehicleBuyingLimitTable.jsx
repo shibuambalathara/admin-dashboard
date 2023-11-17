@@ -10,17 +10,17 @@ import format from 'date-fns/format'
 
 const VehicleBuyingLimitComponent = () => {
   const{userId}=useParams()
-console.log(userId,"userId")
+
   const navigate = useNavigate();
 
   const { data, loading, error } = useBuyingLimitQuery({variables:{where:{id:userId}}});
  
 
-  console.log("this is the data from view users11", data);
+  
 
 
   const handleBuyingLimit=(id)=>{
-    console.log("payment id",id)
+    
     navigate(`/update-payment/${id}`)
   }
 
@@ -56,7 +56,6 @@ console.log(userId,"userId")
     []
   );
   const tableData = useMemo(() => (data ? data.user?.emdUpdates : []), [data]);
-  console.log("this is the tabledata from view users",tableData);
 
 
 

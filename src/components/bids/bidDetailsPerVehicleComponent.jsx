@@ -31,7 +31,7 @@ const BidDetailsPerVehicleComponent = () => {
   const navigate = useNavigate();
 
   const handleDeleteBid = async (data) => {
-    console.log("data",data?.user?.id)
+  
     const response = await Swal.fire({
       title: "Are you sure?",
       icon: "question",
@@ -59,7 +59,7 @@ const BidDetailsPerVehicleComponent = () => {
        
         //   ShowPopup("Success!", `successfully Deleted!`, "success", 5000, true);
         // } catch (err) {
-        //   console.log(err);
+      
         // }
       // }
 

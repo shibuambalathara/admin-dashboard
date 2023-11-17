@@ -17,7 +17,6 @@ const UsersByDate = ({startDate,fetchData}) => {
 
  
    
-    console.log(startDate,"state")
 
     if(loading)return<div>Loading....</div>
     if(data){

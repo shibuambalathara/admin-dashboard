@@ -27,7 +27,7 @@ const[isoEndDatedata,setIsoEndDate]=useState('')
    const {data,loading,error}=useEventQuery({variables:{where:{id}}})
 
 
-console.log("data",data)
+
 
 useEffect(()=>{
   if(data?.event?.startDate){
@@ -60,12 +60,12 @@ if(data?.event?.endDate){
 },[data])
 
 const handleStartDateToIso=(date)=>{
-  console.log(date,"return data")
+
   setIsoStartDate( new Date(date).toISOString())
  
  }
  const handleEndDateToIso=(date)=>{
-  console.log(date,"return data")
+  
   setIsoEndDate( new Date(date).toISOString())
  
  }
@@ -76,7 +76,7 @@ const handleStartDateToIso=(date)=>{
 
   const { register, handleSubmit,control, watch, formState: { errors } } = useForm();
   
-  const onSubmit =async dataOnSubmit =>{ console.log(dataOnSubmit);
+  const onSubmit =async dataOnSubmit =>{
 
     const eventData={
       eventCategory:dataOnSubmit?.eventCategory,  
@@ -115,7 +115,9 @@ const handleStartDateToIso=(date)=>{
       } catch (error) {
        if(error){
          ShowPopup("Failed !", `${error.message}!`, "Error", 5000, true);
-        console.log("error......",response?.error?.message)}
+
+
+        }
       }
    
   

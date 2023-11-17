@@ -5,7 +5,6 @@ import { ShowPopup } from '../alerts/popUps';
 import Select from 'react-select'
 
 const AddSeller = () => {
-  console.log("this is add seller")
   const [sellerName]=useCreateSellerMutation()
   const eventType=useEventTypesQuery()
  
@@ -15,7 +14,6 @@ const AddSeller = () => {
   const { register,reset,control, handleSubmit, watch, formState: { errors } } = useForm();
   const {  refetch } = useSellersItemQuery();
   const onSubmit = dataOnSubmit =>{
-     console.log(dataOnSubmit);
 
   try {
      const result=sellerName({variables:{data:
@@ -36,7 +34,6 @@ const AddSeller = () => {
     }})
      ShowPopup("Success!", `${dataOnSubmit?.sellerCompanyName} Added successfully!`,"success", 5000, true);
   } catch (error) {
-    console.log("the error in add seller",error);
     ShowPopup("Failed!", `${error?.message}`, "error", 5000, true);
   }
 

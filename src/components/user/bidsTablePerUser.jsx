@@ -15,7 +15,6 @@ const BidsTablePerUser = () => {
   const[statuschangeId,setStatusChangeId]=useState(null)
   const{data:vehicleDetails}=useVehicleDetailsQuery({variables:{where:{id:vehicleId}}})
   const {data,loading,error}=useActiveBidsPerUserQuery({variables:{where:{id}}})
-  console.log(data,"veh")
     const navigate=useNavigate()
     const [editVehicle] = useUpdateVehicleMutation({
       variables: { where: { id:statuschangeId } },

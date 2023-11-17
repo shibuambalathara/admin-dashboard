@@ -6,22 +6,18 @@ import { ShowPopup } from '../alerts/popUps';
 
 const EditSeller1 = ({id}) => {
  
-  console.log("this is edit seller",id)
   const [sellerName]=useCreateSellerMutation()
   const {data} =useSellerEditQuery({variables:{where:{id}}})
-  console.log(data,"data")
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { register,reset, handleSubmit, watch, formState: { errors } } = useForm();
   const {  refetch } = useSellersItemQuery();
   const onSubmit = dataOnSubmit =>{
-     console.log(dataOnSubmit);
 
   try {
      const result=sellerName({variables:{data:{name:dataOnSubmit?.sellerCompanyName}}})
      ShowPopup("Success!", `${dataOnSubmit?.sellerCompanyName} Added successfully!`,"success", 5000, true);
   } catch (error) {
-    console.log("the error in add seller",error);
     ShowPopup("Failed!", `${error?.message}`, "error", 5000, true);
   }
 

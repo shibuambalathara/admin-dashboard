@@ -11,7 +11,6 @@ const UpdatePayment = () => {
   const {id}=useParams()
   const { data, loading, error } = useUserQuery({variables: { where: { id: id } }});
   const payment = usePaymentDetailsQuery({variables: { where: { id: id } }});
-  // console.log(payment?.data,"payment" ,defaultData)
   const [addAmount]=useUpdatePaymentMutation({variables: { where: { id: id } }})
  const navigate=useNavigate()
 
@@ -21,7 +20,7 @@ const UpdatePayment = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = async(dataOnSubmit) =>{ console.log(dataOnSubmit,"data")
+  const onSubmit = async(dataOnSubmit) =>{ 
  
   const amount={
    

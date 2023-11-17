@@ -26,16 +26,12 @@ import { Carousel, IconButton } from "@material-tailwind/react";
 const LivetimeOfVehicle = () => {
    const { id } = useParams();
 const[images,setimages]=useState([])
-  const [rInterval, setRInterval] = useState(2000);
   const [liveItem, setLiveItem] = useState(null);
   const [upcoming, setUpcoming] = useState(null);
-  const[formatedDate,setFormatedDate]=useState('')
-  console.log(formatedDate,"fd")
  
   const [tick, setTick] = useState(0);
   const [serverTime, setserverTime] = useState(null);
-  // const [showImageCarouselModal, setShowImageCarouselModal] = useState(false);
-  // const [images, setImages] = useState([]);
+  
   const [pauseEvent]=useEditEventMutation({variables:{where:{id}}})
 
   useEffect(() => {
@@ -47,7 +43,6 @@ const[images,setimages]=useState([])
 
   const { data:timeData,refetch:serverRefetch } = useQueryQuery({},{ refetchInterval: 60000 });
 
-  // console.log('timeData',timeData.time);
 
   useEffect(() => {
     if (timeData && timeData?.time) {
@@ -56,7 +51,6 @@ const[images,setimages]=useState([])
     }
   }, [timeData]);
 
-  // console.log('serverTime',serverTime);
   const { data, isLoading,refetch } = useOpenAuctionVehiclesQuery(
     {
       variables: {
@@ -72,7 +66,6 @@ const[images,setimages]=useState([])
     {
       
       refetchInterval: 2000,
-      // enabled: id !== undefined && id != ""   
     }
   );
 
@@ -114,7 +107,6 @@ const handleEventActivate=async()=>{
   if (response.isConfirmed){ 
   pauseEvent({variables:{data:{status:"active"}}}).then((result)=>{
     
-  console.log(result,"zzz")
 })
   }
 }
@@ -160,22 +152,13 @@ const handleEventActivate=async()=>{
 
 
   function SecondsLeft() {
-    // expiry - server + tick
     try {
       if (liveItem) {
    
-        // console.log("this is liveitem from openauction", liveItem);
 
         const expiryTime = moment(liveItem.bidTimeExpire);
         const currentTime = moment(serverTime).add(tick, "seconds");
         const diff = expiryTime.diff(currentTime, "seconds");
-        // console.log("differeenc", diff);
-        console.log('serverTime',serverTime);
-        console.log('tick',tick);
-        console.log('currentTime',currentTime);
-        console.log('diff',diff);
-        console.log('startTime',expiryTime);
-        console.log(moment.utc(diff * 1000).format("HH:mm:ss"));
 
         if (diff > 0) return moment.utc(diff * 1000).format("HH:mm:ss");
         else return "00:00:00";
@@ -190,26 +173,18 @@ const handleEventActivate=async()=>{
     let noUpcoming = "no upcoming left";
     try {
       if (upcoming[0]) {
-        // console.log('upcoming[0]',upcoming[0]);
         let count = upcoming[0].length;
         let string = count + "";
 
         const startTime = moment(upcoming[0].bidStartTime);
         const currentTime = moment(serverTime).add(tick, "seconds");
         const diff = startTime.diff(currentTime, "seconds");
-        console.log('serverTime',serverTime);
-        console.log('tick',tick);
-        console.log('currentTime',currentTime);
-        console.log('diff',diff);
-        console.log('startTime',startTime);
-        console.log(moment.utc(diff * 1000).format("HH:mm:ss"));
         if (diff > 0) return moment.utc(diff * 1000).format("HH:mm:ss");
         else return "00:00:00";
        
       }
       return noUpcoming;
     } catch (error) {
-      // console.log(error.message);
 
       return "00:00:00";
     }
@@ -236,7 +211,6 @@ const handleEventActivate=async()=>{
                   <span className="text-black font-semibold"> LotNo:</span> #{" "}
                   {liveItem.vehicleIndexNo}
                   
-                  {console.log("live item",liveItem)}
                 </p>
               </div>
               
@@ -316,7 +290,6 @@ const handleEventActivate=async()=>{
   
            
 <div className=" w-1/2  bg-white shadow-xl rounded-xl  m-2 py-5">
-             {console.log(liveItem,"live")}
              <div>
                 <h1 className="text-center font-bold text-2xl underline">{liveItem?.make && liveItem.make.toUpperCase()} </h1>
                 </div>
@@ -417,7 +390,6 @@ export default LivetimeOfVehicle;
 
 
 function counterLeftUpcoming(hhmmss) {
-  // console.log("**001", typeof hhmmss);
   if (hhmmss === "no upcoming left") {
     return (
       <div
@@ -476,40 +448,7 @@ function counterLeftUpcoming(hhmmss) {
 
 
 
-// function BidHistory(data, liveItem) {
-//   // console.log("zdata", data, "ydata", liveItem);
-//    // console.log('serverTime',serverTime);
-   
-//   return (
-//     <div>
-//       <div className="flow-root bg-white px-4 py-5 sm:rounded-lg sm:px-6 border border-gray-200">
-//         <div className="text-sm font-semibold mb-4">Bid History</div>
-//         {data && data.sudoBids && data.sudoBids.length > 0 ? (
-//           <ul role="list" className="divide-y divide-gray-200">
-//             {data.sudoBids.map((bid, index) => (
-//               <li key={index} className="py-2">
-//               <div className="flex items-center space-x-4">
-//                 <div className="flex-1 min-w-0">
-//                   <p className="text-sm font-medium text-gray-900 truncate">
-//                    {bid.name}
-//                   </p>
-//                 </div>
-//                 <div>
-//                   <p className="text-sm text-gray-700 truncate">
-//                     {"Rs." + bid.amount}
-//                   </p>
-//                 </div>
-//               </div>
-//             </li>
-//             ))}
-//           </ul>
-//         ) : (
-//           <div className="text-sm mb-4">Not Available</div>
-//         )}
-//       </div>
-//     </div>
-//   );
-// }
+
 
 function CountdownTimer(hhmmss) {
   const timeArray = hhmmss.split(":");

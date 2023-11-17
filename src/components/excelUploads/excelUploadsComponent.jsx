@@ -12,7 +12,7 @@ const ExcelUploadsComponent =() => {
   const navigate=useNavigate()
   const [create, { data }] = useCreateExcelUploadMutation();
    const {data:eventData}=useEventQuery({variables:{where:{id}}})
-    console.log(eventData?.event,"event data")
+  
   const [editEvent]=useEditEventMutation({variables:{where:{id}}})
 
   const {
@@ -22,7 +22,7 @@ const ExcelUploadsComponent =() => {
     formState: { errors },
   } = useForm();
   const onSubmit = (dataOnSubmit) => {
-    console.log(dataOnSubmit);
+   
 
    try {
      const excel = {
@@ -38,7 +38,7 @@ const ExcelUploadsComponent =() => {
       true,
       editEvent({variables:{data:{startDate:eventData?.event?.startDate}}}).then((resolve)=>{
 
-        console.log("result",resolve)
+  
         navigate('/events')
       })
     )})
@@ -55,7 +55,6 @@ const ExcelUploadsComponent =() => {
     
     
    } catch (error) {
-    console.log("error in excel uploads",error.message);
     ShowPopup(
       "Failed!",
       `${error.message} `,
@@ -67,7 +66,7 @@ const ExcelUploadsComponent =() => {
   };
 
   if (data) {
-    console.log(data?.createExcelUpload?.vehicles, "data............");
+    
     // setVehicles([data?.createExcelUpload?.vehicles?.registrationNumber])
   }
 

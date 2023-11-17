@@ -22,7 +22,6 @@ const EventTypesTable = () => {
     const navigate=useNavigate()
 
     const handleDelete=(id)=>{
-      console.log(id)
  const result=deleteEventType({variables:{where:{id}}})
     }
 

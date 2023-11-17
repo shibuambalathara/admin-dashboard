@@ -31,7 +31,7 @@ const AddEventComponent = () => {
   } = useForm();
 
   const onSubmit = (dataOnSubmit) => {
-    console.log(dataOnSubmit);
+   
 
     const isoDateTime = new Date(dataOnSubmit?.startDate).toISOString();
     const endDateTime = new Date(dataOnSubmit?.endDate).toISOString();
@@ -68,7 +68,7 @@ const AddEventComponent = () => {
     }
     addEvent({ variables: { data: eventData } })
       .then((result) => {
-        console.log("result", result);
+      
         ShowPopup(
           "Success!",
           `Event Created Successfully! Upload Excel Now`,
@@ -78,13 +78,12 @@ const AddEventComponent = () => {
         );
       })
       .catch((error) => {
-        console.log("error", error);
         ShowPopup("Failed!", `${error.message} `, "error", 5000, true);
       });
   };
 
   const handleOnClick = () => {
-    console.log(data, "return data");
+    
     navigate(`/excel-upload/${data.createEvent.id}`);
   };
 

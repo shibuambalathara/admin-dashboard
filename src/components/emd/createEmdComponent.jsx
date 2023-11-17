@@ -10,7 +10,7 @@ const CreateEmdComponent = () => {
   const {id}=useParams()
   const { data, loading } =usePaymentDetailsQuery ({variables:{where:{id}}});
 
-  console.log(data?.payment?.user?.id,"dd")
+ 
 
 
 
@@ -28,7 +28,7 @@ if(data){
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit =async (dataOnSubmit) =>{  console.log(dataOnSubmit,"data on submit")
+  const onSubmit =async (dataOnSubmit) =>{  
 const buyingLmt={
 payment:{connect:{id}},
  vehicleBuyingLimitIncrement:+dataOnSubmit.buyingLimit
@@ -39,7 +39,7 @@ try {
   
 
   if(data){
-    console.log(data?.createEmdUpdate?.id,"result")
+    
    
 
 

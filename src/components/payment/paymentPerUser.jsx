@@ -24,7 +24,6 @@ const PaymentPerUser = () => {
 navigate(`/update-payment/${paymentId}`)
     }
     const handleMessage=(payment)=>{
-      console.log(payment,"payment",data,"dddddd")
       const {amount,paymentFor,createdAt}=payment
       const formatedDate=format(new Date( createdAt),`dd/MM/yy, HH:mm`)
      const  {firstName,lastName}=data.user
@@ -161,7 +160,6 @@ export default PaymentPerUser
 
 function convertToPDF(paymentDetails,user){
 
-  console.log(paymentDetails,"pm",user)
   const pdf = new jsPDF();
   const logoImg = '../AutoBSE_Logo.png';
   

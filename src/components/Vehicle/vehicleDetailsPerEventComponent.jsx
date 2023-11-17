@@ -24,7 +24,6 @@ const VehicleDetailsPerEventComponent = () => {
 
     const [userId,setUserId]=useState('0')
     const [updateDate,setUpdateDate]=useState({date:null,id:null,updateItem:null})
-    console.log("up",updateDate)
     
     const {data,loading,error,refetch}=useVehicleDetailsPerEventQuery({variables:{where:{id}}})
     const[updateEventEndTime]=useUpdateEventMutation()
@@ -32,7 +31,6 @@ const VehicleDetailsPerEventComponent = () => {
     const [updateCoupen]=useUpdateCoupenMutation()
     const [enable,setEnable]=useState(false)
     
-console.log(data,"dataaa")
     
     const [DeleteVehicle]=useDeleteVehicleMutation();
     const {data:coupens} =useCoupensperUserQuery({variables:{  where: {
@@ -48,7 +46,6 @@ console.log(data,"dataaa")
 
 const handleChangeStartTime=async(update)=>{
    const isodate=new Date(update).toISOString()
- console.log()
   const result=await ConfirmationAlert()
   if(updateDate?.updateItem==='startTime' && result?.isConfirmed)
   {
@@ -76,7 +73,6 @@ const handleChangeEndTime=async(extendTime)=>{
     'increase': 'Increase',
     'decrease': 'Decrease',
      }, title:'Time Inrease / Decrease'})
-   console.log("res",response)
     let updated
      const updatedVehicles = data?.event?.vehicles.map((vehicle) => {
        
@@ -93,7 +89,6 @@ const handleChangeEndTime=async(extendTime)=>{
 
 
     const handleDelete=async(deleteVehicleId)=>{
-console.log(deleteVehicleId)
 const result = await ConfirmationAlert()
 if (result.isConfirmed) {
   const deleteResult = await DeleteVehicle({variables:{where:{id:deleteVehicleId}}})
@@ -111,7 +106,6 @@ if (result.isConfirmed) {
       
       const { currentBidUser, registrationNumber,currentBidAmount      } = bidDetails;
      
-      console.log(coupens,"handle..",currentBidUser?.id,"handleuu",userId)
       Swal.fire({
         html: `<div>
             <h1>Current Top Bidder </h1>
@@ -159,7 +153,6 @@ if (result.isConfirmed) {
     
     const handleMessage=(vehicleDetails)=>{
       const {currentBidUser,registrationNumber,currentBidAmount,coupenDetail}=vehicleDetails
-console.log("message",vehicleDetails)
 Swal.fire({
   html: `<div>
       <h1>Message From Team AutoBse </h1>

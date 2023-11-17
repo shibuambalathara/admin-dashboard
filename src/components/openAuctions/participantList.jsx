@@ -29,7 +29,6 @@ const ParticipantsList = (props) => {
 
 
     const handleDeleteBid=async(data)=>{
-console.log("row",id)
       const response = await Swal.fire({
         title: 'Are you sure?',
         icon: 'question',
@@ -58,7 +57,7 @@ console.log("row",id)
         ShowPopup("Success!", `successfully Deleted!`,"success", 5000, true);
       }
       catch(err){
-        console.log(err)
+        alert(err)
       }
 
     }
@@ -127,7 +126,7 @@ Swal.fire({icon:'success',
   title:'successfully Updated'})
    })
    .catch((err)=>{
-    console.log(err,"error")
+    alert(err)
     Swal.fire({title:'Something went wrong'})
    })
   
@@ -154,7 +153,7 @@ Swal.fire({icon:'success',
     title:'successfully Updated'})
      })
      .catch((err)=>{
-      console.log(err,"error",text)
+      
       Swal.fire({title:'Something went wrong'})
      })
     

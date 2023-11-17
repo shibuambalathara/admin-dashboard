@@ -14,7 +14,7 @@ const AddVehicleComponent = () => {
   const{data}=useEventStartTimeQuery({variables:{where:{id:id}}})
   const { register, handleSubmit,control, watch, formState: { errors } } = useForm();
 
-  const onSubmit = dataOnSubmit =>{ console.log(dataOnSubmit)
+  const onSubmit = dataOnSubmit =>{ 
 
 
 

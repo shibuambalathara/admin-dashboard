@@ -21,16 +21,8 @@ const Table = () => {
 
   const { data, loading, error,refetch } = useSellersItemQuery();
   const [removeSeller]=useDeleteSellerMutation()
-console.log(data,"sellers")
  
-// const handleBannedUsers=(id)=>{
-// console.log(id,"banned Users")
-// navigate(`/banned-users/${id}`)
-// }
-// const handleEvents=(id)=>{
-//   console.log(id,"banned Users")
-//   navigate(`/events-seller/${id}`)
-//   }
+
 
   const handleRemove=async(id)=>{
 

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { usePaymentsSearchQuery } from "../../utils/graphql";
 import { useForm } from "react-hook-form";
 const PaymentInputForm = ({ onSubmit, inputType }) => {
-  console.log(inputType, "iptype", "onsubmit", onSubmit);
 
   const {
     register,

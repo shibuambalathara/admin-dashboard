@@ -3,7 +3,6 @@ import { DateConvert } from '../utils/dateFormat'
 
 
  export const UpdateBidTime = ({currentDate,handleChangeStartTime}) => {
-   console.log("current",currentDate)
 
   return (
     <div className=' flex justify-end  '>

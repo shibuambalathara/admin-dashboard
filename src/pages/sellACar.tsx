@@ -7,7 +7,6 @@ import { FormatDate } from '../components/utils/dateFormat'
 
 const SellACar = () => {
   const {data}=useSellACarsQuery()
-data &&  console.log("sell a car",data)
 
   const columns = useMemo(
     () => [

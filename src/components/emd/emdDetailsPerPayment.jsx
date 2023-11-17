@@ -11,7 +11,7 @@ import TableComponent from "../utils/table";
 
 const EmdDetails = () => {
   const {id}=useParams()
-  console.log(id,"id")
+
   const [currentPage, setCurrentPage] = useState(0);
   const [pageSize, setPageSize] = useState(10);
   const navigate = useNavigate();
@@ -22,10 +22,10 @@ const EmdDetails = () => {
 
 
 const handleMessage=(emdUpdates)=>{
-  console.log(emdUpdates,"coupen")
+ 
   const {user,payment,vehicleBuyingLimitIncrement,}=emdUpdates
   const formatedDate=format(new Date(payment.coupenDetail[0].createdAt),`dd/MM/yy, HH:mm`)
-  console.log(formatedDate,"ff")
+  
   Swal.fire({
     html: `<div>
         <h1>Message From Team AutoBse</h1>

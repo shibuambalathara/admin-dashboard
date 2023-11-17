@@ -14,7 +14,6 @@ const{id}=useParams()
 
    
     
-console.log("emd table",data)
 
 
 

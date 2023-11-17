@@ -5,7 +5,7 @@ import TableComponent from '../utils/table';
 import { useNavigate } from 'react-router-dom';
 const Deletedbidtable = (props) => {
     const{data:deletedBids,refetch,loading}=useDeletedBidsperVehicleQuery({variables:{where:{deletedbidVehicle:{id:{equals:props?.vehicleId}}}}})
-    console.log("deleted",deletedBids?.deletedBids)
+  
     const navigate=useNavigate()
     const handleUserDetails=(id)=>{
         navigate(`/view-user/${id}`)

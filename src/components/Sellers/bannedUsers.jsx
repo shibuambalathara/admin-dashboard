@@ -16,10 +16,8 @@ const BannedUsersComponent = () => {
    const { data, loading, error } = useBannedUsersQuery({variables:{where:{id:{equals:id}}}});
  
 
-   console.log("this is the data from view users11", data?.sellers[0].name);
 
   const handleViewMore = (id) => {
-    console.log(id,"id")
     navigate(`/view-user/${id}`);
   };
  

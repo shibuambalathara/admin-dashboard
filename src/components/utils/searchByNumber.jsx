@@ -47,7 +47,6 @@ const SearchByNumber = ({inputData}) => {
       <p className="text-red-500">
               {" "}
               {errors.mobile  && <span>Please Enter 10 digits..</span>}
-             {console.log(getValues('mobile'),"gg")}
             </p>
           </div>
           </div>

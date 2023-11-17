@@ -25,7 +25,6 @@ const EditVehicleComponent = () => {
   const { data, loading, error } = useVehicleDetailsQuery({
     variables: { where: { id: id } },
   });
-  console.log(data, "vv");
 
   useEffect(() => {
     if (data?.vehicle?.repoDt) {
@@ -61,7 +60,6 @@ const EditVehicleComponent = () => {
   } = useForm();
 
   const onSubmit = (dataOnSubmit) => {
-    console.log(dataOnSubmit, "data on submit");
     const cleanedRightImage = dataOnSubmit?.rightImage.replace(/,\n/g, ',');
     let repo, tax, InsuranceValidity,regDate;
     if (dataOnSubmit?.repoDate) {
@@ -159,7 +157,6 @@ const EditVehicleComponent = () => {
       }
     } catch (err) {
       ShowPopup("Failed!", `${err.message}`, "error", 5000, true);
-      console.log(err);
     }
   };
   if (loading) return <p>Loading...</p>;
@@ -1019,6 +1016,5 @@ function converttolocaldate(isoDate){
   const minutes = String(localDate.getMinutes()).padStart(2, '0');
   
   const formattedDateTimeLocal = `${year}-${month}-${day}T${hours}:${minutes}`;
-  console.log("Formatted DateTime-Local:", formattedDateTimeLocal);
   return formattedDateTimeLocal
 }

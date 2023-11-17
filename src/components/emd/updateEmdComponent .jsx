@@ -7,7 +7,7 @@ const UpdateEmdComponent = () => {
   const {id}=useParams()
   const { data, loading, error } =useEmdUpdateQuery ({variables:{where:{id}}});
 
-   console.log(data,"payment")
+  
 
 
 if(data){
@@ -23,7 +23,7 @@ if(data){
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (dataOnSubmit) =>{  console.log(dataOnSubmit,"data")
+  const onSubmit = (dataOnSubmit) =>{  
 const buyingLmt={
 payment:{connect:{id}},
  vehicleBuyingLimitIncrement:+dataOnSubmit.buyingLimit

@@ -46,7 +46,7 @@ export const TextAreaInput = ({ label, type, name, register,defaultValue, error,
 // Input type is select with constant value maping
 
 export const SelectInput = ({ label, name, options,defaultValue,error, register, ...rest }) => {
-  console.log("defa",defaultValue)
+  
   return (
     <div className="flex flex-col">
       <label htmlFor={name}>{label}</label>
