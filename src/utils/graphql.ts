@@ -2820,6 +2820,7 @@ export type RedeemUserMagicAuthTokenSuccess = {
 export type SellACar = {
   __typename?: 'SellACar';
   address?: Maybe<Scalars['String']>;
+  body?: Maybe<Scalars['String']>;
   clientContactNo?: Maybe<Scalars['String']>;
   clientContactPerson?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
@@ -2829,9 +2830,12 @@ export type SellACar = {
   id: Scalars['ID'];
   images?: Maybe<Scalars['String']>;
   kmReading?: Maybe<Scalars['Int']>;
+  landmark?: Maybe<Scalars['String']>;
   make?: Maybe<Scalars['String']>;
   model?: Maybe<Scalars['String']>;
+  pincode?: Maybe<Scalars['String']>;
   registrationNumber?: Maybe<Scalars['String']>;
+  rtoCode?: Maybe<Scalars['String']>;
   state?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   varient?: Maybe<Scalars['String']>;
@@ -2843,6 +2847,7 @@ export type SellACar = {
 
 export type SellACarCreateInput = {
   address?: InputMaybe<Scalars['String']>;
+  body?: InputMaybe<Scalars['String']>;
   clientContactNo?: InputMaybe<Scalars['String']>;
   clientContactPerson?: InputMaybe<Scalars['String']>;
   engineNo?: InputMaybe<Scalars['String']>;
@@ -2850,9 +2855,12 @@ export type SellACarCreateInput = {
   fuel?: InputMaybe<Scalars['String']>;
   images?: InputMaybe<Scalars['String']>;
   kmReading?: InputMaybe<Scalars['Int']>;
+  landmark?: InputMaybe<Scalars['String']>;
   make?: InputMaybe<Scalars['String']>;
   model?: InputMaybe<Scalars['String']>;
+  pincode?: InputMaybe<Scalars['String']>;
   registrationNumber?: InputMaybe<Scalars['String']>;
+  rtoCode?: InputMaybe<Scalars['String']>;
   state?: InputMaybe<Scalars['String']>;
   varient?: InputMaybe<Scalars['String']>;
   vehicleCondition?: InputMaybe<Scalars['String']>;
@@ -2863,6 +2871,7 @@ export type SellACarCreateInput = {
 
 export type SellACarOrderByInput = {
   address?: InputMaybe<OrderDirection>;
+  body?: InputMaybe<OrderDirection>;
   clientContactNo?: InputMaybe<OrderDirection>;
   clientContactPerson?: InputMaybe<OrderDirection>;
   createdAt?: InputMaybe<OrderDirection>;
@@ -2872,9 +2881,12 @@ export type SellACarOrderByInput = {
   id?: InputMaybe<OrderDirection>;
   images?: InputMaybe<OrderDirection>;
   kmReading?: InputMaybe<OrderDirection>;
+  landmark?: InputMaybe<OrderDirection>;
   make?: InputMaybe<OrderDirection>;
   model?: InputMaybe<OrderDirection>;
+  pincode?: InputMaybe<OrderDirection>;
   registrationNumber?: InputMaybe<OrderDirection>;
+  rtoCode?: InputMaybe<OrderDirection>;
   state?: InputMaybe<OrderDirection>;
   updatedAt?: InputMaybe<OrderDirection>;
   varient?: InputMaybe<OrderDirection>;
@@ -2891,6 +2903,7 @@ export type SellACarUpdateArgs = {
 
 export type SellACarUpdateInput = {
   address?: InputMaybe<Scalars['String']>;
+  body?: InputMaybe<Scalars['String']>;
   clientContactNo?: InputMaybe<Scalars['String']>;
   clientContactPerson?: InputMaybe<Scalars['String']>;
   engineNo?: InputMaybe<Scalars['String']>;
@@ -2898,9 +2911,12 @@ export type SellACarUpdateInput = {
   fuel?: InputMaybe<Scalars['String']>;
   images?: InputMaybe<Scalars['String']>;
   kmReading?: InputMaybe<Scalars['Int']>;
+  landmark?: InputMaybe<Scalars['String']>;
   make?: InputMaybe<Scalars['String']>;
   model?: InputMaybe<Scalars['String']>;
+  pincode?: InputMaybe<Scalars['String']>;
   registrationNumber?: InputMaybe<Scalars['String']>;
+  rtoCode?: InputMaybe<Scalars['String']>;
   state?: InputMaybe<Scalars['String']>;
   varient?: InputMaybe<Scalars['String']>;
   vehicleCondition?: InputMaybe<Scalars['String']>;
@@ -2914,6 +2930,7 @@ export type SellACarWhereInput = {
   NOT?: InputMaybe<Array<SellACarWhereInput>>;
   OR?: InputMaybe<Array<SellACarWhereInput>>;
   address?: InputMaybe<StringFilter>;
+  body?: InputMaybe<StringFilter>;
   clientContactNo?: InputMaybe<StringFilter>;
   clientContactPerson?: InputMaybe<StringFilter>;
   createdAt?: InputMaybe<DateTimeNullableFilter>;
@@ -2923,9 +2940,12 @@ export type SellACarWhereInput = {
   id?: InputMaybe<IdFilter>;
   images?: InputMaybe<StringFilter>;
   kmReading?: InputMaybe<IntNullableFilter>;
+  landmark?: InputMaybe<StringFilter>;
   make?: InputMaybe<StringFilter>;
   model?: InputMaybe<StringFilter>;
+  pincode?: InputMaybe<StringFilter>;
   registrationNumber?: InputMaybe<StringFilter>;
+  rtoCode?: InputMaybe<StringFilter>;
   state?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeNullableFilter>;
   varient?: InputMaybe<StringFilter>;

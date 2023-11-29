@@ -50,7 +50,7 @@ useEffect(()=>{
         const {vehicle}=vehicleDetails
      
         const pdf = new jsPDF();
-       const logoImg = '../AutoBSE_Logo.png';
+       const logoImg = '../logo.jpeg';
        
        const datePrinted=`Date Printed: ${new Date().toLocaleDateString()}`
        
@@ -67,7 +67,8 @@ useEffect(()=>{
           const pan= `PAN                          :   ${vehicle?.currentBidUser?.pancardNo}`;
           const mobile= `Mobile No                 :   ${vehicle?.currentBidUser?.mobile}`;
 
-        pdf.addImage(logoImg, 'PNG', 10, 10, 30, 30);
+        
+          pdf.addImage(logoImg, 'JPEG', 10, 10, 30, 30);
         pdf.setFontSize(12);
         pdf.setFont('helvetica', 'bold'); 
         pdf.text(datePrinted, 150, 40,);

@@ -182,7 +182,7 @@ const BidDetailsPerVehicleComponent = () => {
                 className="btn bg-pink-500"
                 onClick={(e) => handleReport(data?.vehicle)}
               >
-                PDF
+                Bid Sheet
               </button>
             </div>
           </div>
