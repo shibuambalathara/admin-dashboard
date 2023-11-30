@@ -99,11 +99,11 @@ HandleUpload1(compressedFile,setDownloadUrls,setDownloadUrl)
               readOnly
             ></textarea>
           </div> */}
-          {console.log("file",downloadUrls)}
+      
            <img src={downloadUrls} alt='img'/> 
         </>
       </div>
-{console.log("download urls",downloadUrls)}
+
          </div>
          <div className="text-center">
            {!passedData ? <button className="btn btn-success my-5"> Add Auction</button>: <button className="btn bg-red-500 my-5"> Edit Auction</button>}

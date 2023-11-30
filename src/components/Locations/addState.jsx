@@ -17,7 +17,7 @@ const AddState = () => {
   } = useForm();
 
   const onSubmit = async (dataOnSubmit) => {
-    console.log("dataOnSubmit", dataOnSubmit);
+   
 
     try {
       const result = await createState({
@@ -32,7 +32,6 @@ const AddState = () => {
       );
     } catch (error) {
       ShowPopup("Failed!", `${error?.message}`, "error", 5000, true);
-      console.log("the error occured in creating state", error);
     }
 
     setIsModalOpen(false);

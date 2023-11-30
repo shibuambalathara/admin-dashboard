@@ -12,7 +12,7 @@ const ViewExcels = () => {
     const navigate = useNavigate();
     const { data, loading, error } = useExcelUploadsQuery();
   
-    console.log("this is the data form excel uploads %%%%",data);
+   
   const handleEvent=(eventId)=>{
     if(eventId){navigate(`/edit-event/${eventId}`)}
 
@@ -46,7 +46,7 @@ const ViewExcels = () => {
   
   
     const tableData=useMemo(() => (data ? data.excelUploads : []), [data]);
-    console.log("this is tabledata from view states",tableData);
+   
     const tableInstance=useTable({
       columns ,
       data: tableData,

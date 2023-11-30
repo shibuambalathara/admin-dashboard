@@ -16,7 +16,6 @@ const ViewStates = () => {
   const navigate = useNavigate();
   const { data, loading, error,refetch } = useStatesQuery();
   const [updateState]=useUpdateStateMutation()
-  console.log(data,"state")
   const [deleteState]=useDeleteStateMutation()
  
   const handleRemoveState=async(stateId)=>{

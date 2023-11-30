@@ -16,7 +16,6 @@ const UsersByState = ({state,fetchData}) => {
     
     if(loading)return<div>Loading....</div>
     if(data){
-      console.log(data,"based on state")
        fetchData(data?.users)
 
     }

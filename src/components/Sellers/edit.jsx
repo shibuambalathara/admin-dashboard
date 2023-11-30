@@ -12,7 +12,6 @@ const Editseller = () => {
   const {id}=useParams()
   const { data, loading, error } = useSellerEditQuery({variables: { where: { id: id } }});
   
-   console.log("payment" ,data)
   const [EditSeller]=useSellerUpdateMutation({variables: { where: { id: id } }})
  
 
@@ -23,7 +22,7 @@ const Editseller = () => {
     control,
     formState: { errors },
   } = useForm();
-  const onSubmit = async(dataOnSubmit) =>{ console.log(dataOnSubmit,"data")
+  const onSubmit = async(dataOnSubmit) =>{ 
  
   try {
     const result=EditSeller({variables:{data:
@@ -45,7 +44,6 @@ const Editseller = () => {
     ShowPopup("Success!", `${dataOnSubmit?.sellerCompanyName} Added successfully!`,"success", 5000, true);
   navigate('/sellers')  
  } catch (error) {
-   console.log("the error in add seller",error);
    ShowPopup("Failed!", `${error?.message}`, "error", 5000, true);
  }
 

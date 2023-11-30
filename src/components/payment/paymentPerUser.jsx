@@ -24,7 +24,6 @@ const PaymentPerUser = () => {
 navigate(`/update-payment/${paymentId}`)
     }
     const handleMessage=(payment)=>{
-      console.log(payment,"payment",data,"dddddd")
       const {amount,paymentFor,createdAt}=payment
       const formatedDate=format(new Date( createdAt),`dd/MM/yy, HH:mm`)
      const  {firstName,lastName}=data.user
@@ -161,9 +160,8 @@ export default PaymentPerUser
 
 function convertToPDF(paymentDetails,user){
 
-  console.log(paymentDetails,"pm",user)
   const pdf = new jsPDF();
-  const logoImg = '../AutoBSE_Logo.png';
+  const logoImg = '../logo.jpeg';
   
   const datePrinted=`Printed Date : ${new Date().toLocaleDateString()}`
   const options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
@@ -172,7 +170,7 @@ const createdPayment=new Date(paymentDetails.createdAt).toLocaleDateString(undef
 const UpdatedPayment=new Date(paymentDetails.createdAt).toLocaleDateString(undefined,options)
 const createdBy=paymentDetails?.createdBy ? paymentDetails?.createdBy.firstName : user.firstName
 
-  pdf.addImage(logoImg, 'PNG', 10, 10, 30, 30);
+  pdf.addImage(logoImg, 'JPEG', 10, 10, 30, 30);
   pdf.setFontSize(12);
   pdf.setFont('helvetica', 'bold'); 
   pdf.text(datePrinted, 150, 50,);

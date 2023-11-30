@@ -15,11 +15,8 @@ const AddUser = () => {
   } = useForm();
   const [createUser, { error }] = useCreateUserMutation();
   const { data } = useSelectorsQuery();
-  console.log("DATA ",data);
   const onSubmit = async (dataOnSubmit) => {
-    console.log(dataOnSubmit, "onSubmit");
     const voucherCode=voucherCodes.generate()
-    console.log(voucherCode,"vv")
     const data = {
       firstName: dataOnSubmit?.first_Name,
       lastName: dataOnSubmit?.last_Name || "",
@@ -63,7 +60,6 @@ const AddUser = () => {
       
     } catch (err) {
       ShowPopup("Failed!", `${error?.message}`, "error", 5000, true);
-      console.log(err, "error");
     }
   };
 

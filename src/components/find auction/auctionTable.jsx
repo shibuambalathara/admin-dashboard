@@ -14,7 +14,6 @@ const AuctionTable = () => {
 const navigate=useNavigate()
   
 
-console.log("find auction",data?.findAuctions)
 
   const columns=useMemo(
     () =>[

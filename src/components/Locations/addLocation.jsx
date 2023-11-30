@@ -22,25 +22,25 @@ const AddLocation = () => {
 
   const states = useStatesQuery();
 
-  console.log("888888", states);
+
 
   const onSubmit = async (dataOnSubmit) => {
-    console.log("reachws hwew");
-    console.log(dataOnSubmit, "onSubmit");
+   
+    
     const data = {
       country: dataOnSubmit?.country,
       name: dataOnSubmit?.name,
       state: { connect: { id: dataOnSubmit?.state } },
     };
 
-    console.log("the data that needs to be sented to server", data);
+    
     try {
       const result = await createLocation({ variables: { data } });
-      console.log("RESULT", result);
+    
       ShowPopup("Success!", `Location Added successfully!`, "success", 5000, true);
     } catch (error) {
       ShowPopup("Failed!", `${error?.message}`, "error", 5000, true);
-      console.log("DATABASE ERROR", error.stack);
+      
     }
     
     refetch()

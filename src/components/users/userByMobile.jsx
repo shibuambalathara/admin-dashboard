@@ -14,12 +14,10 @@ const UserByMobile = ({mobile,fetchData}) => {
       enabled:false
     }
   );
-console.log(data,"bymobile",mobile)
  
   useEffect(() => {
     if (data && data.user) {
       const userArray = [Object.fromEntries(Object.entries(data.user))];
-      console.log(userArray, "user array");
       setUser(userArray);
       fetchData(userArray)
     }

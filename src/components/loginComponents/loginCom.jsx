@@ -18,18 +18,14 @@ const Login = () => {
       });
       
       
-      console.log(result,"result");
 if(data.authenticateUserWithPassword.message){
 
     
    setMessage(data.authenticateUserWithPassword.message)
-   console.log(message)
 }
 else{
-    console.log(data.authenticateUserWithPassword.sessionToken
-        ,"login")
+    
      localStorage.setItem("token",JSON.stringify( data.authenticateUserWithPassword.sessionToken))
-   console.log(  localStorage.getItem('token'),"local ")
    navigate('/')
    window.location.reload()
 }

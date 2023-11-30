@@ -34,8 +34,6 @@ const handledata=(data:any)=>{
 }
 
 useEffect(() => {
-  console.log("input data",inputData)
-  console.log("users data",usersData)
  
 
 }, [usersData]);

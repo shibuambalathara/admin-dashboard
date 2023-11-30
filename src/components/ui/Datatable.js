@@ -16,7 +16,6 @@ import { AiOutlineSearch,AiOutlineSortDescending,AiOutlineSortAscending,AiOutlin
 // import { HiOutlineCheckCircle } from 'heroicons-react';
 
 function Datatable(props) {
-    // console.log("from DATATABLE",props);
     const {
         tableColumns,
         tableData,
@@ -27,8 +26,7 @@ function Datatable(props) {
         rowClass,
     } = props;
 
-    // console.log('TABLE DATA',tableData);
-    // console.log('TABLE COLUMN',tableColumns);
+  
 
     const {
         getTableProps,

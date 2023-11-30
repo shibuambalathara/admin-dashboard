@@ -29,7 +29,6 @@ const TimerComponent = () => {
     { refetchInterval: 60000 }
   );
 
-  // console.log('timeData',timeData.time);
 
   useEffect(() => {
     if (timeData && timeData?.time) {
@@ -38,7 +37,6 @@ const TimerComponent = () => {
     }
   }, [timeData]);
 
-  // console.log('serverTime',serverTime);
   const { data, isLoading, refetch } = useOpenAuctionVehiclesQuery(
     {
       variables: {
@@ -108,21 +106,12 @@ const TimerComponent = () => {
   }, [data]);
 
   function SecondsLeft() {
-    // expiry - server + tick
     try {
       if (liveItem) {
-        // console.log("this is liveitem from openauction", liveItem);
 
         const expiryTime = moment(liveItem.bidTimeExpire);
         const currentTime = moment(serverTime).add(tick, "seconds");
         const diff = expiryTime.diff(currentTime, "seconds");
-        // console.log("differeenc", diff);
-        console.log("serverTime", serverTime);
-        console.log("tick", tick);
-        console.log("currentTime", currentTime);
-        console.log("diff", diff);
-        console.log("startTime", expiryTime);
-        console.log(moment.utc(diff * 1000).format("HH:mm:ss"));
 
         if (diff > 0) return moment.utc(diff * 1000).format("HH:mm:ss");
         else return "00:00:00";
@@ -137,31 +126,22 @@ const TimerComponent = () => {
     let noUpcoming = "no upcoming left";
     try {
       if (upcoming[0]) {
-        // console.log('upcoming[0]',upcoming[0]);
         let count = upcoming[0].length;
         let string = count + "";
 
         const startTime = moment(upcoming[0].bidStartTime);
         const currentTime = moment(serverTime).add(tick, "seconds");
         const diff = startTime.diff(currentTime, "seconds");
-        console.log("serverTime", serverTime);
-        console.log("tick", tick);
-        console.log("currentTime", currentTime);
-        console.log("diff", diff);
-        console.log("startTime", startTime);
-        console.log(moment.utc(diff * 1000).format("HH:mm:ss"));
         if (diff > 0) return moment.utc(diff * 1000).format("HH:mm:ss");
         else return "00:00:00";
       }
       return noUpcoming;
     } catch (error) {
-      // console.log(error.message);
 
       return "00:00:00";
     }
   }
 
-  // console.log('return form upcomingSecondsLeft()',typeof(upcomingSecondsLeft()));
 
   return (
     <div>
@@ -177,7 +157,6 @@ const TimerComponent = () => {
                 <p className="text-sm font-medium text-gray-500">
                   <span className="text-black font-semibold"> LotNo:</span> #{" "}
                   {liveItem.vehicleIndexNo}
-                  {console.log("live item", liveItem)}
                 </p>
               </div>
             </div>
@@ -207,9 +186,7 @@ const TimerComponent = () => {
             </div>
           </div>
 
-          {/* <section className="space-y-2 flex w-full "> */}
-
-          {/* </section> */}
+      
         </div>
       ) : (
         counterLeftUpcoming(upcomingSecondsLeft())
@@ -221,7 +198,6 @@ const TimerComponent = () => {
 export default TimerComponent;
 
 function counterLeftUpcoming(hhmmss) {
-  // console.log("**001", typeof hhmmss);
   if (hhmmss === "no upcoming left") {
     return (
       <div

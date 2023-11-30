@@ -16,7 +16,7 @@ const ViewLocationComponent = () => {
   const { data, loading, error,refetch } = useLocationsQuery();
   const [deleteLOcation]=useDeleteLocationMutation()
 const [updateLocation]=useUpdateLocationMutation()
-  console.log("this is the data from view location",data);
+ 
 
 
   const handleEditLocation = async (name, id) => {
@@ -36,7 +36,7 @@ const [updateLocation]=useUpdateLocationMutation()
       variables: { where: { id }, data: { name: newState } },
     })
       .then((res) => {
-        console.log("res",res)
+       
         Swal.fire({
           icon: 'success',
           title: `Location " ${name} "Changed to "${res?.data?.updateLocation?.name}"`,

@@ -38,7 +38,6 @@ const Report = () => {
   };
 
   const handleReport = (report) => {
-    console.log(report, "report");
 
     // Convert the startDate field in the report data to ISO string format
     const reportData = report.map((event) => ({

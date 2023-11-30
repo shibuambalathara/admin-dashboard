@@ -10,10 +10,12 @@ import {
 
 
   useEditEventMutation,
+
 } from "../../utils/graphql";
 import ParticipantsList from "./participantList";
 import VehicleDetails from "./createBid";
 import Swal from "sweetalert2";
+import Deletedbidtable from "../bids/deletedbidtable";
 
 
 
@@ -30,6 +32,7 @@ const AuctionUpdateByAdmin = () => {
 
   const [pauseEvent] = useEditEventMutation({ variables: { where: { id } } });
 
+
   useEffect(() => {
     const timer = setInterval(() => {
       setTick((tic) => tic + 1);
@@ -42,7 +45,6 @@ const AuctionUpdateByAdmin = () => {
     { refetchInterval: 60000 }
   );
 
-  // console.log('timeData',timeData.time);
 
   useEffect(() => {
     if (timeData && timeData?.time) {
@@ -51,7 +53,6 @@ const AuctionUpdateByAdmin = () => {
     }
   }, [timeData]);
 
-  // console.log('serverTime',serverTime);
   const { data, isLoading, refetch } = useOpenAuctionVehiclesQuery(
     {
       variables: {
@@ -103,7 +104,6 @@ const AuctionUpdateByAdmin = () => {
     if (response.isConfirmed) {
       pauseEvent({ variables: { data: { status: "active" } } }).then(
         (result) => {
-          console.log(result, "zzz");
         }
       );
     }
@@ -146,18 +146,10 @@ const AuctionUpdateByAdmin = () => {
     // expiry - server + tick
     try {
       if (liveItem) {
-        // console.log("this is liveitem from openauction", liveItem);
 
         const expiryTime = moment(liveItem.bidTimeExpire);
         const currentTime = moment(serverTime).add(tick, "seconds");
         const diff = expiryTime.diff(currentTime, "seconds");
-        // console.log("differeenc", diff);
-        console.log("serverTime", serverTime);
-        console.log("tick", tick);
-        console.log("currentTime", currentTime);
-        console.log("diff", diff);
-        console.log("startTime", expiryTime);
-        console.log(moment.utc(diff * 1000).format("HH:mm:ss"));
 
         if (diff > 0) return moment.utc(diff * 1000).format("HH:mm:ss");
         else return "00:00:00";
@@ -175,18 +167,12 @@ const AuctionUpdateByAdmin = () => {
     let noUpcoming = "no upcoming left";
     try {
       if (upcoming[0]) {
-         console.log('upcoming[0]',upcoming[0]);
         let count = upcoming[0].length;
         let string = count + "";
 
         const startTime = moment(upcoming[0].bidStartTime);
         const currentTime = moment(serverTime).add(tick, "seconds");
         const diff = startTime.diff(currentTime, "seconds");
-        console.log("serverTime", serverTime);
-        console.log("tick", tick);
-        console.log("currentTime", currentTime);
-        console.log("diff", diff);
-        console.log("startTime", startTime);
   if (diff > 0) {
     const duration = moment.duration(diff * 1000);
     const days = Math.floor(duration.asDays());
@@ -202,7 +188,6 @@ const AuctionUpdateByAdmin = () => {
       }
       return noUpcoming;
     } catch (error) {
-      console.log("message");
 
       return "00:00:00";
     }
@@ -227,7 +212,6 @@ const AuctionUpdateByAdmin = () => {
                 <p className="text-sm font-medium text-gray-500">
                   <span className="text-black font-semibold"> LotNo:</span> #{" "}
                   {liveItem.vehicleIndexNo}
-                  {console.log("live item", liveItem)}
                 </p>
                 <h1>Reg. No:<span>{liveItem?.registrationNumber}</span></h1>
               </div>
@@ -239,7 +223,7 @@ const AuctionUpdateByAdmin = () => {
                     Start Price :
                   </h2>
                   <p className="text-2xl font-bold text-red-600">
-                    {liveItem.startBidAmount.toLocaleString()}/-
+                    {liveItem?.startBidAmount?.toLocaleString()}/-
                   </p>
                 </div>
               </div>
@@ -264,6 +248,7 @@ const AuctionUpdateByAdmin = () => {
         </div>
               <VehicleDetails liveVehicle={liveItem} timedata1={timeData} />
               <ParticipantsList vehicleId={liveItem?.id} />
+              <Deletedbidtable vehicleId={liveItem?.id}/>
             </>
           ): counterLeftUpcoming(upcomingSecondsLeft())}
         </div>
@@ -286,7 +271,7 @@ const AuctionUpdateByAdmin = () => {
 
 export default AuctionUpdateByAdmin;
 function counterLeftUpcoming(hhmmss) {
-   console.log("**001", hhmmss);
+ 
   if (hhmmss === "no upcoming left") {
     return (
       <div
