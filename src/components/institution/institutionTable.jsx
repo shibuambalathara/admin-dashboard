@@ -38,7 +38,7 @@ const columns=useMemo(
              refetch();
           }
           const handleEditIntitution=async(row)=>{
-            console.log("row",row)
+            
              const {value:institution} = await Swal.fire({
                  title: "Edit Institution",
                 icon: "info",
@@ -49,7 +49,7 @@ const columns=useMemo(
                  confirmButtonText: "Yes",
                  cancelButtonText: "Cancel",
                });
-               console.log("up",institution,row.id)
+               
               if (institution) {
 
                 updateInstitution({variables:{where:{id:row?.id},data:{name:institution}}}).then(()=>{
@@ -60,7 +60,7 @@ const columns=useMemo(
           
               }
               const handleDeleteIntitution=async(row)=>{
-                console.log("row",row)
+               
                  const {value:institution} = await Swal.fire({
                      title: "Delete Institution",
                     icon: "question",
@@ -71,7 +71,7 @@ const columns=useMemo(
                      confirmButtonText: "Yes",
                      cancelButtonText: "Cancel",
                    });
-                   console.log("up",institution,row.id)
+                 
                   if (institution) {
     
                     deleteInstution({variables:{where:{id:row?.id}}}).then(()=>{

@@ -3,6 +3,7 @@ query VehicleDetailsPerEvent($where: EventWhereUniqueInput!) {
   id 
   status
   eventNo
+  endDate
   vehiclesCount
   eventCategory
   vehicles {

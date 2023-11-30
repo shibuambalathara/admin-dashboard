@@ -69,7 +69,7 @@ const { value: input } = await Swal.fire({
     title:"User Does not Exist"
     
   })
-  console.log(err,"error")})
+})
 }
 const handleDelete=(id)=>{
   deleteEvent({variables:{where:{id}}})

@@ -14,7 +14,6 @@ const UsersByRole = ({role,fetchData}) => {
     
     if(loading)return<div>Loading....</div>
     if(data){
-      console.log(data?.users,"rolee")
       fetchData(data?.users)
     }
   return (

@@ -7,7 +7,7 @@ import TableComponent from "../utils/table";
 const CoupensPerPaymentComponent = () => {
   const { id } = useParams();
   const { data, loading, error } = useCoupenPerPaymentQuery({ variables: { where: { id } } });
-console.log(data,"payment")
+
   const columns = React.useMemo(
     () => [
       { Header: "Coupen Number", accessor: "coupenNumber", className: "w-1/3" },

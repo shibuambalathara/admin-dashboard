@@ -1,5 +1,5 @@
 import React from "react";
-import { inputStyle, textAreaStyle } from "./style";
+import { inputStyle, labelStyle, textAreaStyle } from "./style";
 
 
 
@@ -7,7 +7,8 @@ import { inputStyle, textAreaStyle } from "./style";
 export const FormFieldInput = ({ label, type, name, register,defaultValue, error, ...rest }) => {
   return (
     <div className="flex flex-col">
-      <label className="t" htmlFor={name}>
+     
+      <label  className={`${labelStyle.data}`} htmlFor={name}>
         {label}
       </label>
       <input
@@ -45,7 +46,7 @@ export const TextAreaInput = ({ label, type, name, register,defaultValue, error,
 // Input type is select with constant value maping
 
 export const SelectInput = ({ label, name, options,defaultValue,error, register, ...rest }) => {
-  console.log("defa",defaultValue)
+  
   return (
     <div className="flex flex-col">
       <label htmlFor={name}>{label}</label>

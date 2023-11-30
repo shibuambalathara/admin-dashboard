@@ -4,13 +4,15 @@ import { useForm,} from "react-hook-form";
 import { useParams,useNavigate  } from "react-router-dom";
 import { useCreateExcelUploadMutation, useEditEventMutation, useEventQuery } from "../../utils/graphql";
 import { ShowPopup } from "../alerts/popUps";
+import { formStyle, h2Style, headerStyle, pageStyle } from "../utils/style";
+import { FormFieldInput } from "../utils/formField";
 const ExcelUploadsComponent =() => {
   // const [vehicles,setVehicles]=useState([])
   const { id } = useParams();
   const navigate=useNavigate()
   const [create, { data }] = useCreateExcelUploadMutation();
    const {data:eventData}=useEventQuery({variables:{where:{id}}})
-    console.log(eventData?.event,"event data")
+  
   const [editEvent]=useEditEventMutation({variables:{where:{id}}})
 
   const {
@@ -20,7 +22,7 @@ const ExcelUploadsComponent =() => {
     formState: { errors },
   } = useForm();
   const onSubmit = (dataOnSubmit) => {
-    console.log(dataOnSubmit);
+   
 
    try {
      const excel = {
@@ -36,7 +38,7 @@ const ExcelUploadsComponent =() => {
       true,
       editEvent({variables:{data:{startDate:eventData?.event?.startDate}}}).then((resolve)=>{
 
-        console.log("result",resolve)
+  
         navigate('/events')
       })
     )})
@@ -53,7 +55,6 @@ const ExcelUploadsComponent =() => {
     
     
    } catch (error) {
-    console.log("error in excel uploads",error.message);
     ShowPopup(
       "Failed!",
       `${error.message} `,
@@ -65,7 +66,7 @@ const ExcelUploadsComponent =() => {
   };
 
   if (data) {
-    console.log(data?.createExcelUpload?.vehicles, "data............");
+    
     // setVehicles([data?.createExcelUpload?.vehicles?.registrationNumber])
   }
 
@@ -87,47 +88,28 @@ const ExcelUploadsComponent =() => {
   };
 
   return (
-    <div className="w-full h-fit py-20 ">
+    <div className={`${pageStyle.data}`}>
      
-      <div className="  max-w-5xl mx-auto  flex flex-col bg-stale-200  border-1 bg-slate-100">
-      <div className=" max-w-5xl  bg-slate-200 py-8 flex justify-center items-center">
-        <h1 className="font-bold ">ADD EXCEL</h1>
+     <div className={`${headerStyle.data}`}>
+        <h1 className={`${h2Style.data}`}>UPLOAD EXCEL FILE</h1>
       </div>
       <div className="mt-2">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="space-y-5 space-x-5">
-          <div className="flex flex-col ml-5">
-            <label>File Name</label>
-            <input
-             className="max-w-[560px] bg-gray-200 border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700 hover:bg-white "
-              type="text"
-              {...register("uploadFileName", { required: true })}
-            ></input>
-            <p className="text-red-500">
-              {" "}
-              {errors.uploadFileName && <span>Downloadable file required</span>}
-            </p>
-          </div>
-          <div className="flex flex-col">
-          <label>Upload file</label>
-          <input
-            type="file"
-            {...register("uploadFile", { required: true })}
-            className="max-w-[560px] border-gray-400 rounded mt-2 py-2 px-2 outline-none shadow text-gray-700  hover:bg-white "
-          ></input>
-          <p className="text-red-500">
-            {" "}
-            {errors.uploadFile && <span>Downloadable file required</span>}
-          </p>
-          </div>
+        <div className={`${formStyle.data}`}>
+         
+          <FormFieldInput label="File Name" type="text" name="uploadFileName" register={register} error={errors.uploadFileName} required/>
+
+        
+          <FormFieldInput label="Upload file" type="file" name="uploadFile" register={register} error={errors.uploadFile} required/>
+
           <div className=" flex  mt-5 mb-5">
-            <button className="btn btn-success px-10"> Save </button>
+          <button class="btn bg-pink-500 hover:bg-red-500 px-10">Save</button>
           </div>
           </div>
         </form>
         </div>
  
-      </div>
+    
     </div>
   );
 };

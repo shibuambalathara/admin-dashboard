@@ -7,11 +7,9 @@ import format from 'date-fns/format'
 
 
 const Report1 = () => {
-console.log("iddddd")
 
 
   const handleReport = (report) => {
-    console.log(report, "report");
 
     // Convert the startDate field in the report data to ISO string format
     const reportData = report.map((event) => ({
@@ -25,7 +23,6 @@ console.log("iddddd")
      
     }
     ));
-console.log(reportData,"reportdata..")
     const convertToExcel = (reportData) => {
       const worksheet = XLSX.utils.json_to_sheet(reportData);
       const workbook = {

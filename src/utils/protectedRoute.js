@@ -9,11 +9,9 @@ const ProtectedRoute=()=>{
 const [istoken,setIsToken]=useState(true)
 useEffect(()=>{
     const userToken=localStorage.getItem("token")
-    console.log(userToken,"user token")
 
 if(!userToken){
     setIsToken(false)
-//    Navigate('/login')
 }
 },[])
 

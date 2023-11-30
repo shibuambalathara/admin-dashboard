@@ -24,7 +24,7 @@ const TabbleOfUsersOrUser = ({users}) => {
 
 const handleMessage=(coupen)=>{
   const {coupenDetail,firstName,lastName,   currentVehicleBuyingLimit }=coupen
-  console.log(coupen,"coupen")
+
   Swal.fire({
     html: `<div>
         <h1>Message From Team AutoBse</h1>

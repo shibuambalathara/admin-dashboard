@@ -9,9 +9,7 @@ import { paymentsFor } from '../utils/constantValues';
 const CreatePayment = () => {
   const {id}=useParams()
   const navigate=useNavigate()
-  console.log(id,"id")
   const { data,} = useUserQuery({variables: { where: { id: id } }});
-  console.log(data,"user")
   const [addAmount]=useCreatePaymentMutation()
 
   const {
@@ -20,7 +18,7 @@ const CreatePayment = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = async(dataOnSubmit) =>{ console.log(dataOnSubmit)
+  const onSubmit = async(dataOnSubmit) =>{ 
   const amount={
     amount:+dataOnSubmit?.amount,
     paymentFor:dataOnSubmit?.paymentFor,

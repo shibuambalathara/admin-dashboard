@@ -15,7 +15,7 @@ const BidsTable = () => {
     const navigate=useNavigate()
 
     const handleUserDetails=(userId)=>{
-console.log("user Id",userId)
+
 navigate(`/view-user/${userId}`)
     }
     const handleVehicleDetails=(vehicleId)=>{

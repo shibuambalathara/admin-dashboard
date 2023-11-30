@@ -6,7 +6,7 @@ import { useUserauthenticationQuery } from '../utils/graphql'
 
 const Header = () => {
   const {data,refetch}=useUserauthenticationQuery()
-  console.log(data,"authentication")
+ 
   const navigate=useNavigate()
 
   const logOUtHandler=async()=>{
@@ -21,15 +21,7 @@ const Header = () => {
     navigate('/login')
   }
   return (
-  //   <div className=' w-full flex '>
-  // <nav
-  //   className=" w-full  flex justify-end  bg-white py-2 text-neutral-600 shadow-lg hover:text-neutral-700 focus:text-neutral-700 dark:bg-neutral-600 dark:text-neutral-200 m"
-  //   data-te-navbar-ref>
-  //     <div className='  m-2  w-fit'>
-  //  
-  //  </div>
-  // </nav>
-  //   </div>
+ 
   <div className="navbar  bg-base-100 shadow-lg">
   <div className="flex-1">
     {/* <a className="btn btn-ghost normal-case text-xl">AUTOBSE</a> */}

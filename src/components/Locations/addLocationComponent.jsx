@@ -18,12 +18,12 @@ const AddLocationComponent = () => {
 
   const states= useStatesQuery()
 
-  console.log("888888",states);
+  
 
 
   const onSubmit = async (dataOnSubmit) => {
-    console.log("reachws hwew");
-    console.log(dataOnSubmit, "onSubmit");
+   
+
     const data={
       country:dataOnSubmit?.country,
       name:dataOnSubmit?.name,
@@ -32,15 +32,14 @@ const AddLocationComponent = () => {
 
     }
 
-    console.log("the data that needs to be sented to server",data);
+   
     try { 
       const result=await createLocation({variables:{data}})
-      console.log("RESULT",result);
+
     } catch (error) {
-      console.log("DATABASE ERROR",error.stack  );
+      
     }
 
-    // console.log("DATA LOADED TO SERVER",data);
 
     setSuccessMsg("User registration is successful.");
     reset();

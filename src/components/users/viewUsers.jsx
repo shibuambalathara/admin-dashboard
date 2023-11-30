@@ -23,7 +23,6 @@ const ViewUsers = () => {
 
   
   if(loading) return <div>Loading....</div>
-  console.log("this is the data from view users.", data);
   
 
   return (

@@ -68,7 +68,6 @@ const OpenAuctionLive = () => {
 
   const { data:timeData,refetch:serverRefetch } = useQueryQuery({},{ refetchInterval: 60000 });
 
-  // console.log('timeData',timeData.time);
 
   useEffect(() => {
     if (timeData && timeData?.time) {
@@ -77,7 +76,6 @@ const OpenAuctionLive = () => {
     }
   }, [timeData]);
 
-  // console.log('serverTime',serverTime);
   const { data, isLoading,refetch } = useOpenAuctionVehiclesQuery(
     {
       variables: {
@@ -93,12 +91,9 @@ const OpenAuctionLive = () => {
     {
       
       refetchInterval: 2000,
-      // enabled: id !== undefined && id != ""   
     }
   );
 
-  // console.log("openauctionwww", data);
-  // let duration=data?.vehicles[0]?.event?.gapInBetweenVehicles
 
 ;
 
@@ -124,11 +119,7 @@ const OpenAuctionLive = () => {
     liveItem != null && liveItem.id != null && liveItem.id != undefined,
 });
 
-  // // console.log('live03',liveItem);
-  // console.log('bidhis',bidHistory);
 
-  // const bidUsername=bidHistory?.sudoBids?.name
-  // console.log("bidusername",bidUsername);
 
 
   useEffect(() => {
@@ -209,33 +200,17 @@ useEffect(() => {
   }, [data]);
 
  
-  // const { data:bidUser,isLoading:load } = useBidUserQuery(
-  //   {
-  //     variables:{
-  //       where: {
-  //         username:"abs9487884391"
-  //     }
-  //   }
-  // );
-  //  console.log("biduser",bidUser);
+ 
 
 
   function SecondsLeft() {
     // expiry - server + tick
     try {
       if (liveItem) {
-        // console.log("this is liveitem from openauction", liveItem);
 
         const expiryTime = moment(liveItem.bidTimeExpire);
         const currentTime = moment(serverTime).add(tick, "seconds");
         const diff = expiryTime.diff(currentTime, "seconds");
-        // console.log("differeenc", diff);
-        console.log('serverTime',serverTime);
-        console.log('tick',tick);
-        console.log('currentTime',currentTime);
-        console.log('diff',diff);
-        console.log('startTime',expiryTime);
-        console.log(moment.utc(diff * 1000).format("HH:mm:ss"));
 
         if (diff > 0) return moment.utc(diff * 1000).format("HH:mm:ss");
         else return "00:00:00";
@@ -250,32 +225,23 @@ useEffect(() => {
     let noUpcoming = "no upcoming left";
     try {
       if (upcoming[0]) {
-        // console.log('upcoming[0]',upcoming[0]);
         let count = upcoming[0].length;
         let string = count + "";
 
         const startTime = moment(upcoming[0].bidStartTime);
         const currentTime = moment(serverTime).add(tick, "seconds");
         const diff = startTime.diff(currentTime, "seconds");
-        console.log('serverTime',serverTime);
-        console.log('tick',tick);
-        console.log('currentTime',currentTime);
-        console.log('diff',diff);
-        console.log('startTime',startTime);
-        console.log(moment.utc(diff * 1000).format("HH:mm:ss"));
         if (diff > 0) return moment.utc(diff * 1000).format("HH:mm:ss");
         else return "00:00:00";
        
       }
       return noUpcoming;
     } catch (error) {
-      // console.log(error.message);
 
       return "00:00:00";
     }
   }
 
-  // console.log('return form upcomingSecondsLeft()',typeof(upcomingSecondsLeft()));
 
   function BindVehicleImage(vehicle) {
     if (vehicle) {
@@ -313,8 +279,6 @@ useEffect(() => {
           alt: "Right Image.",
         });
       }
-      // console.log(vehicle);
-      // console.log(tempImages);
       setImages(tempImages);
     } else {
       setImages([]);
@@ -743,7 +707,6 @@ export default OpenAuctionLive;
 
 
 function counterLeftUpcoming(hhmmss) {
-  // console.log("**001", typeof hhmmss);
   if (hhmmss === "no upcoming left") {
     return (
       <div
@@ -803,8 +766,6 @@ function counterLeftUpcoming(hhmmss) {
 
 
 function BidHistory(data, liveItem) {
-  // console.log("zdata", data, "ydata", liveItem);
-   // console.log('serverTime',serverTime);
    
   return (
     <div>

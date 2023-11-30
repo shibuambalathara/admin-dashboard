@@ -4,7 +4,7 @@ import format from 'date-fns/format'
 
 export const  DownloadBidHistory = (vehicle) => {
     const pdf = new jsPDF();
-    const logoImg = '../AutoBSE_Logo.png';
+    const logoImg = '../logo.jpeg';
   
     const datePrinted =        `Date Printed: ${new Date().toLocaleDateString()}`;
     const sellerName =         `Seller Name:               ${vehicle?.event?.seller?.name}`;
@@ -12,7 +12,7 @@ export const  DownloadBidHistory = (vehicle) => {
     const vehicleName =        `Vehicle:                       ${vehicle?.make}`;
     const registrationNumber = `Registration Number:  ${vehicle?.registrationNumber}`;
   
-    pdf.addImage(logoImg, 'PNG', 20, 10, 40, 20);
+    pdf.addImage(logoImg, 'JPEG', 20, 10, 40, 20);
     pdf.setFontSize(12);
     pdf.setFont('helvetica', 'bold');
     pdf.text(datePrinted, 150, 40);

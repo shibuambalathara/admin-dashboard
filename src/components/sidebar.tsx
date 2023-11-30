@@ -11,7 +11,7 @@ const Sidebar = () => {
   const navigate=useNavigate()
   const loc=useLocation()
   const pathNm=loc?.pathname.replace(/\//g,"")
-  console.log(pathNm,"location")
+ 
 
   const HandleClick=(path:string)=>{
   navigate(`${path}`)

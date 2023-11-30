@@ -11,7 +11,6 @@ const UsersPerEvent = () => {
     const {id}=useParams()
     const {data,loading}=useParticipantsQuery({variables:{where:{id}, skip: currentPage * pageSize,take:pageSize,coupenDetailWhere2:{coupenStatus:{equals:"unclaimed"}}}})
     if(loading)return<div>Loading....</div>
-    console.log(data,"ddddd")
 
   return (
     <div>

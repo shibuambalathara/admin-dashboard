@@ -4,14 +4,15 @@
 
 import React, {  useEffect, useMemo,useState } from 'react'
 import { useParams} from 'react-router-dom'
-import { useCoupensperUserQuery, useDeleteVehicleMutation, useUpdateCoupenMutation, useUpdateVehicleMutation, useVehicleDetailsPerEventQuery} from '../../utils/graphql'
+import { useCoupensperUserQuery, useDeleteVehicleMutation, useUpdateCoupenMutation, useUpdateEventMutation, useUpdateVehicleMutation, useVehicleDetailsPerEventQuery} from '../../utils/graphql'
 import format from 'date-fns/format'
 import Swal from "sweetalert2";
 
 import TableComponent from '../utils/table'
-import UpdateBidTime from './updateBidTime';
-import { FormatDate } from '../utils/dateFormat';
+import {UpdateBidTime, UpdateEventEndTime} from './updateBidTime';
 import { ConfirmationAlert, SweetalertSuccess } from '../utils/sweetalert';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCar } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -23,13 +24,13 @@ const VehicleDetailsPerEventComponent = () => {
 
     const [userId,setUserId]=useState('0')
     const [updateDate,setUpdateDate]=useState({date:null,id:null,updateItem:null})
-    console.log("up",updateDate)
     
     const {data,loading,error,refetch}=useVehicleDetailsPerEventQuery({variables:{where:{id}}})
+    const[updateEventEndTime]=useUpdateEventMutation()
     const [updateBidTime]=useUpdateVehicleMutation()
     const [updateCoupen]=useUpdateCoupenMutation()
+    const [enable,setEnable]=useState(false)
     
-console.log(data,"dataaa")
     
     const [DeleteVehicle]=useDeleteVehicleMutation();
     const {data:coupens} =useCoupensperUserQuery({variables:{  where: {
@@ -45,7 +46,6 @@ console.log(data,"dataaa")
 
 const handleChangeStartTime=async(update)=>{
    const isodate=new Date(update).toISOString()
- console.log()
   const result=await ConfirmationAlert()
   if(updateDate?.updateItem==='startTime' && result?.isConfirmed)
   {
@@ -60,11 +60,35 @@ const handleChangeStartTime=async(update)=>{
     refetch()
     setUpdateDate({data:null,id:null,updateItem:null})
 }
+const handleChangeEndTime=async(extendTime)=>{
+  if (data?.event?.vehicles) {
+ const splitted= extendTime.split(':')
+ const hour=splitted[0]*60*60*1000
+ const minute=splitted[1]*60*1000
+ const clock=hour+minute
+ const result=await ConfirmationAlert()
+
+ if (result?.isConfirmed) {
+   const response=await Swal.fire({input:'select',  inputOptions: {
+    'increase': 'Increase',
+    'decrease': 'Decrease',
+     }, title:'Time Inrease / Decrease'})
+    let updated
+     const updatedVehicles = data?.event?.vehicles.map((vehicle) => {
+       
+  updated=     response?.value==='increase' ?      new Date( new Date (vehicle?.bidTimeExpire).getTime()+clock): new Date( new Date (vehicle?.bidTimeExpire).getTime()-clock)
+
+      updateBidTime({variables:{data:{bidTimeExpire:updated.toISOString()},where:{id:vehicle?.id}}})
+     
+        });
+         updateEventEndTime({variables:{data:{endDate:updated},where:{id}}})
+   }
+  }
+}
 
 
 
     const handleDelete=async(deleteVehicleId)=>{
-console.log(deleteVehicleId)
 const result = await ConfirmationAlert()
 if (result.isConfirmed) {
   const deleteResult = await DeleteVehicle({variables:{where:{id:deleteVehicleId}}})
@@ -82,7 +106,6 @@ if (result.isConfirmed) {
       
       const { currentBidUser, registrationNumber,currentBidAmount      } = bidDetails;
      
-      console.log(coupens,"handle..",currentBidUser?.id,"handleuu",userId)
       Swal.fire({
         html: `<div>
             <h1>Current Top Bidder </h1>
@@ -130,7 +153,6 @@ if (result.isConfirmed) {
     
     const handleMessage=(vehicleDetails)=>{
       const {currentBidUser,registrationNumber,currentBidAmount,coupenDetail}=vehicleDetails
-console.log("message",vehicleDetails)
 Swal.fire({
   html: `<div>
       <h1>Message From Team AutoBse </h1>
@@ -229,20 +251,34 @@ Swal.fire({
   
    
      <div className='flex justify-between'>
-      <div>
-
-      </div>
-    <div className='h-1 font-bold'>Seller Name :{data?.event?.seller?.name}</div>
     <div className='min-w-fit '>
-    <h1 >Event Status: <span className='font-bold'>{data?.event?.status}</span></h1>
-    <h1 >No Of Vehicles: <span className='font-bold'>{data?.event?.vehiclesCount}</span></h1>
-    <h1>Event Category: <span className='font-bold'>{data?.event?.eventCategory}</span></h1>
+    <h1 >Event Status # <span className='font-bold'>{data?.event?.status}</span></h1>
+    <h1 >No Of Vehicles # <span className='font-bold'>{data?.event?.vehiclesCount}</span></h1>
+    <h1>Event Category # <span className='font-bold'>{data?.event?.eventCategory}</span></h1>
+    <h1>Event End Date # <span className='font-bold'>{format(new Date (data?.event?.endDate),`dd/MM/yy,  HH:mm`)}</span></h1>
+    
         </div>
+    <div className='h-1 font-bold'>Seller Name :{data?.event?.seller?.name}</div>
+      <div className='space-y-1'>
+      {
+   (data?.event?.endDate >new Date().toISOString())   &&
+      <a className="btn btn-accent text-xl" href={`/add-vehicle/${id}`} target="_blank" rel="noopener noreferrer">+ <FontAwesomeIcon icon={faCar}  /></a>}
+{  data?.event?.eventCategory==='online' &&<div className='space-y-1'>
+<div className='space-y-1'>
+     <button className='w-full btn bg-red-500 hover:bg-green-500' onClick={()=>setEnable(true)}>Update end time</button>
+     </div>
+     <div>
+
+{/* <button className='w-fit btn bg-red-500 hover:bg-green-500' onClick={()=>setEnable(true)}>Update start time</button> */}
+     </div>
+</div>}
+      </div>
         </div>
     </div>
 {updateDate?.date &&<UpdateBidTime currentDate={updateDate?.date} handleChangeStartTime={handleChangeStartTime}/>}
+{enable && <UpdateEventEndTime handleChangeEndTime={handleChangeEndTime}/>}
 
-      <TableComponent tableData={data.event?.vehicles} columns={columns} sortBy='Bid Time Expire'/>
+      <TableComponent tableData={data?.event?.vehicles} columns={columns} sortBy='Bid Time Expire'/>
 
   </div>
   </div>

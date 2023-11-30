@@ -1,0 +1,55 @@
+query SellACars {
+  sellACars {
+    id
+    vehicleIndexNo
+    registrationNumber
+    make
+    model
+    varient
+    fuel
+    yearOfManufacture
+    kmReading
+    veicleLocation
+    engineNo
+    images
+    vehicleCondition
+    state
+    address
+    clientContactPerson
+    clientContactNo
+    expectToSell
+    createdAt
+    updatedAt
+  }
+}
+
+
+query SellACarById($where: SellACarWhereUniqueInput!) {
+  sellACar(where: $where) {
+    id
+    vehicleIndexNo
+    registrationNumber
+    make
+    model
+    varient
+    fuel
+    yearOfManufacture
+    kmReading
+    veicleLocation
+    engineNo
+    images
+    vehicleCondition
+    state
+    address
+    clientContactPerson
+    clientContactNo
+    expectToSell
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateSellACar($where: SellACarWhereUniqueInput!, $data: SellACarUpdateInput!) {
+  updateSellACar(where: $where, data: $data) {
+    id
+  }
+}

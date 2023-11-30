@@ -60,12 +60,12 @@ if(data?.event?.endDate){
 },[data])
 
 const handleStartDateToIso=(date)=>{
-  console.log(date,"return data")
+
   setIsoStartDate( new Date(date).toISOString())
  
  }
  const handleEndDateToIso=(date)=>{
-  console.log(date,"return data")
+  
   setIsoEndDate( new Date(date).toISOString())
  
  }
@@ -76,7 +76,7 @@ const handleStartDateToIso=(date)=>{
 
   const { register, handleSubmit,control, watch, formState: { errors } } = useForm();
   
-  const onSubmit =async dataOnSubmit =>{ console.log(dataOnSubmit);
+  const onSubmit =async dataOnSubmit =>{
 
     const eventData={
       eventCategory:dataOnSubmit?.eventCategory,  
@@ -115,7 +115,9 @@ const handleStartDateToIso=(date)=>{
       } catch (error) {
        if(error){
          ShowPopup("Failed !", `${error.message}!`, "Error", 5000, true);
-        console.log("error......",response?.error?.message)}
+
+
+        }
       }
    
   
@@ -175,6 +177,7 @@ const handleStartDateToIso=(date)=>{
                     className={`${inputStyle.data}`}  
                  defaultValue={startDatedata}  onChange={(event) => handleStartDateToIso(event.target.value)} 
                     //  {...register("startDate",{})}
+                    disabled={data?.event?.vehiclesCount>0}
                   />
  <p className="text-red-500"> {errors.startDate&& <span>Start date and time required</span>}</p> 
                  
@@ -190,6 +193,7 @@ const handleStartDateToIso=(date)=>{
                     defaultValue={endDatedata}
                      onChange={(event) => handleEndDateToIso(event.target.value)}
                 // {...register("endDate",{})}
+                disabled={data?.event?.vehiclesCount>0}
                   />
                
                   
@@ -353,6 +357,7 @@ const handleStartDateToIso=(date)=>{
                   defaultValue={data?.event?.extraTime}
                   {...register("extraTime",{})}
                   className={`${inputStyle.data}`}
+                  disabled={data?.event?.vehiclesCount>0}
                 />
               </div>
            {data?.event?.eventCategory==='open' &&    <div className={`${labelAndInputDiv.data}`}>
@@ -364,6 +369,7 @@ const handleStartDateToIso=(date)=>{
                   defaultValue={data?.event?.vehicleLiveTimeIn}
                   {...register("liveTime",{})}
                   className={`${inputStyle.data}`}
+                  disabled={data?.event?.vehiclesCount>0}
                 />
               </div>}
               <div className={`${labelAndInputDiv.data}`}>
@@ -375,6 +381,7 @@ const handleStartDateToIso=(date)=>{
                   defaultValue={data?.event?.gapInBetweenVehicles}
                   {...register("gap",{})}
                   className={`${inputStyle.data}`}
+                  disabled={data?.event?.vehiclesCount>0}
                 />
               </div>
 

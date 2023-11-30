@@ -23,8 +23,6 @@ const AddFindAuction = () => {
      
     
        const onSubmit = async (dataOnSubmit) => {
-         console.log("file", files)
-         console.log('data on submit', dataOnSubmit);
      let{propertyType,emdSubmissionDate,AuctionStartDate,AuctionEndDate,ReservePrice,ContactNumber,City,StateId,document,Address,institutionId,emdAmount,regNumber}=dataOnSubmit
      emdSubmissionDate && ( emdSubmissionDate=new Date(emdSubmissionDate).toISOString())
      AuctionStartDate &&  ( AuctionStartDate=new Date(AuctionStartDate).toISOString())

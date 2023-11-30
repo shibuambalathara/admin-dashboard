@@ -5,7 +5,6 @@ const PaginationComponents = (paginationData) => {
 
 const {nextPage,gotoPage,canPreviousPage,previousPage,pageCount,canNextPage,tablePageIndex}=paginationData
 
-    console.log("page",tablePageIndex)
 
   return (
     <div className="flex justify-center">

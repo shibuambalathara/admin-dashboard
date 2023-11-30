@@ -7,7 +7,6 @@ import { faFileArrowDown } from "@fortawesome/free-solid-svg-icons";
 
 const TableComponent = ({tableData,columns,sortBy}) => {
 
-console.log("tabledata",tableData,"sort by",sortBy)  
 
 
     const {
