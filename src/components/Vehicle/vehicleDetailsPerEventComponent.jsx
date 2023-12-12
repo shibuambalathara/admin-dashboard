@@ -88,18 +88,21 @@ const handleChangeEndTime=async(extendTime)=>{
 
 
 
-    const handleDelete=async(deleteVehicleId)=>{
+    const handleDelete=async(deleteVehicleId,bidCount)=>{
 const result = await ConfirmationAlert()
 if (result.isConfirmed) {
-  const deleteResult = await DeleteVehicle({variables:{where:{id:deleteVehicleId}}})
+  if(bidCount!==0){
+alert("this vehicle have bid record ")
+  }
+  else{
 
-    
-
+    const deleteResult = await DeleteVehicle({variables:{where:{id:deleteVehicleId}}})
     if (deleteResult?.data?.deleteVehicle?.id) {
     
       SweetalertSuccess()
     }
     refetch()
+  }    
 }
     }
     const handleAboutBid=async(bidDetails)=>{
@@ -211,12 +214,18 @@ Swal.fire({
               row.original.totalBids !==0 ? ( row.original.coupenDetail ? <button onClick={()=>handleMessage(row.original)} className='btn bg-yellow-500'>Message to { row.original.currentBidUser.mobile}</button>   : <button className="btn bg-red-500" onClick={() => handleCoupen(row.original)}>Apply Coupen</button>):"0"
               )
           },
+          {
+              Header:"Have Image?",
+              Cell:({row})=>(
+                row.original.frontImage.startsWith("http")?"Yes":"No"
+              )
+          },
          
      
           {
             Header: "Vehicle",
             Cell: ({ row }) => (
-              <button className="btn btn-error" onClick={() => handleDelete(row.original.id)}>Remove</button>
+              <button className="btn btn-error" onClick={() => handleDelete(row.original.id,row.original.totalBids)}>Remove</button>
             )
           }
           
