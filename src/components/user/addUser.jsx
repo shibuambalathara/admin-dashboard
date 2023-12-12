@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 
 
-import React, { useState } from "react";
 import { useCreateUserMutation, useSelectorsQuery } from "../../utils/graphql";
 import { ShowPopup } from '../alerts/popUps';
 import { useNavigate } from "react-router-dom";
