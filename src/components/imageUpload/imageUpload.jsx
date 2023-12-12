@@ -13,10 +13,6 @@ function ImageUpload() {
     const fileArray = Array.from(selectedFiles);
     setFiles(fileArray);
   }
-
-
-
-
   return (
     <div className="w-full flex justify-center flex-col space-y-5 m-10">
       <h1 className="font-bold text-lg flex text-center  ">Choose Images</h1>
@@ -25,7 +21,7 @@ function ImageUpload() {
         className="w-fit py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         onChange={handleChange}
         accept="/image/*"
-        multiple // Allow selecting multiple files
+        multiple 
       />
       {files.length > 0 &&
         <>

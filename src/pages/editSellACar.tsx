@@ -23,13 +23,13 @@ const EditSellACar = () => {
         try{
          update({variables:{data:{
           address:dataOnSubmit?.address,
-          clientContactNo:dataOnSubmit?.clientContactNo,
+          // clientContactNo:dataOnSubmit?.clientContactNo,
           engineNo:dataOnSubmit?.engineNo,
-          clientContactPerson:dataOnSubmit?.clientContactPerson,
+          // clientContactPerson:dataOnSubmit?.clientContactPerson,
           expectToSell:new Date( dataOnSubmit?.expectToSell).toISOString(),
           fuel:dataOnSubmit?.fuel,
-          images:dataOnSubmit?.images,
-          kmReading:+dataOnSubmit?.kmReading,
+          interiorImages:dataOnSubmit?.images,
+          // kmReading:+dataOnSubmit?.kmReading,
           make:dataOnSubmit?.make,
           model:dataOnSubmit?.model,
           registrationNumber:dataOnSubmit?.registrationNumber,
@@ -66,8 +66,7 @@ const EditSellACar = () => {
           <div className="grid sm:grid-cols-3 gap-x-20 gap-y-5 mx-5">
            
           <FormFieldInput defaultValue={data?.sellACar?.registrationNumber} label="Registration Number" type="text" name="registrationNumber" register={register} error={errors.regNo} />
-          <FormFieldInput defaultValue={data?.sellACar?.clientContactPerson} label="Client Name" type="text" name="clientContactPerson" register={register} error={errors.client_name} />
-          <FormFieldInput defaultValue={data?.sellACar?.clientContactNo} label="Client Contact Number" type="text" name="clientContactNo" register={register} error={errors.clientContactNo} />
+          {/* <FormFieldInput defaultValue={data?.sellACar?.clientContactNo} label="Client Contact Number" type="text" name="clientContactNo" register={register} error={errors.clientContactNo} /> */}
           <FormFieldInput defaultValue={data?.sellACar?.address} label="Address" type="text" name="address" register={register} error={errors.address} />
           <FormFieldInput defaultValue={data?.sellACar?.engineNo} label="Engine No" type="text" name="engineNo" register={register} error={errors.engineNo} />
           <FormFieldInput defaultValue={DateConvert(data?.sellACar?.expectToSell)} label="Expect To Sell" type="datetime-local" name="expectToSell" register={register} error={errors.expectToSell} />
@@ -80,7 +79,7 @@ const EditSellACar = () => {
           <FormFieldInput defaultValue={data?.sellACar?.vehicleCondition} label="Vehicle Condition" type="text" name="vehicleCondition" register={register} error={errors.vehicleCondition} />
           <FormFieldInput defaultValue={data?.sellACar?.veicleLocation} label="Vehicle Location" type="text" name="veicleLocation" register={register} error={errors.veicleLocation} />
           <FormFieldInput defaultValue={data?.sellACar?.yearOfManufacture} label="Year Of Manufacture" type="text" name="yearOfManufacture" register={register} error={errors.yearOfManufacture} />
-          <FormFieldInput defaultValue={data?.sellACar?.images} label="Images URL" type="text" name="images" register={register} error={errors.images} />
+          <FormFieldInput defaultValue={data?.sellACar?.interiorImages} label="Images URL" type="text" name="images" register={register} error={errors.images} />
 
             </div>
             <div className="text-center my-5">

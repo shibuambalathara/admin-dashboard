@@ -11,12 +11,13 @@ query SellACars {
     kmReading
     veicleLocation
     engineNo
-    images
+     interiorImages
+    exteriorImages
     vehicleCondition
     state
     address
-    clientContactPerson
-    clientContactNo
+    # clientContactPerson
+    # clientContactNo
     expectToSell
     createdAt
     updatedAt
@@ -37,12 +38,13 @@ query SellACarById($where: SellACarWhereUniqueInput!) {
     kmReading
     veicleLocation
     engineNo
-    images
+    interiorImages
+    exteriorImages
     vehicleCondition
     state
     address
-    clientContactPerson
-    clientContactNo
+    # clientContactPerson
+    # clientContactNo
     expectToSell
     createdAt
     updatedAt
