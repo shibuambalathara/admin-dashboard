@@ -4996,14 +4996,14 @@ export type SelectorsQuery = { __typename?: 'Query', states?: Array<{ __typename
 export type SellACarsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type SellACarsQuery = { __typename?: 'Query', sellACars?: Array<{ __typename?: 'SellACar', id: string, vehicleIndexNo?: number | null, registrationNumber?: string | null, make?: string | null, model?: string | null, varient?: string | null, fuel?: string | null, yearOfManufacture?: number | null, kmReading?: string | null, veicleLocation?: string | null, engineNo?: string | null, interiorImages?: string | null, exteriorImages?: string | null, vehicleCondition?: string | null, state?: string | null, address?: string | null, expectToSell?: any | null, createdAt?: any | null, updatedAt?: any | null }> | null };
+export type SellACarsQuery = { __typename?: 'Query', sellACars?: Array<{ __typename?: 'SellACar', id: string, vehicleIndexNo?: number | null, registrationNumber?: string | null, make?: string | null, model?: string | null, varient?: string | null, fuel?: string | null, yearOfManufacture?: number | null, kmReading?: string | null, veicleLocation?: string | null, engineNo?: string | null, interiorImages?: string | null, exteriorImages?: string | null, vehicleCondition?: string | null, state?: string | null, address?: string | null, expectToSell?: any | null, createdAt?: any | null, updatedAt?: any | null, user?: { __typename?: 'User', firstName?: string | null, mobile?: string | null } | null }> | null };
 
 export type SellACarByIdQueryVariables = Exact<{
   where: SellACarWhereUniqueInput;
 }>;
 
 
-export type SellACarByIdQuery = { __typename?: 'Query', sellACar?: { __typename?: 'SellACar', id: string, vehicleIndexNo?: number | null, registrationNumber?: string | null, make?: string | null, model?: string | null, varient?: string | null, fuel?: string | null, yearOfManufacture?: number | null, kmReading?: string | null, veicleLocation?: string | null, engineNo?: string | null, interiorImages?: string | null, exteriorImages?: string | null, vehicleCondition?: string | null, state?: string | null, address?: string | null, expectToSell?: any | null, createdAt?: any | null, updatedAt?: any | null } | null };
+export type SellACarByIdQuery = { __typename?: 'Query', sellACar?: { __typename?: 'SellACar', id: string, vehicleIndexNo?: number | null, registrationNumber?: string | null, make?: string | null, model?: string | null, varient?: string | null, fuel?: string | null, yearOfManufacture?: number | null, kmReading?: string | null, veicleLocation?: string | null, engineNo?: string | null, interiorImages?: string | null, exteriorImages?: string | null, vehicleCondition?: string | null, state?: string | null, address?: string | null, expectToSell?: any | null, createdAt?: any | null, updatedAt?: any | null, user?: { __typename?: 'User', firstName?: string | null, mobile?: string | null } | null } | null };
 
 export type UpdateSellACarMutationVariables = Exact<{
   where: SellACarWhereUniqueInput;
@@ -8071,6 +8071,10 @@ export const SellACarsDocument = gql`
     vehicleCondition
     state
     address
+    user {
+      firstName
+      mobile
+    }
     expectToSell
     createdAt
     updatedAt
@@ -8126,6 +8130,10 @@ export const SellACarByIdDocument = gql`
     expectToSell
     createdAt
     updatedAt
+    user {
+      firstName
+      mobile
+    }
   }
 }
     `;

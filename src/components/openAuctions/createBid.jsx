@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useState } from "react";
-import { useForm, } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import {
   useCreateBidMutation,
   useEditEventMutation,
@@ -10,25 +10,23 @@ import Swal from "sweetalert2";
 
 
 const VehicleDetails = (props) => {
-
-
-// -------------------------------------------
+  // -------------------------------------------
   const initialState = {
     vehicleDetails: props,
     bidAmount: props?.liveVehicle?.startBidAmount,
     vehicleId: props?.liveVehicle?.id || null,
   };
-  
+
   const reducer = (state, action) => {
     switch (action.type) {
-      case 'SET_VEHICLE_DETAILS':
+      case "SET_VEHICLE_DETAILS":
         return { ...state, vehicleDetails: action.payload };
-      case 'SET_BID_AMOUNT':
+      case "SET_BID_AMOUNT":
         return { ...state, bidAmount: action.payload };
-        case 'UPDATE_BID_AMOUNT':
-          return { ...state, bidAmount: state.bidAmount + action.payload };
-          case 'SET_VEHICLE_ID':
-      return { ...state, vehicleId: action.payload };
+      case "UPDATE_BID_AMOUNT":
+        return { ...state, bidAmount: state.bidAmount + action.payload };
+      case "SET_VEHICLE_ID":
+        return { ...state, vehicleId: action.payload };
       default:
         return state;
     }
@@ -39,27 +37,28 @@ const VehicleDetails = (props) => {
   const { vehicleDetails, bidAmount } = state;
 
   useEffect(() => {
-    dispatch({ type: 'SET_VEHICLE_DETAILS', payload: props });
-  
+    dispatch({ type: "SET_VEHICLE_DETAILS", payload: props });
+
     if (state.vehicleId !== props?.liveVehicle?.id) {
-      dispatch({ type: 'SET_VEHICLE_ID', payload: props?.liveVehicle?.id });
-      dispatch({ type: 'SET_BID_AMOUNT', payload: props?.liveVehicle?.startBidAmount });
-      
+      dispatch({ type: "SET_VEHICLE_ID", payload: props?.liveVehicle?.id });
+      dispatch({
+        type: "SET_BID_AMOUNT",
+        payload: props?.liveVehicle?.startBidAmount,
+      });
     }
-    if (  bidAmount < props?.liveVehicle?.currentBidAmount) {
-     
-      dispatch({ type: 'SET_BID_AMOUNT', payload: props?.liveVehicle?.currentBidAmount });
-      setValue("amount",bidAmount)
+    if (bidAmount < props?.liveVehicle?.currentBidAmount) {
+      dispatch({
+        type: "SET_BID_AMOUNT",
+        payload: props?.liveVehicle?.currentBidAmount,
+      });
+      setValue("amount", bidAmount);
     }
-  }, [props,bidAmount,state.vehicleId]);
+  }, [props, bidAmount, state.vehicleId]);
 
-
-  useEffect(()=>{
-    setValue("amount",bidAmount)
-  },[bidAmount])
-// ...........................................................
- 
-
+  useEffect(() => {
+    setValue("amount", bidAmount);
+  }, [bidAmount]);
+  // ...........................................................
 
   const [userIdNo, setUserId] = useState();
   const [startPrice, setStartPrice] = useState(
@@ -122,23 +121,22 @@ const VehicleDetails = (props) => {
  
 
     const { token, amount } = onSubmitData;
-    
+
     setUserId(token);
 
-     if (data?.user?.id) 
-{
-    
-  // const result=({
-  //     variables: {
-  //       data: {
-  //         bidVehicle: { connect: { id: vehicleDetails?.liveVehicle?.id } },
-  //         user: { connect: { id: data?.user?.id } },
+    if (data?.user?.id) {
+      // const result=({
+      //     variables: {
+      //       data: {
+      //         bidVehicle: { connect: { id: vehicleDetails?.liveVehicle?.id } },
+      //         user: { connect: { id: data?.user?.id } },
 
-  //         amount: +amount,
-  //       },
-  //     },
-  //   })
-  const result=bidVehicle({variables: {
+      //         amount: +amount,
+      //       },
+      //     },
+      //   })
+      const result = bidVehicle({
+        variables: {
           data: {
             bidVehicle: { connect: { id: vehicleDetails?.liveVehicle?.id } },
             user: { connect: { id: data?.user?.id } },
@@ -146,36 +144,31 @@ const VehicleDetails = (props) => {
             amount: +amount,
           },
         },
-  })
-  
-      .then((result) => {
-        // Additional actions after successful bid submission
-     
-        Swal.fire({
-          title: `Amount ${result?.data?.createBid?.amount} successfully Added`,
-          icon: "success",
-        });
-        setUserId(0);
       })
-      .catch((error) => {
-        console.error(error,"error");
-      
-        Swal.fire({
-          title: ` ${error}`,
-          icon: "error",
-        });
-        // Handle any errors that occur during bid submission
-        setUserId(0);
-      })
- if(!result){
-  alert("Please check token number")
- }
-   
-    }
-  
-  };
+        .then((result) => {
+          // Additional actions after successful bid submission
 
-  
+          Swal.fire({
+            title: `Amount ${result?.data?.createBid?.amount} successfully Added`,
+            icon: "success",
+          });
+          setUserId(0);
+        })
+        .catch((error) => {
+          console.error(error, "error");
+
+          Swal.fire({
+            title: ` ${error}`,
+            icon: "error",
+          });
+          // Handle any errors that occur during bid submission
+          setUserId(0);
+        });
+      if (!result) {
+        alert("Please check token number");
+      }
+    }
+  };
 
   const handleEvent = async () => {
     const response = await Swal.fire({
@@ -221,9 +214,9 @@ const VehicleDetails = (props) => {
     }
   };
   const handleBidAmount = (price) => {
-    dispatch({ type: 'UPDATE_BID_AMOUNT', payload: price });
+    dispatch({ type: "UPDATE_BID_AMOUNT", payload: price });
   };
-  const handlePending=async()=>{
+  const handlePending = async () => {
     const response = await Swal.fire({
       title: "Are you sure?",
       icon: "question",
@@ -232,7 +225,7 @@ const VehicleDetails = (props) => {
       cancelButtonText: "Cancel",
     });
     if (response.isConfirmed) {
-      editVehicle({ variables: { data: { bidStatus:'pending' } } })
+      editVehicle({ variables: { data: { bidStatus: "pending" } } })
         .then((result) => {
           Swal.fire({
             title: ` Current Status Pending`,
@@ -246,9 +239,9 @@ const VehicleDetails = (props) => {
           });
         });
     }
-  }
-  
-  const handleApproved=async()=>{
+  };
+
+  const handleApproved = async () => {
     const response = await Swal.fire({
       title: "Are you sure?",
       icon: "question",
@@ -257,7 +250,7 @@ const VehicleDetails = (props) => {
       cancelButtonText: "Cancel",
     });
     if (response.isConfirmed) {
-      editVehicle({ variables: { data: { bidStatus:'approved' } } })
+      editVehicle({ variables: { data: { bidStatus: "approved" } } })
         .then((result) => {
           Swal.fire({
             title: `Vehicle current Status Approved`,
@@ -271,8 +264,8 @@ const VehicleDetails = (props) => {
           });
         });
     }
-  }
-  const handleFullfilled=async()=>{
+  };
+  const handleFullfilled = async () => {
     const response = await Swal.fire({
       title: "Are you sure?",
       icon: "question",
@@ -281,7 +274,7 @@ const VehicleDetails = (props) => {
       cancelButtonText: "Cancel",
     });
     if (response.isConfirmed) {
-      editVehicle({ variables: { data: { bidStatus:'fulfilled' } } })
+      editVehicle({ variables: { data: { bidStatus: "fulfilled" } } })
         .then((result) => {
           Swal.fire({
             title: `Vehicle current Status Fullfilled`,
@@ -295,8 +288,8 @@ const VehicleDetails = (props) => {
           });
         });
     }
-  }
-  const handleDeclined=async()=>{
+  };
+  const handleDeclined = async () => {
     const response = await Swal.fire({
       title: "Are you sure?",
       icon: "question",
@@ -305,7 +298,7 @@ const VehicleDetails = (props) => {
       cancelButtonText: "Cancel",
     });
     if (response.isConfirmed) {
-      editVehicle({ variables: { data: { bidStatus:'declined' } } })
+      editVehicle({ variables: { data: { bidStatus: "declined" } } })
         .then((result) => {
           Swal.fire({
             title: `Vehicle current Status Declined`,
@@ -319,13 +312,12 @@ const VehicleDetails = (props) => {
           });
         });
     }
-  }
+  };
 
   return (
     <div className="flex  justify-around  border-2 shadow-md p-2">
       <div className="border-2 shadow-md flex justify-center align-middle p-5">
         <form onSubmit={handleSubmit(onSubmit)}>
-          
           <div className="space-5 p-2  shadow-md">
             <div className="space-x-5 flex text-center flex-col ">
               <label className="pl-5 font-bold">
@@ -338,65 +330,91 @@ const VehicleDetails = (props) => {
             </div>
 
             <div className=" flex flex-col">
-              <label className="pl-5">Amount</label>
+              <label className="">Amount</label>
               <div>
-                
-                  <input
+                <input
                   type="number"
-                    className="bg-gray-50 border  border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500   p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-72"
-                    {...register("amount", { required: true})}
-                  />
-                
+                  className="bg-gray-50 border  border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500   p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-72"
+                  {...register("amount", { required: true })}
+                />
+
                 {errors.amount && <p>Amount is required</p>}
               </div>
-              </div>
-              <div className=" flex flex-col">
-              <label className="pl-5">Token Number</label>
-              <input defaultValue={167}
+            </div>
+            <div className=" flex flex-col ">
+              <label className="">Token Number</label>
+              <input
+                defaultValue={167}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500   p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-72"
                 {...register("token", { required: true })}
               />
               {errors.token && <p className="text-red-500">Token required</p>}
-       
-      </div>
-            <div className=" text-center">
-              <button type="submit" className="btn btn-success" > Submit</button>
-          </div>
             </div>
+            <div className=" text-center my-5">
+              <button type="submit" className="btn bg-orange-500 hover:bg-red-500">
+                {" "}
+                Submit
+              </button>
+            </div>
+          </div>
         </form>
         <div>
-              <div className="m-2 space-x-2 w-full">
-                {incrementAmounts?.map((amount) => (
-                  <button
-                    className="btn btn-outline w-fit text-lg"
-                    onClick={(e) => setValue("amount",Number(getValues("amount")) + Number(amount?.value))}
-                  >
-                    +{amount?.value}
-                  </button>
-                ))}
-              </div>
-              <div className="m-2 space-x-2">
-  {Array.from({ length: 5 }).map((_, i) => (
-    <button  onClick={(e) =>setValue("amount",Number(getValues("amount"))+Number(((i+1) * vehicleDetails?.liveVehicle?.quoteIncreament)))} className="btn text-lg bg-red-500" key={i} value={((i+1) *vehicleDetails?.liveVehicle?.quoteIncreament )}>
-      {Number(getValues("amount")) + Number(((i+1) * vehicleDetails?.liveVehicle?.quoteIncreament))}
-    </button>
-  ))}
-</div>
-            </div>
-            </div>
-       
+          <div className="m-2 space-x-2 w-full">
+            {incrementAmounts?.map((amount) => (
+              <button
+                className="btn btn-outline w-fit text-lg"
+                onClick={(e) =>
+                  setValue(
+                    "amount",
+                    Number(getValues("amount")) + Number(amount?.value)
+                  )
+                }
+              >
+                +{amount?.value}
+              </button>
+            ))}
+          </div>
+          <div className="m-2 space-x-2">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <button
+                onClick={(e) =>
+                  setValue(
+                    "amount",
+                    Number(getValues("amount")) +
+                      Number(
+                        (i + 1) * vehicleDetails?.liveVehicle?.quoteIncreament
+                      )
+                  )
+                }
+                className="btn text-lg bg-red-500"
+                key={i}
+                value={(i + 1) * vehicleDetails?.liveVehicle?.quoteIncreament}
+              >
+                {Number(getValues("amount")) +
+                  Number(
+                    (i + 1) * vehicleDetails?.liveVehicle?.quoteIncreament
+                  )}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
       <div className="shadow-md p-2">
         <div className="flex w-44 flex-col space-y-5">
-        <div>
-          <label>Start Price</label>
-          <input
-            className="border-4 w-full"
-            defaultValue={startPrice}
-            onChange={(e) => setStartPrice(e.target.value)}
-          ></input>
-          <button className="btn btn-accent mt-2" onClick={() => handleStartPrice()}>
-            Change Start Price
-          </button>
+          <div>
+            <label>Start Price</label>
+            <input
+              className="border-4 w-full"
+              defaultValue={startPrice}
+              onChange={(e) => setStartPrice(e.target.value)}
+            ></input>
+            <button
+              className="btn btn-accent mt-2"
+              onClick={() => handleStartPrice()}
+            >
+              Change Start Price
+            </button>
           </div>
           <a
             className="btn btn-secondary"
@@ -415,27 +433,38 @@ const VehicleDetails = (props) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-              Projecter View
+            Projecter View
           </a>
- 
         </div>
       </div>
       <div className="flex flex-col shadow-md p-2 space-y-5">
-        <label>Current Status: <p className="font-bold">{vehicleDetails?.liveVehicle?.bidStatus}</p></label>
-        {vehicleDetails?.liveVehicle?.bidStatus !=='pending' &&     <button className="btn btn-success" onClick={() => handlePending()}>
-          Pending
-        </button>}
-        {vehicleDetails?.liveVehicle?.bidStatus !=='approved' &&  <button className="btn btn-primary" onClick={() => handleApproved()}>
-          Approved
-        </button>}
-        {vehicleDetails?.liveVehicle?.bidStatus !=='fulfilled' && 
-        <button className="btn btn-warning" onClick={() => handleFullfilled()}>
-          Fullfilled
-        </button>}
-        {vehicleDetails?.liveVehicle?.bidStatus !=='declined' && 
-        <button className="btn btn-error" onClick={() => handleDeclined()}>
-          Declined
-        </button>}
+        <label>
+          Current Status:{" "}
+          <p className="font-bold">{vehicleDetails?.liveVehicle?.bidStatus}</p>
+        </label>
+        {vehicleDetails?.liveVehicle?.bidStatus !== "pending" && (
+          <button className="btn btn-success" onClick={() => handlePending()}>
+            Pending
+          </button>
+        )}
+        {vehicleDetails?.liveVehicle?.bidStatus !== "approved" && (
+          <button className="btn btn-primary" onClick={() => handleApproved()}>
+            Approved
+          </button>
+        )}
+        {vehicleDetails?.liveVehicle?.bidStatus !== "fulfilled" && (
+          <button
+            className="btn btn-warning"
+            onClick={() => handleFullfilled()}
+          >
+            Fullfilled
+          </button>
+        )}
+        {vehicleDetails?.liveVehicle?.bidStatus !== "declined" && (
+          <button className="btn btn-error" onClick={() => handleDeclined()}>
+            Declined
+          </button>
+        )}
       </div>
     </div>
   );

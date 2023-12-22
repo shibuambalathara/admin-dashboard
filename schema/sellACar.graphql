@@ -16,8 +16,10 @@ query SellACars {
     vehicleCondition
     state
     address
-    # clientContactPerson
-    # clientContactNo
+     user {
+    firstName
+    mobile
+  }
     expectToSell
     createdAt
     updatedAt
@@ -43,11 +45,13 @@ query SellACarById($where: SellACarWhereUniqueInput!) {
     vehicleCondition
     state
     address
-    # clientContactPerson
-    # clientContactNo
     expectToSell
     createdAt
     updatedAt
+     user {
+    firstName
+    mobile
+  }
   }
 }
 mutation UpdateSellACar($where: SellACarWhereUniqueInput!, $data: SellACarUpdateInput!) {

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, } from 'react'
 import AddFindAuctionComponent from '../components/find auction/findAuctionForm'
 import { useCreateFindAuctionMutation,} from '../utils/graphql';
 import { useForm } from "react-hook-form";
 import { headerStyle } from '../components/utils/style';
+import { useNavigate } from 'react-router-dom';
 const AddFindAuction = () => {
 
 
@@ -17,7 +18,7 @@ const AddFindAuction = () => {
      const fileArray = Array.from(selectedFiles);
      setFiles(fileArray)
  }
- 
+ const navigate=useNavigate()
 // 
 
      
@@ -45,7 +46,12 @@ const AddFindAuction = () => {
        emdAmount:emdAmount,
        vehicleRegNo:regNumber
  
-     }}})
+     }}}).then((resolve)=>{
+     navigate('/find-auction')
+      
+     }).catch((err)=>{
+      alert(err)
+     })
    
     
         

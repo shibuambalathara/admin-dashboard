@@ -1,6 +1,6 @@
 
 
-import { formStyle, headerStyle, inputStyle } from '../utils/style';
+import { formStyle, headerStyle,inputStyle } from '../utils/style';
 import {  useInstitutionsQuery, useStatesQuery } from '../../utils/graphql';
 import { FormFieldInput, SelectInput, SelectWithDynamic, TextAreaInput } from '../utils/formField';
 import {  propertyType } from '../utils/constantValues';
@@ -33,13 +33,13 @@ if(file){
   
   const options = {
     maxSizeMB: 0.1, 
-    maxWidthOrHeight: 1920,
+    // maxWidthOrHeight: 1920,
     useWebWorker: true, 
   };
 
   // Compress the selected image
-  const compressedFile = await imageCompression(file, options);
-HandleUpload1(compressedFile,setDownloadUrls,setDownloadUrl)
+  // const compressedFile = await imageCompression(file, options);
+HandleUpload1(file,setDownloadUrls,setDownloadUrl)
 }
     
   
@@ -80,7 +80,7 @@ HandleUpload1(compressedFile,setDownloadUrls,setDownloadUrl)
         <input
           type="file"
           className={`${inputStyle.data}`}
-          onChange={handleFileChange} // Call the handleFileChange function when a file is selected
+          onChange={handleFileChange} 
           accept="/image/*"
           multiple
         />
@@ -141,7 +141,8 @@ const HandleUpload1 = async (file, setDownloadUrls, setDownloadUrl) => {
       try {
         // Update metadata to specify content type as image/jpeg
         const metadata = {
-          contentDisposition: 'attachment'
+          contentDisposition: 'attachment',
+          contentType: file.type,
         };
         await updateMetadata(storageRef, metadata);
 
@@ -152,6 +153,7 @@ const HandleUpload1 = async (file, setDownloadUrls, setDownloadUrl) => {
         setDownloadUrls(url);
         setDownloadUrl(url);
       } catch (error) {
+        alert(error)
         console.error("Error updating metadata or getting download URL:", error);
       }
     }
