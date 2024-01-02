@@ -210,10 +210,10 @@ const AuctionUpdateByAdmin = () => {
                   Open Auction
                 </h1>
                 <p className="text-sm font-medium text-gray-500">
-                  <span className="text-black font-semibold"> LotNo:</span> #{" "}
+                  <span className=""> LotNo:</span> #{" "}
                   {liveItem.vehicleIndexNo}
                 </p>
-                <h1>Reg. No:<span>{liveItem?.registrationNumber}</span></h1>
+                <h1>Reg. No # <span className="font-bold">{liveItem?.registrationNumber}</span></h1>
               </div>
             </div>
             <div className="bg-white px-4 py-5  sm:rounded-lg sm:px-6 border  border-gray-200 space-y-2">

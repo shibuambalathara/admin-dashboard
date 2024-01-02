@@ -99,4 +99,60 @@ export const SelectWithDynamic  = ({   options,defaultValue,error, register,mapp
   );
 };
 
+// imaged maping
+
+
+export  const ImageMaping= ({images}) => {
+  console.log("imageee",images)
+  return (
+    <div className="grid grid-cols-2 gap-x-10  gap-y-5 m-2">
+    {images?.map((imgs, index) => {
+       return (
+         <div className=" bg-gray-50 rounded-2xl">
+    
+           <div className="text-center">  <p>Image {index+1}</p></div>
+         
+<div className=" flex justify-center">
+<img src={imgs} alt={imgs} key={index} className="h-80  text-center" />
+</div>
+          
+         </div>
+       );
+     })}
+        
+        </div>
+  )
+}
+// ---------------------------
+
+
+export const UploadDocument = ({label,fun,url}) => {
+  return (
+    <div>
+    <label>{label}</label>
+    <input
+      type="file"
+      className={`${inputStyle.data}`}
+      onChange={fun} 
+      accept="/image/*"
+      multiple
+    />
+
+    <>
+ 
+ 
+
+
+  
+       <img src={url} alt='img'/> 
+    </>
+  </div>
+  )
+}
+
+ 
+
+
+
+// ---------------------------
 

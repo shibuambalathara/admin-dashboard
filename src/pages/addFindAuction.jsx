@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, } from 'react'
 import AddFindAuctionComponent from '../components/find auction/findAuctionForm'
 import { useCreateFindAuctionMutation,} from '../utils/graphql';
 import { useForm } from "react-hook-form";
 import { headerStyle } from '../components/utils/style';
+import { useNavigate } from 'react-router-dom';
 const AddFindAuction = () => {
 
 
@@ -11,19 +12,21 @@ const AddFindAuction = () => {
    const [files, setFiles] = useState([]);
  
    const [downloadUrl, setDownloadUrl] = useState('');
- 
+   const [downloadUrlDoc, setDownloadUrlDoc] = useState('');
+
    const handleChange=(event)=> {
      const selectedFiles = event.target.files;
      const fileArray = Array.from(selectedFiles);
      setFiles(fileArray)
  }
- 
+ const navigate=useNavigate()
 // 
 
      
     
        const onSubmit = async (dataOnSubmit) => {
-     let{propertyType,emdSubmissionDate,AuctionStartDate,AuctionEndDate,ReservePrice,ContactNumber,City,StateId,document,Address,institutionId,emdAmount,regNumber}=dataOnSubmit
+        console.log("data on submit",dataOnSubmit);
+     let{propertyType,emdSubmissionDate,AuctionStartDate,AuctionEndDate,ReservePrice,ContactNumber,City,StateId,Address,institutionId,emdAmount,regNumber,ImageUrl}=dataOnSubmit
      emdSubmissionDate && ( emdSubmissionDate=new Date(emdSubmissionDate).toISOString())
      AuctionStartDate &&  ( AuctionStartDate=new Date(AuctionStartDate).toISOString())
      AuctionEndDate &&  (AuctionEndDate=new Date(AuctionEndDate).toISOString())
@@ -33,6 +36,7 @@ const AddFindAuction = () => {
        address:Address,
        auctionEndDate:AuctionEndDate ? AuctionEndDate :null,
         auctionNotice:downloadUrl,
+        tenderDocument:downloadUrlDoc,
        auctionStartDate:AuctionStartDate ? AuctionStartDate :null,
        city:City,
    
@@ -43,9 +47,15 @@ const AddFindAuction = () => {
        reservePrice:ReservePrice,
        state:{connect:{id:StateId}},
        emdAmount:emdAmount,
-       vehicleRegNo:regNumber
+       vehicleRegNo:regNumber,
+       image:ImageUrl
  
-     }}})
+     }}}).then((resolve)=>{
+     navigate('/find-auction')
+      
+     }).catch((err)=>{
+      alert(err)
+     })
    
     
         
@@ -69,7 +79,7 @@ const AddFindAuction = () => {
        ADD AUCTION DETAILS
         </h2>
       </div>
-        <AddFindAuctionComponent  onSubmit={onSubmit} useForm={useForm} setDownloadUrl={setDownloadUrl}/>
+        <AddFindAuctionComponent  onSubmit={onSubmit} useForm={useForm} setDownloadUrl={setDownloadUrl} setDownloadUrlDoc={setDownloadUrlDoc}/>
     </div>
   )
 }

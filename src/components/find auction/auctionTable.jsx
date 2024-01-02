@@ -1,4 +1,4 @@
-import React, {  useMemo,useState } from 'react'
+import React, {  useEffect, useMemo,useState } from 'react'
 import { useFindAuctionsQuery } from '../../utils/graphql'
 import TableComponent from '../utils/table';
 import { FormatDate } from '../utils/dateFormat';
@@ -9,9 +9,13 @@ import { faFile, faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 
 
 const AuctionTable = () => {
-    const [currentPage, setCurrentPage] = useState(0);
-   const {data,loading}=useFindAuctionsQuery()
+  const [currentPage, setCurrentPage] = useState(0);
+  const {data,loading}=useFindAuctionsQuery()
+  console.log(data)
 const navigate=useNavigate()
+// useEffect(()=>{
+// loading()
+// },[])
   
 
 
@@ -31,8 +35,15 @@ const navigate=useNavigate()
       { Header: "city", accessor: "city" },
       { Header: "Vehicle reg Number", accessor: "vehicleRegNo" },
       {
-        Header: "Document",
+        Header: "Auction Notice",
         accessor: "auctionNotice",
+        Cell: ({ value }) => (
+          value ? <DownloadImage imageUrl={value} /> : "-"
+        ),
+      },
+      {
+        Header: "Tender Document",
+        accessor: "tenderDocument",
         Cell: ({ value }) => (
           value ? <DownloadImage imageUrl={value} /> : "-"
         ),

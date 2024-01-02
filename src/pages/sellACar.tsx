@@ -3,7 +3,13 @@ import { useSellACarsQuery } from '../utils/graphql'
 import TableComponent from '../components/utils/table'
 import { FormatDate } from '../components/utils/dateFormat'
 
-
+interface RowData {
+  user?: {
+    mobile?: string;
+    firstName?:string
+  };
+  
+}
 
 const SellACar = () => {
   const {data}=useSellACarsQuery()
@@ -18,8 +24,13 @@ const SellACar = () => {
 
           )
       },
-      {  Header: "Name",accessor: "clientContactPerson"},
-      {  Header: "Mobile",accessor: "clientContactNo"},
+      {
+        Header: "Name",
+        accessor: (row:RowData) => row.user?.firstName,
+      },      {
+        Header: "Mobile",
+        accessor: (row:RowData) => row.user?.mobile,
+      },
       { Header: "Registration Number", accessor: "registrationNumber" },
       { Header: "Expect To Sell", accessor: ({expectToSell}:{expectToSell:Date})=>{return FormatDate(expectToSell)} },
        { Header: "State", accessor: "state" },

@@ -998,11 +998,13 @@ export type FindAuction = {
   emdAmount?: Maybe<Scalars['BigInt']>;
   emdSubmissionDate?: Maybe<Scalars['DateTime']>;
   id: Scalars['ID'];
+  image?: Maybe<Scalars['String']>;
   institution_details?: Maybe<Institution>;
   listingId?: Maybe<Scalars['Int']>;
   propertyType?: Maybe<FindAuctionPropertyTypeType>;
   reservePrice?: Maybe<Scalars['BigInt']>;
   state?: Maybe<State>;
+  tenderDocument?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   vehicleRegNo?: Maybe<Scalars['String']>;
 };
@@ -1016,11 +1018,13 @@ export type FindAuctionCreateInput = {
   contactDetails?: InputMaybe<Scalars['String']>;
   emdAmount?: InputMaybe<Scalars['BigInt']>;
   emdSubmissionDate?: InputMaybe<Scalars['DateTime']>;
+  image?: InputMaybe<Scalars['String']>;
   institution_details?: InputMaybe<InstitutionRelateToOneForCreateInput>;
   listingId?: InputMaybe<Scalars['Int']>;
   propertyType?: InputMaybe<FindAuctionPropertyTypeType>;
   reservePrice?: InputMaybe<Scalars['BigInt']>;
   state?: InputMaybe<StateRelateToOneForCreateInput>;
+  tenderDocument?: InputMaybe<Scalars['String']>;
   vehicleRegNo?: InputMaybe<Scalars['String']>;
 };
 
@@ -1041,9 +1045,11 @@ export type FindAuctionOrderByInput = {
   emdAmount?: InputMaybe<OrderDirection>;
   emdSubmissionDate?: InputMaybe<OrderDirection>;
   id?: InputMaybe<OrderDirection>;
+  image?: InputMaybe<OrderDirection>;
   listingId?: InputMaybe<OrderDirection>;
   propertyType?: InputMaybe<OrderDirection>;
   reservePrice?: InputMaybe<OrderDirection>;
+  tenderDocument?: InputMaybe<OrderDirection>;
   updatedAt?: InputMaybe<OrderDirection>;
   vehicleRegNo?: InputMaybe<OrderDirection>;
 };
@@ -1089,11 +1095,13 @@ export type FindAuctionUpdateInput = {
   contactDetails?: InputMaybe<Scalars['String']>;
   emdAmount?: InputMaybe<Scalars['BigInt']>;
   emdSubmissionDate?: InputMaybe<Scalars['DateTime']>;
+  image?: InputMaybe<Scalars['String']>;
   institution_details?: InputMaybe<InstitutionRelateToOneForUpdateInput>;
   listingId?: InputMaybe<Scalars['Int']>;
   propertyType?: InputMaybe<FindAuctionPropertyTypeType>;
   reservePrice?: InputMaybe<Scalars['BigInt']>;
   state?: InputMaybe<StateRelateToOneForUpdateInput>;
+  tenderDocument?: InputMaybe<Scalars['String']>;
   vehicleRegNo?: InputMaybe<Scalars['String']>;
 };
 
@@ -1111,11 +1119,13 @@ export type FindAuctionWhereInput = {
   emdAmount?: InputMaybe<BigIntNullableFilter>;
   emdSubmissionDate?: InputMaybe<DateTimeNullableFilter>;
   id?: InputMaybe<IdFilter>;
+  image?: InputMaybe<StringFilter>;
   institution_details?: InputMaybe<InstitutionWhereInput>;
   listingId?: InputMaybe<IntFilter>;
   propertyType?: InputMaybe<FindAuctionPropertyTypeTypeNullableFilter>;
   reservePrice?: InputMaybe<BigIntNullableFilter>;
   state?: InputMaybe<StateWhereInput>;
+  tenderDocument?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeNullableFilter>;
   vehicleRegNo?: InputMaybe<StringFilter>;
 };
@@ -2922,7 +2932,7 @@ export type SellACar = {
   fuel?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   interiorImages?: Maybe<Scalars['String']>;
-  kmReading?: Maybe<Scalars['String']>;
+  kmRead?: Maybe<Scalars['String']>;
   landmark?: Maybe<Scalars['String']>;
   make?: Maybe<Scalars['String']>;
   model?: Maybe<Scalars['String']>;
@@ -2947,7 +2957,7 @@ export type SellACarCreateInput = {
   exteriorImages?: InputMaybe<Scalars['String']>;
   fuel?: InputMaybe<Scalars['String']>;
   interiorImages?: InputMaybe<Scalars['String']>;
-  kmReading?: InputMaybe<Scalars['String']>;
+  kmRead?: InputMaybe<Scalars['String']>;
   landmark?: InputMaybe<Scalars['String']>;
   make?: InputMaybe<Scalars['String']>;
   model?: InputMaybe<Scalars['String']>;
@@ -2979,7 +2989,7 @@ export type SellACarOrderByInput = {
   fuel?: InputMaybe<OrderDirection>;
   id?: InputMaybe<OrderDirection>;
   interiorImages?: InputMaybe<OrderDirection>;
-  kmReading?: InputMaybe<OrderDirection>;
+  kmRead?: InputMaybe<OrderDirection>;
   landmark?: InputMaybe<OrderDirection>;
   make?: InputMaybe<OrderDirection>;
   model?: InputMaybe<OrderDirection>;
@@ -3020,7 +3030,7 @@ export type SellACarUpdateInput = {
   exteriorImages?: InputMaybe<Scalars['String']>;
   fuel?: InputMaybe<Scalars['String']>;
   interiorImages?: InputMaybe<Scalars['String']>;
-  kmReading?: InputMaybe<Scalars['String']>;
+  kmRead?: InputMaybe<Scalars['String']>;
   landmark?: InputMaybe<Scalars['String']>;
   make?: InputMaybe<Scalars['String']>;
   model?: InputMaybe<Scalars['String']>;
@@ -3049,7 +3059,7 @@ export type SellACarWhereInput = {
   fuel?: InputMaybe<StringFilter>;
   id?: InputMaybe<IdFilter>;
   interiorImages?: InputMaybe<StringFilter>;
-  kmReading?: InputMaybe<StringFilter>;
+  kmRead?: InputMaybe<StringFilter>;
   landmark?: InputMaybe<StringFilter>;
   make?: InputMaybe<StringFilter>;
   model?: InputMaybe<StringFilter>;
@@ -4823,7 +4833,7 @@ export type ExcelUploadsQuery = { __typename?: 'Query', excelUploads?: Array<{ _
 export type FindAuctionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindAuctionsQuery = { __typename?: 'Query', findAuctions?: Array<{ __typename?: 'FindAuction', address?: string | null, auctionEndDate?: any | null, auctionNotice?: string | null, auctionStartDate?: any | null, city?: string | null, contactDetails?: string | null, createdAt?: any | null, emdAmount?: any | null, emdSubmissionDate?: any | null, id: string, listingId?: number | null, propertyType?: FindAuctionPropertyTypeType | null, reservePrice?: any | null, vehicleRegNo?: string | null, institution_details?: { __typename?: 'Institution', name?: string | null } | null, state?: { __typename?: 'State', name?: string | null } | null }> | null };
+export type FindAuctionsQuery = { __typename?: 'Query', findAuctions?: Array<{ __typename?: 'FindAuction', address?: string | null, auctionEndDate?: any | null, auctionNotice?: string | null, tenderDocument?: string | null, auctionStartDate?: any | null, city?: string | null, contactDetails?: string | null, createdAt?: any | null, emdAmount?: any | null, emdSubmissionDate?: any | null, id: string, image?: string | null, listingId?: number | null, propertyType?: FindAuctionPropertyTypeType | null, reservePrice?: any | null, vehicleRegNo?: string | null, institution_details?: { __typename?: 'Institution', name?: string | null } | null, state?: { __typename?: 'State', name?: string | null } | null }> | null };
 
 export type CreateFindAuctionMutationVariables = Exact<{
   data: FindAuctionCreateInput;
@@ -4845,7 +4855,7 @@ export type FindAuctionByIdQueryVariables = Exact<{
 }>;
 
 
-export type FindAuctionByIdQuery = { __typename?: 'Query', findAuctions?: Array<{ __typename?: 'FindAuction', address?: string | null, auctionEndDate?: any | null, auctionNotice?: string | null, auctionStartDate?: any | null, city?: string | null, contactDetails?: string | null, emdAmount?: any | null, emdSubmissionDate?: any | null, id: string, propertyType?: FindAuctionPropertyTypeType | null, listingId?: number | null, vehicleRegNo?: string | null, reservePrice?: any | null, institution_details?: { __typename?: 'Institution', name?: string | null, id: string } | null, state?: { __typename?: 'State', id: string, name?: string | null } | null }> | null };
+export type FindAuctionByIdQuery = { __typename?: 'Query', findAuctions?: Array<{ __typename?: 'FindAuction', address?: string | null, auctionEndDate?: any | null, auctionNotice?: string | null, auctionStartDate?: any | null, city?: string | null, contactDetails?: string | null, emdAmount?: any | null, emdSubmissionDate?: any | null, id: string, propertyType?: FindAuctionPropertyTypeType | null, listingId?: number | null, vehicleRegNo?: string | null, reservePrice?: any | null, image?: string | null, institution_details?: { __typename?: 'Institution', name?: string | null, id: string } | null, state?: { __typename?: 'State', id: string, name?: string | null } | null }> | null };
 
 export type InstitutionsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -4996,14 +5006,14 @@ export type SelectorsQuery = { __typename?: 'Query', states?: Array<{ __typename
 export type SellACarsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type SellACarsQuery = { __typename?: 'Query', sellACars?: Array<{ __typename?: 'SellACar', id: string, vehicleIndexNo?: number | null, registrationNumber?: string | null, make?: string | null, model?: string | null, varient?: string | null, fuel?: string | null, yearOfManufacture?: number | null, kmReading?: string | null, veicleLocation?: string | null, engineNo?: string | null, interiorImages?: string | null, exteriorImages?: string | null, vehicleCondition?: string | null, state?: string | null, address?: string | null, expectToSell?: any | null, createdAt?: any | null, updatedAt?: any | null }> | null };
+export type SellACarsQuery = { __typename?: 'Query', sellACars?: Array<{ __typename?: 'SellACar', id: string, vehicleIndexNo?: number | null, registrationNumber?: string | null, make?: string | null, model?: string | null, varient?: string | null, fuel?: string | null, yearOfManufacture?: number | null, kmRead?: string | null, veicleLocation?: string | null, engineNo?: string | null, interiorImages?: string | null, exteriorImages?: string | null, vehicleCondition?: string | null, state?: string | null, address?: string | null, expectToSell?: any | null, createdAt?: any | null, updatedAt?: any | null, user?: { __typename?: 'User', firstName?: string | null, mobile?: string | null } | null }> | null };
 
 export type SellACarByIdQueryVariables = Exact<{
   where: SellACarWhereUniqueInput;
 }>;
 
 
-export type SellACarByIdQuery = { __typename?: 'Query', sellACar?: { __typename?: 'SellACar', id: string, vehicleIndexNo?: number | null, registrationNumber?: string | null, make?: string | null, model?: string | null, varient?: string | null, fuel?: string | null, yearOfManufacture?: number | null, kmReading?: string | null, veicleLocation?: string | null, engineNo?: string | null, interiorImages?: string | null, exteriorImages?: string | null, vehicleCondition?: string | null, state?: string | null, address?: string | null, expectToSell?: any | null, createdAt?: any | null, updatedAt?: any | null } | null };
+export type SellACarByIdQuery = { __typename?: 'Query', sellACar?: { __typename?: 'SellACar', id: string, vehicleIndexNo?: number | null, registrationNumber?: string | null, make?: string | null, model?: string | null, varient?: string | null, fuel?: string | null, yearOfManufacture?: number | null, kmRead?: string | null, veicleLocation?: string | null, engineNo?: string | null, interiorImages?: string | null, exteriorImages?: string | null, vehicleCondition?: string | null, state?: string | null, address?: string | null, expectToSell?: any | null, createdAt?: any | null, updatedAt?: any | null, user?: { __typename?: 'User', firstName?: string | null, mobile?: string | null } | null } | null };
 
 export type UpdateSellACarMutationVariables = Exact<{
   where: SellACarWhereUniqueInput;
@@ -6954,6 +6964,7 @@ export const FindAuctionsDocument = gql`
     address
     auctionEndDate
     auctionNotice
+    tenderDocument
     auctionStartDate
     city
     contactDetails
@@ -6961,6 +6972,7 @@ export const FindAuctionsDocument = gql`
     emdAmount
     emdSubmissionDate
     id
+    image
     institution_details {
       name
     }
@@ -7088,6 +7100,7 @@ export const FindAuctionByIdDocument = gql`
     listingId
     vehicleRegNo
     reservePrice
+    image
     state {
       id
       name
@@ -8063,7 +8076,7 @@ export const SellACarsDocument = gql`
     varient
     fuel
     yearOfManufacture
-    kmReading
+    kmRead
     veicleLocation
     engineNo
     interiorImages
@@ -8071,6 +8084,10 @@ export const SellACarsDocument = gql`
     vehicleCondition
     state
     address
+    user {
+      firstName
+      mobile
+    }
     expectToSell
     createdAt
     updatedAt
@@ -8115,7 +8132,7 @@ export const SellACarByIdDocument = gql`
     varient
     fuel
     yearOfManufacture
-    kmReading
+    kmRead
     veicleLocation
     engineNo
     interiorImages
@@ -8126,6 +8143,10 @@ export const SellACarByIdDocument = gql`
     expectToSell
     createdAt
     updatedAt
+    user {
+      firstName
+      mobile
+    }
   }
 }
     `;

@@ -14,7 +14,7 @@ function ImageUpload() {
     setFiles(fileArray);
   }
   return (
-    <div className="w-full flex justify-center flex-col space-y-5 m-10">
+    <div className="w-full flex justify-center flex-col space-y-5 ">
       <h1 className="font-bold text-lg flex text-center  ">Choose Images</h1>
       <input
         type="file"

@@ -1,6 +1,6 @@
 import React from 'react'
-import ImageUpload from '../components/imageUpload/imageUpload'
-import ImageUploadDrag from '../components/imageUpload/imageDragAndDrop'
+import ImageUpload from '../components/upload/imageUpload'
+import ImageUploadDrag from '../components/upload/imageDragAndDrop'
 
 const Image_upload = () => {
   return (
