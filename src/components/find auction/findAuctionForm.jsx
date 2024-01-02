@@ -1,8 +1,8 @@
 
 
-import { formStyle, headerStyle, inputStyle } from '../utils/style';
+import { formStyle, headerStyle,inputStyle } from '../utils/style';
 import {  useInstitutionsQuery, useStatesQuery } from '../../utils/graphql';
-import { FormFieldInput, SelectInput, SelectWithDynamic, TextAreaInput } from '../utils/formField';
+import { FormFieldInput, SelectInput, SelectWithDynamic, TextAreaInput, UploadDocument } from '../utils/formField';
 import {  propertyType } from '../utils/constantValues';
 import storage from '../firebaseConfig';
 import { v4 } from 'uuid';
@@ -12,9 +12,11 @@ import imageCompression from 'browser-image-compression';
 import { DateConvert } from '../utils/dateFormat';
 
 import { useEffect, useState } from 'react';
+import ImageUpload from '../upload/imageUpload';
+import { DocumentUpload } from '../upload/documentUpload';
 
 
-const FindAuctionComponent = ({passedData,onSubmit,useForm,setDownloadUrl}) => {
+const FindAuctionComponent = ({passedData,onSubmit,useForm,setDownloadUrl,setDownloadUrlDoc}) => {
   const {
     register,
     handleSubmit,
@@ -25,32 +27,11 @@ const FindAuctionComponent = ({passedData,onSubmit,useForm,setDownloadUrl}) => {
   const {data,loading}=useInstitutionsQuery()
   const [percent, setPercent] = useState(0);
   const [downloadUrls, setDownloadUrls] = useState('');
-  // const [downloadUrl, setDownloadUrl] = useState(""); 
+   const [downloadUrlTender, setDownloadUrlTender] = useState(""); 
 
-  const handleFileChange = async (event) => {
-    const file = event.target.files[0];
-if(file){
-  
-  const options = {
-    maxSizeMB: 0.1, 
-    maxWidthOrHeight: 1920,
-    useWebWorker: true, 
-  };
 
-  // Compress the selected image
-  const compressedFile = await imageCompression(file, options);
-HandleUpload1(compressedFile,setDownloadUrls,setDownloadUrl)
-}
-    
-  
-  
-   };
  
-  useEffect(()=>{
-    if(passedData){
-      setDownloadUrls(passedData[0]?.auctionNotice)
-    }
-  },[])
+
 
 
 
@@ -75,41 +56,19 @@ HandleUpload1(compressedFile,setDownloadUrls,setDownloadUrl)
                <FormFieldInput label="City" type="input" name="City" defaultValue={passedData && passedData[0]?.city } register={register} error={errors.City} />
                <SelectWithDynamic label="State"  mappingLabel='name' mappingValue='id' options={state?.states} name="StateId" defaultValue={passedData ? passedData[0]?.state?.id:''} defaultLabel={passedData ? passedData[0]?.state?.name:"Select  State"}    register={register} error={errors.StateId}/>
                <TextAreaInput  label="Address" type="text" name="Address" defaultValue={passedData && passedData[0]?.address } register={register} error={errors.Address} />
-               <div>
-        <label>Document</label>
-        <input
-          type="file"
-          className={`${inputStyle.data}`}
-          onChange={handleFileChange} // Call the handleFileChange function when a file is selected
-          accept="/image/*"
-          multiple
-        />
+<DocumentUpload label='Auction Notice' setState={setDownloadUrl}/>
+<DocumentUpload label='Tender Document' setState={setDownloadUrlDoc}/>
 
-        {/* {downloadUrls.length>0 && */}
-        <>
-     
-     
+               <TextAreaInput  label="Image Url" type="text" name="ImageUrl" defaultValue={passedData && passedData[0]?.image } register={register} error={errors.Address} />
 
-
-          {/* <div>
-            <textarea
-              {...register('document',{})}
-              className={`${inputStyle.data}`}
-               defaultValue={downloadUrls}
-              readOnly
-            ></textarea>
-          </div> */}
-      
-           <img src={downloadUrls} alt='img'/> 
-        </>
-      </div>
+  
 
          </div>
          <div className="text-center">
            {!passedData ? <button className="btn btn-success my-5"> Add Auction</button>: <button className="btn bg-red-500 my-5"> Edit Auction</button>}
             </div>
          </form>
-        
+        <ImageUpload/>
 
     </div>
   )
@@ -118,7 +77,8 @@ HandleUpload1(compressedFile,setDownloadUrls,setDownloadUrl)
 export default FindAuctionComponent
 
 
-const HandleUpload1 = async (file, setDownloadUrls, setDownloadUrl) => {
+const HandleUpload1 = async (file) => {
+ console.log(file,"file");
   if (!file) {
     alert("Please upload an image first!");
     return;
@@ -141,7 +101,8 @@ const HandleUpload1 = async (file, setDownloadUrls, setDownloadUrl) => {
       try {
         // Update metadata to specify content type as image/jpeg
         const metadata = {
-          contentDisposition: 'attachment'
+          contentDisposition: 'attachment',
+          contentType: file.type,
         };
         await updateMetadata(storageRef, metadata);
 
@@ -149,9 +110,10 @@ const HandleUpload1 = async (file, setDownloadUrls, setDownloadUrl) => {
         const url = await getDownloadURL(storageRef);
 
         // Update the state with the download URL
-        setDownloadUrls(url);
-        setDownloadUrl(url);
+        return(url);
+        // setDownloadUrl(url);
       } catch (error) {
+        alert(error)
         console.error("Error updating metadata or getting download URL:", error);
       }
     }

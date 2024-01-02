@@ -13,12 +13,15 @@ const EditFindAuction = () => {
     const [updateFindAuction]=useUpdateFindAuctionMutation()
     const {id}=useParams()
     const {data,loading}=useFindAuctionByIdQuery({variables:{where:{id:{equals:id}} }})
+    console.log("data",data)
     if(data){
     }
     const [files, setFiles] = useState([]);
     const [downloadUrl, setDownloadUrl] = useState('');
+    const [downloadUrlDoc, setDownloadUrlDoc] = useState('');
+
     const onSubmit = async (dataOnSubmit) => {
-  let{propertyType,emdSubmissionDate,AuctionStartDate,AuctionEndDate,ReservePrice,ContactNumber,City,StateId,document,Address,institutionId,emdAmount,regNumber}=dataOnSubmit
+  let{propertyType,emdSubmissionDate,AuctionStartDate,AuctionEndDate,ReservePrice,ContactNumber,City,StateId,Address,institutionId,emdAmount,regNumber,ImageUrl}=dataOnSubmit
   emdSubmissionDate && ( emdSubmissionDate=new Date(emdSubmissionDate).toISOString())
   AuctionStartDate &&  ( AuctionStartDate=new Date(AuctionStartDate).toISOString())
   AuctionEndDate &&  (AuctionEndDate=new Date(AuctionEndDate).toISOString())
@@ -28,6 +31,8 @@ const EditFindAuction = () => {
     address:Address,
     auctionEndDate:AuctionEndDate ? AuctionEndDate :null,
      auctionNotice:downloadUrl,
+     tenderDocument:downloadUrlDoc,
+
     auctionStartDate:AuctionStartDate ?AuctionStartDate :null,
     city:City,
 
@@ -38,7 +43,8 @@ const EditFindAuction = () => {
     reservePrice:ReservePrice,
     state:{connect:{id:StateId}},
     emdAmount:emdAmount,
-    vehicleRegNo:regNumber
+    vehicleRegNo:regNumber,
+    image:ImageUrl
 
   }}}).then((response)=>{
     if(response?.data?.updateFindAuction?.id){
@@ -57,7 +63,7 @@ if(loading){return(<div>Loading...</div>)}
        EDIT AUCTION DETAILS
         </h2>
       </div>
-          <FindAuctionComponent passedData={data?.findAuctions} onSubmit={onSubmit} useForm={useForm} setDownloadUrl={setDownloadUrl}/>
+          <FindAuctionComponent passedData={data?.findAuctions} onSubmit={onSubmit} useForm={useForm} setDownloadUrl={setDownloadUrl} setDownloadUrlDoc={setDownloadUrlDoc}/>
 
     </div>
     

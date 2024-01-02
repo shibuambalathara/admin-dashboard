@@ -269,9 +269,9 @@ Swal.fire({
         </div>
     <div className='h-1 font-bold'>Seller Name :{data?.event?.seller?.name}</div>
       <div className='space-y-1'>
-      {
+       {
    (data?.event?.endDate >new Date().toISOString())   &&
-      <a className="btn btn-accent text-xl" href={`/add-vehicle/${id}`} target="_blank" rel="noopener noreferrer">+ <FontAwesomeIcon icon={faCar}  /></a>}
+      <a className="btn btn-accent text-xl" href={`/add-vehicle/${id}`} target="_blank" rel="noopener noreferrer">+ <FontAwesomeIcon icon={faCar}  /></a>} 
 {  data?.event?.eventCategory==='online' &&<div className='space-y-1'>
 <div className='space-y-1'>
      <button className='w-full btn bg-red-500 hover:bg-green-500' onClick={()=>setEnable(true)}>Update end time</button>

@@ -374,7 +374,7 @@ const handleStartDateToIso=(date)=>{
               </div>}
               <div className={`${labelAndInputDiv.data}`}>
                  <label className="font-bold" htmlFor="">
-                {data?.event?.eventCategory==='open'?  'Open Auction Gap in between vehicles in seconds' : 'Online End Time Increase in Minuts'}
+                {data?.event?.eventCategory==='open'?  'Open Auction Gap in between vehicles in seconds' : 'Online End Time Gap in Minuts'}
                 </label>
                 <input
                   type="number"

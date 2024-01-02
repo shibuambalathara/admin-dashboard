@@ -7,8 +7,8 @@ import {
   useUpdateVehicleMutation,
 } from "../../utils/graphql";
 import { ShowPopup } from "../alerts/popUps";
-import { FormFieldInput } from "../utils/formField";
-import ImageUpload from "../imageUpload/imageUpload";
+import { FormFieldInput, ImageMaping } from "../utils/formField";
+import ImageUpload from "../upload/imageUpload";
 import { DateConvert } from "../utils/dateFormat";
 
 const EditVehicleComponent = () => {
@@ -26,7 +26,6 @@ const EditVehicleComponent = () => {
   const { data, loading, error } = useVehicleDetailsQuery({
     variables: { where: { id: id } },
   });
-  console.log("data",data?.vehicle)
   useEffect(() => {
     if (data?.vehicle?.repoDt) {
       
@@ -366,22 +365,9 @@ const EditVehicleComponent = () => {
           
            
              </div>
-             <div className="grid grid-cols-2 gap-x-10  gap-y-5 m-2">
-             {images?.map((imgs, index) => {
-                return (
-                  <div className=" bg-gray-50 rounded-2xl">
-             
-                    <div className="text-center">  <p>Image {index+1}</p></div>
-                  
-<div className=" flex justify-center">
-<img src={imgs} alt={imgs} key={index} className="h-80  text-center" />
-  </div>
-                   
-                  </div>
-                );
-              })}
-                 
-                 </div>
+        
+            <ImageMaping images={images}/>
+
      
             <textarea
   defaultValue={formatTextAreaValue(data?.vehicle?.frontImage)}

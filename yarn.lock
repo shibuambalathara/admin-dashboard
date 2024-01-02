@@ -10422,6 +10422,11 @@ react-transition-group@^4.3.0:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
+react-watermark-component@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/react-watermark-component/-/react-watermark-component-2.2.1.tgz#e9425d4e5dad32b15d9885c3cfd0d73d0bafeb8d"
+  integrity sha512-Npk/mrBolDC6aYVoQfwVZo+fh8MxsPMuyhO5xvh08uF+ZBO8E/h3U5aM7FFlDVYL2s0/K55O9nD7AYdyM/UChA==
+
 react-window@^1.8.8:
   version "1.8.8"
   resolved "https://registry.yarnpkg.com/react-window/-/react-window-1.8.8.tgz#1b52919f009ddf91970cbdb2050a6c7be44df243"
@@ -12052,6 +12057,11 @@ watchpack@^2.4.0:
   dependencies:
     glob-to-regexp "^0.4.1"
     graceful-fs "^4.1.2"
+
+watermarkjs@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/watermarkjs/-/watermarkjs-2.1.1.tgz#ed14aae56b509937be4e56f379981786e0335522"
+  integrity sha512-HDabpga8Fz5d61Z7gBkKO2cDsfViAU/mO5qIoWmDX92wJZLb7Dv4L+CwoHAqS4XkqWcYVGy/AF035BD1EN3v/g==
 
 wbuf@^1.1.0, wbuf@^1.7.3:
   version "1.7.3"

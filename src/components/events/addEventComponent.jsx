@@ -343,7 +343,7 @@ const AddEventComponent = () => {
               <label htmlFor="" className="font-bold">
                 {category === "open"
                   ? "Open Auction Gap in between vehicles in seconds"
-                  : "Online End Time Increase in Minuts"}
+                  : "Online End Time Gap in Minuts"}
               </label>
               <input
                 type="number"
