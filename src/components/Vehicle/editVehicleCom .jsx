@@ -8,7 +8,7 @@ import {
 } from "../../utils/graphql";
 import { ShowPopup } from "../alerts/popUps";
 import { FormFieldInput, ImageMaping } from "../utils/formField";
-import ImageUpload from "../imageUpload/imageUpload";
+import ImageUpload from "../upload/imageUpload";
 import { DateConvert } from "../utils/dateFormat";
 
 const EditVehicleComponent = () => {
@@ -26,7 +26,6 @@ const EditVehicleComponent = () => {
   const { data, loading, error } = useVehicleDetailsQuery({
     variables: { where: { id: id } },
   });
-  console.log("data",data?.vehicle)
   useEffect(() => {
     if (data?.vehicle?.repoDt) {
       

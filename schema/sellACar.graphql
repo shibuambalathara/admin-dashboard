@@ -8,7 +8,7 @@ query SellACars {
     varient
     fuel
     yearOfManufacture
-    kmReading
+    kmRead
     veicleLocation
     engineNo
      interiorImages
@@ -37,7 +37,7 @@ query SellACarById($where: SellACarWhereUniqueInput!) {
     varient
     fuel
     yearOfManufacture
-    kmReading
+    kmRead
     veicleLocation
     engineNo
     interiorImages

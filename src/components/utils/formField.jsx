@@ -123,5 +123,36 @@ export  const ImageMaping= ({images}) => {
         </div>
   )
 }
+// ---------------------------
 
+
+export const UploadDocument = ({label,fun,url}) => {
+  return (
+    <div>
+    <label>{label}</label>
+    <input
+      type="file"
+      className={`${inputStyle.data}`}
+      onChange={fun} 
+      accept="/image/*"
+      multiple
+    />
+
+    <>
+ 
+ 
+
+
+  
+       <img src={url} alt='img'/> 
+    </>
+  </div>
+  )
+}
+
+ 
+
+
+
+// ---------------------------
 

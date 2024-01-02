@@ -29,7 +29,7 @@ const EditSellACar = () => {
           expectToSell:new Date( dataOnSubmit?.expectToSell).toISOString(),
           fuel:dataOnSubmit?.fuel,
           interiorImages:dataOnSubmit?.images,
-           kmReading:dataOnSubmit?.kmReading,
+           kmRead:dataOnSubmit?.kmReading,
           make:dataOnSubmit?.make,
           model:dataOnSubmit?.model,
           registrationNumber:dataOnSubmit?.registrationNumber,
@@ -77,7 +77,7 @@ useEffect(()=>{
           <FormFieldInput defaultValue={data?.sellACar?.engineNo} label="Engine No" type="text" name="engineNo" register={register} error={errors.engineNo} />
           <FormFieldInput defaultValue={DateConvert(data?.sellACar?.expectToSell)} label="Expect To Sell" type="datetime-local" name="expectToSell" register={register} error={errors.expectToSell} />
           <FormFieldInput defaultValue={data?.sellACar?.fuel} label="Fuel" type="text" name="fuel" register={register} error={errors.fuel} />
-          <FormFieldInput defaultValue={data?.sellACar?.kmReading} label="km Reading" type="text" name="kmReading" register={register} error={errors.kmReading} />
+          <FormFieldInput defaultValue={data?.sellACar?.kmRead} label="km Reading" type="text" name="kmReading" register={register} error={errors.kmReading} />
           <FormFieldInput defaultValue={data?.sellACar?.make} label="Make" type="text" name="make" register={register} error={errors.make} />
           <FormFieldInput defaultValue={data?.sellACar?.model} label="Model" type="text" name="model" register={register} error={errors.model} />
           <FormFieldInput defaultValue={data?.sellACar?.state} label="State" type="text" name="state" register={register} error={errors.state} />
@@ -96,6 +96,7 @@ useEffect(()=>{
               <button className="btn bg-red-500 hover:bg-green-500 mb-5"> Save Changes</button>
             </div>
             </form>
+          
     </div>
   )
 }
