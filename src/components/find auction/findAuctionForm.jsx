@@ -77,48 +77,48 @@ const FindAuctionComponent = ({passedData,onSubmit,useForm,setDownloadUrl,setDow
 export default FindAuctionComponent
 
 
-const HandleUpload1 = async (file) => {
- console.log(file,"file");
-  if (!file) {
-    alert("Please upload an image first!");
-    return;
-  }
+// const HandleUpload1 = async (file) => {
+//  console.log(file,"file");
+//   if (!file) {
+//     alert("Please upload an image first!");
+//     return;
+//   }
 
-  const storageRef = ref(storage, `/files/${file.name+ v4()}`);
-  const uploadTask = uploadBytesResumable(storageRef, file);
+//   const storageRef = ref(storage, `/files/${file.name+ v4()}`);
+//   const uploadTask = uploadBytesResumable(storageRef, file);
 
 
-  uploadTask.on(
-    "state_changed",
-    (snapshot) => {
-      const percent = Math.round(
-        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-      );
-      // setPercent(percent);
-    },
-    (err) => console.log(err),
-    async () => {
-      try {
-        // Update metadata to specify content type as image/jpeg
-        const metadata = {
-          contentDisposition: 'attachment',
-          contentType: file.type,
-        };
-        await updateMetadata(storageRef, metadata);
+//   uploadTask.on(
+//     "state_changed",
+//     (snapshot) => {
+//       const percent = Math.round(
+//         (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+//       );
+//       // setPercent(percent);
+//     },
+//     (err) => console.log(err),
+//     async () => {
+//       try {
+//         // Update metadata to specify content type as image/jpeg
+//         const metadata = {
+//           contentDisposition: 'attachment',
+//           contentType: file.type,
+//         };
+//         await updateMetadata(storageRef, metadata);
 
-        // Get the download URL
-        const url = await getDownloadURL(storageRef);
+//         // Get the download URL
+//         const url = await getDownloadURL(storageRef);
 
-        // Update the state with the download URL
-        return(url);
-        // setDownloadUrl(url);
-      } catch (error) {
-        alert(error)
-        console.error("Error updating metadata or getting download URL:", error);
-      }
-    }
-  );
-};
+//         // Update the state with the download URL
+//         return(url);
+//         // setDownloadUrl(url);
+//       } catch (error) {
+//         alert(error)
+//         console.error("Error updating metadata or getting download URL:", error);
+//       }
+//     }
+//   );
+// };
 
 
 
