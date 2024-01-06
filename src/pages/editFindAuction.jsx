@@ -65,7 +65,6 @@ if(loading){return(<div>Loading...</div>)}
         </h2>
       </div>
           <FindAuctionComponent passedData={data?.findAuctions} onSubmit={onSubmit} useForm={useForm} setDownloadUrl={setDownloadUrl} setDownloadUrlDoc={setDownloadUrlDoc}/>
-
     </div>
     
   )

@@ -1,11 +1,12 @@
-import React, { useEffect, useState, } from 'react'
-import AddFindAuctionComponent from '../components/find auction/findAuctionForm'
+import React, { useEffect, useState, } from 'react';
+import AddFindAuctionComponent from '../components/find auction/findAuctionForm';
 import { useCreateFindAuctionMutation, } from '../utils/graphql';
 import { useForm } from "react-hook-form";
 import { headerStyle } from '../components/utils/style';
 import { useNavigate } from 'react-router-dom';
-const AddFindAuction = () => {
+import { SweetalertSuccess } from '../components/utils/sweetalert';
 
+const AddFindAuction = () => {
 
   const [createAuction] = useCreateFindAuctionMutation()
 
@@ -55,7 +56,12 @@ const AddFindAuction = () => {
         }
       }
     }).then((resolve) => {
-      navigate('/find-auction')
+      if(resolve?.data?.createFindAuction){
+        SweetalertSuccess()
+        console.log(resolve,'resolvingb');
+        navigate('/find-auction');
+      }
+
 
     }).catch((err) => {
       alert(err)
