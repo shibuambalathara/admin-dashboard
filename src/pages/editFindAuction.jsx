@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import { useFindAuctionByIdQuery, useUpdateFindAuctionMutation } from '../utils/graphql'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import FindAuctionComponent from '../components/find auction/findAuctionForm'
 import { useForm } from "react-hook-form";
 import { headerStyle } from '../components/utils/style';
@@ -19,6 +19,7 @@ const EditFindAuction = () => {
     const [files, setFiles] = useState([]);
     const [downloadUrl, setDownloadUrl] = useState('');
     const [downloadUrlDoc, setDownloadUrlDoc] = useState('');
+    const navigate = useNavigate()
 
     const onSubmit = async (dataOnSubmit) => {
   let{propertyType,emdSubmissionDate,AuctionStartDate,AuctionEndDate,ReservePrice,ContactNumber,City,StateId,Address,institutionId,emdAmount,regNumber,ImageUrl}=dataOnSubmit
@@ -49,7 +50,7 @@ const EditFindAuction = () => {
   }}}).then((response)=>{
     if(response?.data?.updateFindAuction?.id){
       SweetalertSuccess()
-
+      navigate('/find-auction')
   }
   })
 
