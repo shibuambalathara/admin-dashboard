@@ -13,7 +13,7 @@ import {
 } from "../../utils/graphql";
 
 import Swal from "sweetalert2";
-import { Carousel, IconButton } from "@material-tailwind/react";
+import { Carousel } from "@material-tailwind/react";
 
 
 
@@ -252,6 +252,8 @@ const handleEventActivate=async()=>{
             <div className="flex    ">
 <div className="carousel w-full   m-2 shadow-xl rounded-xl h-[35rem]">
 
+
+
 <Carousel
   className="rounded-xl "
  
@@ -280,6 +282,7 @@ const handleEventActivate=async()=>{
     />
   ))}
 </Carousel>
+
 
 </div>
                
