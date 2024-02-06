@@ -95,6 +95,8 @@ useEffect(() => {
   };
 },[serverRefetch])
 
+
+
 const handleEventActivate=async()=>{
   
   const response = await Swal.fire({
@@ -208,38 +210,36 @@ const handleEventActivate=async()=>{
                   Open Auction
                 </h1>
                 <p className="text-sm font-medium text-gray-500">
-                  <span className="text-black font-semibold"> LotNo:</span> #{" "}
-                  {liveItem.vehicleIndexNo}
+                  <span className="text-black font-sbold"> Lot No:</span> #{" "}
+                <span className="bg-yellow-500 font-bold text-xl text-white p-1 rounded border-r-8"> {liveItem.vehicleIndexNo}</span> 
                   
                 </p>
               </div>
               
             </div>
-            <div className="bg-white p-5   shadow-md sm:rounded-lg sm:px-6 rounded-xl  border-gray-200 space-y-2">
-                <div className="flex  justify-between">
+                {/* <div className="flex  justify-between">
                   <div className="flex space-x-2">
                     <h2 className="text-lg font-medium text-gray-900">
                       Start Price :
                     </h2>
                     <p className="text-2xl font-bold text-red-600">
-                       {liveItem.startBidAmount.toLocaleString()}/-
+                       {liveItem.startBidAmount?.toLocaleString()}/-
                     </p>
                   </div>
              
-                </div>
+                </div> */}
                 
-                  <div className="flex space-x-2">
-                    <h2 className="text-lg font-medium text-gray-900">
-                      Current Bid Amount :
+                  <div className=" space-x-2  ">
+                    <h2 className="text-lg flex font-medium text-gray-900 justify-center">
+                      CURRENT BID AMOUNT
                     </h2>
-                    <p className="text-2xl font-bold text-red-600 will-change: contents">
-                      {liveItem.currentBidAmount.toLocaleString()}/-
+                    <p className="text-6xl font-bold text-black   flex justify-center   ">
+                    Rs. <span className="animate-pulse   "> {liveItem.currentBidAmount?.toLocaleString()}./-</span>
                     </p>
                   </div>
                  
             
                 
-              </div>
             <div className="flex flex-col items-center  sm:mt-0">
               {CountdownTimer(SecondsLeft())}
             </div>
@@ -253,111 +253,107 @@ const handleEventActivate=async()=>{
 <div className="carousel w-full   m-2 shadow-xl rounded-xl h-[35rem]">
 
 <Carousel
-      className="rounded-xl"
-      navigation={({ setActiveIndex, activeIndex, length }) => (
-        <div className="absolute bottom-16 left-2/4 z-50 flex -translate-x-2/4 gap-2">
-          {images.map((imgs, i) => (
-            <span
-              key={i}
-              className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
-                activeIndex === i ? "w-24 bg-white " : "w-20 bg-white/50 "
-              }`}
-              onClick={() => setActiveIndex(i)}
-            >
-            <img src={imgs} key={i} alt="no images"></img>
-            </span>
-          ))}
-        </div>
-        
-      )}
-    >
- {images.map((img, i) => (
+  className="rounded-xl "
+ 
+  navigation={({ setActiveIndex, activeIndex, length }) => (
+    <div className="absolute bottom-16 left-2/4 z-50 flex -translate-x-2/4 gap-2">
+      {images.map((imgs, i) => (
+        <span
+          key={i}
+          className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
+            activeIndex === i ? "w-24 bg-white " : "w-20 bg-white/50 "
+          }`}
+          onClick={() => setActiveIndex(i)}
+        >
+          <img src={imgs} key={i} alt="no images"></img>
+        </span>
+      ))}
+    </div>
+  )}
+>
+  {images.map((img, i) => (
+    <img
+      key={i}
+      src={img}
+      alt={`images ${i + 1}`}
+      className="h-full w-full object-cover"
+    />
+  ))}
+</Carousel>
 
-  <img
-    key={i}
-    src={img}
-    alt={`images ${i + 1}`}
-    className="h-full w-full object-cover"
-  />
-   
-))} 
-  
-    </Carousel>
 </div>
                
       
      
   
            
-<div className=" w-1/2  bg-white shadow-xl rounded-xl  m-2 py-5">
+<div className=" w-1/2  bg-blue-900 shadow-xl rounded-xl text-white font-bold text-lg  m-2 py-5">
              <div>
                 <h1 className="text-center font-bold text-2xl underline">{liveItem?.make && liveItem.make.toUpperCase()} </h1>
                 </div>
          
-                    <div className="flex   justify-around mt-5  bg-white">
-                      <div className=" w-1/2 flex space-y-5 flex-col text-center ">
-                        <div className="flex flex-col shadow-lg">
-                        <label>Registration Number</label>
+                    <div className="   justify-around mt-5 space-y-3 ">
+                        <div className="flex justify-between  mx-5">
+                        <label className="flex justify-start">Registration Number</label>
                         <label  className="font-bold">{liveItem?.registrationNumber}</label>
                         </div>  
-                        <div className=" flex flex-col shadow-lg">
-                        <label>Fuel</label>
+                        <div className="flex justify-between  mx-5">
+                        <label className="flex justify-">Fuel</label>
                         <label  className="font-bold">{liveItem?.fuel}</label>
                         </div>
                         
-                        <div className=" flex flex-col shadow-lg">
+                        <div className="flex justify-between  mx-5">
                         <label>Year of Manufacture</label>
                         <label  className="font-bold">{liveItem?.yearOfManufacture}</label>
                         </div>
-                        <div className=" flex flex-col shadow-lg">
+                        <div className="flex justify-between  mx-5">
                         <label>RC Status</label>
                         <label  className="font-bold">{liveItem?.rcStatus}</label>
                         </div>
                         
-                        <div className=" flex flex-col shadow-lg">
+                        <div className="flex justify-between  mx-5">
                         <label>Insurance Status</label>
                         <label  className="font-bold">{liveItem?.insuranceStatus}</label>
                         </div>
                         
-                        <div className=" flex flex-col shadow-lg">
+                        <div className="flex justify-between  mx-5">
                         <label>Vehicle Condition</label>
                         <label  className="font-bold">{liveItem?.vehicleCondition}</label>
                         </div>
-                        </div> 
+                     
 
-                        <div className=" w-1/2 flex space-y-5 text-center flex-col">
-                        <div className="flex flex-col shadow-lg">
+                        <div className="flex justify-between  mx-5">
                         <label>Model</label>
                         <label  className="font-bold">{liveItem?.model}</label>
                         </div>  
-                        <div className=" flex flex-col shadow-lg">
+                        <div className="flex justify-between  mx-5">
                         <label>Varient</label>
                         <label className="font-bold">{liveItem?.varient}</label>
                         </div>
-                        <div className=" flex flex-col shadow-lg">
+                        <div className="flex justify-between  mx-5">
                         <label>Ownership</label>
                         <label className="font-bold">{liveItem?.ownership}</label>
                         </div>
-                        <div className=" flex flex-col shadow-lg">
+                        <div className="flex justify-between  mx-5">
                         <label>KM Reading</label>
-                        <label className="font-bold">{liveItem?.kmReading.toLocaleString()}</label>
+                        <label className="font-bold">{liveItem?.kmReading?.toLocaleString()}</label>
                         </div>
-                        <div className=" flex flex-col shadow-lg">
+                        <div className="flex justify-between  mx-5">
                         <label>City</label>
                         <label className="font-bold">{liveItem?.city}</label>
                         </div>
-                        <div className=" flex flex-col shadow-lg">
+                        <div className="flex justify-between  mx-5">
                         <label>Yard Location</label>
                         <label className="font-bold">{liveItem?.yardLocation}</label>
                         </div>
-                        </div> 
+                       
                        
                      
                 </div>
-                <div className=" flex flex-col shadow-lg  text-center">
+                <div className="flex justify-between  mx-5">
                         <label>Repo Date</label>
                       
-                                       {liveItem?.repoDt?  <label className="font-bold">{format(new Date(liveItem?.repoDt),`dd/MM/yy, HH:mm`)}b</label>:'-'}
+                                       {liveItem?.repoDt?  <label className="font-bold">{format(new Date(liveItem?.repoDt),`dd/MM/yy, HH:mm`)}</label>:'-'}
                         </div>
              </div>
             </div>
