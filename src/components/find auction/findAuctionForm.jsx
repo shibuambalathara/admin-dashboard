@@ -77,6 +77,8 @@ const FindAuctionComponent = ({ passedData, onSubmit, useForm, setDownloadUrl, s
 export default FindAuctionComponent
 
 
+
+
 // const HandleUpload1 = async (file) => {
 //  console.log(file,"file");
 //   if (!file) {
@@ -119,6 +121,7 @@ export default FindAuctionComponent
 //     }
 //   );
 // };
+
 
 
 
