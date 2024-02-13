@@ -129,6 +129,10 @@ const LivetimeOfVehicle = () => {
     }
   }, [data]);
 
+
+
+
+
   function SecondsLeft() {
     try {
       if (liveItem) {
@@ -169,7 +173,7 @@ const LivetimeOfVehicle = () => {
     gap: "1rem",
     autoplay: true,
     pauseOnHover: false,
-    resetProgress: true,
+    resetProgress: false,
     pagination: true,
   };
 
@@ -216,13 +220,13 @@ const LivetimeOfVehicle = () => {
               </div>
 
               <div className="flex    ">
-                <div className="carousel w-full max-h-500px   m-2 shadow-xl rounded-xl ">
+                <div className="carousel w-full max-h-[600px]   m-2 shadow-xl rounded-xl ">
                   <Splide options={options}>
                     {images.map((img, index) => (
                       <SplideSlide key={index}>
                         <img
                           src={img}
-                          className="w-full"
+                          className="w-full max-h-[600px]"
                           alt={`Slide ${index}`}
                         />
                       </SplideSlide>
@@ -299,7 +303,7 @@ const LivetimeOfVehicle = () => {
                       <label className="font-bold">{liveItem?.city}</label>
                     </div>
                     <div className="flex justify-between  mx-5">
-                      <label>Yard Location</label>
+                      <label>Yard </label>
                       <label className="font-bold">
                         {liveItem?.yardLocation}
                       </label>
