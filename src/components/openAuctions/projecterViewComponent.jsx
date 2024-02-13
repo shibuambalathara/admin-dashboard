@@ -7,9 +7,13 @@ import {
   useQueryQuery,
   useEditEventMutation,
 } from "../../utils/graphql";
+
 import Swal from "sweetalert2";
+
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
+
+
 
 const LivetimeOfVehicle = () => {
   const { id } = useParams();
@@ -191,6 +195,7 @@ const LivetimeOfVehicle = () => {
                     </p>
                   </div>
                 </div>
+           
 
                 <div className=" space-x-2  ">
                   <h2 className="text-lg flex font-medium text-gray-900 justify-center">
