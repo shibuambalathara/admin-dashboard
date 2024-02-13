@@ -168,7 +168,7 @@ const LivetimeOfVehicle = () => {
     type: "loop",
     gap: "1rem",
     autoplay: true,
-    pauseOnHover: true,
+    pauseOnHover: false,
     resetProgress: true,
     pagination: true,
   };
@@ -187,8 +187,8 @@ const LivetimeOfVehicle = () => {
                       Open Auction
                     </h1>
                     <p className=" ">
-                      <span className="text-black font-sbold"> Lot No:</span> #{" "}
-                      <span className="bg-yellow-500 font-bold text-3xl text-white p-1 rounded ">
+                      <span className="text-black font-bold"> Lot No:</span> #{" "}
+                      <span className="bg-yellow-500 font-bold text-3xl text-white px-1 rounded ">
                         {" "}
                         {liveItem.vehicleIndexNo}
                       </span>
@@ -230,7 +230,7 @@ const LivetimeOfVehicle = () => {
                   </Splide>
                 </div>
 
-                <div className=" w-1/2  bg-blue-900 shadow-xl rounded-xl text-white font-bold text-2xl  m-2 ">
+                <div className=" w-1/2  bg-blue-900 shadow-xl rounded-xl text-white font-bold text-xl  m-2 ">
                   <div>
                     <h1 className="text-center font-bold text-2xl underline">
                       {liveItem?.make && liveItem.make.toUpperCase()}{" "}
