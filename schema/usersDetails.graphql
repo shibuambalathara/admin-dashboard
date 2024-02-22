@@ -17,6 +17,7 @@ query Users($skip: Int!, $take: Int, $orderBy: [UserOrderByInput!]!) {
     }
 paymentsCount
  coupenDetailCount
+ tempToken
   }
  
 }

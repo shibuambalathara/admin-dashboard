@@ -215,7 +215,7 @@ const LivetimeOfVehicle = () => {
                 </div>
 
                 <div className="flex flex-col items-center  sm:mt-0">
-                  {CountdownTimer(SecondsLeft())}
+                  {/* {CountdownTimer(SecondsLeft())} */}
                 </div>
               </div>
 
