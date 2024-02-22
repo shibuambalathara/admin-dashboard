@@ -19,7 +19,7 @@ const ParticipantsList = (props) => {
   // const [isModalOpen, setIsModalOpen] = useState(false);
     const {id}=useParams()
     const {data,loading,error,refetch}=useBidDetailsPerVehicleQuery({variables:{where:{id:props?.vehicleId}}})
-  
+ 
     const[changeToken]=useUpdateBidMutation()
    
     const [deleteBid]=useDeleteBidMutation()
@@ -121,7 +121,7 @@ const ParticipantsList = (props) => {
       })
       if(text  ){
   
-   changeToken({variables:{data: {user:{connect:{idNo:+text}},bidVehicle:{connect:{id:props?.vehicleId}}},where:{id}}}).then((resolve)=>{
+   changeToken({variables:{data: {user:{connect:{tempToken:+text}},bidVehicle:{connect:{id:props?.vehicleId}}},where:{id}}}).then((resolve)=>{
 Swal.fire({icon:'success',
   title:'successfully Updated'})
    })
@@ -183,7 +183,7 @@ Swal.fire({icon:'success',
           {
             Header: "Change token",
             Cell: ({ row }) => (
-              <button className="btn bg-pink-800" onClick={()=>handleEditBid(row.original.id) }>{row.original.user.idNo}</button>
+              <button className="btn bg-pink-800" onClick={()=>handleEditBid(row.original.id) }>{row.original.user.tempToken}</button>
 
             )
           },

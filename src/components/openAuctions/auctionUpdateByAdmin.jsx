@@ -10,12 +10,15 @@ import {
 
 
   useEditEventMutation,
+  useUpdateVehicleMutation,
+  useBidDetailsPerVehicleQuery,
 
 } from "../../utils/graphql";
 import ParticipantsList from "./participantList";
 import VehicleDetails from "./createBid";
 import Swal from "sweetalert2";
 import Deletedbidtable from "../bids/deletedbidtable";
+import { DownloadBidHistory } from "../bids/bidsheet";
 
 
 
@@ -31,6 +34,8 @@ const AuctionUpdateByAdmin = () => {
 
 
   const [pauseEvent] = useEditEventMutation({ variables: { where: { id } } });
+  const [update]=useUpdateVehicleMutation({variables:{id}})
+  const {data:liveData} = useBidDetailsPerVehicleQuery({variables:{where:{id:liveItem?.id}}})
 
 
   useEffect(() => {
@@ -70,7 +75,6 @@ const AuctionUpdateByAdmin = () => {
       // enabled: id !== undefined && id != ""
     }
   );
-
 
 
   useEffect(() => {
@@ -192,7 +196,42 @@ const AuctionUpdateByAdmin = () => {
       return "00:00:00";
     }
   }
+const handleNextVehicle=async()=>{
+  const response = await Swal.fire({
+    title: "Are you sure?",
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonText: "Yes",
+    cancelButtonText: "Cancel",
+  });
+  if (response.isConfirmed) {
 
+const response=await  vehicleDetails(data)
+const firstVehicle=response?.sortedVehicles.find((vehicle)=>new Date(vehicle.bidStartTime)>new Date())
+console.log("firstVehicle",firstVehicle)
+
+ update({variables:{data:{bidTimeExpire:new Date().toISOString()},where:{id:response?.liveVehile?.id}}}).then((result)=>
+  update({variables:{data:{bidStartTime:new Date().toISOString()},where:{id:firstVehicle?.id}}}).then((result)=>console.log(result))
+ )
+  }
+}
+const handlePreviousVehicle=async()=>{
+  const response=await  vehicleDetails(data)
+  const currentTime = new Date();
+const futureTime = new Date(currentTime.getTime() + 60 * 60 * 1000);
+const bidTimeExpire = new Date(response?.liveVehile.bidTimeExpire);
+const bidTimeExpirePlusHr = new Date(bidTimeExpire.getTime() + (60 * 60 * 1000));
+const lastVehicle=response?.sortedVehicles.findLast((vehicle)=>new Date(vehicle.bidTimeExpire)<new Date())
+console.log("last vehicle",lastVehicle)
+  update({variables:{data:{bidStartTime:futureTime.toISOString()},where:{id:response?.liveVehile?.id}}}).then((res)=>{
+    update({variables:{data:{bidTimeExpire:futureTime.toISOString(),bidStartTime:new Date().toISOString()},where:{id:lastVehicle?.id}}})
+  })
+
+}
+const handleReport = () => {
+console.log("live ",liveItem?.id,liveData)
+   DownloadBidHistory(liveData?.vehicle);
+};
  
 
   return (
@@ -237,8 +276,12 @@ const AuctionUpdateByAdmin = () => {
                 </p>
               </div>
             </div>
-            <div className="flex flex-col items-center mt-4 sm:mt-0">
-              {CountdownTimer(SecondsLeft())}
+            <div className="flex flex-col items-center space-y-2 mt-4 sm:mt-0">
+              {/* {CountdownTimer(SecondsLeft())} */}
+              <button className="p-2 bg-red-700 text-white w-48 rounded-md font-bold" onClick={()=>handleNextVehicle()} >NEXT VEHICLE</button>
+         <button className="p-2 bg-pink-400 text-white w-48 rounded-md font-bold" onClick={()=>handleReport()}>Bid Sheet</button>
+            {/* <button className="p-2 bg-green-700 text-white w-48 rounded-md font-bold" onClick={()=>handlePreviousVehicle()} >PREVIOUS VEHICLE</button> */}
+
             </div>
           </div>
 
@@ -248,6 +291,7 @@ const AuctionUpdateByAdmin = () => {
         </div>
               <VehicleDetails liveVehicle={liveItem} timedata1={timeData} />
               <ParticipantsList vehicleId={liveItem?.id} />
+              
               <Deletedbidtable vehicleId={liveItem?.id}/>
             </>
           ): counterLeftUpcoming(upcomingSecondsLeft())}
@@ -366,4 +410,17 @@ function CountdownTimer(hhmmss) {
       </div>
     </div>
   );
+}
+const vehicleDetails=async(data)=>{
+  const liveVehile= data?.vehicles?.find((vehicle)=>vehicle?.vehicleEventStatus==='live')
+const sortedVehicles = [...data?.vehicles]?.sort((a, b) => {
+  const dateA =new Date(a.bidTimeExpire);
+  const dateB =new Date(b.bidTimeExpire);
+ 
+
+  return dateA - dateB;
+  
+});
+
+return {sortedVehicles,liveVehile}
 }

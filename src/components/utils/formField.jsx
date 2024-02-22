@@ -103,7 +103,6 @@ export const SelectWithDynamic  = ({   options,defaultValue,error, register,mapp
 
 
 export  const ImageMaping= ({images}) => {
-  console.log("imageee",images)
   return (
     <div className="grid grid-cols-2 gap-x-10  gap-y-5 m-2">
     {images?.map((imgs, index) => {
