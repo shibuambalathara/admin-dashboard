@@ -64,6 +64,7 @@ query User($where: UserWhereUniqueInput!) {
     updatedAt
     activeBidsCount
     coupenDetailCount
+    tempToken
     bannedSellers {
       name
       id

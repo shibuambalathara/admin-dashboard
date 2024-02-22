@@ -1006,6 +1006,7 @@ export type FindAuction = {
   state?: Maybe<State>;
   tenderDocument?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
+  vehicleModel?: Maybe<Scalars['String']>;
   vehicleRegNo?: Maybe<Scalars['String']>;
 };
 
@@ -1025,6 +1026,7 @@ export type FindAuctionCreateInput = {
   reservePrice?: InputMaybe<Scalars['BigInt']>;
   state?: InputMaybe<StateRelateToOneForCreateInput>;
   tenderDocument?: InputMaybe<Scalars['String']>;
+  vehicleModel?: InputMaybe<Scalars['String']>;
   vehicleRegNo?: InputMaybe<Scalars['String']>;
 };
 
@@ -1051,6 +1053,7 @@ export type FindAuctionOrderByInput = {
   reservePrice?: InputMaybe<OrderDirection>;
   tenderDocument?: InputMaybe<OrderDirection>;
   updatedAt?: InputMaybe<OrderDirection>;
+  vehicleModel?: InputMaybe<OrderDirection>;
   vehicleRegNo?: InputMaybe<OrderDirection>;
 };
 
@@ -1102,6 +1105,7 @@ export type FindAuctionUpdateInput = {
   reservePrice?: InputMaybe<Scalars['BigInt']>;
   state?: InputMaybe<StateRelateToOneForUpdateInput>;
   tenderDocument?: InputMaybe<Scalars['String']>;
+  vehicleModel?: InputMaybe<Scalars['String']>;
   vehicleRegNo?: InputMaybe<Scalars['String']>;
 };
 
@@ -1127,6 +1131,7 @@ export type FindAuctionWhereInput = {
   state?: InputMaybe<StateWhereInput>;
   tenderDocument?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeNullableFilter>;
+  vehicleModel?: InputMaybe<StringFilter>;
   vehicleRegNo?: InputMaybe<StringFilter>;
 };
 
@@ -2257,17 +2262,40 @@ export type NestedStringNullableFilter = {
 
 export type Notification = {
   __typename?: 'Notification';
-  amount?: Maybe<Scalars['Int']>;
+  deviceToken?: Maybe<Scalars['String']>;
+  eventId?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
+  user?: Maybe<User>;
 };
 
 export type NotificationCreateInput = {
-  amount?: InputMaybe<Scalars['Int']>;
+  deviceToken?: InputMaybe<Scalars['String']>;
+  eventId?: InputMaybe<Scalars['String']>;
+  user?: InputMaybe<UserRelateToOneForCreateInput>;
+};
+
+export type NotificationManyRelationFilter = {
+  every?: InputMaybe<NotificationWhereInput>;
+  none?: InputMaybe<NotificationWhereInput>;
+  some?: InputMaybe<NotificationWhereInput>;
 };
 
 export type NotificationOrderByInput = {
-  amount?: InputMaybe<OrderDirection>;
+  deviceToken?: InputMaybe<OrderDirection>;
+  eventId?: InputMaybe<OrderDirection>;
   id?: InputMaybe<OrderDirection>;
+};
+
+export type NotificationRelateToManyForCreateInput = {
+  connect?: InputMaybe<Array<NotificationWhereUniqueInput>>;
+  create?: InputMaybe<Array<NotificationCreateInput>>;
+};
+
+export type NotificationRelateToManyForUpdateInput = {
+  connect?: InputMaybe<Array<NotificationWhereUniqueInput>>;
+  create?: InputMaybe<Array<NotificationCreateInput>>;
+  disconnect?: InputMaybe<Array<NotificationWhereUniqueInput>>;
+  set?: InputMaybe<Array<NotificationWhereUniqueInput>>;
 };
 
 export type NotificationUpdateArgs = {
@@ -2276,15 +2304,19 @@ export type NotificationUpdateArgs = {
 };
 
 export type NotificationUpdateInput = {
-  amount?: InputMaybe<Scalars['Int']>;
+  deviceToken?: InputMaybe<Scalars['String']>;
+  eventId?: InputMaybe<Scalars['String']>;
+  user?: InputMaybe<UserRelateToOneForUpdateInput>;
 };
 
 export type NotificationWhereInput = {
   AND?: InputMaybe<Array<NotificationWhereInput>>;
   NOT?: InputMaybe<Array<NotificationWhereInput>>;
   OR?: InputMaybe<Array<NotificationWhereInput>>;
-  amount?: InputMaybe<IntNullableFilter>;
+  deviceToken?: InputMaybe<StringFilter>;
+  eventId?: InputMaybe<StringFilter>;
   id?: InputMaybe<IdFilter>;
+  user?: InputMaybe<UserWhereInput>;
 };
 
 export type NotificationWhereUniqueInput = {
@@ -3091,6 +3123,7 @@ export type Seller = {
   events?: Maybe<Array<Event>>;
   eventsCount?: Maybe<Scalars['Int']>;
   id: Scalars['ID'];
+  logo?: Maybe<Scalars['String']>;
   mobile?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   nationalHead?: Maybe<Scalars['String']>;
@@ -3144,6 +3177,7 @@ export type SellerCreateInput = {
   billingContactPerson?: InputMaybe<Scalars['String']>;
   contactPerson?: InputMaybe<Scalars['String']>;
   events?: InputMaybe<EventRelateToManyForCreateInput>;
+  logo?: InputMaybe<Scalars['String']>;
   mobile?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
   nationalHead?: InputMaybe<Scalars['String']>;
@@ -3162,6 +3196,7 @@ export type SellerOrderByInput = {
   contactPerson?: InputMaybe<OrderDirection>;
   createdAt?: InputMaybe<OrderDirection>;
   id?: InputMaybe<OrderDirection>;
+  logo?: InputMaybe<OrderDirection>;
   mobile?: InputMaybe<OrderDirection>;
   name?: InputMaybe<OrderDirection>;
   nationalHead?: InputMaybe<OrderDirection>;
@@ -3202,6 +3237,7 @@ export type SellerUpdateInput = {
   billingContactPerson?: InputMaybe<Scalars['String']>;
   contactPerson?: InputMaybe<Scalars['String']>;
   events?: InputMaybe<EventRelateToManyForUpdateInput>;
+  logo?: InputMaybe<Scalars['String']>;
   mobile?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
   nationalHead?: InputMaybe<Scalars['String']>;
@@ -3219,6 +3255,7 @@ export type SellerWhereInput = {
   createdAt?: InputMaybe<DateTimeNullableFilter>;
   events?: InputMaybe<EventManyRelationFilter>;
   id?: InputMaybe<IdFilter>;
+  logo?: InputMaybe<StringFilter>;
   mobile?: InputMaybe<StringFilter>;
   name?: InputMaybe<StringFilter>;
   nationalHead?: InputMaybe<StringFilter>;
@@ -3441,6 +3478,8 @@ export type User = {
   magicAuthRedeemedAt?: Maybe<Scalars['DateTime']>;
   magicAuthToken?: Maybe<PasswordState>;
   mobile?: Maybe<Scalars['String']>;
+  notification?: Maybe<Array<Notification>>;
+  notificationCount?: Maybe<Scalars['Int']>;
   pancard?: Maybe<ImageFieldOutput>;
   pancardNo?: Maybe<Scalars['String']>;
   password?: Maybe<PasswordState>;
@@ -3458,6 +3497,7 @@ export type User = {
   states?: Maybe<Array<State>>;
   statesCount?: Maybe<Scalars['Int']>;
   status?: Maybe<UserStatusType>;
+  tempToken?: Maybe<Scalars['Int']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   userCategory?: Maybe<Scalars['String']>;
   username?: Maybe<Scalars['String']>;
@@ -3570,6 +3610,19 @@ export type UserEventDetailArgs = {
 
 export type UserEventDetailCountArgs = {
   where?: EventWhereInput;
+};
+
+
+export type UserNotificationArgs = {
+  orderBy?: Array<NotificationOrderByInput>;
+  skip?: Scalars['Int'];
+  take?: InputMaybe<Scalars['Int']>;
+  where?: NotificationWhereInput;
+};
+
+
+export type UserNotificationCountArgs = {
+  where?: NotificationWhereInput;
 };
 
 
@@ -3690,6 +3743,7 @@ export type UserCreateInput = {
   magicAuthRedeemedAt?: InputMaybe<Scalars['DateTime']>;
   magicAuthToken?: InputMaybe<Scalars['String']>;
   mobile?: InputMaybe<Scalars['String']>;
+  notification?: InputMaybe<NotificationRelateToManyForCreateInput>;
   pancard?: InputMaybe<ImageFieldInput>;
   pancardNo?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
@@ -3703,6 +3757,7 @@ export type UserCreateInput = {
   state?: InputMaybe<Scalars['String']>;
   states?: InputMaybe<StateRelateToManyForCreateInput>;
   status?: InputMaybe<UserStatusType>;
+  tempToken?: InputMaybe<Scalars['Int']>;
   userCategory?: InputMaybe<Scalars['String']>;
   username?: InputMaybe<Scalars['String']>;
   vehicleBuyingLimit?: InputMaybe<Scalars['Int']>;
@@ -3751,6 +3806,7 @@ export type UserOrderByInput = {
   specialVehicleBuyingLimit?: InputMaybe<OrderDirection>;
   state?: InputMaybe<OrderDirection>;
   status?: InputMaybe<OrderDirection>;
+  tempToken?: InputMaybe<OrderDirection>;
   updatedAt?: InputMaybe<OrderDirection>;
   userCategory?: InputMaybe<OrderDirection>;
   username?: InputMaybe<OrderDirection>;
@@ -3840,6 +3896,7 @@ export type UserUpdateInput = {
   magicAuthRedeemedAt?: InputMaybe<Scalars['DateTime']>;
   magicAuthToken?: InputMaybe<Scalars['String']>;
   mobile?: InputMaybe<Scalars['String']>;
+  notification?: InputMaybe<NotificationRelateToManyForUpdateInput>;
   pancard?: InputMaybe<ImageFieldInput>;
   pancardNo?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
@@ -3853,6 +3910,7 @@ export type UserUpdateInput = {
   state?: InputMaybe<Scalars['String']>;
   states?: InputMaybe<StateRelateToManyForUpdateInput>;
   status?: InputMaybe<UserStatusType>;
+  tempToken?: InputMaybe<Scalars['Int']>;
   userCategory?: InputMaybe<Scalars['String']>;
   username?: InputMaybe<Scalars['String']>;
   vehicleBuyingLimit?: InputMaybe<Scalars['Int']>;
@@ -3888,6 +3946,7 @@ export type UserWhereInput = {
   magicAuthRedeemedAt?: InputMaybe<DateTimeNullableFilter>;
   magicAuthToken?: InputMaybe<PasswordFilter>;
   mobile?: InputMaybe<StringFilter>;
+  notification?: InputMaybe<NotificationManyRelationFilter>;
   pancardNo?: InputMaybe<StringFilter>;
   password?: InputMaybe<PasswordFilter>;
   paymentByAdmin?: InputMaybe<PaymentWhereInput>;
@@ -3900,6 +3959,7 @@ export type UserWhereInput = {
   state?: InputMaybe<StringFilter>;
   states?: InputMaybe<StateManyRelationFilter>;
   status?: InputMaybe<UserStatusTypeNullableFilter>;
+  tempToken?: InputMaybe<IntNullableFilter>;
   updatedAt?: InputMaybe<DateTimeNullableFilter>;
   userCategory?: InputMaybe<StringFilter>;
   username?: InputMaybe<StringFilter>;
@@ -3912,6 +3972,7 @@ export type UserWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
   idNo?: InputMaybe<Scalars['Int']>;
   mobile?: InputMaybe<Scalars['String']>;
+  tempToken?: InputMaybe<Scalars['Int']>;
   username?: InputMaybe<Scalars['String']>;
 };
 
@@ -4606,7 +4667,7 @@ export type BidDetailsPerVehicleQueryVariables = Exact<{
 }>;
 
 
-export type BidDetailsPerVehicleQuery = { __typename?: 'Query', vehicle?: { __typename?: 'Vehicle', id: string, make?: string | null, registrationNumber?: string | null, vehicleIndexNo?: number | null, userVehicleBidsCount?: number | null, vehicleEventStatus?: VehicleEventStatus | null, watchedByCount?: number | null, bidStatus?: VehicleBidStatusType | null, currentBidAmount?: number | null, event?: { __typename?: 'Event', eventNo?: number | null, seller?: { __typename?: 'Seller', name?: string | null } | null } | null, userVehicleBids?: Array<{ __typename?: 'Bid', amount?: number | null, id: string, createdAt?: any | null, user?: { __typename?: 'User', id: string, idNo?: number | null, firstName?: string | null, lastName?: string | null, mobile?: string | null } | null }> | null, currentBidUser?: { __typename?: 'User', id: string, idNo?: number | null, username?: string | null, firstName?: string | null, lastName?: string | null } | null } | null };
+export type BidDetailsPerVehicleQuery = { __typename?: 'Query', vehicle?: { __typename?: 'Vehicle', id: string, make?: string | null, model?: string | null, registrationNumber?: string | null, vehicleIndexNo?: number | null, userVehicleBidsCount?: number | null, vehicleEventStatus?: VehicleEventStatus | null, watchedByCount?: number | null, bidStatus?: VehicleBidStatusType | null, yardLocation?: string | null, currentBidAmount?: number | null, event?: { __typename?: 'Event', eventNo?: number | null, seller?: { __typename?: 'Seller', name?: string | null } | null } | null, userVehicleBids?: Array<{ __typename?: 'Bid', amount?: number | null, id: string, createdAt?: any | null, user?: { __typename?: 'User', id: string, idNo?: number | null, firstName?: string | null, lastName?: string | null, mobile?: string | null, tempToken?: number | null } | null }> | null, currentBidUser?: { __typename?: 'User', id: string, idNo?: number | null, username?: string | null, firstName?: string | null, lastName?: string | null, tempToken?: number | null } | null } | null };
 
 export type UpdateBidMutationVariables = Exact<{
   where: BidWhereUniqueInput;
@@ -4780,7 +4841,7 @@ export type ParticipantsQueryVariables = Exact<{
 }>;
 
 
-export type ParticipantsQuery = { __typename?: 'Query', event?: { __typename?: 'Event', eventNo?: number | null, participants?: Array<{ __typename?: 'User', id: string, firstName?: string | null, vehicleBuyingLimit?: number | null, bannedSellersCount?: number | null, categoryCount?: number | null, state?: string | null, createdAt?: any | null, dealerId?: string | null, email?: string | null, emdUpdatesByAdminCount?: number | null, emdUpdatesCount?: number | null, idNo?: number | null, idProofNo?: string | null, lastName?: string | null, mobile?: string | null, pancardNo?: string | null, paymentsCount?: number | null, role?: UserRoleType | null, username?: string | null, status?: UserStatusType | null, updatedAt?: any | null, activeBidsCount?: number | null, coupenDetailCount?: number | null, currentVehicleBuyingLimit?: { __typename?: 'vehicleBuyingLimits', vehicleBuyingLimit?: number | null } | null, coupenDetail?: Array<{ __typename?: 'Coupen', coupenNumber?: string | null }> | null }> | null } | null };
+export type ParticipantsQuery = { __typename?: 'Query', event?: { __typename?: 'Event', eventNo?: number | null, participants?: Array<{ __typename?: 'User', id: string, firstName?: string | null, vehicleBuyingLimit?: number | null, bannedSellersCount?: number | null, categoryCount?: number | null, state?: string | null, createdAt?: any | null, dealerId?: string | null, email?: string | null, emdUpdatesByAdminCount?: number | null, emdUpdatesCount?: number | null, idNo?: number | null, idProofNo?: string | null, lastName?: string | null, mobile?: string | null, pancardNo?: string | null, paymentsCount?: number | null, tempToken?: number | null, role?: UserRoleType | null, username?: string | null, status?: UserStatusType | null, updatedAt?: any | null, activeBidsCount?: number | null, coupenDetailCount?: number | null, currentVehicleBuyingLimit?: { __typename?: 'vehicleBuyingLimits', vehicleBuyingLimit?: number | null } | null, coupenDetail?: Array<{ __typename?: 'Coupen', coupenNumber?: string | null }> | null }> | null } | null };
 
 export type UpdateEventMutationVariables = Exact<{
   where: EventWhereUniqueInput;
@@ -5096,7 +5157,7 @@ export type UserQueryVariables = Exact<{
 }>;
 
 
-export type UserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, firstName?: string | null, vehicleBuyingLimit?: number | null, bannedSellersCount?: number | null, businessName?: string | null, categoryCount?: number | null, state?: string | null, city?: string | null, country?: string | null, createdAt?: any | null, dealerId?: string | null, email?: string | null, emdUpdatesByAdminCount?: number | null, emdUpdatesCount?: number | null, idNo?: number | null, idProofNo?: string | null, idProofType?: UserIdProofTypeType | null, lastName?: string | null, magicAuthIssuedAt?: any | null, magicAuthRedeemedAt?: any | null, mobile?: string | null, pancardNo?: string | null, paymentsCount?: number | null, phone?: string | null, role?: UserRoleType | null, specialVehicleBuyingLimit?: number | null, username?: string | null, status?: UserStatusType | null, updatedAt?: any | null, activeBidsCount?: number | null, coupenDetailCount?: number | null, states?: Array<{ __typename?: 'State', id: string, name?: string | null, locations?: Array<{ __typename?: 'Location', city?: string | null, id: string, name?: string | null }> | null }> | null, idProof?: { __typename?: 'ImageFieldOutput', url: string } | null, idProofBack?: { __typename?: 'ImageFieldOutput', url: string } | null, image?: { __typename: 'ImageFieldOutput', url: string } | null, pancard?: { __typename?: 'ImageFieldOutput', url: string } | null, payments?: Array<{ __typename?: 'Payment', amount?: number | null }> | null, dealership?: { __typename?: 'ImageFieldOutput', url: string } | null, currentVehicleBuyingLimit?: { __typename?: 'vehicleBuyingLimits', vehicleBuyingLimit?: number | null } | null, bannedSellers?: Array<{ __typename?: 'Seller', name?: string | null, id: string }> | null } | null };
+export type UserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, firstName?: string | null, vehicleBuyingLimit?: number | null, bannedSellersCount?: number | null, businessName?: string | null, categoryCount?: number | null, state?: string | null, city?: string | null, country?: string | null, createdAt?: any | null, dealerId?: string | null, email?: string | null, emdUpdatesByAdminCount?: number | null, emdUpdatesCount?: number | null, idNo?: number | null, idProofNo?: string | null, idProofType?: UserIdProofTypeType | null, lastName?: string | null, magicAuthIssuedAt?: any | null, magicAuthRedeemedAt?: any | null, mobile?: string | null, pancardNo?: string | null, paymentsCount?: number | null, phone?: string | null, role?: UserRoleType | null, specialVehicleBuyingLimit?: number | null, username?: string | null, status?: UserStatusType | null, updatedAt?: any | null, activeBidsCount?: number | null, coupenDetailCount?: number | null, tempToken?: number | null, states?: Array<{ __typename?: 'State', id: string, name?: string | null, locations?: Array<{ __typename?: 'Location', city?: string | null, id: string, name?: string | null }> | null }> | null, idProof?: { __typename?: 'ImageFieldOutput', url: string } | null, idProofBack?: { __typename?: 'ImageFieldOutput', url: string } | null, image?: { __typename: 'ImageFieldOutput', url: string } | null, pancard?: { __typename?: 'ImageFieldOutput', url: string } | null, payments?: Array<{ __typename?: 'Payment', amount?: number | null }> | null, dealership?: { __typename?: 'ImageFieldOutput', url: string } | null, currentVehicleBuyingLimit?: { __typename?: 'vehicleBuyingLimits', vehicleBuyingLimit?: number | null } | null, bannedSellers?: Array<{ __typename?: 'Seller', name?: string | null, id: string }> | null } | null };
 
 export type EditUserMutationVariables = Exact<{
   where: UserWhereUniqueInput;
@@ -5113,7 +5174,7 @@ export type UsersQueryVariables = Exact<{
 }>;
 
 
-export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', firstName?: string | null, lastName?: string | null, email?: string | null, mobile?: string | null, status?: UserStatusType | null, state?: string | null, role?: UserRoleType | null, idNo?: number | null, id: string, pancardNo?: string | null, activeBidsCount?: number | null, createdAt?: any | null, paymentsCount?: number | null, coupenDetailCount?: number | null, currentVehicleBuyingLimit?: { __typename?: 'vehicleBuyingLimits', vehicleBuyingLimit?: number | null } | null }> | null };
+export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', firstName?: string | null, lastName?: string | null, email?: string | null, mobile?: string | null, status?: UserStatusType | null, state?: string | null, role?: UserRoleType | null, idNo?: number | null, id: string, pancardNo?: string | null, activeBidsCount?: number | null, createdAt?: any | null, paymentsCount?: number | null, coupenDetailCount?: number | null, tempToken?: number | null, currentVehicleBuyingLimit?: { __typename?: 'vehicleBuyingLimits', vehicleBuyingLimit?: number | null } | null }> | null };
 
 export type UserbyIdNoQueryVariables = Exact<{
   where: UserWhereUniqueInput;
@@ -5540,12 +5601,14 @@ export const BidDetailsPerVehicleDocument = gql`
   vehicle(where: $where) {
     id
     make
+    model
     registrationNumber
     vehicleIndexNo
     userVehicleBidsCount
     vehicleEventStatus
     watchedByCount
     bidStatus
+    yardLocation
     event {
       eventNo
       seller {
@@ -5562,6 +5625,7 @@ export const BidDetailsPerVehicleDocument = gql`
         firstName
         lastName
         mobile
+        tempToken
       }
     }
     currentBidAmount
@@ -5571,6 +5635,7 @@ export const BidDetailsPerVehicleDocument = gql`
       username
       firstName
       lastName
+      tempToken
     }
   }
 }
@@ -6615,6 +6680,7 @@ export const ParticipantsDocument = gql`
       mobile
       pancardNo
       paymentsCount
+      tempToken
       role
       currentVehicleBuyingLimit {
         vehicleBuyingLimit
@@ -8664,6 +8730,7 @@ export const UserDocument = gql`
     updatedAt
     activeBidsCount
     coupenDetailCount
+    tempToken
     bannedSellers {
       name
       id
@@ -8796,6 +8863,7 @@ export const UsersDocument = gql`
     }
     paymentsCount
     coupenDetailCount
+    tempToken
   }
 }
     `;

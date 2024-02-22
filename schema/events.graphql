@@ -94,7 +94,7 @@ query Participants($where: EventWhereUniqueInput!, $take: Int, $skip: Int!, $cou
   pancardNo
 
    paymentsCount
-
+tempToken
    role
 
     currentVehicleBuyingLimit {

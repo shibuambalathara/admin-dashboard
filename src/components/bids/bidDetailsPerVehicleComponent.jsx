@@ -72,7 +72,7 @@ const BidDetailsPerVehicleComponent = () => {
   };
 
   const handleReport = (vehicle) => {
-    DownloadBidHistory(vehicle);
+      DownloadBidHistory(vehicle);
   };
 
   const columns = useMemo(
@@ -187,7 +187,6 @@ const BidDetailsPerVehicleComponent = () => {
             </div>
           </div>
         </div>
-     
         <TableComponent tableData={data?.vehicle?.userVehicleBids} columns={columns} sortBy='amount' />
         <Deletedbidtable vehicleId={id}/>
         

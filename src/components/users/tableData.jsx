@@ -5,10 +5,10 @@ import { useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import TableComponent from "../utils/table";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileArrowDown, faUserPen } from "@fortawesome/free-solid-svg-icons";
+import {  faUserPen } from "@fortawesome/free-solid-svg-icons";
 import { faCreditCard } from "@fortawesome/free-regular-svg-icons";
-import  { ConvertToExcel } from "../utils/excelFormat";
 import { FormatDate } from "../utils/dateFormat";
+import { useEditUserMutation } from "../../utils/graphql";
 
 const TabbleOfUsersOrUser = ({users}) => {
  
@@ -16,9 +16,7 @@ const TabbleOfUsersOrUser = ({users}) => {
  
   const location = useLocation();
   const currentPageStartWith = location.pathname
-  // const {data:signIn}=useUserauthenticationQuery()
-
-
+  const [updateUser, ] = useEditUserMutation();
 
  
 
@@ -40,6 +38,50 @@ const handleMessage=(coupen)=>{
         <p>Thank you.</p>
       </div>`
 });
+}
+const handleToken=async(id)=>{
+console.log("id",id)
+const { value: newToken } = await Swal.fire({
+  title: "Enter Token Number",
+  input: "number",
+  inputLabel: "Token number",
+ 
+  showCancelButton: true,
+  inputValidator: (value) => {
+    if (!value) {
+      return "You need to write something!";
+    }
+  }
+});
+if (newToken) {
+ 
+  updateUser({variables:{data:{tempToken:+newToken},where:{id}}}).then((res)=>{
+    console.log("response",res)
+
+    
+  })
+  .catch((err) => {
+    console.log("errorrrr", err);
+    Swal.fire({text:"Token Already exist",icon:'error'})
+  }
+  );
+}
+}
+
+const handleDelete=async(id)=>{
+  const response = await Swal.fire({
+    title: "Are you sure?",
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonText: "Yes",
+    cancelButtonText: "Cancel",
+  });
+  if (response.isConfirmed) {
+    updateUser({variables:{data:{tempToken:null},where:{id}}}).then((res)=>{
+      console.log(res)
+      
+    }).then(()=>{})
+  }
 }
 
 
@@ -113,6 +155,15 @@ const handleMessage=(coupen)=>{
 
         ),
       },
+      {Header:'Token',
+      Cell: ({ row }) => (
+        <div className="space-y-1">
+       <button className="rounded-md p-1 text-white bg-green-700" onClick={() => handleToken(row.original?.id)}>CREATE/UPDATE</button>
+       <button className="rounded-md p-1 text-white bg-red-700 w-32" onClick={() => handleDelete(row.original?.id)}>DELETE</button>
+       </div>
+    )
+    },
+    {Header:'Token',accessor: "tempToken",  className: 'w-1/3',},
       
       ...(currentPageStartWith === '/users' ? [] : [  {
   Header: "Message",
