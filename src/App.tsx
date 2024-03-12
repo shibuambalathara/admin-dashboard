@@ -61,6 +61,7 @@ import AddFindAuction from "./pages/addFindAuction";
 
 import SellACar from "./pages/sellACar";
 import EditSellACar from "./pages/editSellACar";
+import ViewUsersByState from "./pages/viewUsersByState";
 
 
 
@@ -141,6 +142,7 @@ function AppContent() {
                       <Route path="institution" element={<Institution/>}/>
                       <Route path="sell-a-car" element={<SellACar/>}/>
                       <Route path="edit-sell-a-car/:id" element={<EditSellACar/>}/>
+                      <Route path="ViewUsersByState/:id" element={<ViewUsersByState/>}/>
             </Route>
           </Routes>
         </div>

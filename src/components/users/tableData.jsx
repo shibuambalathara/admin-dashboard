@@ -5,23 +5,18 @@ import { useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import TableComponent from "../utils/table";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {  faUserPen } from "@fortawesome/free-solid-svg-icons";
+import {  faTrash, faUserPen } from "@fortawesome/free-solid-svg-icons";
 import { faCreditCard } from "@fortawesome/free-regular-svg-icons";
 import { FormatDate } from "../utils/dateFormat";
 import { useEditUserMutation } from "../../utils/graphql";
 
-const TabbleOfUsersOrUser = ({users}) => {
- 
-
- 
+const TabbleOfUsersOrUser = ({users}) => { 
   const location = useLocation();
   const currentPageStartWith = location.pathname
   const [updateUser, ] = useEditUserMutation();
 
- 
-
 const handleMessage=(coupen)=>{
-  const {coupenDetail,firstName,lastName,   currentVehicleBuyingLimit }=coupen
+const {coupenDetail,firstName,lastName,   currentVehicleBuyingLimit }=coupen
 
   Swal.fire({
     html: `<div>
@@ -157,9 +152,9 @@ const handleDelete=async(id)=>{
       },
       {Header:'Token',
       Cell: ({ row }) => (
-        <div className="space-y-1">
+        <div className="flex">
        <button className="rounded-md p-1 text-white bg-green-700" onClick={() => handleToken(row.original?.id)}>CREATE/UPDATE</button>
-       <button className="rounded-md p-1 text-white bg-red-700 w-32" onClick={() => handleDelete(row.original?.id)}>DELETE</button>
+       <button className="rounded-md p-1 text-red-500 " onClick={() => handleDelete(row.original?.id)}><FontAwesomeIcon icon={faTrash} /></button>
        </div>
     )
     },

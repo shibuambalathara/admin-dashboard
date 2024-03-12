@@ -42,6 +42,7 @@ query eventsReport( $where: EventWhereInput!) {
     eventCategory
     startDate
     endDate
+    Report
     seller {
       name
       

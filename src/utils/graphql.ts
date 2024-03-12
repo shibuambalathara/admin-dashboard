@@ -4826,7 +4826,7 @@ export type EventsReportQueryVariables = Exact<{
 }>;
 
 
-export type EventsReportQuery = { __typename?: 'Query', events?: Array<{ __typename?: 'Event', vehiclesCount?: number | null, eventCategory?: string | null, startDate?: any | null, endDate?: any | null, noOfBids?: number | null, status?: EventStatusType | null, eventNo?: number | null, seller?: { __typename?: 'Seller', name?: string | null } | null, location?: { __typename?: 'Location', name?: string | null } | null }> | null };
+export type EventsReportQuery = { __typename?: 'Query', events?: Array<{ __typename?: 'Event', vehiclesCount?: number | null, eventCategory?: string | null, startDate?: any | null, endDate?: any | null, Report?: any | null, noOfBids?: number | null, status?: EventStatusType | null, eventNo?: number | null, seller?: { __typename?: 'Seller', name?: string | null } | null, location?: { __typename?: 'Location', name?: string | null } | null }> | null };
 
 export type EventsIdNoQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5195,7 +5195,7 @@ export type UsersSearchQueryVariables = Exact<{
 }>;
 
 
-export type UsersSearchQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', firstName?: string | null, lastName?: string | null, email?: string | null, mobile?: string | null, status?: UserStatusType | null, state?: string | null, role?: UserRoleType | null, idNo?: number | null, id: string, pancardNo?: string | null, activeBidsCount?: number | null, createdAt?: any | null, paymentsCount?: number | null, coupenDetailCount?: number | null, currentVehicleBuyingLimit?: { __typename?: 'vehicleBuyingLimits', vehicleBuyingLimit?: number | null } | null }> | null };
+export type UsersSearchQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', firstName?: string | null, lastName?: string | null, email?: string | null, mobile?: string | null, status?: UserStatusType | null, state?: string | null, role?: UserRoleType | null, idNo?: number | null, id: string, pancardNo?: string | null, activeBidsCount?: number | null, createdAt?: any | null, tempToken?: number | null, paymentsCount?: number | null, coupenDetailCount?: number | null, currentVehicleBuyingLimit?: { __typename?: 'vehicleBuyingLimits', vehicleBuyingLimit?: number | null } | null }> | null };
 
 export type CreateVehicleMutationVariables = Exact<{
   data: VehicleCreateInput;
@@ -6582,6 +6582,7 @@ export const EventsReportDocument = gql`
     eventCategory
     startDate
     endDate
+    Report
     seller {
       name
     }
@@ -8985,6 +8986,7 @@ export const UsersSearchDocument = gql`
     pancardNo
     activeBidsCount
     createdAt
+    tempToken
     currentVehicleBuyingLimit {
       vehicleBuyingLimit
     }
