@@ -89,6 +89,12 @@ const ViewStates = () => {
           <button className="btn bg-red-500 text-xl" onClick={() => handleEditState(row.original?.name,row.original?.id)}><FontAwesomeIcon icon={faPenToSquare} /></button>
         )
       },
+      {
+        Header: "View Users",
+        Cell: ({ row }) => (
+          <a  className="btn btn-secondary" href={`/ViewUsersByState/${row.original.id}`} target="_blank" rel="noopener noreferrer">View Users</a>
+          )
+      },
       // {
       //   Header: "Remove State",
       //   Cell: ({ row }) => (

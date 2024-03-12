@@ -49,6 +49,7 @@ query UsersSearch($where: UserWhereInput!) {
      pancardNo
      activeBidsCount
      createdAt
+     tempToken
      currentVehicleBuyingLimit {
     vehicleBuyingLimit  
     }
