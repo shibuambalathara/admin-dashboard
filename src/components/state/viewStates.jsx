@@ -1,12 +1,10 @@
 
 import React, { useMemo, useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useTable, usePagination, useGlobalFilter,useSortBy } from "react-table";
 import { useDeleteStateMutation,useStatesQuery, useUpdateStateMutation} from "../../utils/graphql";
 
 import Swal from "sweetalert2";
 import TableComponent from "../utils/table";
-import PaginationComponents from "../utils/pagination";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 
