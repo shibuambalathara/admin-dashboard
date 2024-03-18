@@ -5130,6 +5130,13 @@ export type StatesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type StatesQuery = { __typename?: 'Query', states?: Array<{ __typename?: 'State', name?: string | null, id: string, users?: Array<{ __typename?: 'User', id: string, firstName?: string | null }> | null, locations?: Array<{ __typename?: 'Location', name?: string | null }> | null }> | null };
 
+export type StateQueryVariables = Exact<{
+  where: StateWhereUniqueInput;
+}>;
+
+
+export type StateQuery = { __typename?: 'Query', state?: { __typename?: 'State', name?: string | null } | null };
+
 export type CreateStateMutationVariables = Exact<{
   data: StateCreateInput;
 }>;
@@ -8563,6 +8570,41 @@ export function useStatesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Sta
 export type StatesQueryHookResult = ReturnType<typeof useStatesQuery>;
 export type StatesLazyQueryHookResult = ReturnType<typeof useStatesLazyQuery>;
 export type StatesQueryResult = Apollo.QueryResult<StatesQuery, StatesQueryVariables>;
+export const StateDocument = gql`
+    query State($where: StateWhereUniqueInput!) {
+  state(where: $where) {
+    name
+  }
+}
+    `;
+
+/**
+ * __useStateQuery__
+ *
+ * To run a query within a React component, call `useStateQuery` and pass it any options that fit your needs.
+ * When your component renders, `useStateQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useStateQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useStateQuery(baseOptions: Apollo.QueryHookOptions<StateQuery, StateQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<StateQuery, StateQueryVariables>(StateDocument, options);
+      }
+export function useStateLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<StateQuery, StateQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<StateQuery, StateQueryVariables>(StateDocument, options);
+        }
+export type StateQueryHookResult = ReturnType<typeof useStateQuery>;
+export type StateLazyQueryHookResult = ReturnType<typeof useStateLazyQuery>;
+export type StateQueryResult = Apollo.QueryResult<StateQuery, StateQueryVariables>;
 export const CreateStateDocument = gql`
     mutation CreateState($data: StateCreateInput!) {
   createState(data: $data) {
