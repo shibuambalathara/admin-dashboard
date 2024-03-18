@@ -10,10 +10,11 @@ import { faCreditCard } from "@fortawesome/free-regular-svg-icons";
 import { FormatDate } from "../utils/dateFormat";
 import { useEditUserMutation } from "../../utils/graphql";
 
-const TabbleOfUsersOrUser = ({users}) => { 
+const TabbleOfUsersOrUser = ({users,refetch}) => { 
+  console.log("users",users)
   const location = useLocation();
   const currentPageStartWith = location.pathname
-  const [updateUser, ] = useEditUserMutation();
+  const [updateUser ] = useEditUserMutation();
 
 const handleMessage=(coupen)=>{
 const {coupenDetail,firstName,lastName,   currentVehicleBuyingLimit }=coupen
@@ -51,8 +52,9 @@ const { value: newToken } = await Swal.fire({
 if (newToken) {
  
   updateUser({variables:{data:{tempToken:+newToken},where:{id}}}).then((res)=>{
+     refetch()
     console.log("response",res)
-
+   
     
   })
   .catch((err) => {
@@ -74,8 +76,8 @@ const handleDelete=async(id)=>{
   if (response.isConfirmed) {
     updateUser({variables:{data:{tempToken:null},where:{id}}}).then((res)=>{
       console.log(res)
-      
-    }).then(()=>{})
+      refetch()
+    })
   }
 }
 
@@ -154,8 +156,8 @@ const handleDelete=async(id)=>{
       Cell: ({ row }) => (
         <div className="flex">
        <button className="rounded-md p-1 text-white bg-green-700" onClick={() => handleToken(row.original?.id)}>CREATE/UPDATE</button>
-       <button className="rounded-md p-1 text-red-500 " onClick={() => handleDelete(row.original?.id)}><FontAwesomeIcon icon={faTrash} /></button>
-       </div>
+{   row?.original?.tempToken &&   <button className="rounded-md p-1 text-red-500 " onClick={() => handleDelete(row.original?.id)}><FontAwesomeIcon icon={faTrash} /></button>
+}       </div>
     )
     },
     {Header:'Token',accessor: "tempToken",  className: 'w-1/3',},

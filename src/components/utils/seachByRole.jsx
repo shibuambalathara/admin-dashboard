@@ -4,10 +4,7 @@ import { useForm } from "react-hook-form";
 const SeachByRole = ({setRole}) => {
     const {
         register,
-        handleSubmit,
-        watch,
-        reset,
-        getValues,
+       
         setValue,
         formState: { errors },
       } = useForm();

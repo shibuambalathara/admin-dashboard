@@ -11,6 +11,11 @@ query states {
     }
   }
 }
+query State($where: StateWhereUniqueInput!) {
+  state(where: $where) {
+name
+  }
+}
 
 
 mutation CreateState($data: StateCreateInput!) {
