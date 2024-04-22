@@ -449,7 +449,7 @@ const VehicleDetails = (props) => {
         )}
         {vehicleDetails?.liveVehicle?.bidStatus !== "approved" && (
           <button className="btn btn-primary" onClick={() => handleApproved()}>
-            Approved
+            PROPOSED FOR SALE
           </button>
         )}
         {vehicleDetails?.liveVehicle?.bidStatus !== "fulfilled" && (
