@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useCountQuery } from "../../utils/graphql";
+import { useCountQuery, useUsersCountQuery } from "../../utils/graphql";
 import { useNavigate } from "react-router-dom";
 
 const HomeComonent = () => {
@@ -15,7 +15,10 @@ const HomeComonent = () => {
   }
 
   const { data, loading, error } = useCountQuery();
-
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); 
+    const todayISOString = today.toISOString();
+   const {data:newUsersToday}=useUsersCountQuery({variables:{where:{createdAt:{gte: todayISOString}}}})
   let pulseClasses = `flex flex-col text-black  border-2 w-60 shadow-xl rounded bg-white p-5  ml-5     `;
 
 
@@ -28,12 +31,24 @@ const HomeComonent = () => {
           className={pulseClasses}
           onClick={() => navigate("users")}
         >
-          <div className="text-center font-extrabold">Users Count</div>
+         <div className="text-center font-extrabold">Users Count</div>
           <div className="text-center m-2 lowercase ">
-            {data?.usersCount} <span className="uppercase">I</span>tems
+            {data?.usersCount} <span> Users</span>
           </div>
         </div>
       </div>
+      <div
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          className={pulseClasses}
+          onClick={() => navigate("users")}
+        >
+           <div className="text-center font-extrabold"> New User(s) Today</div>
+          <div className="text-center m-2 lowercase ">
+            {newUsersToday?.usersCount} <span className="">User(s)</span>
+          </div>
+        </div>
+
 
       <div>
         <div

@@ -26,6 +26,7 @@ const EditVehicleComponent = () => {
   const { data, loading, error } = useVehicleDetailsQuery({
     variables: { where: { id: id } },
   });
+  // console.log("vehicles",data)
   useEffect(() => {
     if (data?.vehicle?.repoDt) {
       
@@ -143,6 +144,7 @@ const EditVehicleComponent = () => {
       clientContactPerson: dataOnSubmit?.clientContactPerson,
       clientContactNo: dataOnSubmit?.clientContactNo,
       additionalRemarks: dataOnSubmit?.AdditionalRemarks,
+      lotNumber:+dataOnSubmit?.lotNumber
     };
     try {
       const result = editVehicle({ variables: { data: vehicle } });
@@ -362,7 +364,8 @@ const EditVehicleComponent = () => {
           
               <FormFieldInput  defaultValue={data?.vehicle?.auctionManager} label="Auction Manager" type="text" name="auctionManager" register={register} error={errors.auctionManager} />
 
-          
+              <FormFieldInput  defaultValue={data?.vehicle?.lotNumber} label="Lot Number" type="number" name="lotNumber" register={register} error={errors.lotNumber} />
+
            
              </div>
         

@@ -4,9 +4,11 @@ import PaginationComponent from "../utils/pagination";
 import { ConvertToExcel } from "./excelFormat";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileArrowDown } from "@fortawesome/free-solid-svg-icons";
+import { OrderDirection } from "../../utils/graphql";
 
-const TableComponent = ({tableData,columns,sortBy}) => {
+const TableComponent = (props) => {
 
+const {tableData,columns,sortBy} = props
 
 
     const {
@@ -36,7 +38,8 @@ const TableComponent = ({tableData,columns,sortBy}) => {
           sortBy: [
             {
               id: sortBy, 
-              desc: true,
+              desc: props?.order ? false : true
+            
             },
           ],
         },

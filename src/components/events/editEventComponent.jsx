@@ -2,9 +2,6 @@ import React, { useState,useEffect } from "react";
 import { Input } from "@material-tailwind/react";
 import { useForm,Controller } from "react-hook-form";
 import Select from 'react-select'
-
-
-
 import{useSellersItemQuery,useEventTypesQuery,useLocationsQuery,useEventQuery,useEditEventMutation}from '../../utils/graphql'
 import {  useParams } from "react-router-dom";
 import { ShowPopup } from '../alerts/popUps';
@@ -20,11 +17,11 @@ const[isoEndDatedata,setIsoEndDate]=useState('')
 
  const {id}=useParams()
  
-  const sellersItem=useSellersItemQuery()
-  const eventType=useEventTypesQuery()
-  const location=useLocationsQuery()
-  const [editEvent,response]=useEditEventMutation({variables:{where:{id}}})
-   const {data,loading,error}=useEventQuery({variables:{where:{id}}})
+ const sellersItem=useSellersItemQuery()
+ const eventType=useEventTypesQuery()
+ const location=useLocationsQuery()
+ const [editEvent,response]=useEditEventMutation({variables:{where:{id}}})
+ const {data,loading,error}=useEventQuery({variables:{where:{id}}})
 
 
 

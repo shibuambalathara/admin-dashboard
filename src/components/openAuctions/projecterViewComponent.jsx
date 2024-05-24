@@ -194,7 +194,7 @@ const LivetimeOfVehicle = () => {
                       <span className="text-black font-bold"> Lot No:</span> #{" "}
                       <span className="bg-yellow-500 font-bold text-3xl text-white px-1 rounded ">
                         {" "}
-                        {liveItem.vehicleIndexNo}
+                        {liveItem.lotNumber}
                       </span>
                     </p>
                   </div>

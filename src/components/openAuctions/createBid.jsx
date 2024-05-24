@@ -324,7 +324,7 @@ const VehicleDetails = (props) => {
                 Lot Number :{" "}
                 <span className="text-red-500">
                   {" "}
-                  {vehicleDetails?.liveVehicle?.vehicleIndexNo}
+                  {vehicleDetails?.liveVehicle?.lotNumber}
                 </span>
               </label>
             </div>
@@ -401,7 +401,7 @@ const VehicleDetails = (props) => {
       </div>
 
       <div className="shadow-md p-2">
-        <div className="flex w-44 flex-col space-y-5">
+        <div className="flex w-44 flex-col space-y-1">
           <div>
             <label>Start Price</label>
             <input
@@ -410,25 +410,25 @@ const VehicleDetails = (props) => {
               onChange={(e) => setStartPrice(e.target.value)}
             ></input>
             <button
-              className="btn btn-accent mt-2"
+              className="btn btn-accent mt-2 rounded-full  border-2 border-red-500"
               onClick={() => handleStartPrice()}
             >
               Change Start Price
             </button>
           </div>
           <a
-            className="btn btn-secondary"
+            className="btn btn-secondary rounded-full  border-2 border-red-500"
             href={`/edit-vehicle/${vehicleDetails?.liveVehicle?.id}`}
             target="_blank"
             rel="noopener noreferrer"
           >
             Vehicle Details
           </a>
-          <button className="btn btn-info" onClick={() => handleEvent()}>
+          <button className="btn btn-info rounded-full  border-2 border-red-500" onClick={() => handleEvent()}>
             Pause Event
           </button>
           <a
-            className="btn bg-cyan-700"
+            className="btn bg-cyan-700 rounded-full  border-2 border-red-500"
             href={`/projecter-view/${vehicleDetails?.liveVehicle?.event.id}`}
             target="_blank"
             rel="noopener noreferrer"

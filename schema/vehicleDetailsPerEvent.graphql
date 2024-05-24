@@ -7,6 +7,7 @@ query VehicleDetailsPerEvent($where: EventWhereUniqueInput!) {
   vehiclesCount
   eventCategory
   vehicles {
+    lotNumber
     bidStartTime
     bidTimeExpire
     id
