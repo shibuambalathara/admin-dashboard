@@ -14,7 +14,7 @@ const AddVehicleComponent = () => {
   const{data}=useEventStartTimeQuery({variables:{where:{id:id}}})
   const { register, handleSubmit,control, watch, formState: { errors } } = useForm();
 
-  const onSubmit = dataOnSubmit =>{ 
+  const onSubmit =async (dataOnSubmit) =>{ 
 
 
 
@@ -95,7 +95,8 @@ const vehicle={
   clientContactPerson:dataOnSubmit?.clientContactPerson,
   clientContactNo:dataOnSubmit?.clientContactNo,
   additionalRemarks:dataOnSubmit?.AdditionalRemarks,
-  autobse_contact_person:dataOnSubmit?.autobse_contact_person
+  autobse_contact_person:dataOnSubmit?.autobse_contact_person,
+  lotNumber:+dataOnSubmit?.lotNumber
   //watchedBy {
   //     firstName
   //     id
@@ -105,7 +106,8 @@ const vehicle={
 
 }
 try {
-  const result=createVehicle({variables:{data:vehicle}})
+  const result=await createVehicle({variables:{data:vehicle}})
+  console.log("result",result)
 if(result){
   ShowPopup("Success!", `${dataOnSubmit?.regNo}Added successfully!`, "success", 5000, true);
 
@@ -184,6 +186,7 @@ if(result){
               <FormFieldInput label="Auction Manager" type="text" name="auctionManager" register={register} error={errors.auctionManager} />
               <FormFieldInput label="Autobse Contact Person" type="text" name="autobse_contact_person" register={register} error={errors.autobse_contact_person} />
               <FormFieldInput label="Autobse Contact" type="text" name="autobseContact" register={register} error={errors.autobseContact} />
+              <FormFieldInput label="Lot Number" type="number" name="lotNumber" register={register} error={errors.lotNumber} required/>
 
               </div>
               <TextAreaInput label="Image urls" type="text" name="rightImage" register={register} error={errors.rightImage} />

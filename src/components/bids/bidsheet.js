@@ -15,7 +15,7 @@ export const  DownloadBidHistory =async (vehicle) => {
     // const datePrinted =        `Date Printed: ${new Date().toLocaleDateString()}`;
                   
     const sellername=`${vehicle?.event?.seller?.name}`
-    const Auctionid =    `${vehicle?.vehicleIndexNo}`;
+    const lotNumber =    `${vehicle?.lotNumber}`;
 
     const vehiclename =   `${vehicle?.make} ${vehicle?.model}`;
     const registrationnumber = `${vehicle?.registrationNumber}`;
@@ -38,7 +38,7 @@ export const  DownloadBidHistory =async (vehicle) => {
     // Add textual content before the tablep
 
     pdf.text('Lot No:', 20, 58);
-    pdf.text(Auctionid, 90, 58);
+    pdf.text(lotNumber, 90, 58);
 
     pdf.text('LAN No', 20, 66);
 

@@ -26,6 +26,7 @@ const VehicleDetailsPerEventComponent = () => {
     const [updateDate,setUpdateDate]=useState({date:null,id:null,updateItem:null})
     
     const {data,loading,error,refetch}=useVehicleDetailsPerEventQuery({variables:{where:{id}}})
+    // console.log("data per event",data)
     const[updateEventEndTime]=useUpdateEventMutation()
     const [updateBidTime]=useUpdateVehicleMutation()
     const [updateCoupen]=useUpdateCoupenMutation()
@@ -173,7 +174,7 @@ Swal.fire({
 
     const columns = useMemo(
         () => [
-        
+          {Header:"Lot Number",accessor:"lotNumber"},
           { Header: "Vehicle ID", accessor: "vehicleIndexNo" },
           {
             Header: "Vehicle Details",accessor: "registrationNumber",
@@ -287,7 +288,7 @@ Swal.fire({
 {updateDate?.date &&<UpdateBidTime currentDate={updateDate?.date} handleChangeStartTime={handleChangeStartTime}/>}
 {enable && <UpdateEventEndTime handleChangeEndTime={handleChangeEndTime}/>}
 
-      <TableComponent tableData={data?.event?.vehicles} columns={columns} sortBy='Bid Time Expire'/>
+      <TableComponent tableData={data?.event?.vehicles} columns={columns} sortBy='lotNumber' order={true}/>
 
   </div>
   </div>

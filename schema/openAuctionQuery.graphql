@@ -1,5 +1,6 @@
  query OpenAuctionVehicles($where: VehicleWhereInput!) {
   vehicles(where: $where) {
+    lotNumber
     vehicleEventStatus
     registrationNumber
     make

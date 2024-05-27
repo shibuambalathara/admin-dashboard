@@ -443,7 +443,7 @@ if(loginUser?.authenticatedItem?.role==='admin'){
 
               <img
                  className={`${inputStyle.data} h-40`}
-                src={`https://api.autobse.com${data?.user?.pancard?.url}`}
+                src={`${data?.user?.pancard?.url}`}
                 alt="no pancard_Image"
               />
             </div>
@@ -460,7 +460,7 @@ if(loginUser?.authenticatedItem?.role==='admin'){
 
               <img
                 className={`${inputStyle.data} h-40`}
-                src={`https://api.autobse.com${data?.user?.idProof?.url}`}
+                src={`${data?.user?.idProof?.url}`}
                 alt="No id proof front page"
               />
             </div>
@@ -474,7 +474,7 @@ if(loginUser?.authenticatedItem?.role==='admin'){
 
               <img
                className={`${inputStyle.data} h-40`}
-                src={`https://api.autobse.com${data?.user?.idProofBack?.url}`}
+                src={`${data?.user?.idProofBack?.url}`}
                 alt="no id proof back side_image"
               />
             </div>
@@ -484,7 +484,7 @@ if(loginUser?.authenticatedItem?.role==='admin'){
               <input   className={`${inputStyle.data} `} type="file" {...register("dealership", {})} />
               <img
                 className={`${inputStyle.data} h-40`}
-                src={`https://api.autobse.com${data?.user?.dealership?.url}`}
+                src={`${data?.user?.dealership?.url}`}
                 alt=" No dealership img"
               />
             </div>

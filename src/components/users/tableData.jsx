@@ -165,7 +165,7 @@ const handleDelete=async(id)=>{
       ...(currentPageStartWith === '/users' ? [] : [  {
   Header: "Message",
   Cell: ({ row }) => (
-      <button className="btn bg-yellow-500" onClick={() => handleMessage(row.original)}>
+    row?.original?.coupenDetail &&  <button className="btn bg-yellow-500" onClick={() => handleMessage(row.original)}>
       Message To {row.original.mobile}
     </button>
   )

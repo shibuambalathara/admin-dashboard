@@ -23,6 +23,7 @@ query BidsTable {
 query BidDetailsPerVehicle($where: VehicleWhereUniqueInput!) {
   vehicle(where: $where) {
     id
+    lotNumber
     make
     model
     registrationNumber
