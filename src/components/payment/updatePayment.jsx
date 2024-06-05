@@ -6,13 +6,27 @@ import { ShowPopup } from '../alerts/popUps';
 import { formStyle, h2Style, headerStyle, inputStyle, labelAndInputDiv, pageStyle } from '../utils/style';
 import { SelectInput } from '../utils/formField';
 import { paymentsFor } from '../utils/constantValues';
+import { getS3ObjectUrl } from '../utils/aws-config';
 const UpdatePayment = () => {
-  
+  const [paymentUrl,setPaymentUrl]=useState('')
   const {id}=useParams()
   const { data, loading, error } = useUserQuery({variables: { where: { id: id } }});
   const payment = usePaymentDetailsQuery({variables: { where: { id: id } }});
   const [addAmount]=useUpdatePaymentMutation({variables: { where: { id: id } }})
  const navigate=useNavigate()
+
+ const fetchImage = async () => {
+ if(payment?.data?.payment?.image?.url){
+  const url= await getS3ObjectUrl(payment?.data?.payment?.image?.url);
+  setPaymentUrl(url)
+}
+ }
+
+
+ console.log("payment url",payment?.data?.payment?.image?.url)
+useEffect(() => {
+fetchImage();
+}, [payment]);
 
   const {
     register,
@@ -125,8 +139,8 @@ const UpdatePayment = () => {
 
               <img
                  className={`${inputStyle.data} h-40`}
-                 src={`https://api.autobse.com${payment?.data?.payment?.image?.url}`}
-                alt="No ID proof_Image"
+                 src={paymentUrl}
+                alt={paymentUrl}
               />
                <input type="file"  className={`${inputStyle.data}`} {...register("imgForPaymentProof", { })}></input>
             </div>

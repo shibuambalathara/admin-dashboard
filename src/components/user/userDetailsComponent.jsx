@@ -1,8 +1,8 @@
 import { Input } from "@material-tailwind/react";
 import Select from "react-select";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-
+import { extractBucketAndKey, getS3ObjectUrl } from '../utils/aws-config'; 
 import { useParams, useNavigate } from "react-router-dom";
 import {
   useUserQuery,
@@ -23,6 +23,11 @@ const UserDetailsComponent = () => {
   const allStates = useStatesQuery();
   const {data:loginUser}=useUserauthenticationQuery()
   
+  const [idProof, setIdProof] = useState('');
+  const [idProofBack, setIdProofBack] = useState('');
+
+  const [panCardUrl, setPanCardUrl] = useState('');
+  const [dealershipUrl, setDealershipUrl] = useState('');
 
   const selectors = useSelectorsQuery();
   const [updatedDetails, response] = useEditUserMutation({
@@ -32,7 +37,7 @@ const UserDetailsComponent = () => {
   const { data, loading, error } = useUserQuery({
     variables: { where: { id: id } },
   });
-
+console.log("users",data)
   const {
     register,
     control,
@@ -116,6 +121,30 @@ if(loginUser?.authenticatedItem?.role==='admin'){
         );
       });
   };
+
+
+  const fetchImage = async () => {
+    if (data?.user?.idProof?.url) {
+      const url = await getS3ObjectUrl(data?.user?.idProof?.url);
+      setIdProof(url);
+    }
+    if (data?.user?.idProofBack?.url) {
+      const url = await getS3ObjectUrl(data?.user?.idProofBack?.url);
+      setIdProofBack(url);
+    }
+    if(data?.user?.pancard?.url){
+      const url= await getS3ObjectUrl(data?.user?.pancard?.url);
+      setPanCardUrl(url)
+    }
+    if(data?.user?.dealership?.url){
+      const url= await getS3ObjectUrl(data?.user?.dealership?.url);
+      setDealershipUrl(url)
+    }
+    
+  };
+  useEffect(() => {
+    fetchImage();
+  }, [data]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -443,8 +472,10 @@ if(loginUser?.authenticatedItem?.role==='admin'){
 
               <img
                  className={`${inputStyle.data} h-40`}
-                src={`${data?.user?.pancard?.url}`}
-                alt="no pancard_Image"
+
+                src={panCardUrl}
+                alt="No Pancard image"
+
               />
             </div>
     
@@ -460,7 +491,9 @@ if(loginUser?.authenticatedItem?.role==='admin'){
 
               <img
                 className={`${inputStyle.data} h-40`}
-                src={`${data?.user?.idProof?.url}`}
+
+                src={idProof}
+
                 alt="No id proof front page"
               />
             </div>
@@ -474,7 +507,9 @@ if(loginUser?.authenticatedItem?.role==='admin'){
 
               <img
                className={`${inputStyle.data} h-40`}
-                src={`${data?.user?.idProofBack?.url}`}
+
+                src={idProofBack}
+
                 alt="no id proof back side_image"
               />
             </div>
@@ -484,7 +519,9 @@ if(loginUser?.authenticatedItem?.role==='admin'){
               <input   className={`${inputStyle.data} `} type="file" {...register("dealership", {})} />
               <img
                 className={`${inputStyle.data} h-40`}
-                src={`${data?.user?.dealership?.url}`}
+
+                src={dealershipUrl}
+
                 alt=" No dealership img"
               />
             </div>
