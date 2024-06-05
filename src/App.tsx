@@ -80,11 +80,14 @@ function App() {
 function AppContent() {
   const location = useLocation();
   const isProjectorView = location.pathname.startsWith ('/projecter-view/');
+  const isLoginPage=location.pathname.startsWith('/login')
+
   return (
 <div>
       {isProjectorView ? null : <Header />}
       <div className="flex w-full ">
-        {!isProjectorView && <Sidebar />}
+        {(isProjectorView || 
+          isLoginPage) ? null: <Sidebar />}
         <Routes>
             <Route path="login" element={<LoginPage />} />
             <Route element={<ProtectedRoutes />}>

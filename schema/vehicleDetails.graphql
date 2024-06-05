@@ -1,6 +1,7 @@
 query VehicleDetails($where: VehicleWhereUniqueInput!) {
   vehicle(where: $where) {
-  id  
+  id 
+  lotNumber 
   registrationNumber
    bidStatus
    bidTimeExpire

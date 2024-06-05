@@ -11,3 +11,7 @@ query Count {
   excelUploadsCount
   sellersCount
 }
+query UsersCount($where: UserWhereInput!) {
+  usersCount(where: $where)
+
+}

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-
-
+import { IoMdDownload } from "react-icons/io";
+import { GiNextButton, GiPreviousButton } from "react-icons/gi";
 import moment from "moment";
 import {
   useOpenAuctionVehiclesQuery,
@@ -12,6 +12,7 @@ import {
   useEditEventMutation,
   useUpdateVehicleMutation,
   useBidDetailsPerVehicleQuery,
+  useVehiclePerEventQuery,
 
 } from "../../utils/graphql";
 import ParticipantsList from "./participantList";
@@ -28,15 +29,17 @@ const AuctionUpdateByAdmin = () => {
  
   const [liveItem, setLiveItem] = useState(null);
   const [upcoming, setUpcoming] = useState(null);
-
+// console.log("live item",liveItem)
   const [tick, setTick] = useState(0);
   const [serverTime, setserverTime] = useState(null);
+  const [lot,setLot]=useState(0)
 
 
   const [pauseEvent] = useEditEventMutation({ variables: { where: { id } } });
   const [update]=useUpdateVehicleMutation({variables:{id}})
   const {data:liveData} = useBidDetailsPerVehicleQuery({variables:{where:{id:liveItem?.id}}})
 
+  let circleClasses = "inline-block  rounded-full  mx-auto";
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -124,7 +127,7 @@ const AuctionUpdateByAdmin = () => {
     }
     return 0;
   }
-
+   
   useEffect(() => {
     if (data && data.vehicles.length > 0) {
       const live = data.vehicles.find(
@@ -198,7 +201,7 @@ const AuctionUpdateByAdmin = () => {
   }
 const handleNextVehicle=async()=>{
   const response = await Swal.fire({
-    title: "Are you sure?",
+    title: "Would you like to proceed to the next vehicle?",
     icon: "question",
     showCancelButton: true,
     confirmButtonText: "Yes",
@@ -208,26 +211,95 @@ const handleNextVehicle=async()=>{
 
 const response=await  vehicleDetails(data)
 const firstVehicle=response?.sortedVehicles.find((vehicle)=>new Date(vehicle.bidStartTime)>new Date())
-console.log("firstVehicle",firstVehicle)
+
 
  update({variables:{data:{bidTimeExpire:new Date().toISOString()},where:{id:response?.liveVehile?.id}}}).then((result)=>
   update({variables:{data:{bidStartTime:new Date().toISOString()},where:{id:firstVehicle?.id}}}).then((result)=>console.log(result))
  )
   }
 }
-const handlePreviousVehicle=async()=>{
-  const response=await  vehicleDetails(data)
-  const currentTime = new Date();
-const futureTime = new Date(currentTime.getTime() + 60 * 60 * 1000);
-const bidTimeExpire = new Date(response?.liveVehile.bidTimeExpire);
-const bidTimeExpirePlusHr = new Date(bidTimeExpire.getTime() + (60 * 60 * 1000));
-const lastVehicle=response?.sortedVehicles.findLast((vehicle)=>new Date(vehicle.bidTimeExpire)<new Date())
-console.log("last vehicle",lastVehicle)
-  update({variables:{data:{bidStartTime:futureTime.toISOString()},where:{id:response?.liveVehile?.id}}}).then((res)=>{
-    update({variables:{data:{bidTimeExpire:futureTime.toISOString(),bidStartTime:new Date().toISOString()},where:{id:lastVehicle?.id}}})
-  })
+const handlePreviousVehicle = async () => {
+  let lot = liveItem?.lotNumber;
+  if(lot===1){
+    Swal.fire({icon:"warning",title:"There is no Previous Vehicle"})
+    return
+  }
+ 
+ const response=await Swal.fire({icon:"question",
+  title:"Would you like to return to the previous vehicle ?",
+  showCancelButton: true,
+  confirmButtonText: "Yes",
+  cancelButtonText: "Cancel",
+})
 
+if (response.isConfirmed) {
+try {
+    // Get the lot number of the current live item
+
+    // Find the last completed vehicle by the previous lot number
+    let lastCompleted = data?.vehicles.filter((vehicle) => vehicle?.lotNumber === lot - 1);
+    console.log("last completed", lastCompleted);
+
+    if (lastCompleted && lastCompleted.length > 0) {
+      // Calculate the difference in milliseconds between bidTimeExpire and bidStartTime of the live item
+      const diff = new Date(liveItem?.bidTimeExpire).getTime() - new Date(liveItem?.bidStartTime).getTime();
+
+// update live vehicle bid time
+await update({
+  variables: {
+    where: { id: liveItem?.id },
+    data: {
+      bidStartTime: new Date(new Date(liveItem?.bidStartTime).getTime() + diff),
+      bidTimeExpire: new Date(new Date(liveItem?.bidTimeExpire).getTime() + diff)
+    }
+  }
+});
+
+
+
+      // Update the last completed vehicle's bid times
+      await update({
+        variables: {
+          where: { id: lastCompleted[0]?.id },
+          data: {
+            bidStartTime: liveItem?.bidStartTime,
+            bidTimeExpire: liveItem?.bidTimeExpire,
+          }
+        }
+      });
+
+      console.log("diff", diff);
+
+      // Update the upcoming vehicles' bid times
+      for (const vehicle of upcoming) {
+        const updatedBidStartTime = new Date(new Date(vehicle?.bidStartTime).getTime() + diff);
+        const updatedBidTimeExpire = new Date(new Date(vehicle?.bidTimeExpire).getTime() + diff);
+
+        await update({
+          variables: {
+            data: {
+              bidStartTime: updatedBidStartTime.toISOString(),
+              bidTimeExpire: updatedBidTimeExpire.toISOString(),
+            },
+            where: { id: vehicle?.id }
+          }
+        });
+      }
+Swal.fire({icon:'success',title:"Upcoming vehicles updated successfully."})
+      console.log("Upcoming vehicles updated successfully.");
+    } else {
+      console.log("No last completed vehicle found.");
+      Swal.fire({icon:"warning",title:"This is the first vehicle"})
+    }
+  } catch (err) {
+    console.log("Error", err);
+  }
 }
+  
+};
+
+// Ensure 'update' is an async function available in the scope to handle the GraphQL mutations
+
 const handleReport = () => {
 console.log("live ",liveItem?.id,liveData)
    DownloadBidHistory(liveData?.vehicle);
@@ -250,7 +322,7 @@ console.log("live ",liveItem?.id,liveData)
                 </h1>
                 <p className="text-sm font-medium text-gray-500">
                   <span className=""> LotNo:</span> #{" "}
-                  {liveItem.vehicleIndexNo}
+                  {liveItem.lotNumber}
                 </p>
                 <h1>Reg. No # <span className="font-bold">{liveItem?.registrationNumber}</span></h1>
               </div>
@@ -277,11 +349,13 @@ console.log("live ",liveItem?.id,liveData)
               </div>
             </div>
             <div className="flex flex-col items-center space-y-2 mt-4 sm:mt-0">
-              {/* {CountdownTimer(SecondsLeft())} */}
-              <button className="p-2 bg-red-700 text-white w-48 rounded-md font-bold" onClick={()=>handleNextVehicle()} >NEXT VEHICLE</button>
-         <button className="p-2 bg-pink-400 text-white w-48 rounded-md font-bold" onClick={()=>handleReport()}>Bid Sheet</button>
-            {/* <button className="p-2 bg-green-700 text-white w-48 rounded-md font-bold" onClick={()=>handlePreviousVehicle()} >PREVIOUS VEHICLE</button> */}
-
+         <button className="p-2 outline-double outline-blue-500 bg-black rounded-full flex" onClick={()=>handleReport()}> <span className="text-white  pt-1   rounded-full font-bold">BID SHEET</span>  <IoMdDownload  size={30} style={{background: "blue", color: "white" }} className={circleClasses} /></button>
+              {CountdownTimer(SecondsLeft())}
+              <div className="flex justify-end space-x-2">
+            <button className="p-2 bg-red-700 outline-double outline-blue-500 text-white  rounded-full font-bold flex" onClick={()=>handlePreviousVehicle()} ><GiPreviousButton size={25} style={{background: "white", color: "red" }}className={circleClasses}/><span>PREV</span> </button>
+       
+              <button className="p-2 bg-blue-700 outline-double outline-red-500 text-white  rounded-full font-bold flex justify-between" onClick={()=>handleNextVehicle()} >NEXT <GiNextButton size={25} style={{background: "white", color: "blue" }} className={circleClasses} /></button>
+         </div>
             </div>
           </div>
 
@@ -385,24 +459,24 @@ function CountdownTimer(hhmmss) {
 
   return (
     <div className="w-72 text-indigo-500">
-      <div className="text-center text-3xl font-bold ">Vehicle Live Time</div>
+      <div className="text-center text-md font-bold ">Vehicle Live Time</div>
       <div className="text-2xl text-center flex w-full items-center justify-center">
         <div className="w-24 mx-1 p-2">
-          <div className="font-bold text-7xl leading-none">{timeArray[0]}</div>
+          <div className="font-bold text-md leading-none">{timeArray[0]}</div>
           <div className="mt-2 font-semibold uppercase text-sm leading-none">
             Hours
           </div>
         </div>
-        <div className="text-6xl pb-10">:</div>
+        <div className="text-xl pb-10">:</div>
         <div className="w-24 mx-1 p-2">
-          <div className="font-bold text-7xl leading-none">{timeArray[1]}</div>
+          <div className="font-bold text-md leading-none">{timeArray[1]}</div>
           <div className="mt-2 font-semibold uppercase text-sm leading-none">
             Minutes
           </div>
         </div>
-        <div className="text-6xl pb-10">:</div>
+        <div className="text-xl pb-10">:</div>
         <div className="w-24 mx-1 p-2">
-          <div className="font-bold text-7xl leading-none">{timeArray[2]}</div>
+          <div className="font-bold text-md leading-none">{timeArray[2]}</div>
           <div className="mt-2 font-semibold uppercase text-sm leading-none">
             Seconds
           </div>
