@@ -38,16 +38,19 @@ const Header = () => {
         </div>
       </label>
       <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
-       {data ?<>
+       {data?.authenticatedItem ?<>
         <li>{data.authenticatedItem?.username} </li>
         <li>Role: {data?.authenticatedItem?.role}</li>
        {data.authenticatedItem.role==='staff' && <li>State: {data?.authenticatedItem?.state}</li>}
         <li><button className='text-white  px-2 py-1  bg-red-500  rounded border'onClick={logOUtHandler}>Logout</button></li>
         </>
- :        <li><button className='text-white  px-2 py-1  bg-red-500  rounded border'onClick={loginHandler}>Login</button></li>
+ :     
+    <li><button className='text-white  px-2 py-1  bg-red-500  rounded border'onClick={loginHandler}>Login</button></li>
 }
         </ul>
     </div>
+    {/* <button className='text-white  px-2 py-1  bg-red-500  rounded border'onClick={loginHandler}>Login</button>
+    <button className='text-white  px-2 py-1  bg-red-500  rounded border'onClick={logOUtHandler}>Logout</button> */}
   </div>
 </div>
   )

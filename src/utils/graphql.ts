@@ -38,6 +38,7 @@ export type Bid = {
 
 
 export type BidCoupenDetailArgs = {
+  cursor?: InputMaybe<CoupenWhereUniqueInput>;
   orderBy?: Array<CoupenOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -51,6 +52,7 @@ export type BidCoupenDetailCountArgs = {
 
 
 export type BidDeletedBidArgs = {
+  cursor?: InputMaybe<DeletedBidWhereUniqueInput>;
   orderBy?: Array<DeletedBidOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -66,8 +68,10 @@ export type BidCreateInput = {
   amount?: InputMaybe<Scalars['Int']>;
   bidVehicle?: InputMaybe<VehicleRelateToOneForCreateInput>;
   coupenDetail?: InputMaybe<CoupenRelateToManyForCreateInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   deletedBid?: InputMaybe<DeletedBidRelateToManyForCreateInput>;
   name?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   user?: InputMaybe<UserRelateToOneForCreateInput>;
 };
 
@@ -127,8 +131,10 @@ export type BidUpdateInput = {
   amount?: InputMaybe<Scalars['Int']>;
   bidVehicle?: InputMaybe<VehicleRelateToOneForUpdateInput>;
   coupenDetail?: InputMaybe<CoupenRelateToManyForUpdateInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   deletedBid?: InputMaybe<DeletedBidRelateToManyForUpdateInput>;
   name?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   user?: InputMaybe<UserRelateToOneForUpdateInput>;
 };
 
@@ -182,6 +188,7 @@ export type ContactUs = {
 };
 
 export type ContactUsCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   firstName?: InputMaybe<Scalars['String']>;
   lastName?: InputMaybe<Scalars['String']>;
   message?: InputMaybe<Scalars['String']>;
@@ -189,6 +196,7 @@ export type ContactUsCreateInput = {
   state?: InputMaybe<Scalars['String']>;
   status?: InputMaybe<ContactUsStatusType>;
   subject?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type ContactUsOrderByInput = {
@@ -222,6 +230,7 @@ export type ContactUsUpdateArgs = {
 };
 
 export type ContactUsUpdateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   firstName?: InputMaybe<Scalars['String']>;
   lastName?: InputMaybe<Scalars['String']>;
   message?: InputMaybe<Scalars['String']>;
@@ -229,6 +238,7 @@ export type ContactUsUpdateInput = {
   state?: InputMaybe<Scalars['String']>;
   status?: InputMaybe<ContactUsStatusType>;
   subject?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type ContactUsWhereInput = {
@@ -280,7 +290,9 @@ export type CoupenCreateInput = {
   bidDetail?: InputMaybe<BidRelateToOneForCreateInput>;
   coupenNumber?: InputMaybe<Scalars['String']>;
   coupenStatus?: InputMaybe<CoupenCoupenStatusType>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   paymentDetail?: InputMaybe<PaymentRelateToOneForCreateInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   userDetail?: InputMaybe<UserRelateToOneForCreateInput>;
   vehicleDetail?: InputMaybe<VehicleRelateToOneForCreateInput>;
 };
@@ -331,7 +343,9 @@ export type CoupenUpdateInput = {
   bidDetail?: InputMaybe<BidRelateToOneForUpdateInput>;
   coupenNumber?: InputMaybe<Scalars['String']>;
   coupenStatus?: InputMaybe<CoupenCoupenStatusType>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   paymentDetail?: InputMaybe<PaymentRelateToOneForUpdateInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   userDetail?: InputMaybe<UserRelateToOneForUpdateInput>;
   vehicleDetail?: InputMaybe<VehicleRelateToOneForUpdateInput>;
 };
@@ -358,9 +372,11 @@ export type CoupenWhereUniqueInput = {
 
 export type CreateInitialUserInput = {
   firstName?: InputMaybe<Scalars['String']>;
+  idNo?: InputMaybe<Scalars['Int']>;
   lastName?: InputMaybe<Scalars['String']>;
   mobile?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
+  username?: InputMaybe<Scalars['String']>;
 };
 
 export type DateTimeFilter = {
@@ -400,6 +416,7 @@ export type DeletedBid = {
 
 
 export type DeletedBidDeletedBidDetailArgs = {
+  cursor?: InputMaybe<BidWhereUniqueInput>;
   orderBy?: Array<BidOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -413,9 +430,11 @@ export type DeletedBidDeletedBidDetailCountArgs = {
 
 export type DeletedBidCreateInput = {
   amount?: InputMaybe<Scalars['Int']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   deletedBidDetail?: InputMaybe<BidRelateToManyForCreateInput>;
   deletedbidVehicle?: InputMaybe<VehicleRelateToOneForCreateInput>;
   name?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   user?: InputMaybe<UserRelateToOneForCreateInput>;
 };
 
@@ -452,9 +471,11 @@ export type DeletedBidUpdateArgs = {
 
 export type DeletedBidUpdateInput = {
   amount?: InputMaybe<Scalars['Int']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   deletedBidDetail?: InputMaybe<BidRelateToManyForUpdateInput>;
   deletedbidVehicle?: InputMaybe<VehicleRelateToOneForUpdateInput>;
   name?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   user?: InputMaybe<UserRelateToOneForUpdateInput>;
 };
 
@@ -490,10 +511,12 @@ export type EmdUpdate = {
 };
 
 export type EmdUpdateCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   createdBy?: InputMaybe<UserRelateToOneForCreateInput>;
   emdNo?: InputMaybe<Scalars['Int']>;
   payment?: InputMaybe<PaymentRelateToOneForCreateInput>;
   specialVehicleBuyingLimitIncrement?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   user?: InputMaybe<UserRelateToOneForCreateInput>;
   vehicleBuyingLimitIncrement?: InputMaybe<Scalars['Int']>;
 };
@@ -531,10 +554,12 @@ export type EmdUpdateUpdateArgs = {
 };
 
 export type EmdUpdateUpdateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   createdBy?: InputMaybe<UserRelateToOneForUpdateInput>;
   emdNo?: InputMaybe<Scalars['Int']>;
   payment?: InputMaybe<PaymentRelateToOneForUpdateInput>;
   specialVehicleBuyingLimitIncrement?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   user?: InputMaybe<UserRelateToOneForUpdateInput>;
   vehicleBuyingLimitIncrement?: InputMaybe<Scalars['Int']>;
 };
@@ -572,6 +597,7 @@ export type Event = {
   eventTypeCount?: Maybe<Scalars['Int']>;
   extraTime?: Maybe<Scalars['Int']>;
   extraTimeTrigerIn?: Maybe<Scalars['Int']>;
+  firstVehicleBidTimeExpire?: Maybe<Scalars['DateTime']>;
   gapInBetweenVehicles?: Maybe<Scalars['Int']>;
   id: Scalars['ID'];
   isSpecialEvent?: Maybe<Scalars['Boolean']>;
@@ -593,6 +619,7 @@ export type Event = {
 
 
 export type EventEventTypeArgs = {
+  cursor?: InputMaybe<EventTypeWhereUniqueInput>;
   orderBy?: Array<EventTypeOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -606,6 +633,7 @@ export type EventEventTypeCountArgs = {
 
 
 export type EventParticipantsArgs = {
+  cursor?: InputMaybe<UserWhereUniqueInput>;
   orderBy?: Array<UserOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -619,6 +647,7 @@ export type EventParticipantsCountArgs = {
 
 
 export type EventVehiclesArgs = {
+  cursor?: InputMaybe<VehicleWhereUniqueInput>;
   orderBy?: Array<VehicleOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -645,6 +674,7 @@ export type EventBidLockTypeNullableFilter = {
 export type EventCreateInput = {
   ExcelFile?: InputMaybe<ExcelUploadRelateToOneForCreateInput>;
   bidLock?: InputMaybe<EventBidLockType>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   downloadableFile?: InputMaybe<FileFieldInput>;
   endDate?: InputMaybe<Scalars['DateTime']>;
   eventCategory?: InputMaybe<Scalars['String']>;
@@ -652,6 +682,7 @@ export type EventCreateInput = {
   eventType?: InputMaybe<EventTypeRelateToManyForCreateInput>;
   extraTime?: InputMaybe<Scalars['Int']>;
   extraTimeTrigerIn?: InputMaybe<Scalars['Int']>;
+  firstVehicleBidTimeExpire?: InputMaybe<Scalars['DateTime']>;
   gapInBetweenVehicles?: InputMaybe<Scalars['Int']>;
   isSpecialEvent?: InputMaybe<Scalars['Boolean']>;
   location?: InputMaybe<LocationRelateToOneForCreateInput>;
@@ -663,6 +694,7 @@ export type EventCreateInput = {
   startDate?: InputMaybe<Scalars['DateTime']>;
   status?: InputMaybe<EventStatusType>;
   termsAndConditions?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   vehicleLiveTimeIn?: InputMaybe<Scalars['Int']>;
   vehicles?: InputMaybe<VehicleRelateToManyForCreateInput>;
 };
@@ -681,6 +713,7 @@ export type EventOrderByInput = {
   eventNo?: InputMaybe<OrderDirection>;
   extraTime?: InputMaybe<OrderDirection>;
   extraTimeTrigerIn?: InputMaybe<OrderDirection>;
+  firstVehicleBidTimeExpire?: InputMaybe<OrderDirection>;
   gapInBetweenVehicles?: InputMaybe<OrderDirection>;
   id?: InputMaybe<OrderDirection>;
   isSpecialEvent?: InputMaybe<OrderDirection>;
@@ -748,6 +781,7 @@ export type EventType = {
 
 
 export type EventTypeEventsArgs = {
+  cursor?: InputMaybe<EventWhereUniqueInput>;
   orderBy?: Array<EventOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -761,6 +795,7 @@ export type EventTypeEventsCountArgs = {
 
 
 export type EventTypeSellerArgs = {
+  cursor?: InputMaybe<SellerWhereUniqueInput>;
   orderBy?: Array<SellerOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -773,9 +808,11 @@ export type EventTypeSellerCountArgs = {
 };
 
 export type EventTypeCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   events?: InputMaybe<EventRelateToManyForCreateInput>;
   name?: InputMaybe<Scalars['String']>;
   seller?: InputMaybe<SellerRelateToManyForCreateInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   users?: InputMaybe<UserRelateToOneForCreateInput>;
 };
 
@@ -810,9 +847,11 @@ export type EventTypeUpdateArgs = {
 };
 
 export type EventTypeUpdateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   events?: InputMaybe<EventRelateToManyForUpdateInput>;
   name?: InputMaybe<Scalars['String']>;
   seller?: InputMaybe<SellerRelateToManyForUpdateInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   users?: InputMaybe<UserRelateToOneForUpdateInput>;
 };
 
@@ -841,6 +880,7 @@ export type EventUpdateArgs = {
 export type EventUpdateInput = {
   ExcelFile?: InputMaybe<ExcelUploadRelateToOneForUpdateInput>;
   bidLock?: InputMaybe<EventBidLockType>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   downloadableFile?: InputMaybe<FileFieldInput>;
   endDate?: InputMaybe<Scalars['DateTime']>;
   eventCategory?: InputMaybe<Scalars['String']>;
@@ -848,6 +888,7 @@ export type EventUpdateInput = {
   eventType?: InputMaybe<EventTypeRelateToManyForUpdateInput>;
   extraTime?: InputMaybe<Scalars['Int']>;
   extraTimeTrigerIn?: InputMaybe<Scalars['Int']>;
+  firstVehicleBidTimeExpire?: InputMaybe<Scalars['DateTime']>;
   gapInBetweenVehicles?: InputMaybe<Scalars['Int']>;
   isSpecialEvent?: InputMaybe<Scalars['Boolean']>;
   location?: InputMaybe<LocationRelateToOneForUpdateInput>;
@@ -859,6 +900,7 @@ export type EventUpdateInput = {
   startDate?: InputMaybe<Scalars['DateTime']>;
   status?: InputMaybe<EventStatusType>;
   termsAndConditions?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   vehicleLiveTimeIn?: InputMaybe<Scalars['Int']>;
   vehicles?: InputMaybe<VehicleRelateToManyForUpdateInput>;
 };
@@ -876,6 +918,7 @@ export type EventWhereInput = {
   eventType?: InputMaybe<EventTypeManyRelationFilter>;
   extraTime?: InputMaybe<IntNullableFilter>;
   extraTimeTrigerIn?: InputMaybe<IntNullableFilter>;
+  firstVehicleBidTimeExpire?: InputMaybe<DateTimeNullableFilter>;
   gapInBetweenVehicles?: InputMaybe<IntNullableFilter>;
   id?: InputMaybe<IdFilter>;
   isSpecialEvent?: InputMaybe<BooleanFilter>;
@@ -911,6 +954,7 @@ export type ExcelUpload = {
 
 
 export type ExcelUploadVehiclesArgs = {
+  cursor?: InputMaybe<VehicleWhereUniqueInput>;
   orderBy?: Array<VehicleOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -923,9 +967,11 @@ export type ExcelUploadVehiclesCountArgs = {
 };
 
 export type ExcelUploadCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   event?: InputMaybe<EventRelateToOneForCreateInput>;
   file?: InputMaybe<FileFieldInput>;
   name?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   vehicles?: InputMaybe<VehicleRelateToManyForCreateInput>;
 };
 
@@ -953,9 +999,11 @@ export type ExcelUploadUpdateArgs = {
 };
 
 export type ExcelUploadUpdateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   event?: InputMaybe<EventRelateToOneForUpdateInput>;
   file?: InputMaybe<FileFieldInput>;
   name?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   vehicles?: InputMaybe<VehicleRelateToManyForUpdateInput>;
 };
 
@@ -1017,6 +1065,7 @@ export type FindAuctionCreateInput = {
   auctionStartDate?: InputMaybe<Scalars['DateTime']>;
   city?: InputMaybe<Scalars['String']>;
   contactDetails?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   emdAmount?: InputMaybe<Scalars['BigInt']>;
   emdSubmissionDate?: InputMaybe<Scalars['DateTime']>;
   image?: InputMaybe<Scalars['String']>;
@@ -1026,6 +1075,7 @@ export type FindAuctionCreateInput = {
   reservePrice?: InputMaybe<Scalars['BigInt']>;
   state?: InputMaybe<StateRelateToOneForCreateInput>;
   tenderDocument?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   vehicleModel?: InputMaybe<Scalars['String']>;
   vehicleRegNo?: InputMaybe<Scalars['String']>;
 };
@@ -1096,6 +1146,7 @@ export type FindAuctionUpdateInput = {
   auctionStartDate?: InputMaybe<Scalars['DateTime']>;
   city?: InputMaybe<Scalars['String']>;
   contactDetails?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   emdAmount?: InputMaybe<Scalars['BigInt']>;
   emdSubmissionDate?: InputMaybe<Scalars['DateTime']>;
   image?: InputMaybe<Scalars['String']>;
@@ -1105,6 +1156,7 @@ export type FindAuctionUpdateInput = {
   reservePrice?: InputMaybe<Scalars['BigInt']>;
   state?: InputMaybe<StateRelateToOneForUpdateInput>;
   tenderDocument?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   vehicleModel?: InputMaybe<Scalars['String']>;
   vehicleRegNo?: InputMaybe<Scalars['String']>;
 };
@@ -1194,6 +1246,7 @@ export type Institution = {
 
 
 export type InstitutionFindAuction_DetailsArgs = {
+  cursor?: InputMaybe<FindAuctionWhereUniqueInput>;
   orderBy?: Array<FindAuctionOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -1206,8 +1259,10 @@ export type InstitutionFindAuction_DetailsCountArgs = {
 };
 
 export type InstitutionCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   findAuction_details?: InputMaybe<FindAuctionRelateToManyForCreateInput>;
   name?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type InstitutionOrderByInput = {
@@ -1234,8 +1289,10 @@ export type InstitutionUpdateArgs = {
 };
 
 export type InstitutionUpdateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   findAuction_details?: InputMaybe<FindAuctionRelateToManyForUpdateInput>;
   name?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type InstitutionWhereInput = {
@@ -1300,6 +1357,7 @@ export type KeystoneAdminUiFieldMeta = {
   description?: Maybe<Scalars['String']>;
   fieldMeta?: Maybe<Scalars['JSON']>;
   isFilterable: Scalars['Boolean'];
+  isNonNull?: Maybe<Array<KeystoneAdminUiFieldMetaIsNonNull>>;
   isOrderable: Scalars['Boolean'];
   itemView?: Maybe<KeystoneAdminUiFieldMetaItemView>;
   label: Scalars['String'];
@@ -1322,6 +1380,12 @@ export type KeystoneAdminUiFieldMetaCreateView = {
 export enum KeystoneAdminUiFieldMetaCreateViewFieldMode {
   Edit = 'edit',
   Hidden = 'hidden'
+}
+
+export enum KeystoneAdminUiFieldMetaIsNonNull {
+  Create = 'create',
+  Read = 'read',
+  Update = 'update'
 }
 
 export type KeystoneAdminUiFieldMetaItemView = {
@@ -1351,10 +1415,40 @@ export enum KeystoneAdminUiFieldMetaListViewFieldMode {
   Read = 'read'
 }
 
+export type KeystoneAdminUiGraphQl = {
+  __typename?: 'KeystoneAdminUIGraphQL';
+  names: KeystoneAdminUiGraphQlNames;
+};
+
+export type KeystoneAdminUiGraphQlNames = {
+  __typename?: 'KeystoneAdminUIGraphQLNames';
+  createInputName: Scalars['String'];
+  createManyMutationName: Scalars['String'];
+  createMutationName: Scalars['String'];
+  deleteManyMutationName: Scalars['String'];
+  deleteMutationName: Scalars['String'];
+  itemQueryName: Scalars['String'];
+  listOrderName: Scalars['String'];
+  listQueryCountName: Scalars['String'];
+  listQueryName: Scalars['String'];
+  outputTypeName: Scalars['String'];
+  relateToManyForCreateInputName: Scalars['String'];
+  relateToManyForUpdateInputName: Scalars['String'];
+  relateToOneForCreateInputName: Scalars['String'];
+  relateToOneForUpdateInputName: Scalars['String'];
+  updateInputName: Scalars['String'];
+  updateManyInputName: Scalars['String'];
+  updateManyMutationName: Scalars['String'];
+  updateMutationName: Scalars['String'];
+  whereInputName: Scalars['String'];
+  whereUniqueInputName: Scalars['String'];
+};
+
 export type KeystoneAdminUiListMeta = {
   __typename?: 'KeystoneAdminUIListMeta';
   description?: Maybe<Scalars['String']>;
   fields: Array<KeystoneAdminUiFieldMeta>;
+  graphql: KeystoneAdminUiGraphQl;
   groups: Array<KeystoneAdminUiFieldGroupMeta>;
   hideCreate: Scalars['Boolean'];
   hideDelete: Scalars['Boolean'];
@@ -1404,6 +1498,7 @@ export type Location = {
 
 
 export type LocationEventsArgs = {
+  cursor?: InputMaybe<EventWhereUniqueInput>;
   orderBy?: Array<EventOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -1418,9 +1513,11 @@ export type LocationEventsCountArgs = {
 export type LocationCreateInput = {
   city?: InputMaybe<Scalars['String']>;
   country?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   events?: InputMaybe<EventRelateToManyForCreateInput>;
   name?: InputMaybe<Scalars['String']>;
   state?: InputMaybe<StateRelateToOneForCreateInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type LocationManyRelationFilter = {
@@ -1469,9 +1566,11 @@ export type LocationUpdateArgs = {
 export type LocationUpdateInput = {
   city?: InputMaybe<Scalars['String']>;
   country?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   events?: InputMaybe<EventRelateToManyForUpdateInput>;
   name?: InputMaybe<Scalars['String']>;
   state?: InputMaybe<StateRelateToOneForUpdateInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type LocationWhereInput = {
@@ -2246,20 +2345,6 @@ export type NestedStringFilter = {
   startsWith?: InputMaybe<Scalars['String']>;
 };
 
-export type NestedStringNullableFilter = {
-  contains?: InputMaybe<Scalars['String']>;
-  endsWith?: InputMaybe<Scalars['String']>;
-  equals?: InputMaybe<Scalars['String']>;
-  gt?: InputMaybe<Scalars['String']>;
-  gte?: InputMaybe<Scalars['String']>;
-  in?: InputMaybe<Array<Scalars['String']>>;
-  lt?: InputMaybe<Scalars['String']>;
-  lte?: InputMaybe<Scalars['String']>;
-  not?: InputMaybe<NestedStringNullableFilter>;
-  notIn?: InputMaybe<Array<Scalars['String']>>;
-  startsWith?: InputMaybe<Scalars['String']>;
-};
-
 export type Notification = {
   __typename?: 'Notification';
   deviceToken?: Maybe<Scalars['String']>;
@@ -2359,6 +2444,7 @@ export type Payment = {
 
 
 export type PaymentCoupenDetailArgs = {
+  cursor?: InputMaybe<CoupenWhereUniqueInput>;
   orderBy?: Array<CoupenOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -2372,6 +2458,7 @@ export type PaymentCoupenDetailCountArgs = {
 
 
 export type PaymentEmdUpdateArgs = {
+  cursor?: InputMaybe<EmdUpdateWhereUniqueInput>;
   orderBy?: Array<EmdUpdateOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -2387,6 +2474,7 @@ export type PaymentCreateInput = {
   RegistrationExpire?: InputMaybe<Scalars['DateTime']>;
   amount?: InputMaybe<Scalars['Int']>;
   coupenDetail?: InputMaybe<CoupenRelateToManyForCreateInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   createdBy?: InputMaybe<UserRelateToOneForCreateInput>;
   description?: InputMaybe<Scalars['String']>;
   emdUpdate?: InputMaybe<EmdUpdateRelateToManyForCreateInput>;
@@ -2394,6 +2482,7 @@ export type PaymentCreateInput = {
   paymentFor?: InputMaybe<Scalars['String']>;
   refNo?: InputMaybe<Scalars['Int']>;
   status?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   user?: InputMaybe<UserRelateToOneForCreateInput>;
 };
 
@@ -2447,6 +2536,7 @@ export type PaymentUpdateInput = {
   RegistrationExpire?: InputMaybe<Scalars['DateTime']>;
   amount?: InputMaybe<Scalars['Int']>;
   coupenDetail?: InputMaybe<CoupenRelateToManyForUpdateInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   createdBy?: InputMaybe<UserRelateToOneForUpdateInput>;
   description?: InputMaybe<Scalars['String']>;
   emdUpdate?: InputMaybe<EmdUpdateRelateToManyForUpdateInput>;
@@ -2454,6 +2544,7 @@ export type PaymentUpdateInput = {
   paymentFor?: InputMaybe<Scalars['String']>;
   refNo?: InputMaybe<Scalars['Int']>;
   status?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   user?: InputMaybe<UserRelateToOneForUpdateInput>;
 };
 
@@ -2562,6 +2653,7 @@ export type QueryBidArgs = {
 
 
 export type QueryBidsArgs = {
+  cursor?: InputMaybe<BidWhereUniqueInput>;
   orderBy?: Array<BidOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -2588,6 +2680,7 @@ export type QueryContactUsArgs = {
 
 
 export type QueryContactusesArgs = {
+  cursor?: InputMaybe<ContactUsWhereUniqueInput>;
   orderBy?: Array<ContactUsOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -2606,6 +2699,7 @@ export type QueryCoupenArgs = {
 
 
 export type QueryCoupensArgs = {
+  cursor?: InputMaybe<CoupenWhereUniqueInput>;
   orderBy?: Array<CoupenOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -2624,6 +2718,7 @@ export type QueryDeletedBidArgs = {
 
 
 export type QueryDeletedBidsArgs = {
+  cursor?: InputMaybe<DeletedBidWhereUniqueInput>;
   orderBy?: Array<DeletedBidOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -2642,6 +2737,7 @@ export type QueryEmdUpdateArgs = {
 
 
 export type QueryEmdUpdatesArgs = {
+  cursor?: InputMaybe<EmdUpdateWhereUniqueInput>;
   orderBy?: Array<EmdUpdateOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -2665,6 +2761,7 @@ export type QueryEventTypeArgs = {
 
 
 export type QueryEventTypesArgs = {
+  cursor?: InputMaybe<EventTypeWhereUniqueInput>;
   orderBy?: Array<EventTypeOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -2678,6 +2775,7 @@ export type QueryEventTypesCountArgs = {
 
 
 export type QueryEventsArgs = {
+  cursor?: InputMaybe<EventWhereUniqueInput>;
   orderBy?: Array<EventOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -2696,6 +2794,7 @@ export type QueryExcelUploadArgs = {
 
 
 export type QueryExcelUploadsArgs = {
+  cursor?: InputMaybe<ExcelUploadWhereUniqueInput>;
   orderBy?: Array<ExcelUploadOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -2714,6 +2813,7 @@ export type QueryFindAuctionArgs = {
 
 
 export type QueryFindAuctionsArgs = {
+  cursor?: InputMaybe<FindAuctionWhereUniqueInput>;
   orderBy?: Array<FindAuctionOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -2732,6 +2832,7 @@ export type QueryInstitutionArgs = {
 
 
 export type QueryInstitutionsArgs = {
+  cursor?: InputMaybe<InstitutionWhereUniqueInput>;
   orderBy?: Array<InstitutionOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -2758,6 +2859,7 @@ export type QueryLocationArgs = {
 
 
 export type QueryLocationsArgs = {
+  cursor?: InputMaybe<LocationWhereUniqueInput>;
   orderBy?: Array<LocationOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -2776,6 +2878,7 @@ export type QueryNotificationArgs = {
 
 
 export type QueryNotificationsArgs = {
+  cursor?: InputMaybe<NotificationWhereUniqueInput>;
   orderBy?: Array<NotificationOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -2794,6 +2897,7 @@ export type QueryPaymentArgs = {
 
 
 export type QueryPaymentsArgs = {
+  cursor?: InputMaybe<PaymentWhereUniqueInput>;
   orderBy?: Array<PaymentOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -2812,6 +2916,7 @@ export type QuerySellACarArgs = {
 
 
 export type QuerySellACarsArgs = {
+  cursor?: InputMaybe<SellACarWhereUniqueInput>;
   orderBy?: Array<SellACarOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -2830,6 +2935,7 @@ export type QuerySellerArgs = {
 
 
 export type QuerySellersArgs = {
+  cursor?: InputMaybe<SellerWhereUniqueInput>;
   orderBy?: Array<SellerOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -2848,6 +2954,7 @@ export type QueryStateArgs = {
 
 
 export type QueryStatesArgs = {
+  cursor?: InputMaybe<StateWhereUniqueInput>;
   orderBy?: Array<StateOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -2887,6 +2994,7 @@ export type QueryUserArgs = {
 
 
 export type QueryUsersArgs = {
+  cursor?: InputMaybe<UserWhereUniqueInput>;
   orderBy?: Array<UserOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -2905,6 +3013,7 @@ export type QueryVehicleArgs = {
 
 
 export type QueryVehiclesArgs = {
+  cursor?: InputMaybe<VehicleWhereUniqueInput>;
   orderBy?: Array<VehicleOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -2923,6 +3032,7 @@ export type QueryWorkSheetArgs = {
 
 
 export type QueryWorkSheetsArgs = {
+  cursor?: InputMaybe<WorkSheetWhereUniqueInput>;
   orderBy?: Array<WorkSheetOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -2984,6 +3094,7 @@ export type SellACar = {
 export type SellACarCreateInput = {
   address?: InputMaybe<Scalars['String']>;
   body?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   engineNo?: InputMaybe<Scalars['String']>;
   expectToSell?: InputMaybe<Scalars['DateTime']>;
   exteriorImages?: InputMaybe<Scalars['String']>;
@@ -2997,6 +3108,7 @@ export type SellACarCreateInput = {
   registrationNumber?: InputMaybe<Scalars['String']>;
   rtoCode?: InputMaybe<Scalars['String']>;
   state?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   user?: InputMaybe<UserRelateToOneForCreateInput>;
   varient?: InputMaybe<Scalars['String']>;
   vehicleCondition?: InputMaybe<Scalars['String']>;
@@ -3057,6 +3169,7 @@ export type SellACarUpdateArgs = {
 export type SellACarUpdateInput = {
   address?: InputMaybe<Scalars['String']>;
   body?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   engineNo?: InputMaybe<Scalars['String']>;
   expectToSell?: InputMaybe<Scalars['DateTime']>;
   exteriorImages?: InputMaybe<Scalars['String']>;
@@ -3070,6 +3183,7 @@ export type SellACarUpdateInput = {
   registrationNumber?: InputMaybe<Scalars['String']>;
   rtoCode?: InputMaybe<Scalars['String']>;
   state?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   user?: InputMaybe<UserRelateToOneForUpdateInput>;
   varient?: InputMaybe<Scalars['String']>;
   vehicleCondition?: InputMaybe<Scalars['String']>;
@@ -3134,6 +3248,7 @@ export type Seller = {
 
 
 export type SellerBannedUsersArgs = {
+  cursor?: InputMaybe<UserWhereUniqueInput>;
   orderBy?: Array<UserOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -3147,6 +3262,7 @@ export type SellerBannedUsersCountArgs = {
 
 
 export type SellerEventsArgs = {
+  cursor?: InputMaybe<EventWhereUniqueInput>;
   orderBy?: Array<EventOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -3160,6 +3276,7 @@ export type SellerEventsCountArgs = {
 
 
 export type SellerVehicleCategoryArgs = {
+  cursor?: InputMaybe<EventTypeWhereUniqueInput>;
   orderBy?: Array<EventTypeOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -3176,11 +3293,13 @@ export type SellerCreateInput = {
   bannedUsers?: InputMaybe<UserRelateToManyForCreateInput>;
   billingContactPerson?: InputMaybe<Scalars['String']>;
   contactPerson?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   events?: InputMaybe<EventRelateToManyForCreateInput>;
   logo?: InputMaybe<Scalars['String']>;
   mobile?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
   nationalHead?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   vehicleCategory?: InputMaybe<EventTypeRelateToManyForCreateInput>;
 };
 
@@ -3236,11 +3355,13 @@ export type SellerUpdateInput = {
   bannedUsers?: InputMaybe<UserRelateToManyForUpdateInput>;
   billingContactPerson?: InputMaybe<Scalars['String']>;
   contactPerson?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   events?: InputMaybe<EventRelateToManyForUpdateInput>;
   logo?: InputMaybe<Scalars['String']>;
   mobile?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
   nationalHead?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   vehicleCategory?: InputMaybe<EventTypeRelateToManyForUpdateInput>;
 };
 
@@ -3283,6 +3404,7 @@ export type State = {
 
 
 export type StateFind_Auction_StateArgs = {
+  cursor?: InputMaybe<FindAuctionWhereUniqueInput>;
   orderBy?: Array<FindAuctionOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -3296,6 +3418,7 @@ export type StateFind_Auction_StateCountArgs = {
 
 
 export type StateLocationsArgs = {
+  cursor?: InputMaybe<LocationWhereUniqueInput>;
   orderBy?: Array<LocationOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -3309,6 +3432,7 @@ export type StateLocationsCountArgs = {
 
 
 export type StateUsersArgs = {
+  cursor?: InputMaybe<UserWhereUniqueInput>;
   orderBy?: Array<UserOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -3321,9 +3445,11 @@ export type StateUsersCountArgs = {
 };
 
 export type StateCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   find_auction_state?: InputMaybe<FindAuctionRelateToManyForCreateInput>;
   locations?: InputMaybe<LocationRelateToManyForCreateInput>;
   name?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   users?: InputMaybe<UserRelateToManyForCreateInput>;
 };
 
@@ -3369,9 +3495,11 @@ export type StateUpdateArgs = {
 };
 
 export type StateUpdateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   find_auction_state?: InputMaybe<FindAuctionRelateToManyForUpdateInput>;
   locations?: InputMaybe<LocationRelateToManyForUpdateInput>;
   name?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   users?: InputMaybe<UserRelateToManyForUpdateInput>;
 };
 
@@ -3417,7 +3545,7 @@ export type StringNullableFilter = {
   lt?: InputMaybe<Scalars['String']>;
   lte?: InputMaybe<Scalars['String']>;
   mode?: InputMaybe<QueryMode>;
-  not?: InputMaybe<NestedStringNullableFilter>;
+  not?: InputMaybe<StringNullableFilter>;
   notIn?: InputMaybe<Array<Scalars['String']>>;
   startsWith?: InputMaybe<Scalars['String']>;
 };
@@ -3510,6 +3638,7 @@ export type User = {
 
 
 export type UserActiveBidsArgs = {
+  cursor?: InputMaybe<VehicleWhereUniqueInput>;
   orderBy?: Array<VehicleOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -3523,6 +3652,7 @@ export type UserActiveBidsCountArgs = {
 
 
 export type UserBannedSellersArgs = {
+  cursor?: InputMaybe<SellerWhereUniqueInput>;
   orderBy?: Array<SellerOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -3536,6 +3666,7 @@ export type UserBannedSellersCountArgs = {
 
 
 export type UserCategoryArgs = {
+  cursor?: InputMaybe<EventTypeWhereUniqueInput>;
   orderBy?: Array<EventTypeOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -3549,6 +3680,7 @@ export type UserCategoryCountArgs = {
 
 
 export type UserCoupenDetailArgs = {
+  cursor?: InputMaybe<CoupenWhereUniqueInput>;
   orderBy?: Array<CoupenOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -3562,6 +3694,7 @@ export type UserCoupenDetailCountArgs = {
 
 
 export type UserDeletedBidArgs = {
+  cursor?: InputMaybe<DeletedBidWhereUniqueInput>;
   orderBy?: Array<DeletedBidOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -3575,6 +3708,7 @@ export type UserDeletedBidCountArgs = {
 
 
 export type UserEmdUpdatesArgs = {
+  cursor?: InputMaybe<EmdUpdateWhereUniqueInput>;
   orderBy?: Array<EmdUpdateOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -3583,6 +3717,7 @@ export type UserEmdUpdatesArgs = {
 
 
 export type UserEmdUpdatesByAdminArgs = {
+  cursor?: InputMaybe<EmdUpdateWhereUniqueInput>;
   orderBy?: Array<EmdUpdateOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -3601,6 +3736,7 @@ export type UserEmdUpdatesCountArgs = {
 
 
 export type UserEventDetailArgs = {
+  cursor?: InputMaybe<EventWhereUniqueInput>;
   orderBy?: Array<EventOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -3614,6 +3750,7 @@ export type UserEventDetailCountArgs = {
 
 
 export type UserNotificationArgs = {
+  cursor?: InputMaybe<NotificationWhereUniqueInput>;
   orderBy?: Array<NotificationOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -3627,6 +3764,7 @@ export type UserNotificationCountArgs = {
 
 
 export type UserPaymentsArgs = {
+  cursor?: InputMaybe<PaymentWhereUniqueInput>;
   orderBy?: Array<PaymentOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -3640,6 +3778,7 @@ export type UserPaymentsCountArgs = {
 
 
 export type UserQuotedBidsArgs = {
+  cursor?: InputMaybe<BidWhereUniqueInput>;
   orderBy?: Array<BidOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -3653,6 +3792,7 @@ export type UserQuotedBidsCountArgs = {
 
 
 export type UserSellACarArgs = {
+  cursor?: InputMaybe<SellACarWhereUniqueInput>;
   orderBy?: Array<SellACarOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -3666,6 +3806,7 @@ export type UserSellACarCountArgs = {
 
 
 export type UserStatesArgs = {
+  cursor?: InputMaybe<StateWhereUniqueInput>;
   orderBy?: Array<StateOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -3679,6 +3820,7 @@ export type UserStatesCountArgs = {
 
 
 export type UserWatchListArgs = {
+  cursor?: InputMaybe<VehicleWhereUniqueInput>;
   orderBy?: Array<VehicleOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -3692,6 +3834,7 @@ export type UserWatchListCountArgs = {
 
 
 export type UserWorkSheetDetailArgs = {
+  cursor?: InputMaybe<WorkSheetWhereUniqueInput>;
   orderBy?: Array<WorkSheetOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -3724,6 +3867,7 @@ export type UserCreateInput = {
   city?: InputMaybe<Scalars['String']>;
   country?: InputMaybe<Scalars['String']>;
   coupenDetail?: InputMaybe<CoupenRelateToManyForCreateInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   dealerId?: InputMaybe<Scalars['String']>;
   dealership?: InputMaybe<ImageFieldInput>;
   deletedBid?: InputMaybe<DeletedBidRelateToManyForCreateInput>;
@@ -3758,6 +3902,7 @@ export type UserCreateInput = {
   states?: InputMaybe<StateRelateToManyForCreateInput>;
   status?: InputMaybe<UserStatusType>;
   tempToken?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   userCategory?: InputMaybe<Scalars['String']>;
   username?: InputMaybe<Scalars['String']>;
   vehicleBuyingLimit?: InputMaybe<Scalars['Int']>;
@@ -3877,6 +4022,7 @@ export type UserUpdateInput = {
   city?: InputMaybe<Scalars['String']>;
   country?: InputMaybe<Scalars['String']>;
   coupenDetail?: InputMaybe<CoupenRelateToManyForUpdateInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   dealerId?: InputMaybe<Scalars['String']>;
   dealership?: InputMaybe<ImageFieldInput>;
   deletedBid?: InputMaybe<DeletedBidRelateToManyForUpdateInput>;
@@ -3911,6 +4057,7 @@ export type UserUpdateInput = {
   states?: InputMaybe<StateRelateToManyForUpdateInput>;
   status?: InputMaybe<UserStatusType>;
   tempToken?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   userCategory?: InputMaybe<Scalars['String']>;
   username?: InputMaybe<Scalars['String']>;
   vehicleBuyingLimit?: InputMaybe<Scalars['Int']>;
@@ -4068,6 +4215,7 @@ export type Vehicle = {
 
 
 export type VehicleDeletedBidArgs = {
+  cursor?: InputMaybe<DeletedBidWhereUniqueInput>;
   orderBy?: Array<DeletedBidOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -4081,6 +4229,7 @@ export type VehicleDeletedBidCountArgs = {
 
 
 export type VehicleUserVehicleBidsArgs = {
+  cursor?: InputMaybe<BidWhereUniqueInput>;
   orderBy?: Array<BidOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -4094,6 +4243,7 @@ export type VehicleUserVehicleBidsCountArgs = {
 
 
 export type VehicleWatchedByArgs = {
+  cursor?: InputMaybe<UserWhereUniqueInput>;
   orderBy?: Array<UserOrderByInput>;
   skip?: Scalars['Int'];
   take?: InputMaybe<Scalars['Int']>;
@@ -4141,6 +4291,7 @@ export type VehicleCreateInput = {
   climateControl?: InputMaybe<Scalars['String']>;
   color?: InputMaybe<Scalars['String']>;
   coupenDetail?: InputMaybe<CoupenRelateToOneForCreateInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   currentBidAmount?: InputMaybe<Scalars['Int']>;
   currentBidUser?: InputMaybe<UserRelateToOneForCreateInput>;
   dateOfRegistration?: InputMaybe<Scalars['DateTime']>;
@@ -4188,6 +4339,7 @@ export type VehicleCreateInput = {
   tax?: InputMaybe<Scalars['String']>;
   taxValidityDate?: InputMaybe<Scalars['DateTime']>;
   type?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   userVehicleBids?: InputMaybe<BidRelateToManyForCreateInput>;
   varient?: InputMaybe<Scalars['String']>;
   vehicleCondition?: InputMaybe<Scalars['String']>;
@@ -4331,6 +4483,7 @@ export type VehicleUpdateInput = {
   climateControl?: InputMaybe<Scalars['String']>;
   color?: InputMaybe<Scalars['String']>;
   coupenDetail?: InputMaybe<CoupenRelateToOneForUpdateInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   currentBidAmount?: InputMaybe<Scalars['Int']>;
   currentBidUser?: InputMaybe<UserRelateToOneForUpdateInput>;
   dateOfRegistration?: InputMaybe<Scalars['DateTime']>;
@@ -4378,6 +4531,7 @@ export type VehicleUpdateInput = {
   tax?: InputMaybe<Scalars['String']>;
   taxValidityDate?: InputMaybe<Scalars['DateTime']>;
   type?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   userVehicleBids?: InputMaybe<BidRelateToManyForUpdateInput>;
   varient?: InputMaybe<Scalars['String']>;
   vehicleCondition?: InputMaybe<Scalars['String']>;
@@ -4503,6 +4657,7 @@ export type WorkSheet = {
 
 export type WorkSheetCreateInput = {
   chassis?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   engineNo?: InputMaybe<Scalars['String']>;
   image1?: InputMaybe<Scalars['String']>;
   image2?: InputMaybe<Scalars['String']>;
@@ -4512,6 +4667,7 @@ export type WorkSheetCreateInput = {
   make?: InputMaybe<Scalars['String']>;
   model?: InputMaybe<Scalars['String']>;
   registrationNumber?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   userDetail?: InputMaybe<UserRelateToOneForCreateInput>;
   varient?: InputMaybe<Scalars['String']>;
   vehicleCondition?: InputMaybe<Scalars['String']>;
@@ -4564,6 +4720,7 @@ export type WorkSheetUpdateArgs = {
 
 export type WorkSheetUpdateInput = {
   chassis?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   engineNo?: InputMaybe<Scalars['String']>;
   image1?: InputMaybe<Scalars['String']>;
   image2?: InputMaybe<Scalars['String']>;
@@ -4573,6 +4730,7 @@ export type WorkSheetUpdateInput = {
   make?: InputMaybe<Scalars['String']>;
   model?: InputMaybe<Scalars['String']>;
   registrationNumber?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   userDetail?: InputMaybe<UserRelateToOneForUpdateInput>;
   varient?: InputMaybe<Scalars['String']>;
   vehicleCondition?: InputMaybe<Scalars['String']>;
