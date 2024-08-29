@@ -472,8 +472,10 @@ if(loginUser?.authenticatedItem?.role==='admin'){
 
               <img
                  className={`${inputStyle.data} h-40`}
+
                 src={panCardUrl}
                 alt="No Pancard image"
+
               />
             </div>
     
@@ -489,7 +491,9 @@ if(loginUser?.authenticatedItem?.role==='admin'){
 
               <img
                 className={`${inputStyle.data} h-40`}
+
                 src={idProof}
+
                 alt="No id proof front page"
               />
             </div>
@@ -503,7 +507,9 @@ if(loginUser?.authenticatedItem?.role==='admin'){
 
               <img
                className={`${inputStyle.data} h-40`}
+
                 src={idProofBack}
+
                 alt="no id proof back side_image"
               />
             </div>
@@ -513,7 +519,9 @@ if(loginUser?.authenticatedItem?.role==='admin'){
               <input   className={`${inputStyle.data} `} type="file" {...register("dealership", {})} />
               <img
                 className={`${inputStyle.data} h-40`}
+
                 src={dealershipUrl}
+
                 alt=" No dealership img"
               />
             </div>
