@@ -30,18 +30,21 @@ const ExcelUploadsComponent =() => {
        name: dataOnSubmit?.uploadFileName,
        event: { connect: { id: id } },
      };
-     create({ variables: { data: excel } }).then(()=>{ ShowPopup(
-      "Success!",
-      `${dataOnSubmit?.uploadFileName} Excel File Added successfully!`,
-      "success",
-      5000,
-      true,
-      editEvent({variables:{data:{startDate:eventData?.event?.startDate}}}).then((resolve)=>{
+     create({ variables: { data: excel } }).then((res,rej)=>{ 
+    //   ShowPopup(
+    //   "Success!",
+    //   `${dataOnSubmit?.uploadFileName} Excel File Added successfully!`,
+    //   "success",
+    //   5000,
+    //   true,
+    //   editEvent({variables:{data:{startDate:eventData?.event?.startDate}}}).then((resolve)=>{
 
   
-        navigate('/events')
-      })
-    )})
+    //     navigate('/events')
+    //   })
+    // )
+    console.log("res",res)
+  })
     .catch((err)=>{
       ShowPopup(
         "Failed!",

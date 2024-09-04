@@ -1415,40 +1415,10 @@ export enum KeystoneAdminUiFieldMetaListViewFieldMode {
   Read = 'read'
 }
 
-export type KeystoneAdminUiGraphQl = {
-  __typename?: 'KeystoneAdminUIGraphQL';
-  names: KeystoneAdminUiGraphQlNames;
-};
-
-export type KeystoneAdminUiGraphQlNames = {
-  __typename?: 'KeystoneAdminUIGraphQLNames';
-  createInputName: Scalars['String'];
-  createManyMutationName: Scalars['String'];
-  createMutationName: Scalars['String'];
-  deleteManyMutationName: Scalars['String'];
-  deleteMutationName: Scalars['String'];
-  itemQueryName: Scalars['String'];
-  listOrderName: Scalars['String'];
-  listQueryCountName: Scalars['String'];
-  listQueryName: Scalars['String'];
-  outputTypeName: Scalars['String'];
-  relateToManyForCreateInputName: Scalars['String'];
-  relateToManyForUpdateInputName: Scalars['String'];
-  relateToOneForCreateInputName: Scalars['String'];
-  relateToOneForUpdateInputName: Scalars['String'];
-  updateInputName: Scalars['String'];
-  updateManyInputName: Scalars['String'];
-  updateManyMutationName: Scalars['String'];
-  updateMutationName: Scalars['String'];
-  whereInputName: Scalars['String'];
-  whereUniqueInputName: Scalars['String'];
-};
-
 export type KeystoneAdminUiListMeta = {
   __typename?: 'KeystoneAdminUIListMeta';
   description?: Maybe<Scalars['String']>;
   fields: Array<KeystoneAdminUiFieldMeta>;
-  graphql: KeystoneAdminUiGraphQl;
   groups: Array<KeystoneAdminUiFieldGroupMeta>;
   hideCreate: Scalars['Boolean'];
   hideDelete: Scalars['Boolean'];
