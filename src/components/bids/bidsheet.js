@@ -16,7 +16,7 @@ export const  DownloadBidHistory =async (vehicle) => {
     const sellername=`${vehicle?.event?.seller?.name}`
     const lotNumber =    `${vehicle?.lotNumber}`;
 
-    const vehiclename =   `${vehicle?.make} ${vehicle?.model}`;
+    const vehiclename =   `${vehicle?.make} ${vehicle?.varient}`;
     const registrationnumber = `${vehicle?.registrationNumber}`;
     const LocationParked=`${vehicle?.yardLocation}`
 
