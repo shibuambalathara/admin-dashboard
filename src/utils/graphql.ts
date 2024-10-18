@@ -5377,7 +5377,7 @@ export type VehicleDetailsPerEventQueryVariables = Exact<{
 }>;
 
 
-export type VehicleDetailsPerEventQuery = { __typename?: 'Query', event?: { __typename?: 'Event', id: string, status?: EventStatusType | null, eventNo?: number | null, endDate?: any | null, vehiclesCount?: number | null, eventCategory?: string | null, vehicles?: Array<{ __typename?: 'Vehicle', varient?: string | null, make?: string | null, model?: string | null, lotNumber?: number | null, bidStartTime?: any | null, bidTimeExpire?: any | null, id: string, vehicleIndexNo?: number | null, registrationNumber?: string | null, totalBids?: number | null, frontImage?: string | null, vehicleEventStatus?: VehicleEventStatus | null, bidStatus?: VehicleBidStatusType | null, state?: string | null, city?: string | null, currentBidAmount?: number | null, currentBidUser?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, mobile?: string | null, currentVehicleBuyingLimit?: { __typename?: 'vehicleBuyingLimits', vehicleBuyingLimit?: number | null } | null } | null, coupenDetail?: { __typename?: 'Coupen', coupenNumber?: string | null } | null, event?: { __typename?: 'Event', seller?: { __typename?: 'Seller', name?: string | null } | null } | null }> | null, seller?: { __typename?: 'Seller', name?: string | null } | null } | null };
+export type VehicleDetailsPerEventQuery = { __typename?: 'Query', event?: { __typename?: 'Event', id: string, status?: EventStatusType | null, eventNo?: number | null, endDate?: any | null, vehiclesCount?: number | null, eventCategory?: string | null, vehicles?: Array<{ __typename?: 'Vehicle', varient?: string | null, loanAgreementNo?: string | null, make?: string | null, model?: string | null, lotNumber?: number | null, bidStartTime?: any | null, bidTimeExpire?: any | null, id: string, vehicleIndexNo?: number | null, registrationNumber?: string | null, totalBids?: number | null, frontImage?: string | null, vehicleEventStatus?: VehicleEventStatus | null, bidStatus?: VehicleBidStatusType | null, state?: string | null, city?: string | null, currentBidAmount?: number | null, currentBidUser?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, mobile?: string | null, currentVehicleBuyingLimit?: { __typename?: 'vehicleBuyingLimits', vehicleBuyingLimit?: number | null } | null } | null, coupenDetail?: { __typename?: 'Coupen', coupenNumber?: string | null } | null, event?: { __typename?: 'Event', seller?: { __typename?: 'Seller', name?: string | null } | null } | null }> | null, seller?: { __typename?: 'Seller', name?: string | null } | null } | null };
 
 export type VehicleTableQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -9539,6 +9539,7 @@ export const VehicleDetailsPerEventDocument = gql`
     eventCategory
     vehicles {
       varient
+      loanAgreementNo
       make
       model
       lotNumber

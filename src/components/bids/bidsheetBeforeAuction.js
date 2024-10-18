@@ -11,7 +11,7 @@ export const  DownloadBidSheetBeforeAuction =async (vehicle) => {
                   
       const sellername=`${vehicle?.event?.seller?.name}`
      const lotNumber =    `${vehicle?.lotNumber}`;
-
+const loan_agreement_no= `${vehicle?.loanAgreementNo}`;
      const vehiclename =   `${vehicle?.make}  ${vehicle?.varient}`;
      const registrationnumber = `${vehicle?.registrationNumber}`;
     //  const LocationParked=`${vehicle?.yardLocation}`
@@ -53,7 +53,7 @@ export const  DownloadBidSheetBeforeAuction =async (vehicle) => {
 
     const vehicleInfo = [
         ['Lot No:', lotNumber],
-        ['LAN No:', ''], 
+        ['LAN No:', loan_agreement_no], 
         ['Seller Name:', sellername],
         ['Vehicle Make & Model:', vehiclename],
         ['Registration No:', registrationnumber],
