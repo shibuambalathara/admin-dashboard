@@ -3,7 +3,6 @@ import 'jspdf-autotable';
 import format from 'date-fns/format'
 
 export const  DownloadBidHistory =async (vehicle) => {
-   console.log("vehicle",vehicle?.event?.seller)
     const pdf = new jsPDF();
     const logoImg = '../logo.jpeg';
   
@@ -22,7 +21,7 @@ export const  DownloadBidHistory =async (vehicle) => {
     const LocationParked=`${vehicle?.yardLocation}`
 
   
-    pdf.addImage(logoImg, 'JPEG', 20, 10, 40, 20);
+     pdf.addImage(logoImg, 'JPEG', 20, 10, 40, 20);
     pdf.text(vehicle?.event?.seller?.name, 120,20);
 
     pdf.setFontSize(12);
