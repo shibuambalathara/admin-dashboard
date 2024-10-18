@@ -8,6 +8,7 @@ query VehicleDetailsPerEvent($where: EventWhereUniqueInput!) {
   eventCategory
   vehicles {
     varient
+    loanAgreementNo
     make
     model
     lotNumber
