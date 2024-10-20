@@ -19,7 +19,7 @@ const EditVehicleComponent = () => {
   const [registrationValidTill, setregistrationValidTil] = useState("");
   const [images, setImages] = useState([]);
   const { id } = useParams();
-
+  const [downloadUrls, setDownloadUrls] = useState([]);
   const [editVehicle] = useUpdateVehicleMutation({
     variables: { where: { id } },
   });
@@ -61,7 +61,7 @@ const EditVehicleComponent = () => {
   } = useForm();
 
   const onSubmit = (dataOnSubmit) => {
-    const cleanedRightImage = dataOnSubmit?.rightImage.replace(/,\n/g, ',');
+    const cleanedRightImage = dataOnSubmit?.image.replace(/,\n/g, ',');
     let repo, tax, InsuranceValidity,regDate;
     if (dataOnSubmit?.repoDate) {
       repo = new Date(dataOnSubmit?.repoDate).toISOString();
@@ -381,7 +381,7 @@ const EditVehicleComponent = () => {
 
 <div className="w-1/2">
 
-{viewImageUpload && <ImageUpload/>}
+{viewImageUpload && <ImageUpload downloadUrls={downloadUrls} setDownloadUrls={setDownloadUrls}/>}
  </div>
             <div className="text-center my-5">
               <button className="btn btn-success mb-5"> Save Changes</button>

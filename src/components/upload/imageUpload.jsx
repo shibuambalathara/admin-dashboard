@@ -2,11 +2,11 @@ import { useState } from "react";
 
 
 import { HandleUpload } from "./handleUpload";
-function ImageUpload() {
+function ImageUpload( downloadUrls,setDownloadUrls) {
   // State to store uploaded files and their download URLs
   const [files, setFiles] = useState([]);
   const [percent, setPercent] = useState(0);
-  const [downloadUrls, setDownloadUrls] = useState([]);
+  
 
   function handleChange(event) {
     const selectedFiles = event.target.files;
@@ -25,7 +25,7 @@ function ImageUpload() {
       />
       {files.length > 0 &&
         <>
-                    <button className="btn w-fit bg-red-500" onClick={() => HandleUpload(files, setFiles, setPercent, setDownloadUrls)}>Upload</button>
+                    <button type="button" className="btn w-fit bg-red-500" onClick={() => HandleUpload(files, setFiles, setPercent, setDownloadUrls)}>Upload</button>
 
           <p>{percent} % done</p>
         </>

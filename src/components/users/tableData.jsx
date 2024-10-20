@@ -145,11 +145,6 @@ const handleDelete=async(id)=>{
       
           <a className=" btn btn-info text-xl" href={`/view-user/${row.original.id}`} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faUserPen} /></a>
 
-
-
-
-
-
         ),
       },
       {Header:'Token',

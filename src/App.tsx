@@ -99,7 +99,6 @@ function AppContent() {
               <Route path="view-user/:id" element={<UserDetails />} />
               <Route path="payment" element={<Payments />} />
               <Route path="emd" element={<Emd />} />
-            
               <Route path="bids" element={<Bids />} />
               <Route path="event-types" element={<EventTypes />} />
               <Route path="states" element={<States />} />
@@ -125,8 +124,8 @@ function AppContent() {
               <Route path="bid-details/:id" element={<BidDetailsPerVehicle />} />
               <Route path="bids-user/:id" element={<BidsPerUser />} />
               <Route path="events-seller/:id" element={<EventsPerSeller />} />
-              <Route path="edit-seller/:id" element={<SellerEdit />} />
-              <Route path="add-seller" element={<AddSeller />} />
+                  <Route path="edit-seller/:id" element={<SellerEdit />} />
+                  <Route path="add-seller" element={<AddSeller />} />
               <Route path="image-upload" element={<ImageUpload />} />
             
               <Route path="openAuction" element={<OpenAuctionTable />} />
