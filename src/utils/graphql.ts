@@ -6023,7 +6023,7 @@ export const CountDocument = gql`
   eventTypesCount
   locationsCount
   statesCount
-  excelUploadsCount+
+  excelUploadsCount
   sellersCount
 }
     `;
