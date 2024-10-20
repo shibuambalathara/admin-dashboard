@@ -8,4 +8,5 @@ const OpenAuctionTable = () => {
   )
 }
 
+
 export default OpenAuctionTable
