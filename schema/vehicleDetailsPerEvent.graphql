@@ -7,6 +7,10 @@ query VehicleDetailsPerEvent($where: EventWhereUniqueInput!) {
   vehiclesCount
   eventCategory
   vehicles {
+    varient
+    loanAgreementNo
+    make
+    model
     lotNumber
     bidStartTime
     bidTimeExpire
@@ -32,6 +36,11 @@ currentVehicleBuyingLimit {
       coupenDetail {
       coupenNumber
     }
+    event {
+        seller {
+          name
+        }
+      }
   } 
    seller {
     name

@@ -13,6 +13,7 @@ import {UpdateBidTime, UpdateEventEndTime} from './updateBidTime';
 import { ConfirmationAlert, SweetalertSuccess } from '../utils/sweetalert';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCar } from '@fortawesome/free-solid-svg-icons';
+import { DownloadBidSheetBeforeAuction } from '../bids/bidsheetBeforeAuction';
 
 
 
@@ -171,6 +172,15 @@ Swal.fire({
 
 })
     }
+    const handleBidSheet=(vehicle)=>{
+      DownloadBidSheetBeforeAuction(vehicle)
+     
+    }
+    const handleBidSheets=(vehicles)=>{
+      console.log("vehicles per event",vehicles)
+vehicles.map((vehicle)=>{ DownloadBidSheetBeforeAuction(vehicle);})
+     
+    }
 
     const columns = useMemo(
         () => [
@@ -221,14 +231,20 @@ Swal.fire({
                 row.original.frontImage.startsWith("http")?"Yes":"No"
               )
           },
-         
+          {
+            Header:"Bid sheet",
+            Cell: ({ row }) => (
+              <button className="btn btn-info" onClick={() => handleBidSheet(row.original)}>BidSheet</button>
+            )
+          },
      
           {
             Header: "Vehicle",
             Cell: ({ row }) => (
               <button className="btn btn-error" onClick={() => handleDelete(row.original.id,row.original.totalBids)}>Remove</button>
             )
-          }
+          },
+       
           
         ],
         [coupens,userId]
@@ -273,6 +289,8 @@ Swal.fire({
        {
    (data?.event?.endDate >new Date().toISOString())   &&
       <a className="btn btn-accent text-xl" href={`/add-vehicle/${id}`} target="_blank" rel="noopener noreferrer">+ <FontAwesomeIcon icon={faCar}  /></a>} 
+           <button className='btn' onClick={()=>handleBidSheets(data?.event?.vehicles)}>All Bid Sheet</button>
+
 {  data?.event?.eventCategory==='online' &&<div className='space-y-1'>
 <div className='space-y-1'>
      <button className='w-full btn bg-red-500 hover:bg-green-500' onClick={()=>setEnable(true)}>Update end time</button>
