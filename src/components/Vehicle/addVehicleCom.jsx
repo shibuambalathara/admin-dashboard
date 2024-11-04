@@ -1,6 +1,6 @@
 
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useCreateVehicleMutation,useEventStartTimeQuery } from "../../utils/graphql";
 import { ShowPopup } from '../alerts/popUps';
 import {FormFieldInput, SelectInput, TextAreaInput} from "../utils/formField";
@@ -110,7 +110,7 @@ try {
   console.log("result",result)
 if(result){
   ShowPopup("Success!", `${dataOnSubmit?.regNo}Added successfully!`, "success", 5000, true);
-
+  navigate('/events')
 }
 } catch (error) {
   ShowPopup("Failed!", `${error.message}`, "error", 5000, true);

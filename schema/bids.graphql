@@ -28,7 +28,7 @@ query BidDetailsPerVehicle($where: VehicleWhereUniqueInput!) {
     model
     registrationNumber
     vehicleIndexNo
-        userVehicleBidsCount
+   userVehicleBidsCount
     vehicleEventStatus
     watchedByCount
     bidStatus
@@ -45,7 +45,8 @@ query BidDetailsPerVehicle($where: VehicleWhereUniqueInput!) {
     id
     createdAt
   
-      user {
+      user 
+      {
       id
       idNo
       firstName
