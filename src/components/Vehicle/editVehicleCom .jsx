@@ -59,7 +59,7 @@ const EditVehicleComponent = () => {
     watch,
     formState: { errors },
   } = useForm();
-
+console.log("nothing")
   const onSubmit = (dataOnSubmit) => {
     const cleanedRightImage = dataOnSubmit?.image.replace(/,\n/g, ',');
     let repo, tax, InsuranceValidity,regDate;
